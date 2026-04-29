@@ -120,6 +120,27 @@ const TABS = [
   { key: 'techs', icon: '💻' },
 ];
 
+const TECHNOLOGY_OPTIONS = [
+  { name: 'React', icon: 'https://cdn.simpleicons.org/react', color: '#61DAFB' },
+  { name: 'Next.js', icon: 'https://cdn.simpleicons.org/nextdotjs', color: '#FFFFFF' },
+  { name: 'Node.js', icon: 'https://cdn.simpleicons.org/nodedotjs', color: '#68A063' },
+  { name: 'TypeScript', icon: 'https://cdn.simpleicons.org/typescript', color: '#3178C6' },
+  { name: 'JavaScript', icon: 'https://cdn.simpleicons.org/javascript', color: '#F7DF1E' },
+  { name: 'MongoDB', icon: 'https://cdn.simpleicons.org/mongodb', color: '#47A248' },
+  { name: 'PostgreSQL', icon: 'https://cdn.simpleicons.org/postgresql', color: '#336791' },
+  { name: 'MySQL', icon: 'https://cdn.simpleicons.org/mysql', color: '#4479A1' },
+  { name: 'Docker', icon: 'https://cdn.simpleicons.org/docker', color: '#2496ED' },
+  { name: 'Tailwind CSS', icon: 'https://cdn.simpleicons.org/tailwindcss', color: '#38BDF8' },
+  { name: 'Figma', icon: 'https://cdn.simpleicons.org/figma', color: '#F24E1E' },
+  { name: 'Firebase', icon: 'https://cdn.simpleicons.org/firebase', color: '#FFCA28' },
+  { name: 'AWS', icon: 'https://cdn.simpleicons.org/amazonaws', color: '#FF9900' },
+  { name: 'Git', icon: 'https://cdn.simpleicons.org/git', color: '#F05032' },
+  { name: 'GitHub', icon: 'https://cdn.simpleicons.org/github', color: '#FFFFFF' },
+];
+
+const findTechnologyOption = (name = '') =>
+  TECHNOLOGY_OPTIONS.find((opt) => opt.name.toLowerCase() === name.trim().toLowerCase());
+
 function LoginPage({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -192,6 +213,7 @@ export default function AdminPage() {
   const [confirmDialog, setConfirmDialog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [newTech, setNewTech] = useState({ name: '', color: '#B8A472', icon: '' });
+  const [selectedNewTechPreset, setSelectedNewTechPreset] = useState('');
 
   const tr = (ar, en) => (uiLang === 'ar' ? ar : en);
   const tabsLabels = {
@@ -363,6 +385,7 @@ export default function AdminPage() {
     if (!newTech.name) return;
     await postAPI('/techs', newTech);
     setNewTech({ name: '', color: '#B8A472', icon: '' });
+    setSelectedNewTechPreset('');
     loadData();
     flash();
   };
@@ -380,6 +403,28 @@ export default function AdminPage() {
     await putAPI(`/techs/${tech._id}`, tech);
     loadData();
     flash();
+  };
+  const applyNewTechPreset = (techName) => {
+    setSelectedNewTechPreset(techName);
+    const selected = findTechnologyOption(techName);
+    if (!selected) return;
+    setNewTech({
+      ...newTech,
+      name: selected.name,
+      icon: selected.icon,
+      color: selected.color,
+    });
+  };
+  const applyExistingTechPreset = (id, techName) => {
+    const selected = findTechnologyOption(techName);
+    if (!selected) return;
+    setTechs((prev) =>
+      prev.map((item) =>
+        item._id === id
+          ? { ...item, name: selected.name, icon: selected.icon, color: selected.color }
+          : item
+      )
+    );
   };
 
   // Order actions
@@ -818,6 +863,19 @@ export default function AdminPage() {
             <p style={styles.subtitle}>{tr('إدارة التقنيات', 'Manage technologies')}</p>
             <div style={styles.card}>
               <div style={{ display: 'flex', gap: 12, marginBottom: 24, alignItems: 'flex-end' }}>
+                <div style={{ width: 220 }}>
+                  <label style={styles.label}>Technology</label>
+                  <select
+                    style={{ ...styles.input, height: 40, marginBottom: 0 }}
+                    value={selectedNewTechPreset}
+                    onChange={(e) => applyNewTechPreset(e.target.value)}
+                  >
+                    <option value="">Select tech...</option>
+                    {TECHNOLOGY_OPTIONS.map((opt) => (
+                      <option key={opt.name} value={opt.name}>{opt.name}</option>
+                    ))}
+                  </select>
+                </div>
                 <div style={{ flex: 1 }}>
                   <label style={styles.label}>Name</label>
                   <input style={styles.input} value={newTech.name} onChange={e => setNewTech({ ...newTech, name: e.target.value })} placeholder="e.g. React" />
@@ -852,6 +910,16 @@ export default function AdminPage() {
                       <div style={{ width: 12, height: 12, borderRadius: '50%', background: t.color }} />
                     )}
                     <span style={{ fontSize: 13, fontWeight: 600 }}>{t.name}</span>
+                    <select
+                      style={{ ...styles.input, width: 170, marginBottom: 0, padding: '6px 8px', fontSize: 12, height: 34 }}
+                      value={findTechnologyOption(t.name)?.name || ''}
+                      onChange={(e) => applyExistingTechPreset(t._id, e.target.value)}
+                    >
+                      <option value="">Choose tech...</option>
+                      {TECHNOLOGY_OPTIONS.map((opt) => (
+                        <option key={opt.name} value={opt.name}>{opt.name}</option>
+                      ))}
+                    </select>
                     <input
                       style={{ ...styles.input, width: 200, marginBottom: 0, padding: '6px 8px', fontSize: 12 }}
                       value={t.icon || ''}
