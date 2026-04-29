@@ -414,7 +414,7 @@ export default function Hero({ lang }) {
 
         @media (max-width: 768px) {
           #hero {
-            min-height: auto !important;
+            min-height: 100svh !important;
             padding-top: 88px !important;
             padding-bottom: 72px !important;
           }

@@ -117,6 +117,7 @@ const TABS = [
   { key: 'navbar', icon: '🔗' },
   { key: 'translations', icon: '🌍' },
   { key: 'services', icon: '⚙️' },
+  { key: 'faqs', icon: '❓' },
   { key: 'techs', icon: '💻' },
 ];
 
@@ -205,11 +206,13 @@ export default function AdminPage() {
   const [siteConfig, setSiteConfig] = useState(null);
   const [translations, setTranslations] = useState({});
   const [services, setServices] = useState([]);
+  const [faqs, setFaqs] = useState([]);
   const [techs, setTechs] = useState([]);
   const [orders, setOrders] = useState([]);
   const [messages, setMessages] = useState([]);
   const [editingSection, setEditingSection] = useState(null);
   const [editingService, setEditingService] = useState(null);
+  const [editingFaq, setEditingFaq] = useState(null);
   const [saved, setSaved] = useState(false);
   const [toast, setToast] = useState(null);
   const [confirmDialog, setConfirmDialog] = useState(null);
@@ -225,6 +228,7 @@ export default function AdminPage() {
     navbar: tr('روابط النافبار', 'Navbar'),
     translations: tr('الترجمات', 'Translations'),
     services: tr('الخدمات', 'Services'),
+    faqs: tr('الأسئلة الشائعة', 'FAQs'),
     techs: tr('التقنيات', 'Tech Stack'),
   };
   const isArUI = uiLang === 'ar';
@@ -283,10 +287,11 @@ export default function AdminPage() {
 
   const loadData = async () => {
     try {
-      const [config, trans, svc, tech, ords, msgs] = await Promise.all([
+      const [config, trans, svc, faqItems, tech, ords, msgs] = await Promise.all([
         fetchAPI('/site-config'),
         fetchAPI('/translations'),
         fetchAPI('/services'),
+        fetchAPI('/faqs'),
         fetchAPI('/techs'),
         fetchAPI('/orders'),
         fetchAPI('/contact'),
@@ -294,6 +299,7 @@ export default function AdminPage() {
       setSiteConfig(config);
       setTranslations(trans);
       setServices(svc);
+      setFaqs(faqItems);
       setTechs(tech);
       setOrders(ords);
       setMessages(msgs);
@@ -381,6 +387,34 @@ export default function AdminPage() {
         showToast(tr('تم حذف الخدمة', 'Service deleted'));
       }
     );
+  };
+
+  const saveFaq = async (faq) => {
+    if (faq._id) {
+      await putAPI(`/faqs/${faq._id}`, faq);
+    } else {
+      await postAPI('/faqs', faq);
+    }
+    loadData();
+    setEditingFaq(null);
+    flash();
+  };
+
+  const deleteFaq = async (id) => {
+    askConfirm(
+      tr('هل تريد حذف هذا السؤال؟', 'Delete this FAQ item?'),
+      async () => {
+        await deleteAPI(`/faqs/${id}`);
+        loadData();
+        showToast(tr('تم حذف السؤال', 'FAQ deleted'));
+      }
+    );
+  };
+
+  const toggleFaqVisibility = async (faq) => {
+    await putAPI(`/faqs/${faq._id}`, { ...faq, visible: !faq.visible });
+    loadData();
+    flash();
   };
 
   const addTech = async () => {
@@ -858,6 +892,48 @@ export default function AdminPage() {
           </>
         )}
 
+        {/* ==================== FAQ TAB ==================== */}
+        {tab === 'faqs' && (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+              <div>
+                <h1 style={styles.title}>{tr('الأسئلة الشائعة', 'FAQs')}</h1>
+                <p style={styles.subtitle}>{tr('إدارة الأسئلة الشائعة المعروضة في الموقع', 'Manage FAQs shown on the website')}</p>
+              </div>
+              <button
+                style={styles.btn}
+                onClick={() => setEditingFaq({ questionAr: '', questionEn: '', answerAr: '', answerEn: '', order: faqs.length, visible: true })}
+              >
+                + {tr('إضافة سؤال', 'Add FAQ')}
+              </button>
+            </div>
+            {faqs.map((faq) => (
+              <div key={faq._id} style={styles.card}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 700, color: '#F5F0E8', marginBottom: 6 }}>{faq.questionEn}</h3>
+                    <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.6)', marginBottom: 10, direction: 'rtl' }}>{faq.questionAr}</p>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      <span style={styles.tag}>{tr('الترتيب', 'Order')}: {faq.order || 0}</span>
+                      <span style={styles.tag}>{faq.visible ? tr('✅ ظاهر', '✅ Visible') : tr('❌ مخفي', '❌ Hidden')}</span>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+                    <button style={styles.btnSmall} onClick={() => setEditingFaq({ ...faq })}>✏️ {tr('تعديل', 'Edit')}</button>
+                    <button style={styles.btnSmall} onClick={() => toggleFaqVisibility(faq)}>
+                      {faq.visible ? tr('إخفاء', 'Hide') : tr('إظهار', 'Show')}
+                    </button>
+                    <button style={styles.btnDanger} onClick={() => deleteFaq(faq._id)}>🗑️ {tr('حذف', 'Delete')}</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {editingFaq && (
+              <FaqEditor faq={editingFaq} onSave={saveFaq} onCancel={() => setEditingFaq(null)} uiLang={uiLang} />
+            )}
+          </>
+        )}
+
         {/* ==================== TECHS TAB ==================== */}
         {tab === 'techs' && (
           <>
@@ -1001,6 +1077,62 @@ function ServiceEditor({ svc, onSave, onCancel, uiLang }) {
           <label style={styles.label}>Visible</label>
           <button style={styles.toggle(form.visible)} onClick={() => f('visible', !form.visible)}>
             <div style={styles.toggleDot(form.visible)} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FaqEditor({ faq, onSave, onCancel, uiLang }) {
+  const [form, setForm] = useState({ ...faq });
+  const f = (field, value) => setForm((prev) => ({ ...prev, [field]: value }));
+  const isArUI = uiLang === 'ar';
+
+  return (
+    <div
+      style={{
+        ...styles.card,
+        position: 'fixed',
+        top: 0,
+        left: isArUI ? 0 : 240,
+        right: isArUI ? 240 : 0,
+        bottom: 0,
+        zIndex: 100,
+        overflow: 'auto',
+        borderRadius: 0,
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+        <h2 style={{ fontSize: 22, fontWeight: 700, color: '#B8A472' }}>{form._id ? 'Edit FAQ' : 'New FAQ'}</h2>
+        <div style={{ display: 'flex', gap: 12 }}>
+          <button style={styles.btnSmall} onClick={onCancel}>Cancel</button>
+          <button style={styles.btn} onClick={() => onSave(form)}>💾 Save FAQ</button>
+        </div>
+      </div>
+      <div style={styles.grid2}>
+        <div>
+          <h3 style={{ fontSize: 16, fontWeight: 700, color: 'rgba(245,240,232,0.6)', marginBottom: 16 }}>🇬🇧 English</h3>
+          <label style={styles.label}>Question</label>
+          <input style={styles.input} value={form.questionEn || ''} onChange={(e) => f('questionEn', e.target.value)} />
+          <label style={styles.label}>Answer</label>
+          <textarea style={styles.textarea} value={form.answerEn || ''} onChange={(e) => f('answerEn', e.target.value)} />
+        </div>
+        <div>
+          <h3 style={{ fontSize: 16, fontWeight: 700, color: 'rgba(245,240,232,0.6)', marginBottom: 16 }}>🇸🇦 Arabic</h3>
+          <label style={styles.label}>السؤال</label>
+          <input style={styles.input} value={form.questionAr || ''} onChange={(e) => f('questionAr', e.target.value)} />
+          <label style={styles.label}>الإجابة</label>
+          <textarea style={styles.textarea} value={form.answerAr || ''} onChange={(e) => f('answerAr', e.target.value)} />
+        </div>
+      </div>
+      <div style={{ marginTop: 16 }}>
+        <label style={styles.label}>Order</label>
+        <input type="number" style={{ ...styles.input, maxWidth: 140 }} value={form.order || 0} onChange={(e) => f('order', Number(e.target.value))} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <label style={styles.label}>Visible</label>
+          <button style={styles.toggle(form.visible !== false)} onClick={() => f('visible', !(form.visible !== false))}>
+            <div style={styles.toggleDot(form.visible !== false)} />
           </button>
         </div>
       </div>

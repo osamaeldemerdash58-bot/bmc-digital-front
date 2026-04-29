@@ -283,15 +283,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 6px 10px;
-  height: 40px;
-  min-width: 64px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;       /* كان 8px */
+  padding: 8px 14px;         /* كان 6px 10px */
+  height: 48px;              /* كان 40px */
+  min-width: 80px;           /* كان 64px */
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;         /* كان hidden — ده السبب الرئيسي للقطع */
 }
 
 .payment-badge::after {
@@ -312,6 +312,21 @@
 .payment-badge svg {
   display: block;
   border-radius: 3px;
+}
+
+.payment-badge-img {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: 72px;
+  object-fit: contain;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  filter: brightness(1.1);
+}
+
+.payment-badge:hover .payment-badge-img {
+  opacity: 1;
 }
 
 /* ── Footer Bottom ── */
@@ -385,6 +400,18 @@
   font-family: 'Courier New', monospace;
   letter-spacing: 0.5px;
   line-height: 1.4;
+}
+
+.payment-badge-svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  filter: brightness(1.1);
+}
+.payment-badge:hover .payment-badge-svg {
+  opacity: 1;
 }
 
 .footer-reg-divider {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAnimate } from '../hooks/useAnimate';
+import { useData } from '../DataContext';
 import '../animations.css';
 
 const faqData = {
@@ -35,7 +36,17 @@ const faqData = {
 
 export default function FAQ({ lang }) {
   useAnimate();
+  const { data } = useData();
   const tx = faqData[lang] || faqData.ar;
+  const dynamicItems = (data?.faqs || [])
+    .filter((item) => item.visible !== false)
+    .sort((a, b) => (a.order || 0) - (b.order || 0))
+    .map((item) => ({
+      q: lang === 'ar' ? item.questionAr : item.questionEn,
+      a: lang === 'ar' ? item.answerAr : item.answerEn,
+    }))
+    .filter((item) => item.q && item.a);
+  const items = dynamicItems.length ? dynamicItems : tx.items;
   const [openIndex, setOpenIndex] = useState(null);
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
@@ -55,7 +66,7 @@ export default function FAQ({ lang }) {
         </div>
 
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
-          {tx.items.map((item, i) => (
+          {items.map((item, i) => (
             <div
               key={i}
               className="faq-item"

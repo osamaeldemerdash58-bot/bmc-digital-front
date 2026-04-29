@@ -38,8 +38,8 @@ body.ltr { direction: ltr; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .section { padding: 100px 0; }
-.section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--bmc-gold); margin-bottom: 16px; }
-.section-title { font-family: 'Cairo', sans-serif !important; font-size: clamp(28px, 4vw, 48px); font-weight: 700; color: var(--bmc-white); line-height: 1.2; }
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--bmc-gold); margin-bottom: 16px; text-align: center; width: 100%; }
+.section-title { font-family: 'Cairo', sans-serif !important; font-size: clamp(28px, 4vw, 48px); font-weight: 700; color: var(--bmc-white); line-height: 1.2; text-align: center; width: 100%; }
 .section-title span { color: var(--bmc-gold); font-style: normal; }
 .gold-line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--bmc-gold), transparent); }
 

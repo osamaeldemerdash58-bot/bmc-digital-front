@@ -56,6 +56,11 @@ export default function About({ lang }) {
           {/* Right: Stats grid — slides in from right */}
           <div className="about-stats" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(184,164,114,0.1)' }}>
             {tx.stats.map((s, i) => (
+              (() => {
+                const isExperienceStat =
+                  String(s.value).trim() === '5' &&
+                  /سنوات خبرة|Years Experience/i.test(String(s.label));
+                return (
               <div
                 key={i}
                 className="card-grid-item"
@@ -66,6 +71,7 @@ export default function About({ lang }) {
                   transitionDelay: `${i * 0.1 + 0.25}s`,
                   position: 'relative',
                   overflow: 'hidden',
+                  gridColumn: isExperienceStat ? '1 / -1' : undefined,
                 }}
               >
                 <div
@@ -87,6 +93,8 @@ export default function About({ lang }) {
                   {s.label}
                 </div>
               </div>
+                );
+              })()
             ))}
           </div>
         </div>
