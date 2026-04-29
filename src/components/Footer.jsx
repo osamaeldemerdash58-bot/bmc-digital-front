@@ -1,5 +1,26 @@
 import React from 'react';
 import './Footer.css';
+import logoImg from '../assets/WhatsApp_Image_2026-03-30_at_2.52.18_PM-removebg-preview.png';
+
+const PinIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+  </svg>
+);
+
+const MailIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>
+);
 
 export default function Footer({ lang }) {
   const year = new Date().getFullYear();
@@ -27,6 +48,9 @@ export default function Footer({ lang }) {
                   ? 'نبني حلول رقمية متقدمة تجمع بين التصميم المميز، الأداء العالي، وتجربة مستخدم احترافية.'
                   : 'We build advanced digital solutions that combine elegant design, high performance, and professional UX.'}
               </p>
+              <div className="footer-logo-wrap">
+                <img src={logoImg} alt="BMC Digital Logo" className="footer-logo-img" />
+              </div>
             </div>
 
             <div className="footer-col">
@@ -54,10 +78,43 @@ export default function Footer({ lang }) {
             <div className="footer-col">
               <h4>{lang === 'ar' ? 'تواصل معنا' : 'Contact'}</h4>
               <ul className="footer-contact-list">
-                <li><span className="fc-icon">📞</span><span>+966 50 000 0000</span></li>
-                <li><span className="fc-icon">✉️</span><span>hello@bmc-digital.com</span></li>
-                <li><span className="fc-icon">📍</span><span>{lang === 'ar' ? 'الرياض، المملكة العربية السعودية' : 'Riyadh, Saudi Arabia'}</span></li>
+                <li>
+                  <span className="fc-icon"><PhoneIcon /></span>
+                  <span>+966 50 000 0000</span>
+                </li>
+                <li>
+                  <span className="fc-icon"><MailIcon /></span>
+                  <span>hello@bmc-digital.com</span>
+                </li>
+                <li>
+                  <span className="fc-icon"><PinIcon /></span>
+                  <span>{lang === 'ar' ? 'الرياض، المملكة العربية السعودية' : 'Riyadh, Saudi Arabia'}</span>
+                </li>
               </ul>
+
+              <div className="footer-map-wrap">
+                <a
+                  href="https://maps.app.goo.gl/PPaGaxxoxC5pzrFq8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-map-link"
+                  aria-label={lang === 'ar' ? 'افتح الموقع على خرائط جوجل' : 'Open location on Google Maps'}
+                >
+                  <iframe
+                    title="BMC Location"
+                    src="https://www.google.com/maps?q=24.771376,46.623678&z=15&output=embed"
+                    width="100%"
+                    height="190"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                  <span className="footer-map-cta">
+                    {lang === 'ar' ? 'افتح في خرائط جوجل' : 'Open in Google Maps'}
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>

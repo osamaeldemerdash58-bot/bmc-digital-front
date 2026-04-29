@@ -191,7 +191,7 @@ export default function AdminPage() {
   const [toast, setToast] = useState(null);
   const [confirmDialog, setConfirmDialog] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [newTech, setNewTech] = useState({ name: '', color: '#B8A472' });
+  const [newTech, setNewTech] = useState({ name: '', color: '#B8A472', icon: '' });
 
   const tr = (ar, en) => (uiLang === 'ar' ? ar : en);
   const tabsLabels = {
@@ -362,7 +362,7 @@ export default function AdminPage() {
   const addTech = async () => {
     if (!newTech.name) return;
     await postAPI('/techs', newTech);
-    setNewTech({ name: '', color: '#B8A472' });
+    setNewTech({ name: '', color: '#B8A472', icon: '' });
     loadData();
     flash();
   };
@@ -817,6 +817,15 @@ export default function AdminPage() {
                   <label style={styles.label}>Name</label>
                   <input style={styles.input} value={newTech.name} onChange={e => setNewTech({ ...newTech, name: e.target.value })} placeholder="e.g. React" />
                 </div>
+                <div style={{ flex: 1 }}>
+                  <label style={styles.label}>Icon URL</label>
+                  <input
+                    style={styles.input}
+                    value={newTech.icon}
+                    onChange={e => setNewTech({ ...newTech, icon: e.target.value })}
+                    placeholder="https://cdn.simpleicons.org/react"
+                  />
+                </div>
                 <div style={{ width: 80 }}>
                   <label style={styles.label}>Color</label>
                   <input type="color" value={newTech.color} onChange={e => setNewTech({ ...newTech, color: e.target.value })} style={{ width: '100%', height: 40, border: '1px solid rgba(184,164,114,0.2)', background: 'transparent', cursor: 'pointer' }} />
@@ -826,7 +835,17 @@ export default function AdminPage() {
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
                 {techs.map(t => (
                   <div key={t._id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', background: 'rgba(184,164,114,0.05)', border: '1px solid rgba(184,164,114,0.15)', borderRadius: 2 }}>
-                    <div style={{ width: 12, height: 12, borderRadius: '50%', background: t.color }} />
+                    {t.icon ? (
+                      <img
+                        src={t.icon}
+                        alt={t.name}
+                        width={14}
+                        height={14}
+                        style={{ width: 14, height: 14, objectFit: 'contain', display: 'block' }}
+                      />
+                    ) : (
+                      <div style={{ width: 12, height: 12, borderRadius: '50%', background: t.color }} />
+                    )}
                     <span style={{ fontSize: 13, fontWeight: 600 }}>{t.name}</span>
                     <button onClick={() => removeTech(t._id)} style={{ background: 'none', border: 'none', color: '#e74c3c', cursor: 'pointer', fontSize: 14, padding: '0 4px' }}>×</button>
                   </div>

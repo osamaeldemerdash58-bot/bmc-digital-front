@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useData } from '../DataContext';
-import heroImage from '../assets/heroimage.jpeg';
+import heroImage from '../assets/heroimage.png';
 import heroImageDesktop from '../assets/heroimagedesktop.png';
 import '../animations.css';
 
@@ -147,38 +147,21 @@ export default function Hero({ lang }) {
             }}
           />
         </picture>
-        {/* dark overlay عشان النص يبان */}
+        {/* overlays مخففة للحفاظ على وضوح الصورة */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'rgba(10,14,13,0.55)',
+            background: 'rgba(10,14,13,0.3)',
           }}
         />
-        {/* gradient من جهة النص أعتم شوية */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
             background: lang === 'ar'
-              ? 'linear-gradient(to left, rgba(10,14,13,0.1) 0%, rgba(10,14,13,0.5) 55%, rgba(10,14,13,0.85) 100%)'
-              : 'linear-gradient(to right, rgba(10,14,13,0.1) 0%, rgba(10,14,13,0.5) 55%, rgba(10,14,13,0.85) 100%)',
-          }}
-        />
-        {/* top/bottom vignette */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to bottom, rgba(10,14,13,0.5) 0%, transparent 25%, transparent 75%, rgba(10,14,13,0.7) 100%)',
-          }}
-        />
-        {/* gold tint */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'rgba(184,164,114,0.04)',
+              ? 'linear-gradient(to left, rgba(10,14,13,0.05) 0%, rgba(10,14,13,0.22) 55%, rgba(10,14,13,0.45) 100%)'
+              : 'linear-gradient(to right, rgba(10,14,13,0.05) 0%, rgba(10,14,13,0.22) 55%, rgba(10,14,13,0.45) 100%)',
           }}
         />
       </div>
@@ -423,12 +406,6 @@ export default function Hero({ lang }) {
           100% { transform: scale(1.08) translate(-6px, 4px); }
         }
 
-        /* ── Mobile ── */
-        @media (max-width: 768px) {
-          .hero-image-wrap > div:first-of-type {
-            background: rgba(10,14,13,0.6) !important;
-          }
-        }
       `}</style>
     </section>
   );

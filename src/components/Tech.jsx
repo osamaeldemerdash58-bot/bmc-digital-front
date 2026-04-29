@@ -6,6 +6,40 @@ import { useData } from '../DataContext';
 import { useAnimate } from '../hooks/useAnimate';
 import '../animations.css';
 
+const TECH_ICON_MAP = {
+  react: 'react',
+  'next.js': 'nextdotjs',
+  nextjs: 'nextdotjs',
+  'node.js': 'nodedotjs',
+  nodejs: 'nodedotjs',
+  typescript: 'typescript',
+  mongodb: 'mongodb',
+  postgresql: 'postgresql',
+  docker: 'docker',
+  tailwind: 'tailwindcss',
+  'tailwind css': 'tailwindcss',
+  figma: 'figma',
+  firebase: 'firebase',
+  aws: 'amazonaws',
+  'react native': 'react',
+};
+
+function normalizeTechName(name = '') {
+  return name.trim().toLowerCase();
+}
+
+function getTechIconUrl(tech) {
+  if (tech?.icon && /^(https?:\/\/|\/)/.test(tech.icon)) {
+    return tech.icon;
+  }
+
+  const normalized = normalizeTechName(tech?.name);
+  const slug = TECH_ICON_MAP[normalized];
+  if (!slug) return '';
+
+  return `https://cdn.simpleicons.org/${slug}`;
+}
+
 export function Tech({ lang }) {
   useAnimate();
   const { data } = useData();
@@ -47,19 +81,7 @@ export function Tech({ lang }) {
               onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bmc-dark-3)'}
               onMouseLeave={(e) => e.currentTarget.style.background = 'var(--bmc-dark)'}
             >
-              <div style={{
-                width: 48, height: 48,
-                margin: '0 auto 16px',
-                borderRadius: '50%',
-                background: `${tech.color}15`,
-                border: `1px solid ${tech.color}30`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 18, fontWeight: 900,
-                color: tech.color,
-                fontFamily: 'Playfair Display, serif',
-              }}>
-                {tech.name[0]}
-              </div>
+              <TechLogo tech={tech} />
               <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(245,240,232,0.7)' }}>
                 {tech.name}
               </div>
@@ -77,6 +99,54 @@ export function Tech({ lang }) {
         }
       `}</style>
     </section>
+  );
+}
+
+function TechLogo({ tech }) {
+  const iconUrl = getTechIconUrl(tech);
+
+  return (
+    <div style={{
+      width: 48,
+      height: 48,
+      margin: '0 auto 16px',
+      borderRadius: '50%',
+      background: `${tech.color}15`,
+      border: `1px solid ${tech.color}30`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      overflow: 'hidden',
+      padding: 9,
+    }}>
+      {iconUrl ? (
+        <img
+          src={iconUrl}
+          alt={tech.name}
+          loading="lazy"
+          width={28}
+          height={28}
+          style={{ width: 28, height: 28, objectFit: 'contain', display: 'block' }}
+          onError={(e) => {
+            e.currentTarget.style.display = 'none';
+            const fallback = e.currentTarget.nextElementSibling;
+            if (fallback) fallback.style.display = 'block';
+          }}
+        />
+      ) : null}
+      <span
+        style={{
+          display: iconUrl ? 'none' : 'block',
+          fontSize: 18,
+          fontWeight: 900,
+          color: tech.color,
+          fontFamily: 'Playfair Display, serif',
+          lineHeight: 1,
+        }}
+      >
+        {(tech.name || '?')[0]}
+      </span>
+    </div>
   );
 }
 
