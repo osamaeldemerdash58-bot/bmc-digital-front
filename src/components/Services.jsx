@@ -62,7 +62,7 @@ export default function Services({ lang }) {
         {/* Section header — slides up */}
         <div className="section-header-anim" style={{ textAlign: 'center', maxWidth: 600, margin: '0 auto 64px' }}>
           <p className="section-label">{tx.label}</p>
-          <h2 className="section-title">{tx.title} <span>{tx.titleSpan}</span></h2>
+          <h2 className="section-title services-title-line">{tx.title} <span>{tx.titleSpan}</span></h2>
           <div className="gold-line gold-line-animate" style={{ margin: '24px auto' }} />
         </div>
 
@@ -174,8 +174,14 @@ export default function Services({ lang }) {
       </div>
 
       <style>{`
+        .services-title-line {
+          white-space: nowrap;
+        }
         @media (max-width: 900px) {
           #services .container > div:last-child { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 768px) {
+          .services-title-line { white-space: normal; }
         }
         @media (max-width: 600px) {
           #services .container > div:last-child { grid-template-columns: 1fr !important; }

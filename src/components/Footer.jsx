@@ -22,6 +22,53 @@ const MailIcon = () => (
   </svg>
 );
 
+/* Payment brand logos via CDN */
+const paymentMethods = [
+  {
+    name: 'Tabby',
+    img: 'https://cdn.tabby.ai/assets/tabby-badge.svg',
+    fallback: null,
+    useImg: false,
+    label: 'tabby',
+  },
+  {
+    name: 'Mada',
+    useImg: true,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Mada_Logo.svg/200px-Mada_Logo.svg.png',
+    label: 'mada',
+  },
+  {
+    name: 'Apple Pay',
+    useImg: true,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/200px-Apple_Pay_logo.svg.png',
+    label: 'apple pay',
+  },
+  {
+    name: 'Mastercard',
+    useImg: true,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png',
+    label: 'mastercard',
+  },
+  {
+    name: 'Visa',
+    useImg: true,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png',
+    label: 'visa',
+  },
+  {
+    name: 'PayPal',
+    useImg: true,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/200px-PayPal.svg.png',
+    label: 'paypal',
+  },
+  {
+    name: 'Stripe',
+    useImg: true,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/200px-Stripe_Logo%2C_revised_2016.svg.png',
+    label: 'stripe',
+  },
+];
+
 export default function Footer({ lang }) {
   const year = new Date().getFullYear();
 
@@ -115,6 +162,29 @@ export default function Footer({ lang }) {
                   </span>
                 </a>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Payment Methods Bar ── */}
+      <div className="footer-payments">
+        <div className="container">
+          <div className="footer-payments-inner">
+            <span className="footer-payments-label">
+              {lang === 'ar' ? 'وسائل الدفع المقبولة' : 'Accepted Payments'}
+            </span>
+            <div className="footer-payments-icons">
+              {paymentMethods.map((pm) => (
+                <span key={pm.name} className="payment-badge" title={pm.name}>
+                  <img
+                    src={pm.img}
+                    alt={pm.name}
+                    className="payment-logo"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                </span>
+              ))}
             </div>
           </div>
         </div>
