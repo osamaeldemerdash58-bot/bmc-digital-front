@@ -253,7 +253,7 @@ export default function Hero({ lang }) {
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
-                fontStyle: 'italic',
+                fontStyle: 'normal',
                 display: 'block',
                 overflow: 'visible',
                 paddingInlineStart: lang === 'ar' ? '0.14em' : '0.06em',

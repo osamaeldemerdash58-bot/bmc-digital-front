@@ -101,7 +101,7 @@ export default function TechPage({ lang, setLang }) {
             <span style={{
               background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              fontStyle: 'italic',
+              fontStyle: 'normal',
             }}>{tx.titleSpan}</span>
           </h1>
 

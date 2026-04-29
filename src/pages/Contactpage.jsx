@@ -109,7 +109,7 @@ export default function ContactPage({ lang, setLang }) {
             <span style={{
               background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              fontStyle: 'italic',
+              fontStyle: 'normal',
             }}>{tx.titleSpan}</span>
           </h1>
           <p style={{ fontSize: 16, color: 'rgba(245,240,232,0.55)', maxWidth: 520, lineHeight: 1.8 }}>
