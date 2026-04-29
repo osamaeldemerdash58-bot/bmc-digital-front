@@ -13,15 +13,15 @@ import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
 import SectionNav from './components/Sectionnav';
 import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
+import FAQ from './components/Faq';
 
 // Pages
-import ServicesPage from './pages/ServicesPage';
+import ServicesPage from './pages/Servicespage';
 import WorksPage from './pages/WorksPage';
 import ProcessPage from './pages/ProcessPage';
 import TechPage from './pages/TechPage';
-import ServiceDetailPage from './pages/ServiceDetailPage';
-import ContactPage from './pages/ContactPage';
+import ServiceDetailPage from './pages/Servicedetailpage';
+import ContactPage from './pages/Contactpage';
 import AdminPage from './pages/AdminPage';
 
 import './index.css';
