@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAPI, putAPI, postAPI, deleteAPI } from '../api';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://bmc-digital-server.vercel.app/api';
 
 const styles = {
   page: { minHeight: '100vh', background: '#0A0E0D', color: '#F5F0E8', fontFamily: 'Cairo, sans-serif' },

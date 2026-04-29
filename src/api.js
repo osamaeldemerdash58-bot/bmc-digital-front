@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://bmc-digital-server.vercel.app/api';
 
 export async function fetchAPI(endpoint) {
   const res = await fetch(`${API_BASE}${endpoint}`);
