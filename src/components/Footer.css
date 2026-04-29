@@ -259,7 +259,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .footer-payments-label {
@@ -274,35 +274,49 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
+/* ── Payment Badge - clean & professional ── */
 .payment-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  padding: 5px 12px;
-  height: 36px;
-  min-width: 56px;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 6px 10px;
+  height: 40px;
+  min-width: 64px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .payment-badge:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(184, 164, 114, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(184, 164, 114, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .payment-badge svg {
   display: block;
+  border-radius: 3px;
 }
 
 /* ── Footer Bottom ── */
 .footer-bottom {
-  padding: 16px 0;
+  padding: 18px 0;
 }
 
 .footer-bottom-row {
@@ -310,12 +324,74 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
 }
 
 .footer-bottom p {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.3);
+}
+
+/* ── Registration Info ── */
+.footer-reg-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(184, 164, 114, 0.12);
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.footer-reg-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-vat-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0.85;
+  filter: brightness(1.1);
+}
+
+.footer-reg-icon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--bmc-gold);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.footer-reg-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.footer-reg-label {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(184, 164, 114, 0.5);
+  line-height: 1;
+}
+
+.footer-reg-value {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+.footer-reg-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(184, 164, 114, 0.2);
+  flex-shrink: 0;
 }
 
 .footer-reg {
@@ -359,6 +435,11 @@
   .footer-map-link iframe {
     height: 170px;
   }
+
+  .footer-reg-info {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -374,7 +455,7 @@
   .footer-bottom-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
   }
 
   .footer-logo-mark {
@@ -403,5 +484,17 @@
 
   .footer-payments-label {
     width: 100%;
+  }
+
+  .footer-reg-info {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer-reg-divider {
+    width: 100%;
+    height: 1px;
   }
 }

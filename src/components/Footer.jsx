@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css';
 import logoImg from '../assets/WhatsApp_Image_2026-03-30_at_2.52.18_PM-removebg-preview.png';
+import vatImg from '../assets/vat-QVSDUwyA.png';
 
 const PinIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -22,51 +23,62 @@ const MailIcon = () => (
   </svg>
 );
 
-/* Inline SVG payment logos */
+/* ── Professional Payment Logos ── */
 const TabbyLogo = () => (
-  <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg" height="16">
-    <text x="0" y="18" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="18" fill="white">tabby</text>
+  <svg viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg" height="20">
+    <rect width="80" height="32" rx="4" fill="#3BBEAF"/>
+    <text x="10" y="22" fontFamily="'Arial', sans-serif" fontWeight="800" fontSize="16" fill="white" letterSpacing="-0.5">tabby</text>
   </svg>
 );
 
 const MadaLogo = () => (
-  <svg viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg" height="16">
-    <text x="0" y="18" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="16" fill="white">mada</text>
+  <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" height="20">
+    <rect width="80" height="32" rx="4" fill="#4D4D4D"/>
+    <circle cx="16" cy="16" r="10" fill="#00A651"/>
+    <circle cx="30" cy="16" r="10" fill="#E31837"/>
+    <path d="M16 6 Q23 16 30 6 Q23 26 16 26 Q23 16 30 26 Q23 6 16 6" fill="#FF8200" opacity="0.8"/>
+    <text x="44" y="21" fontFamily="'Arial', sans-serif" fontWeight="800" fontSize="13" fill="white">mada</text>
   </svg>
 );
 
 const ApplePayLogo = () => (
-  <svg viewBox="0 0 60 26" xmlns="http://www.w3.org/2000/svg" height="18">
-    <path d="M11.5 5c-.8 1-2 1.7-3.2 1.6-.2-1.2.5-2.5 1.2-3.3.8-.9 2.1-1.6 3.2-1.6.1 1.3-.4 2.5-1.2 3.3zm1.2 1.9c-1.8-.1-3.3 1-4.1 1-.9 0-2.2-1-3.6-.9-1.9.03-3.6 1.1-4.5 2.7-1.9 3.3-.5 8.2 1.4 10.9.9 1.3 2 2.8 3.4 2.7 1.4-.05 1.9-.9 3.5-.9s2.1.9 3.5.9c1.5-.02 2.4-1.4 3.3-2.7.6-.9 1-1.8 1.3-2.8-3.3-1.3-3.8-6.1-.5-7.9-.9-1.3-2.4-2.1-3.7-2z" fill="white" transform="scale(1.2) translate(1,1)"/>
-    <text x="20" y="18" fontFamily="Arial, sans-serif" fontWeight="500" fontSize="11" fill="white">Pay</text>
+  <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" height="20">
+    <rect width="80" height="32" rx="4" fill="#000"/>
+    <path d="M18 8.5c-.9 1.1-2.3 1.9-3.6 1.8-.2-1.4.5-2.8 1.4-3.7.9-1 2.4-1.8 3.6-1.8.1 1.4-.4 2.8-1.4 3.7zm1.3 2.1c-2-.1-3.7 1.1-4.7 1.1-1 0-2.5-1.1-4.1-1-2.1.03-4.1 1.2-5.1 3.1-2.2 3.7-.6 9.2 1.6 12.2 1 1.5 2.3 3.1 3.9 3.1 1.6-.06 2.2-1 4-1s2.4 1 4 1c1.7-.02 2.7-1.6 3.7-3.1.7-1 1.1-2 1.5-3.1-3.7-1.5-4.3-6.9-.6-8.9-1-1.5-2.7-2.4-4.2-2.4z" fill="white" transform="scale(1.1) translate(2,1)"/>
+    <text x="34" y="21" fontFamily="'-apple-system', 'Arial', sans-serif" fontWeight="500" fontSize="12" fill="white">Pay</text>
   </svg>
 );
 
 const MastercardLogo = () => (
-  <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" height="22">
-    <circle cx="15" cy="12" r="10" fill="#EB001B"/>
-    <circle cx="23" cy="12" r="10" fill="#F79E1B"/>
-    <path d="M19 5.3a10 10 0 0 1 0 13.4A10 10 0 0 1 19 5.3z" fill="#FF5F00"/>
+  <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" height="20">
+    <rect width="80" height="32" rx="4" fill="#1A1A1A"/>
+    <circle cx="30" cy="16" r="11" fill="#EB001B"/>
+    <circle cx="50" cy="16" r="11" fill="#F79E1B"/>
+    <path d="M40 7.5 Q46 16 40 24.5 Q34 16 40 7.5z" fill="#FF5F00"/>
   </svg>
 );
 
 const VisaLogo = () => (
-  <svg viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg" height="16">
-    <text x="2" y="19" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="20" fill="#1A1F71" letterSpacing="-1">VISA</text>
-    <text x="2" y="19" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="20" fill="white" letterSpacing="-1" opacity="0.9">VISA</text>
+  <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" height="20">
+    <rect width="80" height="32" rx="4" fill="#1A1F71"/>
+    <text x="10" y="22" fontFamily="'Arial', sans-serif" fontWeight="900" fontSize="20" fill="white" letterSpacing="1">VISA</text>
+    <rect x="0" y="0" width="80" height="5" fill="#F7A600" rx="4"/>
+    <rect x="0" y="27" width="80" height="5" fill="#F7A600"/>
   </svg>
 );
 
 const PayPalLogo = () => (
-  <svg viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg" height="18">
-    <text x="0" y="17" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="14" fill="#009cde">Pay</text>
-    <text x="22" y="17" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="14" fill="#003087">Pal</text>
+  <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" height="20">
+    <rect width="80" height="32" rx="4" fill="#003087"/>
+    <text x="8" y="21" fontFamily="'Arial', sans-serif" fontWeight="700" fontSize="14" fill="#009cde">Pay</text>
+    <text x="31" y="21" fontFamily="'Arial', sans-serif" fontWeight="700" fontSize="14" fill="#ffffff">Pal</text>
   </svg>
 );
 
 const StripeLogo = () => (
-  <svg viewBox="0 0 50 22" xmlns="http://www.w3.org/2000/svg" height="16">
-    <text x="0" y="16" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="white">stripe</text>
+  <svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg" height="20">
+    <rect width="80" height="32" rx="4" fill="#635BFF"/>
+    <text x="10" y="22" fontFamily="'Arial', sans-serif" fontWeight="700" fontSize="15" fill="white" letterSpacing="-0.3">stripe</text>
   </svg>
 );
 
@@ -196,11 +208,39 @@ export default function Footer({ lang }) {
         </div>
       </div>
 
+      {/* ── Footer Bottom ── */}
       <div className="footer-bottom">
         <div className="container">
           <div className="footer-bottom-row">
             <p>© {year} BMC Digital. {lang === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}</p>
-            <div className="footer-reg">{lang === 'ar' ? 'الرياض - المملكة العربية السعودية' : 'Riyadh - Saudi Arabia'}</div>
+
+            {/* ── Registration Info ── */}
+            <div className="footer-reg-info">
+              <div className="footer-reg-item">
+                <img src={vatImg} alt="VAT" className="footer-vat-img" />
+                <div className="footer-reg-text">
+                  <span className="footer-reg-label">
+                    {lang === 'ar' ? 'الرقم الضريبي' : 'VAT No.'}
+                  </span>
+                  <span className="footer-reg-value" dir="ltr">312004226200003</span>
+                </div>
+              </div>
+              <div className="footer-reg-divider" />
+              <div className="footer-reg-item">
+                <svg className="footer-reg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/>
+                  <line x1="8" y1="21" x2="16" y2="21"/>
+                  <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+                <div className="footer-reg-text">
+                  <span className="footer-reg-label">
+                    {lang === 'ar' ? 'السجل التجاري' : 'CR No.'}
+                  </span>
+                  <span className="footer-reg-value" dir="ltr">1010234567</span>
+                </div>
+              </div>
+            </div>
+
             <a href="https://ufuq-digital.com/" target="_blank" rel="noopener noreferrer" className="ufuq-badge">
               CREATED BY UFUQ-DIGITAL
             </a>
