@@ -124,21 +124,21 @@ export default function Footer({ lang }) {
               <ul className="footer-contact-list">
                 <li>
                   <span className="fc-icon"><PhoneIcon /></span>
-                  <span>+966 50 000 0000</span>
+                  <span>+966535166370</span>
                 </li>
                 <li>
                   <span className="fc-icon"><MailIcon /></span>
-                  <span>hello@bmc-digital.com</span>
+                  <span>info@ufuq-digital.com</span>
                 </li>
                 <li>
                   <span className="fc-icon"><PinIcon /></span>
-                  <span>{lang === 'ar' ? 'الرياض، المملكة العربية السعودية' : 'Riyadh, Saudi Arabia'}</span>
+                  <span>الرياض، حي العقيق، شارع الامير محمد ابن سلمان ابن عبد العزيز</span>
                 </li>
               </ul>
 
               <div className="footer-map-wrap">
                 <a
-                  href="https://maps.app.goo.gl/PPaGaxxoxC5pzrFq8"
+                  href="https://maps.app.goo.gl/aZc25BnBQ33a4dn19?g_st=ac"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-map-link"
@@ -219,9 +219,6 @@ export default function Footer({ lang }) {
               </div>
             </div>
 
-            <a href="https://ufuq-digital.com/" target="_blank" rel="noopener noreferrer" className="ufuq-badge">
-              CREATED BY UFUQ-DIGITAL
-            </a>
           </div>
         </div>
       </div>
