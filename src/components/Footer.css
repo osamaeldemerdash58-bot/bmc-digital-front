@@ -1,0 +1,169 @@
+.footer {
+  background: #060f0d;
+  border-top: 1px solid rgba(184, 164, 114, 0.15);
+}
+
+.footer-top {
+  padding: 76px 0 56px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 44px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-logo-mark {
+  display: flex;
+  align-items: baseline;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--bmc-gold);
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+}
+
+.footer-logo-mid {
+  font-size: 40px;
+  color: var(--bmc-white);
+}
+
+.footer-brand-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--bmc-white);
+  margin-bottom: 6px;
+}
+
+.footer-tagline {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.42);
+  line-height: 1.8;
+  max-width: 300px;
+}
+
+.footer-col h4 {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bmc-gold);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col a {
+  text-decoration: none;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.footer-col a:hover {
+  color: var(--bmc-gold-light);
+}
+
+.footer-contact-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.fc-icon {
+  min-width: 20px;
+  margin-top: 1px;
+  color: var(--bmc-gold);
+  opacity: 0.75;
+}
+
+.footer-contact-list span:last-child {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.52);
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 16px 0;
+}
+
+.footer-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-reg {
+  font-size: 11px;
+  color: rgba(184, 164, 114, 0.42);
+  letter-spacing: 1px;
+}
+
+.ufuq-badge {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.34);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 4px 10px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.ufuq-badge:hover {
+  border-color: var(--bmc-gold);
+  color: var(--bmc-gold);
+}
+
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-top {
+    padding: 48px 0 40px;
+  }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .footer-logo-mark {
+    font-size: 26px;
+  }
+
+  .footer-logo-mid {
+    font-size: 32px;
+  }
+}

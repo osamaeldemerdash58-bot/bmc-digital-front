@@ -1,0 +1,160 @@
+/* ─── Section Nav ─── */
+.section-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 900;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, right 0.5s ease, left 0.5s ease;
+}
+
+/* RTL → right side */
+.section-nav.snav-rtl {
+  right: 28px;
+  left: auto;
+}
+
+/* LTR → left side */
+.section-nav.snav-ltr {
+  left: 28px;
+  right: auto;
+}
+
+.section-nav.snav-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Track container */
+.snav-track {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 6px 0;
+}
+
+/* Vertical line running through all dots */
+.snav-line {
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: rgba(184, 164, 114, 0.2);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+/* Each nav item */
+.snav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 7px 0;
+  z-index: 1;
+}
+
+/* Dot */
+.snav-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(184, 164, 114, 0.3);
+  border: 1px solid rgba(184, 164, 114, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.snav-item:hover .snav-dot,
+.snav-item.snav-active .snav-dot {
+  background: var(--bmc-gold);
+  border-color: var(--bmc-gold);
+  box-shadow: 0 0 8px rgba(184, 164, 114, 0.6);
+  transform: scale(1.3);
+}
+
+/* Label — tiny and subtle, fades in on hover/active */
+.snav-label {
+  font-family: 'Cairo', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: transparent;
+  white-space: nowrap;
+  letter-spacing: 0.4px;
+  transition: color 0.25s ease, max-width 0.3s ease;
+  pointer-events: none;
+  max-width: 0;
+  overflow: hidden;
+}
+
+.snav-item:hover .snav-label,
+.snav-item.snav-active .snav-label {
+  color: var(--bmc-gold);
+  max-width: 120px;
+}
+
+/* ── LTR: dot first (left), then label to the right ── */
+.snav-ltr .snav-item {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.snav-ltr .snav-label {
+  text-align: left;
+}
+
+/* ── RTL: dot first in visual order (right side), label expands to the left ── */
+.snav-rtl .snav-item {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+.snav-rtl .snav-label {
+  text-align: right;
+}
+
+/* Active item label always visible */
+.snav-item.snav-active .snav-label {
+  color: var(--bmc-gold);
+  max-width: 120px;
+}
+
+/* Subtle gold pill behind active label */
+.snav-item.snav-active::before {
+  content: '';
+  position: absolute;
+  inset: 2px -6px;
+  background: rgba(184, 164, 114, 0.06);
+  border-radius: 20px;
+  z-index: -1;
+}
+
+/* Fix the vertical line centering to always align with the dots */
+.snav-rtl .snav-line {
+  left: auto;
+  right: 4px;
+  transform: none;
+}
+
+.snav-ltr .snav-line {
+  left: 4px;
+  right: auto;
+  transform: none;
+}
+
+/* Hide on very small screens */
+@media (max-width: 600px) {
+  .section-nav {
+    display: none;
+  }
+}

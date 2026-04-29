@@ -1,0 +1,273 @@
+/* ═══════════════════════════════════════════════════════
+   BMC DIGITAL — MASTER ANIMATION SYSTEM
+═══════════════════════════════════════════════════════ */
+
+[data-anim] {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-property: opacity, transform, clip-path;
+}
+
+[data-anim="slide-left"]  { transform: translateX(-80px); transition-duration: 0.9s; }
+[data-anim="slide-right"] { transform: translateX(80px);  transition-duration: 0.9s; }
+[data-anim="slide-up"]    { transform: translateY(60px);  transition-duration: 0.85s; }
+[data-anim="slide-down"]  { transform: translateY(-60px); transition-duration: 0.85s; }
+[data-anim="fade"]        { transform: none;              transition-duration: 1s; }
+[data-anim="scale-up"]    { transform: scale(0.88);       transition-duration: 0.9s; }
+
+[data-anim="clip-left"] {
+  clip-path: inset(0 100% 0 0);
+  opacity: 1;
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+}
+[data-anim="clip-right"] {
+  clip-path: inset(0 0 0 100%);
+  opacity: 1;
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+[data-delay="0"] { transition-delay: 0s; }
+[data-delay="1"] { transition-delay: 0.08s; }
+[data-delay="2"] { transition-delay: 0.16s; }
+[data-delay="3"] { transition-delay: 0.24s; }
+[data-delay="4"] { transition-delay: 0.32s; }
+[data-delay="5"] { transition-delay: 0.40s; }
+[data-delay="6"] { transition-delay: 0.48s; }
+[data-delay="7"] { transition-delay: 0.56s; }
+[data-delay="8"] { transition-delay: 0.64s; }
+
+[data-anim].anim-visible {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+  clip-path: inset(0 0% 0 0);
+}
+
+/* ══════════════════════════════════════════
+   HERO — entrance + continuous float
+══════════════════════════════════════════ */
+.hero-badge    { animation: heroFadeDown 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s both,  heroFloat1 4s   ease-in-out 1.2s infinite; }
+.hero-title-1  { animation: heroSlideLeft 1s  cubic-bezier(0.16,1,0.3,1) 0.35s both, heroFloat2 5s   ease-in-out 1.4s infinite; }
+.hero-title-2  { animation: heroSlideLeft 1s  cubic-bezier(0.16,1,0.3,1) 0.5s both,  heroFloat2 5s   ease-in-out 1.6s infinite; }
+.hero-subtitle { animation: heroFadeUp   0.9s cubic-bezier(0.16,1,0.3,1) 0.65s both, heroFloat1 6s   ease-in-out 1.7s infinite; }
+.hero-ctas     { animation: heroFadeUp   0.9s cubic-bezier(0.16,1,0.3,1) 0.8s both,  heroFloat3 4.5s ease-in-out 1.9s infinite; }
+.hero-image-wrap { animation: heroImageReveal 1.2s cubic-bezier(0.77,0,0.175,1) 0.1s both; }
+.hero-scroll   { animation: heroFadeIn 1s ease 1.4s both; }
+
+@keyframes heroFloat1 {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes heroFloat2 {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes heroFloat3 {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-5px); }
+}
+@keyframes heroFadeDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroSlideLeft {
+  from { opacity: 0; transform: translateX(-64px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* FIX: image now reveals to full opacity */
+@keyframes heroImageReveal {
+  from { clip-path: inset(0 100% 0 0); opacity: 0; }
+  to   { clip-path: inset(0 0% 0 0);   opacity: 1; }
+}
+
+/* ── Number counter ── */
+.stat-number {
+  animation: countUp 1.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Gold line draw ── */
+.gold-line-animate {
+  width: 0 !important;
+  transition: width 1.2s cubic-bezier(0.77, 0, 0.175, 1) !important;
+}
+.gold-line-animate.anim-visible {
+  width: 60px !important;
+}
+
+/* ── Section label ── */
+[data-anim="label"] {
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+[data-anim="label"].anim-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Card grid ── */
+.card-grid-item {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.card-grid-item.anim-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── Process zigzag ── */
+.process-left {
+  opacity: 0;
+  transform: translateX(-72px);
+  transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+              transform 0.85s cubic-bezier(0.16,1,0.3,1);
+}
+.process-right {
+  opacity: 0;
+  transform: translateX(72px);
+  transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+              transform 0.85s cubic-bezier(0.16,1,0.3,1);
+}
+.process-left.anim-visible,
+.process-right.anim-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Testimonial ── */
+.testimonial-card {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+              transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  transition-delay: 0.2s;
+}
+.testimonial-card.anim-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── FAQ ── */
+.faq-item {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.faq-item.anim-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Contact split ── */
+.contact-info {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+              transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.contact-form {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+              transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  transition-delay: 0.15s;
+}
+.contact-info.anim-visible,
+.contact-form.anim-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── About split ── */
+.about-text {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+              transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.about-stats {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+              transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  transition-delay: 0.15s;
+}
+.about-text.anim-visible,
+.about-stats.anim-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Section header ── */
+.section-header-anim {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+              transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.section-header-anim.anim-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Works card ── */
+.works-card {
+  opacity: 0;
+  transform: translateY(50px) scale(0.96);
+  transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+              transform 0.75s cubic-bezier(0.16,1,0.3,1);
+}
+.works-card.anim-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── Tech card ── */
+.tech-card {
+  opacity: 0;
+  transform: scale(0.85) translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+              transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.tech-card.anim-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* ── Reduce motion ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-anim],
+  .card-grid-item,
+  .process-left, .process-right,
+  .testimonial-card, .faq-item,
+  .contact-info, .contact-form,
+  .about-text, .about-stats,
+  .section-header-anim,
+  .works-card, .tech-card,
+  .hero-badge, .hero-title-1, .hero-title-2,
+  .hero-subtitle, .hero-ctas, .hero-image-wrap, .hero-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
