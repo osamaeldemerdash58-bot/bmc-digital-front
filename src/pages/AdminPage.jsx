@@ -376,6 +376,11 @@ export default function AdminPage() {
       }
     );
   };
+  const updateTech = async (tech) => {
+    await putAPI(`/techs/${tech._id}`, tech);
+    loadData();
+    flash();
+  };
 
   // Order actions
   const updateOrderStatus = async (id, status) => {
@@ -834,7 +839,7 @@ export default function AdminPage() {
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
                 {techs.map(t => (
-                  <div key={t._id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', background: 'rgba(184,164,114,0.05)', border: '1px solid rgba(184,164,114,0.15)', borderRadius: 2 }}>
+                  <div key={t._id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: 'rgba(184,164,114,0.05)', border: '1px solid rgba(184,164,114,0.15)', borderRadius: 2 }}>
                     {t.icon ? (
                       <img
                         src={t.icon}
@@ -847,6 +852,13 @@ export default function AdminPage() {
                       <div style={{ width: 12, height: 12, borderRadius: '50%', background: t.color }} />
                     )}
                     <span style={{ fontSize: 13, fontWeight: 600 }}>{t.name}</span>
+                    <input
+                      style={{ ...styles.input, width: 200, marginBottom: 0, padding: '6px 8px', fontSize: 12 }}
+                      value={t.icon || ''}
+                      onChange={(e) => setTechs(prev => prev.map(item => (item._id === t._id ? { ...item, icon: e.target.value } : item)))}
+                      placeholder="Icon URL"
+                    />
+                    <button onClick={() => updateTech(t)} style={{ ...styles.btnSmall, padding: '6px 10px' }}>💾</button>
                     <button onClick={() => removeTech(t._id)} style={{ background: 'none', border: 'none', color: '#e74c3c', cursor: 'pointer', fontSize: 14, padding: '0 4px' }}>×</button>
                   </div>
                 ))}
