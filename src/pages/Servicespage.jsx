@@ -208,6 +208,9 @@ export default function ServicesPage({ lang, setLang }) {
                 <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.55)', lineHeight: 1.9, marginBottom: 24 }}>
                   {svc.desc}
                 </p>
+                <p style={{ fontSize: 16, color: 'rgba(143,147,165,0.8)', marginBottom: 18 }}>
+                  املأ النموذج وسيتواصل معك فريقنا خلال دقائق
+                </p>
                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {svc.features.map((f, j) => (
                     <li key={j} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'rgba(245,240,232,0.6)' }}>

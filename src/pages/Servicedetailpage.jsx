@@ -81,6 +81,9 @@ export default function ServiceDetailPage({ lang, setLang }) {
           <p style={{ fontSize: 16, color: 'rgba(245,240,232,0.55)', maxWidth: 600, margin: '0 auto', lineHeight: 1.8 }}>
             {detailDesc}
           </p>
+          <p style={{ fontSize: 16, color: 'rgba(143,147,165,0.8)', marginTop: 12 }}>
+            املأ النموذج وسيتواصل معك فريقنا خلال دقائق
+          </p>
         </div>
       </section>
 

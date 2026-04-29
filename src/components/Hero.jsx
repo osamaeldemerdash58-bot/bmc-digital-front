@@ -90,9 +90,11 @@ export default function Hero({ lang }) {
       onMouseMove={handleMouseMove}
       style={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: '100svh',
         display: 'flex',
         alignItems: 'center',
+        paddingTop: 110,
+        paddingBottom: 96,
         overflow: 'hidden',
         background: 'linear-gradient(135deg, #0A0E0D 0%, #0F1512 50%, #0A0E0D 100%)',
       }}
@@ -202,8 +204,8 @@ export default function Hero({ lang }) {
         BMC
       </div>
 
-      <div className="container" style={{ position: 'relative', zIndex: 3 }}>
-        <div style={{ maxWidth: 620 }}>
+      <div className="container" style={{ position: 'relative', zIndex: 3, width: '100%' }}>
+        <div style={{ maxWidth: 680 }}>
 
           {/* Badge — static */}
           <div
@@ -239,12 +241,12 @@ export default function Hero({ lang }) {
               fontFamily: 'Playfair Display, serif',
               fontSize: 'clamp(40px, 6vw, 80px)',
               fontWeight: 900,
-              lineHeight: 1.2,
+              lineHeight: 1.28,
               marginBottom: 24,
               opacity: 1,
             }}
           >
-            <span style={{ color: 'var(--bmc-white)', display: 'block' }}>
+            <span style={{ color: 'var(--bmc-white)', display: 'block', marginBottom: 10 }}>
               {tx.title}
             </span>
             <span
@@ -256,9 +258,6 @@ export default function Hero({ lang }) {
                 fontStyle: 'italic',
                 display: 'block',
                 overflow: 'visible',
-                paddingInlineStart: lang === 'ar' ? '0.14em' : '0.06em',
-                paddingInlineEnd: '0.06em',
-                paddingBottom: '0.15em', /* يمنع قص الـ descenders */
               }}
             >
               {tx.titleSpan}
@@ -404,6 +403,21 @@ export default function Hero({ lang }) {
           33%  { transform: scale(1.06) translate(-12px, -6px); }
           66%  { transform: scale(1.04) translate(8px, -10px); }
           100% { transform: scale(1.08) translate(-6px, 4px); }
+        }
+
+        @media (max-width: 1024px) {
+          #hero {
+            padding-top: 96px !important;
+            padding-bottom: 88px !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          #hero {
+            min-height: auto !important;
+            padding-top: 88px !important;
+            padding-bottom: 72px !important;
+          }
         }
 
       `}</style>
