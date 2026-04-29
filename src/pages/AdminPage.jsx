@@ -120,6 +120,8 @@ const TABS = [
   { key: 'techs', icon: '💻' },
 ];
 
+const DEFAULT_TECH_COLOR = '#B8A472';
+
 const TECHNOLOGY_OPTIONS = [
   { name: 'React', icon: 'https://cdn.simpleicons.org/react', color: '#61DAFB' },
   { name: 'Next.js', icon: 'https://cdn.simpleicons.org/nextdotjs', color: '#FFFFFF' },
@@ -212,7 +214,7 @@ export default function AdminPage() {
   const [toast, setToast] = useState(null);
   const [confirmDialog, setConfirmDialog] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [newTech, setNewTech] = useState({ name: '', color: '#B8A472', icon: '' });
+  const [newTech, setNewTech] = useState({ name: '', color: DEFAULT_TECH_COLOR, icon: '' });
   const [selectedNewTechPreset, setSelectedNewTechPreset] = useState('');
 
   const tr = (ar, en) => (uiLang === 'ar' ? ar : en);
@@ -384,7 +386,7 @@ export default function AdminPage() {
   const addTech = async () => {
     if (!newTech.name) return;
     await postAPI('/techs', newTech);
-    setNewTech({ name: '', color: '#B8A472', icon: '' });
+    setNewTech({ name: '', color: DEFAULT_TECH_COLOR, icon: '' });
     setSelectedNewTechPreset('');
     loadData();
     flash();
@@ -412,7 +414,7 @@ export default function AdminPage() {
       ...newTech,
       name: selected.name,
       icon: selected.icon,
-      color: selected.color,
+      color: selected.color || DEFAULT_TECH_COLOR,
     });
   };
   const applyExistingTechPreset = (id, techName) => {
@@ -421,7 +423,7 @@ export default function AdminPage() {
     setTechs((prev) =>
       prev.map((item) =>
         item._id === id
-          ? { ...item, name: selected.name, icon: selected.icon, color: selected.color }
+          ? { ...item, name: selected.name, icon: selected.icon, color: selected.color || DEFAULT_TECH_COLOR }
           : item
       )
     );
@@ -862,25 +864,25 @@ export default function AdminPage() {
             <h1 style={styles.title}>{tr('التقنيات', 'Tech Stack')}</h1>
             <p style={styles.subtitle}>{tr('إدارة التقنيات', 'Manage technologies')}</p>
             <div style={styles.card}>
-              <div style={{ display: 'flex', gap: 12, marginBottom: 24, alignItems: 'flex-end' }}>
-                <div style={{ width: 220 }}>
+              <div style={{ display: 'grid', gap: 12, marginBottom: 24 }}>
+                <div>
                   <label style={styles.label}>Technology</label>
                   <select
-                    style={{ ...styles.input, height: 40, marginBottom: 0 }}
+                    style={{ ...styles.input, height: 40, marginBottom: 0, background: '#131816', color: '#F5F0E8' }}
                     value={selectedNewTechPreset}
                     onChange={(e) => applyNewTechPreset(e.target.value)}
                   >
-                    <option value="">Select tech...</option>
+                    <option style={{ background: '#131816', color: '#F5F0E8' }} value="">Select tech...</option>
                     {TECHNOLOGY_OPTIONS.map((opt) => (
-                      <option key={opt.name} value={opt.name}>{opt.name}</option>
+                      <option style={{ background: '#131816', color: '#F5F0E8' }} key={opt.name} value={opt.name}>{opt.name}</option>
                     ))}
                   </select>
                 </div>
-                <div style={{ flex: 1 }}>
+                <div>
                   <label style={styles.label}>Name</label>
                   <input style={styles.input} value={newTech.name} onChange={e => setNewTech({ ...newTech, name: e.target.value })} placeholder="e.g. React" />
                 </div>
-                <div style={{ flex: 1 }}>
+                <div>
                   <label style={styles.label}>Icon URL</label>
                   <input
                     style={styles.input}
@@ -889,45 +891,53 @@ export default function AdminPage() {
                     placeholder="https://cdn.simpleicons.org/react"
                   />
                 </div>
-                <div style={{ width: 80 }}>
-                  <label style={styles.label}>Color</label>
-                  <input type="color" value={newTech.color} onChange={e => setNewTech({ ...newTech, color: e.target.value })} style={{ width: '100%', height: 40, border: '1px solid rgba(184,164,114,0.2)', background: 'transparent', cursor: 'pointer' }} />
+                <div>
+                  <button style={styles.btn} onClick={addTech}>+ Add</button>
                 </div>
-                <button style={styles.btn} onClick={addTech}>+ Add</button>
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 12 }}>
                 {techs.map(t => (
-                  <div key={t._id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: 'rgba(184,164,114,0.05)', border: '1px solid rgba(184,164,114,0.15)', borderRadius: 2 }}>
-                    {t.icon ? (
-                      <img
-                        src={t.icon}
-                        alt={t.name}
-                        width={14}
-                        height={14}
-                        style={{ width: 14, height: 14, objectFit: 'contain', display: 'block' }}
-                      />
-                    ) : (
-                      <div style={{ width: 12, height: 12, borderRadius: '50%', background: t.color }} />
-                    )}
-                    <span style={{ fontSize: 13, fontWeight: 600 }}>{t.name}</span>
+                  <div key={t._id} style={{ display: 'grid', gap: 8, padding: '12px', background: 'rgba(184,164,114,0.05)', border: '1px solid rgba(184,164,114,0.15)', borderRadius: 2 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      {t.icon ? (
+                        <img
+                          src={t.icon}
+                          alt={t.name}
+                          width={16}
+                          height={16}
+                          style={{ width: 16, height: 16, objectFit: 'contain', display: 'block' }}
+                        />
+                      ) : (
+                        <div style={{ width: 12, height: 12, borderRadius: '50%', background: t.color || DEFAULT_TECH_COLOR }} />
+                      )}
+                      <strong style={{ fontSize: 13, fontWeight: 700 }}>{t.name}</strong>
+                    </div>
                     <select
-                      style={{ ...styles.input, width: 170, marginBottom: 0, padding: '6px 8px', fontSize: 12, height: 34 }}
+                      style={{ ...styles.input, width: '100%', marginBottom: 0, padding: '6px 8px', fontSize: 12, height: 34, background: '#131816', color: '#F5F0E8' }}
                       value={findTechnologyOption(t.name)?.name || ''}
                       onChange={(e) => applyExistingTechPreset(t._id, e.target.value)}
                     >
-                      <option value="">Choose tech...</option>
+                      <option style={{ background: '#131816', color: '#F5F0E8' }} value="">Choose tech...</option>
                       {TECHNOLOGY_OPTIONS.map((opt) => (
-                        <option key={opt.name} value={opt.name}>{opt.name}</option>
+                        <option style={{ background: '#131816', color: '#F5F0E8' }} key={opt.name} value={opt.name}>{opt.name}</option>
                       ))}
                     </select>
                     <input
-                      style={{ ...styles.input, width: 200, marginBottom: 0, padding: '6px 8px', fontSize: 12 }}
+                      style={{ ...styles.input, width: '100%', marginBottom: 0, padding: '6px 8px', fontSize: 12 }}
+                      value={t.name || ''}
+                      onChange={(e) => setTechs(prev => prev.map(item => (item._id === t._id ? { ...item, name: e.target.value } : item)))}
+                      placeholder="Tech name"
+                    />
+                    <input
+                      style={{ ...styles.input, width: '100%', marginBottom: 0, padding: '6px 8px', fontSize: 12 }}
                       value={t.icon || ''}
                       onChange={(e) => setTechs(prev => prev.map(item => (item._id === t._id ? { ...item, icon: e.target.value } : item)))}
                       placeholder="Icon URL"
                     />
-                    <button onClick={() => updateTech(t)} style={{ ...styles.btnSmall, padding: '6px 10px' }}>💾</button>
-                    <button onClick={() => removeTech(t._id)} style={{ background: 'none', border: 'none', color: '#e74c3c', cursor: 'pointer', fontSize: 14, padding: '0 4px' }}>×</button>
+                    <div style={{ display: 'flex', gap: 8 }}>
+                      <button onClick={() => updateTech(t)} style={{ ...styles.btnSmall, padding: '6px 10px' }}>💾 Save</button>
+                      <button onClick={() => removeTech(t._id)} style={{ background: 'none', border: '1px solid rgba(231,76,60,0.4)', color: '#e74c3c', cursor: 'pointer', fontSize: 14, padding: '4px 10px', borderRadius: 2 }}>Delete</button>
+                    </div>
                   </div>
                 ))}
               </div>
