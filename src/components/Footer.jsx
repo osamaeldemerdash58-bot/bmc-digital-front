@@ -22,51 +22,62 @@ const MailIcon = () => (
   </svg>
 );
 
-/* Payment brand logos via CDN */
+/* Inline SVG payment logos */
+const TabbyLogo = () => (
+  <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg" height="16">
+    <text x="0" y="18" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="18" fill="white">tabby</text>
+  </svg>
+);
+
+const MadaLogo = () => (
+  <svg viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg" height="16">
+    <text x="0" y="18" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="16" fill="white">mada</text>
+  </svg>
+);
+
+const ApplePayLogo = () => (
+  <svg viewBox="0 0 60 26" xmlns="http://www.w3.org/2000/svg" height="18">
+    <path d="M11.5 5c-.8 1-2 1.7-3.2 1.6-.2-1.2.5-2.5 1.2-3.3.8-.9 2.1-1.6 3.2-1.6.1 1.3-.4 2.5-1.2 3.3zm1.2 1.9c-1.8-.1-3.3 1-4.1 1-.9 0-2.2-1-3.6-.9-1.9.03-3.6 1.1-4.5 2.7-1.9 3.3-.5 8.2 1.4 10.9.9 1.3 2 2.8 3.4 2.7 1.4-.05 1.9-.9 3.5-.9s2.1.9 3.5.9c1.5-.02 2.4-1.4 3.3-2.7.6-.9 1-1.8 1.3-2.8-3.3-1.3-3.8-6.1-.5-7.9-.9-1.3-2.4-2.1-3.7-2z" fill="white" transform="scale(1.2) translate(1,1)"/>
+    <text x="20" y="18" fontFamily="Arial, sans-serif" fontWeight="500" fontSize="11" fill="white">Pay</text>
+  </svg>
+);
+
+const MastercardLogo = () => (
+  <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" height="22">
+    <circle cx="15" cy="12" r="10" fill="#EB001B"/>
+    <circle cx="23" cy="12" r="10" fill="#F79E1B"/>
+    <path d="M19 5.3a10 10 0 0 1 0 13.4A10 10 0 0 1 19 5.3z" fill="#FF5F00"/>
+  </svg>
+);
+
+const VisaLogo = () => (
+  <svg viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg" height="16">
+    <text x="2" y="19" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="20" fill="#1A1F71" letterSpacing="-1">VISA</text>
+    <text x="2" y="19" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="20" fill="white" letterSpacing="-1" opacity="0.9">VISA</text>
+  </svg>
+);
+
+const PayPalLogo = () => (
+  <svg viewBox="0 0 60 24" xmlns="http://www.w3.org/2000/svg" height="18">
+    <text x="0" y="17" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="14" fill="#009cde">Pay</text>
+    <text x="22" y="17" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="14" fill="#003087">Pal</text>
+  </svg>
+);
+
+const StripeLogo = () => (
+  <svg viewBox="0 0 50 22" xmlns="http://www.w3.org/2000/svg" height="16">
+    <text x="0" y="16" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="white">stripe</text>
+  </svg>
+);
+
 const paymentMethods = [
-  {
-    name: 'Tabby',
-    img: 'https://cdn.tabby.ai/assets/tabby-badge.svg',
-    fallback: null,
-    useImg: false,
-    label: 'tabby',
-  },
-  {
-    name: 'Mada',
-    useImg: true,
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Mada_Logo.svg/200px-Mada_Logo.svg.png',
-    label: 'mada',
-  },
-  {
-    name: 'Apple Pay',
-    useImg: true,
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/200px-Apple_Pay_logo.svg.png',
-    label: 'apple pay',
-  },
-  {
-    name: 'Mastercard',
-    useImg: true,
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png',
-    label: 'mastercard',
-  },
-  {
-    name: 'Visa',
-    useImg: true,
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png',
-    label: 'visa',
-  },
-  {
-    name: 'PayPal',
-    useImg: true,
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/200px-PayPal.svg.png',
-    label: 'paypal',
-  },
-  {
-    name: 'Stripe',
-    useImg: true,
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/200px-Stripe_Logo%2C_revised_2016.svg.png',
-    label: 'stripe',
-  },
+  { name: 'Tabby',      Icon: TabbyLogo },
+  { name: 'Mada',       Icon: MadaLogo },
+  { name: 'Apple Pay',  Icon: ApplePayLogo },
+  { name: 'Mastercard', Icon: MastercardLogo },
+  { name: 'Visa',       Icon: VisaLogo },
+  { name: 'PayPal',     Icon: PayPalLogo },
+  { name: 'Stripe',     Icon: StripeLogo },
 ];
 
 export default function Footer({ lang }) {
@@ -175,14 +186,9 @@ export default function Footer({ lang }) {
               {lang === 'ar' ? 'وسائل الدفع المقبولة' : 'Accepted Payments'}
             </span>
             <div className="footer-payments-icons">
-              {paymentMethods.map((pm) => (
-                <span key={pm.name} className="payment-badge" title={pm.name}>
-                  <img
-                    src={pm.img}
-                    alt={pm.name}
-                    className="payment-logo"
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
+              {paymentMethods.map(({ name, Icon }) => (
+                <span key={name} className="payment-badge" title={name}>
+                  <Icon />
                 </span>
               ))}
             </div>
