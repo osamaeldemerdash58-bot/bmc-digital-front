@@ -142,7 +142,7 @@ function renderServiceIcon(slug, color = '#B8A472') {
 export default function ServicesPage({ lang, setLang }) {
   useReveal();
   const tx = servicesData[lang] || servicesData.ar;
-  const tickerItems = [...tx.services, ...tx.services];
+  const tickerItems = Array.from({ length: 4 }, () => tx.services).flat();
 
   return (
     <>
@@ -350,7 +350,7 @@ export default function ServicesPage({ lang, setLang }) {
         }
         @keyframes servicesTicker {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          100% { transform: translateX(-25%); }
         }
         @media (max-width: 900px) {
           .services-grid { grid-template-columns: 1fr !important; }

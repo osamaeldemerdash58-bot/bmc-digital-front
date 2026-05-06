@@ -71,7 +71,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
     desc: sanitizeServiceText(b?.desc),
   }));
   const accent = serviceAccents[service.slug] || 'var(--bmc-gold)';
-  const tickerFeatures = [...(features || []), ...(features || [])];
+  const tickerFeatures = Array.from({ length: 4 }, () => features || []).flat();
 
   return (
     <>
@@ -236,7 +236,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
       <style>{`
         @keyframes featureTicker {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          100% { transform: translateX(-25%); }
         }
         @media (max-width: 768px) {
           .container { padding: 0 20px; }
