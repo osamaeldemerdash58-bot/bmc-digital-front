@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './WhatsAppFloat.css';
 
 export default function WhatsAppFloat({ lang }) {
-  const whatsappNumber = '966500000000'; // Replace with actual number
+  const whatsappNumber = '966535166370';
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

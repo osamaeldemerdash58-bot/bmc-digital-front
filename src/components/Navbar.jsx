@@ -36,10 +36,11 @@ export default function Navbar({ lang, setLang }) {
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  const serviceLinks = servicesData.map(s => ({
+  const serviceLinks = servicesData
+    .filter((s) => s.slug !== 'tech-consulting')
+    .map(s => ({
     href: `/service/${s.slug}`,
     label: lang === 'ar' ? s.titleAr : s.titleEn,
-    icon: s.icon,
   }));
 
   const mainLinks = [
@@ -106,11 +107,9 @@ export default function Navbar({ lang, setLang }) {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
             <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--bmc-white)', letterSpacing: 0.5 }}>
-              {lang === 'ar' ? 'البنية الماسية' : 'Al Binyah Al Masiyah'}
+              {lang === 'ar' ? 'البنية الماسية الرقمية' : 'Al Binyah Al Masiyah Digital'}
             </span>
-            <span style={{ fontSize: 9, color: 'var(--bmc-gold)', letterSpacing: 2, textTransform: 'uppercase' }}>
-              Digital
-            </span>
+            
           </div>
         </Link>
 
@@ -200,7 +199,6 @@ export default function Navbar({ lang, setLang }) {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 10,
                     padding: '12px 20px',
                     color: 'var(--bmc-gold)',
                     textDecoration: 'none',
@@ -212,7 +210,6 @@ export default function Navbar({ lang, setLang }) {
                   onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(184,164,114,0.08)'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                  <span style={{ fontSize: 14 }}>📦</span>
                   {lang === 'ar' ? 'جميع الخدمات' : 'All Services'}
                 </Link>
                 {serviceLinks.map((s) => (
@@ -220,10 +217,10 @@ export default function Navbar({ lang, setLang }) {
                     key={s.href}
                     to={s.href}
                     onClick={() => setServicesOpen(false)}
+                    className="nav-service-link"
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 10,
                       padding: '10px 20px',
                       color: isActive(s.href) ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)',
                       textDecoration: 'none',
@@ -240,7 +237,6 @@ export default function Navbar({ lang, setLang }) {
                       e.currentTarget.style.color = isActive(s.href) ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)';
                     }}
                   >
-                    <span style={{ fontSize: 16 }}>{s.icon}</span>
                     {s.label}
                   </Link>
                 ))}
@@ -415,15 +411,17 @@ export default function Navbar({ lang, setLang }) {
                     borderBottom: '1px solid rgba(184, 164, 114, 0.06)',
                   }}
                 >
-                  📦 {lang === 'ar' ? 'جميع الخدمات' : 'All Services'}
+                  {lang === 'ar' ? 'جميع الخدمات' : 'All Services'}
                 </Link>
                 {serviceLinks.map((s) => (
                   <Link
                     key={s.href}
                     to={s.href}
                     onClick={() => setMenuOpen(false)}
+                    className="nav-service-link"
                     style={{
-                      display: 'block',
+                      display: 'flex',
+                      alignItems: 'center',
                       padding: '10px 16px',
                       fontSize: 13,
                       fontWeight: 500,
@@ -432,7 +430,7 @@ export default function Navbar({ lang, setLang }) {
                       borderBottom: '1px solid rgba(184, 164, 114, 0.06)',
                     }}
                   >
-                    {s.icon} {s.label}
+                    {s.label}
                   </Link>
                 ))}
               </div>

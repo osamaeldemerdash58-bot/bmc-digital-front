@@ -38,11 +38,115 @@ body.ltr { direction: ltr; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .section { padding: 100px 0; }
-.section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--bmc-gold); margin-bottom: 16px; text-align: center; width: 100%; }
-.section-title { font-family: 'Cairo', sans-serif !important; font-size: clamp(28px, 4vw, 48px); font-weight: 700; color: var(--bmc-white); line-height: 1.2; text-align: center; width: 100%; }
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--bmc-gold);
+  margin-bottom: 16px; text-align: center; width: 100%;
+}
+.section-title {
+  font-family: 'Cairo', sans-serif !important;
+  font-size: clamp(28px, 4vw, 48px); font-weight: 700;
+  color: var(--bmc-white); line-height: 1.2;
+  text-align: center; width: 100%;
+}
 .section-title span { color: var(--bmc-gold); font-style: normal; }
 .gold-line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--bmc-gold), transparent); }
 
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
-.text-gradient { background: linear-gradient(135deg, var(--bmc-gold-light), var(--bmc-gold), var(--bmc-gold-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.text-gradient {
+  background: linear-gradient(135deg, var(--bmc-gold-light), var(--bmc-gold), var(--bmc-gold-dark));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ================================================
+   SNAKE BUTTON — rotating gold light on border
+   ================================================ */
+
+@keyframes snakeRotate {
+  to { transform: rotate(360deg); }
+}
+
+a.snake-edge,
+button.snake-edge {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+
+/* Keep content above the animated border layer */
+a.snake-edge > *,
+button.snake-edge > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Rotating border segment ("snake") around the OUTER edge only */
+a.snake-edge::before,
+button.snake-edge::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    transparent 0deg,
+    transparent 312deg,
+    rgba(138, 122, 85, 0.85) 326deg,
+    rgba(184, 164, 114, 1) 338deg,
+    rgba(255, 232, 160, 1) 346deg,
+    rgba(184, 164, 114, 1) 354deg,
+    rgba(138, 122, 85, 0.85) 358deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: snakeRotate 2.4s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Keep the old .snake-light span hidden (not needed anymore) */
+.snake-light { display: none; }
+
+/* ================================================
+   HERO IMAGE WRAP — responsive
+   ================================================ */
+.hero-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* ================================================
+   NAV — service icon wrapper
+   ================================================ */
+.nav-service-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(184, 164, 114, 0.1);
+  border: 1px solid rgba(184, 164, 114, 0.2);
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+.nav-service-link:hover .nav-service-icon {
+  background: rgba(184, 164, 114, 0.2);
+  border-color: rgba(184, 164, 114, 0.45);
+}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+@media (max-width: 768px) {
+  .nav-links-desktop { display: none !important; }
+  .burger-btn { display: flex !important; }
+}

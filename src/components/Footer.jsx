@@ -85,7 +85,7 @@ export default function Footer({ lang }) {
                 <span>B</span><span className="footer-logo-mid">M</span><span>C</span>
               </div>
               <p className="footer-brand-name">
-                {lang === 'ar' ? 'شركة BMC Digital' : 'BMC Digital Agency'}
+                {lang === 'ar' ? 'شركة البنية الماسية الرقمية' : 'Al Binyah Al Masiyah Digital'}
               </p>
               <p className="footer-tagline">
                 {lang === 'ar'
@@ -124,7 +124,7 @@ export default function Footer({ lang }) {
               <ul className="footer-contact-list">
                 <li>
                   <span className="fc-icon"><PhoneIcon /></span>
-                  <span>+966535166370</span>
+                  <span>+966 53 516 6370</span>
                 </li>
                 <li>
                   <span className="fc-icon"><MailIcon /></span>

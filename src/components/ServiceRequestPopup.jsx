@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ServiceRequestForm from './ServiceRequestForm';
+import SnakeButton from './SnakeButton';
 
 export default function ServiceRequestPopup({ lang, title, subtitle, preselectedService }) {
   const [open, setOpen] = useState(false);
@@ -103,9 +104,12 @@ export default function ServiceRequestPopup({ lang, title, subtitle, preselected
         <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.5)', marginBottom: 28, lineHeight: 1.8 }}>
           {subtitle}
         </p>
-        <button
+        <SnakeButton
+          as="button"
           type="button"
           onClick={() => setOpen(true)}
+          className="snake-btn"
+          snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
           style={{
             background: 'linear-gradient(135deg, #D4C48F 0%, #B8A472 100%)',
             color: 'var(--bmc-dark)',
@@ -123,6 +127,7 @@ export default function ServiceRequestPopup({ lang, title, subtitle, preselected
             justifyContent: 'center',
             gap: 10,
             boxShadow: '0 10px 24px rgba(184,164,114,0.25)',
+            overflow: 'hidden',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'translateY(-2px)';
@@ -137,7 +142,7 @@ export default function ServiceRequestPopup({ lang, title, subtitle, preselected
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
-        </button>
+        </SnakeButton>
       </div>
 
       {modal ? createPortal(modal, document.body) : null}

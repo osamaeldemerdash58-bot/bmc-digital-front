@@ -1,12 +1,15 @@
 import React from 'react';
 import { useData } from '../DataContext';
 import { useAnimate } from '../hooks/useAnimate';
+import SnakeButton from './SnakeButton';
 import '../animations.css';
 
 export default function About({ lang }) {
   useAnimate();
   const { data } = useData();
   const tx = data?.translations?.about?.[lang] || {};
+  const aboutLabel = lang === 'ar' ? 'البنية الماسية الرقمية' : (tx.label || 'About Us');
+  const whatsappUrl = 'https://wa.me/966535166370';
 
   return (
     <section id="about" className="section" style={{ background: 'var(--bmc-dark-2)', position: 'relative', overflow: 'hidden' }}>
@@ -16,19 +19,24 @@ export default function About({ lang }) {
       }} />
 
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 80, alignItems: 'center' }}>
 
-          {/* Left: Text — slides in from left */}
+          {/* Left: Text */}
           <div className="about-text">
-            <p className="section-label">{tx.label}</p>
+            <p className="section-label">{aboutLabel}</p>
             <h2 className="section-title" style={{ marginBottom: 8 }}>{tx.title}</h2>
             <h2 className="section-title" style={{ marginBottom: 32 }}><span>{tx.titleSpan}</span></h2>
             <div className="gold-line gold-line-animate" style={{ marginBottom: 32 }} />
             <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2, marginBottom: 20 }}>{tx.desc1}</p>
             <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2 }}>{tx.desc2}</p>
 
-            <a
-              href="#contact"
+            <SnakeButton
+              as="a"
+              href={whatsappUrl}
+              className="snake-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 marginTop: 40, padding: '12px 28px',
@@ -36,6 +44,7 @@ export default function About({ lang }) {
                 color: 'var(--bmc-gold)', fontSize: 13, fontWeight: 700,
                 textDecoration: 'none', letterSpacing: 0.5, borderRadius: 2,
                 transition: 'all 0.3s',
+                overflow: 'hidden',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'rgba(184,164,114,0.1)';
@@ -46,57 +55,14 @@ export default function About({ lang }) {
                 e.currentTarget.style.borderColor = 'rgba(184,164,114,0.4)';
               }}
             >
+              <span className="snake-light" />
               {lang === 'ar' ? 'تواصل معنا' : 'Get in Touch'}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </a>
+            </SnakeButton>
           </div>
 
-          {/* Right: Stats grid — slides in from right */}
-          <div className="about-stats" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(184,164,114,0.1)' }}>
-            {tx.stats.map((s, i) => (
-              (() => {
-                const isExperienceStat =
-                  String(s.value).trim() === '5' &&
-                  /سنوات خبرة|Years Experience/i.test(String(s.label));
-                return (
-              <div
-                key={i}
-                className="card-grid-item"
-                style={{
-                  background: 'var(--bmc-dark-2)',
-                  padding: '40px 32px',
-                  textAlign: 'center',
-                  transitionDelay: `${i * 0.1 + 0.25}s`,
-                  position: 'relative',
-                  overflow: 'hidden',
-                  gridColumn: isExperienceStat ? '1 / -1' : undefined,
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: 'Playfair Display, serif',
-                    fontSize: 'clamp(32px, 4vw, 52px)',
-                    fontWeight: 900,
-                    background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    marginBottom: 8,
-                    lineHeight: 1,
-                  }}
-                >
-                  {s.value}
-                </div>
-                <div style={{ fontSize: 13, color: 'rgba(245,240,232,0.5)', fontWeight: 600 }}>
-                  {s.label}
-                </div>
-              </div>
-                );
-              })()
-            ))}
-          </div>
         </div>
       </div>
 

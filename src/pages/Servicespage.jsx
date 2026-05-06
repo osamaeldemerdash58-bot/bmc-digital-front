@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
+import SnakeButton from '../components/SnakeButton';
 import { useReveal } from '../hooks/useReveal';
 
 const servicesData = {
@@ -59,13 +60,6 @@ const servicesData = {
         features: ['روبوتات محادثة', 'تحليل البيانات', 'أنظمة التوصية', 'معالجة اللغة الطبيعية'],
         icon: '🤖',
       },
-      {
-        slug: 'tech-consulting',
-        title: 'استشارات تقنية ودعم',
-        desc: 'نقدم استشارات تقنية متخصصة وخطط تحول رقمي شاملة مع دعم مستمر وصيانة دورية.',
-        features: ['تحليل البنية التحتية', 'خطة التحول الرقمي', 'الصيانة والدعم المستمر', 'أمن المعلومات'],
-        icon: '💡',
-      },
     ],
   },
   en: {
@@ -120,20 +114,35 @@ const servicesData = {
         features: ['Chatbots', 'Data Analytics', 'Recommendation Systems', 'NLP'],
         icon: '🤖',
       },
-      {
-        slug: 'tech-consulting',
-        title: 'Tech Consulting & Support',
-        desc: 'Expert technical consulting and comprehensive digital transformation plans with ongoing support and maintenance.',
-        features: ['Infrastructure Analysis', 'Digital Transformation', 'Ongoing Support', 'Information Security'],
-        icon: '💡',
-      },
     ],
   },
 };
 
+const serviceAccents = {
+  'web-development': '#4A90D9',
+  'e-commerce-website-development': '#27AE60',
+  'mobile-app-development': '#E74C3C',
+  'erp-systems': '#8E44AD',
+  'ui-ux-design': '#F39C12',
+  'ai-solutions': '#16A085',
+  'tech-consulting': '#2C3E50',
+};
+
+function renderServiceIcon(slug, color = '#B8A472') {
+  const props = { viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: '1.6', strokeLinecap: 'round', strokeLinejoin: 'round' };
+  if (slug === 'web-development') return <svg {...props}><path d="M3 4h18v12H3z" /><path d="M8 20h8M12 16v4M7 9h4M7 12h7" /></svg>;
+  if (slug === 'e-commerce-website-development') return <svg {...props}><path d="M4 7h16v12H4z" /><path d="M9 7V5a3 3 0 0 1 6 0v2M4 11h16" /></svg>;
+  if (slug === 'mobile-app-development') return <svg {...props}><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M10 6h4M12 18h.01M9 11l2 2 4-4" /></svg>;
+  if (slug === 'erp-systems') return <svg {...props}><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><path d="M14 17h7M17 14v7" /></svg>;
+  if (slug === 'ui-ux-design') return <svg {...props}><path d="M4 20l5.5-1.2L20 8.3 15.7 4 5.2 14.5z" /><path d="M13.5 6.2l4.3 4.3M4 20h6" /></svg>;
+  if (slug === 'ai-solutions') return <svg {...props}><circle cx="12" cy="12" r="4" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" /></svg>;
+  return <svg {...props}><path d="M4 5h16v10H7l-3 3z" /><path d="M8 9h8M8 12h5" /></svg>;
+}
+
 export default function ServicesPage({ lang, setLang }) {
   useReveal();
   const tx = servicesData[lang] || servicesData.ar;
+  const tickerItems = [...tx.services, ...tx.services];
 
   return (
     <>
@@ -156,6 +165,28 @@ export default function ServicesPage({ lang, setLang }) {
           width: 600, height: 600,
           background: 'radial-gradient(circle, rgba(184,164,114,0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
+        }} />
+        <div style={{
+          position: 'absolute',
+          top: '10%',
+          left: '12%',
+          width: 280,
+          height: 280,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(74,144,217,0.14), transparent 68%)',
+          filter: 'blur(6px)',
+          animation: 'floatBlob 8s ease-in-out infinite',
+        }} />
+        <div style={{
+          position: 'absolute',
+          bottom: '8%',
+          right: '10%',
+          width: 240,
+          height: 240,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(184,164,114,0.12), transparent 68%)',
+          filter: 'blur(6px)',
+          animation: 'floatBlob 9s ease-in-out infinite reverse',
         }} />
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <div style={{
@@ -184,6 +215,26 @@ export default function ServicesPage({ lang, setLang }) {
         </div>
       </section>
 
+      <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(184,164,114,0.16)', borderBottom: '1px solid rgba(184,164,114,0.16)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', width: 'max-content', animation: 'servicesTicker 28s linear infinite' }}>
+          {tickerItems.map((svc, i) => (
+            <div key={`${svc.slug}-${i}`} style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '14px 24px',
+              color: 'rgba(245,240,232,0.75)',
+              fontSize: 13,
+              letterSpacing: 0.6,
+              whiteSpace: 'nowrap',
+            }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: serviceAccents[svc.slug] || 'var(--bmc-gold)' }} />
+              {svc.title}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Services Grid */}
       <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0' }}>
         <div className="container">
@@ -196,12 +247,37 @@ export default function ServicesPage({ lang, setLang }) {
                   background: 'var(--bmc-dark-2)',
                   padding: '48px 36px',
                   transitionDelay: `${i * 0.1}s`,
-                  transition: 'background 0.3s',
+                  transition: 'background 0.35s, transform 0.35s, border-color 0.35s',
+                  border: '1px solid rgba(184,164,114,0.08)',
+                  position: 'relative',
+                  overflow: 'hidden',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bmc-dark-3)'}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'var(--bmc-dark-2)'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'var(--bmc-dark-3)';
+                  e.currentTarget.style.transform = 'translateY(-6px)';
+                  e.currentTarget.style.borderColor = 'rgba(184,164,114,0.24)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'var(--bmc-dark-2)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(184,164,114,0.08)';
+                }}
               >
-                <div style={{ fontSize: 40, marginBottom: 20 }}>{svc.icon}</div>
+                <div style={{
+                  width: 62,
+                  height: 62,
+                  marginBottom: 22,
+                  borderRadius: 14,
+                  background: `${serviceAccents[svc.slug] || 'var(--bmc-gold)'}18`,
+                  border: `1px solid ${serviceAccents[svc.slug] || 'var(--bmc-gold)'}66`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  <div style={{ width: 30, height: 30 }}>
+                    {renderServiceIcon(svc.slug, serviceAccents[svc.slug] || 'var(--bmc-gold)')}
+                  </div>
+                </div>
                 <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 16, lineHeight: 1.4 }}>
                   {svc.title}
                 </h2>
@@ -219,20 +295,24 @@ export default function ServicesPage({ lang, setLang }) {
                   ))}
                 </ul>
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                  <Link
+                  <SnakeButton
+                    as={Link}
                     to={`/service/${svc.slug}`}
+                    className="snake-btn"
+                    snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
                     style={{
                       fontSize: 13, fontWeight: 700, color: 'var(--bmc-gold)',
                       textDecoration: 'none', padding: '10px 20px',
                       border: '1px solid rgba(184,164,114,0.35)', borderRadius: 2,
                       transition: 'all 0.3s', display: 'inline-flex', alignItems: 'center', gap: 6,
+                      overflow: 'hidden',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(184,164,114,0.1)'; e.currentTarget.style.borderColor = 'var(--bmc-gold)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(184,164,114,0.35)'; }}
                   >
                     {tx.learnMore}
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                  </Link>
+                  </SnakeButton>
                 </div>
               </div>
             ))}
@@ -264,6 +344,14 @@ export default function ServicesPage({ lang, setLang }) {
       <WhatsAppFloat lang={lang} />
 
       <style>{`
+        @keyframes floatBlob {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-18px); }
+        }
+        @keyframes servicesTicker {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
         @media (max-width: 900px) {
           .services-grid { grid-template-columns: 1fr !important; }
         }
