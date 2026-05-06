@@ -1,7 +1,6 @@
 import React from 'react';
 import { useData } from '../DataContext';
 import { useAnimate } from '../hooks/useAnimate';
-import SnakeButton from './SnakeButton';
 import '../animations.css';
 
 export default function About({ lang }) {
@@ -30,13 +29,11 @@ export default function About({ lang }) {
             <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2, marginBottom: 20 }}>{tx.desc1}</p>
             <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2 }}>{tx.desc2}</p>
 
-            <SnakeButton
-              as="a"
+            <a
               href={whatsappUrl}
               className="snake-btn"
               target="_blank"
               rel="noopener noreferrer"
-              snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 marginTop: 40, padding: '12px 28px',
@@ -60,7 +57,7 @@ export default function About({ lang }) {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-            </SnakeButton>
+            </a>
           </div>
 
         </div>

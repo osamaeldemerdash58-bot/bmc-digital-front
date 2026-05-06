@@ -23,6 +23,7 @@ export default function SnakeButton({
     const tailLength = snakeOptions.tailLength || 0.22;
     const lineWidth = snakeOptions.lineWidth || 2;
     const pad = snakeOptions.pad ?? 2;
+    const startAt = snakeOptions.startAt || 'right';
     let radius = parseFloat(getComputedStyle(btn).borderRadius) || 10;
     let progress = 0;
     let rafId = null;
@@ -36,6 +37,18 @@ export default function SnakeButton({
       canvas.height = h;
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
+
+      // Start from the right edge so RTL and LTR feel consistent.
+      const r = Math.min(radius, w / 2 - 1, h / 2 - 1);
+      const sw = w - 2 * r;
+      const sh = h - 2 * r;
+      const totalPerim = 2 * sw + 2 * sh + Math.PI * 2 * r;
+      if (totalPerim > 0) {
+        if (startAt === 'right') progress = sw / totalPerim;
+        else if (startAt === 'bottom') progress = (sw + (Math.PI / 2) * r + sh) / totalPerim;
+        else if (startAt === 'left') progress = (sw + (Math.PI / 2) * r + sh + (Math.PI / 2) * r + sw) / totalPerim;
+        else progress = 0;
+      }
     }
 
     function getPoint(t) {

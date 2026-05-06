@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useData } from '../DataContext';
 import { useAnimate } from '../hooks/useAnimate';
 import { postAPI } from '../api';
-import SnakeButton from './SnakeButton';
 import '../animations.css';
 
 export default function Contact({ lang }) {
@@ -145,12 +144,9 @@ export default function Contact({ lang }) {
                   onBlur={(e) => (e.target.style.borderColor = 'rgba(184,164,114,0.2)')}
                 />
                 {error && <p style={{ color: '#e74c3c', fontSize: 13, textAlign: 'center' }}>{error}</p>}
-                <SnakeButton
-                  as="button"
+                <button
                   type="submit"
                   disabled={sending}
-                  className="snake-btn"
-                  snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
                   style={{
                     background: 'var(--bmc-gold)',
                     color: 'var(--bmc-dark)',
@@ -161,7 +157,7 @@ export default function Contact({ lang }) {
                     cursor: sending ? 'not-allowed' : 'pointer',
                     letterSpacing: 0.5, borderRadius: 2, transition: 'all 0.3s',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    gap: 8, opacity: sending ? 0.7 : 1, overflow: 'hidden',
+                    gap: 8, opacity: sending ? 0.7 : 1,
                   }}
                   onMouseEnter={(e) => { if (!sending) { e.currentTarget.style.background = 'var(--bmc-gold-light)'; e.currentTarget.style.transform = 'translateY(-2px)'; } }}
                   onMouseLeave={(e) => { if (!sending) { e.currentTarget.style.background = 'var(--bmc-gold)'; e.currentTarget.style.transform = 'translateY(0)'; } }}
@@ -170,7 +166,7 @@ export default function Contact({ lang }) {
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
-                </SnakeButton>
+                </button>
               </form>
             )}
           </div>

@@ -238,7 +238,7 @@ export default function ServicesPage({ lang, setLang }) {
       {/* Services Grid */}
       <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, background: 'rgba(184,164,114,0.08)' }}>
+          <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, background: 'rgba(184,164,114,0.08)' }}>
             {tx.services.map((svc, i) => (
               <div
                 key={i}

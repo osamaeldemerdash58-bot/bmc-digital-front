@@ -172,12 +172,15 @@ export default function ServicesPage({ lang }) {
 
       {/* ── Services Grid ── */}
       <div className="container" style={{ paddingBottom: 100 }}>
-        <div style={{
+        <div
+          className="services-grid"
+          style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 1,
           background: 'rgba(184,164,114,0.08)',
-        }}>
+          }}
+        >
           {items.map((item, i) => {
             const isLast = i === items.length - 1;
             const isOdd = items.length % 2 !== 0;
