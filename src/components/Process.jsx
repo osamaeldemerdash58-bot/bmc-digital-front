@@ -290,7 +290,7 @@ export default function Process({ lang }) {
   };
 
   const renderRow = (rowSteps, offset) => (
-    <div style={{
+    <div className="process-row-grid" style={{
       display: 'grid',
       gridTemplateColumns: `repeat(${rowSteps.length}, 1fr)`,
       gap: 20, position: 'relative',
@@ -396,10 +396,10 @@ export default function Process({ lang }) {
           100% { transform: translate(-50%,-50%) scale(18); opacity: 0; }
         }
         @media (max-width: 900px) {
-          #process .container > div[style*="grid"] { grid-template-columns: repeat(2,1fr) !important; max-width: 100% !important; }
+          #process .process-row-grid { grid-template-columns: repeat(2,1fr) !important; max-width: 100% !important; }
         }
         @media (max-width: 580px) {
-          #process .container > div[style*="grid"] { grid-template-columns: 1fr !important; }
+          #process .process-row-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

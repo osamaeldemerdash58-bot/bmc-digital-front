@@ -87,6 +87,7 @@ export const t = {
         { num: '03', title: 'التطوير والبناء', desc: 'فريقنا يبني مشروعك بأعلى معايير الجودة وأحدث التقنيات.' },
         { num: '04', title: 'الاختبار والإطلاق', desc: 'اختبار شامل لضمان الجودة ثم إطلاق المشروع بسلاسة تامة.' },
         { num: '05', title: 'الدعم والتطوير', desc: 'نستمر معك بعد الإطلاق بدعم مستمر وتحديثات دورية.' },
+        { num: '06', title: 'القياس والتحسين', desc: 'نراقب الأداء بعد الإطلاق وننفذ تحسينات مستمرة لرفع النتائج وتحقيق نمو أفضل.' },
       ],
     },
     tech: {
@@ -174,6 +175,7 @@ export const t = {
         { num: '03', title: 'Develop & Build', desc: 'Our team builds your project to the highest quality standards with the latest technologies.' },
         { num: '04', title: 'Test & Launch', desc: 'Thorough testing ensures quality, then a smooth project launch.' },
         { num: '05', title: 'Support & Evolve', desc: 'We continue with you after launch with ongoing support and regular updates.' },
+        { num: '06', title: 'Measure & Improve', desc: 'After launch, we track performance and apply continuous improvements for stronger outcomes.' },
       ],
     },
     tech: {
