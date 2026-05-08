@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
+import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
 
 const contactData = {
   ar: {
@@ -73,14 +75,16 @@ export default function ContactPage({ lang, setLang }) {
 
       {/* Hero */}
       <section style={{
-        minHeight: '40vh',
-        background: 'linear-gradient(135deg, #0A0E0D 0%, #0F1512 100%)',
+        minHeight: '48vh',
+        backgroundImage: `linear-gradient(135deg, rgba(10,14,13,0.9) 0%, rgba(15,21,18,0.92) 100%), url(${servicesBgImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         display: 'flex',
         alignItems: 'center',
-        paddingTop: 110,
-        paddingBottom: 64,
+        paddingTop: 100,
+        paddingBottom: 90,
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'visible',
       }}>
         <div style={{
           position: 'absolute', top: '50%', left: '50%',
@@ -91,6 +95,20 @@ export default function ContactPage({ lang, setLang }) {
         }} />
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            color: 'rgba(245,240,232,0.6)',
+            fontSize: 13,
+            marginBottom: 18,
+          }}>
+            <Link to="/" style={{ color: 'rgba(245,240,232,0.5)', textDecoration: 'none' }}>
+              {lang === 'ar' ? 'الرئيسية' : 'Home'}
+            </Link>
+            <span style={{ color: 'rgba(184,164,114,0.35)' }}>/</span>
+            <span style={{ color: 'var(--bmc-gold)', fontWeight: 700 }}>{lang === 'ar' ? 'تواصل معنا' : 'Contact'}</span>
+          </div>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             background: 'rgba(184,164,114,0.1)', border: '1px solid rgba(184,164,114,0.25)',
@@ -103,7 +121,7 @@ export default function ContactPage({ lang, setLang }) {
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
             fontSize: 'clamp(36px, 5vw, 64px)',
-            fontWeight: 900, lineHeight: 1.1, marginBottom: 20,
+            fontWeight: 900, lineHeight: 1.34, marginBottom: 20, paddingBottom: 6, textWrap: 'balance',
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block' }}>{tx.title}</span>
             <span style={{
@@ -118,10 +136,30 @@ export default function ContactPage({ lang, setLang }) {
         </div>
       </section>
 
+      <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(184,164,114,0.16)', borderBottom: '1px solid rgba(184,164,114,0.16)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', width: 'max-content', animation: 'contactTicker 28s linear infinite' }}>
+          {Array.from({ length: 4 }, () => contactItems).flat().map((c, i) => (
+            <div key={`${c.label}-${i}`} style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '14px 24px',
+              color: 'rgba(245,240,232,0.75)',
+              fontSize: 13,
+              letterSpacing: 0.6,
+              whiteSpace: 'nowrap',
+            }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--bmc-gold)' }} />
+              {c.label}: {c.value}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Content */}
       <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80, alignItems: 'start' }}>
+          <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 28, alignItems: 'start' }}>
 
             {/* Left: direct contact */}
             <div className="reveal">
@@ -142,20 +180,29 @@ export default function ContactPage({ lang, setLang }) {
                       alignItems: 'center',
                       gap: 16,
                       padding: '20px 24px',
-                      background: 'var(--bmc-dark)',
-                      border: '1px solid rgba(184,164,114,0.1)',
+                      background: 'var(--bmc-dark-2)',
+                      border: '1px solid rgba(184,164,114,0.14)',
                       textDecoration: 'none',
-                      transition: 'all 0.3s',
-                      borderRadius: 2,
+                      transition: 'all 0.35s',
+                      borderRadius: 14,
+                      boxShadow: '0 14px 34px rgba(0,0,0,0.22)',
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(184,164,114,0.35)'; e.currentTarget.style.background = 'var(--bmc-dark-3)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(184,164,114,0.1)'; e.currentTarget.style.background = 'var(--bmc-dark)'; }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(184,164,114,0.34)';
+                      e.currentTarget.style.background = 'var(--bmc-dark-3)';
+                      e.currentTarget.style.transform = 'translateY(-6px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(184,164,114,0.14)';
+                      e.currentTarget.style.background = 'var(--bmc-dark-2)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
                   >
                     <div style={{
                       width: 44, height: 44,
                       border: '1px solid rgba(184,164,114,0.2)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: 'var(--bmc-gold)', flexShrink: 0, borderRadius: 2,
+                      color: 'var(--bmc-gold)', flexShrink: 0, borderRadius: 10,
                     }}>
                       {c.icon}
                     </div>
@@ -174,11 +221,19 @@ export default function ContactPage({ lang, setLang }) {
 
             {/* Right: form */}
             <div className="reveal" style={{ transitionDelay: '0.2s' }}>
-              <ServiceRequestPopup
-                lang={lang}
-                title={tx.formTitle}
-                subtitle={tx.formSubtitle}
-              />
+              <div style={{
+                border: '1px solid rgba(184,164,114,0.14)',
+                borderRadius: 14,
+                padding: 18,
+                background: 'var(--bmc-dark-2)',
+                boxShadow: '0 14px 34px rgba(0,0,0,0.22)',
+              }}>
+                <ServiceRequestPopup
+                  lang={lang}
+                  title={tx.formTitle}
+                  subtitle={tx.formSubtitle}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -188,10 +243,20 @@ export default function ContactPage({ lang, setLang }) {
       <WhatsAppFloat lang={lang} />
 
       <style>{`
+        @keyframes contactTicker {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-25%); }
+        }
+        @media (max-width: 640px) {
+          section h1 {
+            line-height: 1.4 !important;
+            padding-bottom: 10px !important;
+          }
+        }
         @media (max-width: 900px) {
-          section:nth-of-type(2) .container > div {
+          .contact-grid {
             grid-template-columns: 1fr !important;
-            gap: 48px !important;
+            gap: 22px !important;
           }
         }
       `}</style>

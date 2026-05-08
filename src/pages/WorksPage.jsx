@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
+import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
 
 const colors = [
   'linear-gradient(135deg, #1a2220 0%, #0f1512 100%)',
@@ -67,14 +69,16 @@ export default function WorksPage({ lang, setLang }) {
 
       {/* Hero */}
       <section style={{
-        minHeight: '45vh',
-        background: 'linear-gradient(135deg, #0A0E0D 0%, #0F1512 100%)',
+        minHeight: '48vh',
+        backgroundImage: `linear-gradient(135deg, rgba(10,14,13,0.9) 0%, rgba(15,21,18,0.92) 100%), url(${servicesBgImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         display: 'flex',
         alignItems: 'center',
         paddingTop: 110,
-        paddingBottom: 64,
+        paddingBottom: 90,
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'visible',
       }}>
         <div style={{
           position: 'absolute', top: '50%', left: '50%',
@@ -100,6 +104,20 @@ export default function WorksPage({ lang, setLang }) {
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            color: 'rgba(245,240,232,0.6)',
+            fontSize: 13,
+            marginBottom: 18,
+          }}>
+            <Link to="/" style={{ color: 'rgba(245,240,232,0.5)', textDecoration: 'none' }}>
+              {lang === 'ar' ? 'الرئيسية' : 'Home'}
+            </Link>
+            <span style={{ color: 'rgba(184,164,114,0.35)' }}>/</span>
+            <span style={{ color: 'var(--bmc-gold)', fontWeight: 700 }}>{lang === 'ar' ? 'أعمالنا' : 'Works'}</span>
+          </div>
+          <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             background: 'rgba(184,164,114,0.1)', border: '1px solid rgba(184,164,114,0.25)',
             padding: '6px 16px', borderRadius: 20, marginBottom: 28,
@@ -111,7 +129,7 @@ export default function WorksPage({ lang, setLang }) {
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
             fontSize: 'clamp(36px, 5vw, 68px)',
-            fontWeight: 900, lineHeight: 1.1, marginBottom: 24, maxWidth: 700,
+            fontWeight: 900, lineHeight: 1.34, marginBottom: 24, maxWidth: 700, paddingBottom: 6, textWrap: 'balance',
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block' }}>{tx.title}</span>
             <span style={{
@@ -130,11 +148,10 @@ export default function WorksPage({ lang, setLang }) {
       {/* Works Grid */}
       <section style={{ background: 'var(--bmc-dark-3)', padding: '80px 0' }}>
         <div className="container">
-          <div style={{
+          <div className="works-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 1,
-            background: 'rgba(184,164,114,0.08)',
+            gap: 18,
           }}>
             {items.map((item, i) => (
               <div
@@ -142,15 +159,28 @@ export default function WorksPage({ lang, setLang }) {
                 className="reveal"
                 style={{
                   background: hovered === i ? colors[i] : 'var(--bmc-dark-3)',
-                  padding: '48px 36px',
+                  padding: '44px 32px',
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',
                   transitionDelay: `${i * 0.1}s`,
-                  transition: 'background 0.5s ease',
+                  transition: 'background 0.5s ease, transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease',
+                  borderRadius: 14,
+                  border: '1px solid rgba(184,164,114,0.14)',
+                  boxShadow: '0 14px 34px rgba(0,0,0,0.22)',
                 }}
-                onMouseEnter={() => setHovered(i)}
-                onMouseLeave={() => setHovered(null)}
+                onMouseEnter={(e) => {
+                  setHovered(i);
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.borderColor = 'rgba(184,164,114,0.34)';
+                  e.currentTarget.style.boxShadow = '0 20px 42px rgba(0,0,0,0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  setHovered(null);
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'rgba(184,164,114,0.14)';
+                  e.currentTarget.style.boxShadow = '0 14px 34px rgba(0,0,0,0.22)';
+                }}
               >
                 <div style={{
                   fontFamily: 'Playfair Display, serif',
@@ -240,10 +270,14 @@ export default function WorksPage({ lang, setLang }) {
 
       <style>{`
         @media (max-width: 900px) {
-          section:nth-of-type(2) .container > div { grid-template-columns: repeat(2, 1fr) !important; }
+          .works-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 600px) {
-          section:nth-of-type(2) .container > div { grid-template-columns: 1fr !important; }
+          .works-grid { grid-template-columns: 1fr !important; }
+          section h1 {
+            line-height: 1.4 !important;
+            padding-bottom: 10px !important;
+          }
         }
       `}</style>
     </>

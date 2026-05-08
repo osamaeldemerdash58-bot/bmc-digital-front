@@ -71,6 +71,30 @@ export default function ProcessPage({ lang, setLang }) {
           pointerEvents: 'none',
         }} />
         <div style={{
+          position: 'absolute',
+          top: '10%',
+          left: '12%',
+          width: 280,
+          height: 280,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(74,144,217,0.14), transparent 68%)',
+          filter: 'blur(6px)',
+          animation: 'floatBlob 8s ease-in-out infinite',
+          pointerEvents: 'none',
+        }} />
+        <div style={{
+          position: 'absolute',
+          bottom: '8%',
+          right: '10%',
+          width: 240,
+          height: 240,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(184,164,114,0.12), transparent 68%)',
+          filter: 'blur(6px)',
+          animation: 'floatBlob 9s ease-in-out infinite reverse',
+          pointerEvents: 'none',
+        }} />
+        <div style={{
           position: 'absolute', bottom: -20,
           left: lang === 'ar' ? 'auto' : 0,
           right: lang === 'ar' ? 0 : 'auto',
@@ -204,6 +228,10 @@ export default function ProcessPage({ lang, setLang }) {
       <WhatsAppFloat lang={lang} />
 
       <style>{`
+        @keyframes floatBlob {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-18px); }
+        }
         @media (max-width: 900px) {
           section:nth-of-type(2) .container > div {
             grid-template-columns: 1fr !important;

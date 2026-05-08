@@ -863,7 +863,7 @@ export default function AdminPage() {
             <h1 style={styles.title}>{tr('الخدمات', 'Services')}</h1>
             <p style={styles.subtitle}>{tr('إدارة خدماتك', 'Manage your services')}</p>
               </div>
-              <button style={styles.btn} onClick={() => setEditingService({ slug: '', icon: '🌐', titleAr: '', titleEn: '', descAr: '', descEn: '', featuresAr: [''], featuresEn: [''], detailTitleAr: '', detailTitleEn: '', detailTitleSpanAr: '', detailTitleSpanEn: '', detailDescAr: '', detailDescEn: '', benefitsAr: [{ title: '', desc: '' }], benefitsEn: [{ title: '', desc: '' }], order: services.length, visible: true })}>
+              <button style={styles.btn} onClick={() => setEditingService({ slug: '', icon: '🌐', cardImage: '', titleAr: '', titleEn: '', descAr: '', descEn: '', featuresAr: [''], featuresEn: [''], detailTitleAr: '', detailTitleEn: '', detailTitleSpanAr: '', detailTitleSpanEn: '', detailDescAr: '', detailDescEn: '', benefitsAr: [{ title: '', desc: '' }], benefitsEn: [{ title: '', desc: '' }], order: services.length, visible: true })}>
                 + {tr('إضافة خدمة', 'Add Service')}
               </button>
             </div>
@@ -878,6 +878,13 @@ export default function AdminPage() {
                       <span style={styles.tag}>{svc.slug}</span>
                       <span style={styles.tag}>{svc.visible ? tr('✅ ظاهر', '✅ Visible') : tr('❌ مخفي', '❌ Hidden')}</span>
                     </div>
+                    {svc.cardImage && (
+                      <img
+                        src={svc.cardImage}
+                        alt={svc.titleEn}
+                        style={{ width: 120, height: 72, objectFit: 'cover', borderRadius: 4, marginTop: 10, border: '1px solid rgba(184,164,114,0.25)' }}
+                      />
+                    )}
                   </div>
                   <div style={{ display: 'flex', gap: 8 }}>
                     <button style={styles.btnSmall} onClick={() => setEditingService({ ...svc })}>✏️ {tr('تعديل', 'Edit')}</button>
@@ -1072,6 +1079,20 @@ function ServiceEditor({ svc, onSave, onCancel, uiLang }) {
       <div style={{ marginTop: 16 }}>
         <label style={styles.label}>Slug</label><input style={{ ...styles.input, maxWidth: 400 }} value={form.slug} onChange={e => f('slug', e.target.value)} />
         <label style={styles.label}>Icon</label><input style={{ ...styles.input, maxWidth: 100 }} value={form.icon} onChange={e => f('icon', e.target.value)} />
+        <label style={styles.label}>Card Image URL</label>
+        <input
+          style={{ ...styles.input, maxWidth: 700 }}
+          value={form.cardImage || ''}
+          onChange={e => f('cardImage', e.target.value)}
+          placeholder="https://images.unsplash.com/..."
+        />
+        {form.cardImage && (
+          <img
+            src={form.cardImage}
+            alt="service card preview"
+            style={{ width: 240, height: 140, objectFit: 'cover', borderRadius: 4, border: '1px solid rgba(184,164,114,0.25)', marginBottom: 14 }}
+          />
+        )}
         <label style={styles.label}>Order</label><input type="number" style={{ ...styles.input, maxWidth: 100 }} value={form.order} onChange={e => f('order', Number(e.target.value))} />
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <label style={styles.label}>Visible</label>

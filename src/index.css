@@ -23,7 +23,12 @@
   box-sizing: border-box;
   font-family: 'Cairo', sans-serif !important;
 }
-html { scroll-behavior: smooth; }
+
+/* auto بدل smooth عشان الـ JS scroll ميتعارضش مع الـ native */
+html {
+  scroll-behavior: auto;
+}
+
 body {
   background: var(--bmc-dark);
   color: var(--bmc-white);
@@ -32,6 +37,7 @@ body {
   overflow-x: hidden;
 }
 body.ltr { direction: ltr; }
+
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bmc-dark); }
 ::-webkit-scrollbar-thumb { background: var(--bmc-gold-dark); border-radius: 2px; }
@@ -74,14 +80,12 @@ button.snake-edge {
   overflow: visible;
 }
 
-/* Keep content above the animated border layer */
 a.snake-edge > *,
 button.snake-edge > * {
   position: relative;
   z-index: 2;
 }
 
-/* Rotating border segment ("snake") around the OUTER edge only */
 a.snake-edge::before,
 button.snake-edge::before {
   content: '';
@@ -109,7 +113,6 @@ button.snake-edge::before {
   pointer-events: none;
 }
 
-/* Keep the old .snake-light span hidden (not needed anymore) */
 .snake-light { display: none; }
 
 /* ================================================
@@ -149,4 +152,9 @@ button.snake-edge::before {
 @media (max-width: 768px) {
   .nav-links-desktop { display: none !important; }
   .burger-btn { display: flex !important; }
+}
+
+/* موبايل → native scroll عادي بدون مقاومة */
+@media (max-width: 900px) {
+  html { scroll-behavior: smooth; }
 }

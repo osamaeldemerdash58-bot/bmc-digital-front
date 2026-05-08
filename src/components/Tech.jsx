@@ -69,14 +69,13 @@ export function Tech({ lang }) {
           {techs.map((tech, i) => (
             <div
               key={i}
-              className="tech-card"
+              className="tech-grid-card"
               style={{
                 background: 'var(--bmc-dark)',
                 padding: '32px 24px',
                 textAlign: 'center',
-                transitionDelay: `${i * 0.04}s`,
                 cursor: 'default',
-                transition: `background 0.3s, opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${i * 0.04}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${i * 0.04}s`,
+                transition: 'background 0.22s ease',
               }}
               onMouseEnter={(e) => e.currentTarget.style.background = 'var(--bmc-dark-3)'}
               onMouseLeave={(e) => e.currentTarget.style.background = 'var(--bmc-dark)'}
@@ -91,6 +90,22 @@ export function Tech({ lang }) {
       </div>
 
       <style>{`
+        .tech-logo-wrap {
+          position: relative;
+          box-shadow: 0 0 20px rgba(184,164,114,0.34), 0 0 38px rgba(184,164,114,0.2);
+        }
+        .tech-logo-wrap::before {
+          content: '';
+          position: absolute;
+          inset: -7px;
+          border-radius: 50%;
+          border: 1px solid rgba(184,164,114,0.4);
+          box-shadow: 0 0 18px rgba(184,164,114,0.3);
+          pointer-events: none;
+        }
+        .tech-logo-icon {
+          filter: drop-shadow(0 0 10px rgba(184,164,114,0.55)) drop-shadow(0 0 20px rgba(184,164,114,0.35));
+        }
         @media (max-width: 768px) {
           #tech .container > div:last-child { grid-template-columns: repeat(3, 1fr) !important; }
         }
@@ -106,7 +121,9 @@ function TechLogo({ tech }) {
   const iconUrl = getTechIconUrl(tech);
 
   return (
-    <div style={{
+    <div
+      className="tech-logo-wrap"
+      style={{
       width: 48,
       height: 48,
       margin: '0 auto 16px',
@@ -126,6 +143,7 @@ function TechLogo({ tech }) {
           loading="lazy"
           width={28}
           height={28}
+          className="tech-logo-icon"
           style={{ width: 28, height: 28, objectFit: 'contain', display: 'block' }}
           onError={(e) => {
             e.currentTarget.style.display = 'none';
@@ -142,6 +160,7 @@ function TechLogo({ tech }) {
           color: tech.color,
           fontFamily: 'Playfair Display, serif',
           lineHeight: 1,
+          textShadow: '0 0 10px rgba(184,164,114,0.6), 0 0 20px rgba(184,164,114,0.35)',
         }}
       >
         {(tech.name || '?')[0]}
