@@ -236,7 +236,7 @@ export default function ServicesPage({ lang }) {
           {/* ─ Fix: paddingBottom يمنع تاكل الكلمة من الأنيميشن ─ */}
           <h1 className="svc-reveal" style={{
             opacity: 0, transform: 'translateY(24px)', transition: 'all 0.7s 0.2s',
-            fontFamily: 'Playfair Display, serif',
+            fontFamily: isAr ? 'Cairo, sans-serif' : 'Playfair Display, serif',
             fontSize: 'clamp(36px,6vw,72px)', fontWeight: 900,
             color: 'var(--bmc-white)', lineHeight: 1.36,
             marginBottom: 16,
@@ -248,9 +248,10 @@ export default function ServicesPage({ lang }) {
             <span style={{
               background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text', fontStyle: 'italic',
-              display: 'inline-block', /* ← Fix: ضروري عشان البادينج يشتغل على الـ span */
-              paddingBottom: 4,
+              backgroundClip: 'text',
+              fontStyle: isAr ? 'normal' : 'italic',
+              display: isAr ? 'inline' : 'inline-block',
+              paddingBottom: isAr ? 0 : 4,
             }}>{tx.titleSpan}</span>
           </h1>
 

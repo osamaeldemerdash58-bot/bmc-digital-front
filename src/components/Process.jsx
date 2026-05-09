@@ -149,7 +149,7 @@ export default function Process({ lang }) {
         <div ref={timelineRef} style={{ position: 'relative' }}>
 
           {/* Animated center line */}
-          <div style={{
+          <div className="proc-center-line" style={{
             position: 'absolute',
             top: 0, bottom: 0,
             left: lang === 'ar' ? 'auto' : '50%',
@@ -284,7 +284,7 @@ export default function Process({ lang }) {
                     </p>
 
                     {/* Connector arm to center dot */}
-                    <div style={{
+                    <div className="proc-arm" style={{
                       position: 'absolute',
                       top: '50%',
                       transform: 'translateY(-50%)',
@@ -301,7 +301,7 @@ export default function Process({ lang }) {
                 </div>
 
                 {/* Glowing dot on center line */}
-                <div style={{
+                <div className="proc-dot-wrap" style={{
                   position: 'absolute',
                   top: '50%',
                   left: lang === 'ar' ? 'auto' : 'calc(50% - 8px)',
@@ -379,15 +379,35 @@ export default function Process({ lang }) {
           border-color: rgba(184,164,114,0.7) !important;
         }
 
-        /* Mobile */
         @media (max-width: 768px) {
           #process .proc-row {
             justify-content: flex-start !important;
+            padding-left: 28px !important;
           }
           #process .proc-row > div:first-child {
-            width: 88% !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
+            width: 100% !important;
+          }
+          #process .proc-dot-wrap { display: none !important; }
+          #process .proc-arm      { display: none !important; }
+          #process .proc-center-line { display: none !important; }
+          #process .proc-row > div:first-child > div {
+            border-left: 2px solid rgba(184,164,114,0.35) !important;
+            padding-left: 22px !important;
+            transform: none !important;
+            transition: border-color 0.3s !important;
+          }
+          #process .proc-row > div:first-child > div::before {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: -9px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--bmc-gold, #B8A472);
+            border: 3px solid var(--bmc-dark-2, #141222);
+            box-shadow: 0 0 8px rgba(184,164,114,0.5);
+            z-index: 5;
           }
         }
       `}</style>
