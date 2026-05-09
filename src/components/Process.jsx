@@ -381,33 +381,24 @@ export default function Process({ lang }) {
 
         @media (max-width: 768px) {
           #process .proc-row {
-            justify-content: flex-start !important;
-            padding-left: 28px !important;
+            justify-content: center !important;
           }
           #process .proc-row > div:first-child {
-            width: 100% !important;
+            width: 85% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
           }
-          #process .proc-dot-wrap { display: none !important; }
-          #process .proc-arm      { display: none !important; }
-          #process .proc-center-line { display: none !important; }
+          #process .proc-dot-wrap {
+            top: 28px !important;
+            transform: none !important;
+          }
+          #process .proc-arm {
+            top: 28px !important;
+            transform: none !important;
+          }
           #process .proc-row > div:first-child > div {
-            border-left: 2px solid rgba(184,164,114,0.35) !important;
-            padding-left: 22px !important;
             transform: none !important;
             transition: border-color 0.3s !important;
-          }
-          #process .proc-row > div:first-child > div::before {
-            content: '';
-            position: absolute;
-            top: 22px;
-            left: -9px;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--bmc-gold, #B8A472);
-            border: 3px solid var(--bmc-dark-2, #141222);
-            box-shadow: 0 0 8px rgba(184,164,114,0.5);
-            z-index: 5;
           }
         }
       `}</style>
