@@ -39,7 +39,7 @@ function LoadingScreen() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#0a0e0d',
+      background: 'var(--bmc-dark)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

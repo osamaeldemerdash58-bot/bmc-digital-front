@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -58,69 +58,17 @@ const serviceAccents = {
   'tech-consulting': '#2C3E50',
 };
 
-function renderServiceIcon(slug, color = '#B8A472') {
-  const props = { viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: '1.6', strokeLinecap: 'round', strokeLinejoin: 'round' };
-  if (slug === 'web-development') return <svg {...props}><path d="M3 4h18v12H3z" /><path d="M8 20h8M12 16v4M7 9h4M7 12h7" /></svg>;
-  if (slug === 'e-commerce-website-development') return <svg {...props}><path d="M4 7h16v12H4z" /><path d="M9 7V5a3 3 0 0 1 6 0v2M4 11h16" /></svg>;
-  if (slug === 'mobile-app-development') return <svg {...props}><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M10 6h4M12 18h.01M9 11l2 2 4-4" /></svg>;
-  if (slug === 'erp-systems') return <svg {...props}><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><path d="M14 17h7M17 14v7" /></svg>;
-  if (slug === 'ui-ux-design') return <svg {...props}><path d="M4 20l5.5-1.2L20 8.3 15.7 4 5.2 14.5z" /><path d="M13.5 6.2l4.3 4.3M4 20h6" /></svg>;
-  if (slug === 'ai-solutions') return <svg {...props}><circle cx="12" cy="12" r="4" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" /></svg>;
-  return <svg {...props}><path d="M4 5h16v10H7l-3 3z" /><path d="M8 9h8M8 12h5" /></svg>;
-}
-
-/* ── 3D tilt card hook ── */
-function useTilt(strength = 12) {
-  const ref = useRef(null);
-  const frameRef = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const onMove = (e) => {
-      cancelAnimationFrame(frameRef.current);
-      frameRef.current = requestAnimationFrame(() => {
-        const rect = el.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        el.style.transform = `perspective(900px) rotateY(${x * strength}deg) rotateX(${-y * strength}deg) translateZ(10px)`;
-      });
-    };
-
-    const onLeave = () => {
-      cancelAnimationFrame(frameRef.current);
-      el.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) translateZ(0px)';
-      el.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
-      setTimeout(() => { if (el) el.style.transition = ''; }, 600);
-    };
-
-    el.addEventListener('mousemove', onMove);
-    el.addEventListener('mouseleave', onLeave);
-    return () => {
-      el.removeEventListener('mousemove', onMove);
-      el.removeEventListener('mouseleave', onLeave);
-      cancelAnimationFrame(frameRef.current);
-    };
-  }, [strength]);
-
-  return ref;
-}
-
 function ServiceCard3D({ svc, accent, index, learnMore }) {
-  const tiltRef = useTilt(10);
   const [hovered, setHovered] = useState(false);
 
   return (
     <div
       style={{
-        perspective: '900px',
         animationDelay: `${index * 0.08}s`,
       }}
       className="card-entry"
     >
       <div
-        ref={tiltRef}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
@@ -133,11 +81,10 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
           position: 'relative',
           overflow: 'hidden',
           boxShadow: hovered
-            ? `0 32px 64px rgba(0,0,0,0.5), 0 0 0 1px ${accent}44, inset 0 1px 0 rgba(255,255,255,0.06)`
+            ? `0 18px 34px rgba(0,0,0,0.38), 0 0 0 1px ${accent}30, inset 0 1px 0 rgba(255,255,255,0.05)`
             : '0 14px 34px rgba(0,0,0,0.28)',
-          transition: 'background 0.35s, border-color 0.35s, box-shadow 0.4s',
-          willChange: 'transform',
-          transformStyle: 'preserve-3d',
+          transform: hovered ? 'translateY(-3px)' : 'translateY(0)',
+          transition: 'background 0.35s, border-color 0.35s, box-shadow 0.35s, transform 0.35s',
           cursor: 'default',
         }}
       >
@@ -170,8 +117,6 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
             overflow: 'hidden',
             position: 'relative',
             border: `1px solid ${accent}44`,
-            transform: hovered ? 'translateZ(20px) scale(1.01)' : 'translateZ(0)',
-            transition: 'transform 0.4s cubic-bezier(0.23,1,0.32,1)',
           }}>
             <img src={svc.cardImage} alt={svc.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${accent}18 0%, rgba(11,15,21,0.2) 45%, rgba(11,15,21,0.82) 100%)` }} />
@@ -186,7 +131,6 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
             position: 'relative',
             overflow: 'hidden',
             transition: 'background 0.4s, border-color 0.4s',
-            transform: hovered ? 'translateZ(16px)' : 'translateZ(0)',
           }}>
             {/* Animated grid lines on placeholder */}
             <div style={{
@@ -199,30 +143,12 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
           </div>
         )}
 
-        {/* Icon */}
-        <div style={{
-          width: 58,
-          height: 58,
-          marginBottom: 20,
-          borderRadius: 14,
-          background: `${accent}${hovered ? '28' : '15'}`,
-          border: `1px solid ${accent}${hovered ? '88' : '44'}`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          transform: hovered ? 'translateZ(28px) rotateY(-5deg)' : 'translateZ(0)',
-          transition: 'transform 0.4s cubic-bezier(0.23,1,0.32,1), background 0.4s, border-color 0.4s',
-          boxShadow: hovered ? `0 8px 24px ${accent}33` : 'none',
-        }}>
-          <div style={{ width: 28, height: 28 }}>{renderServiceIcon(svc.slug, accent)}</div>
-        </div>
-
         <h2 style={{
           fontSize: 19,
           fontWeight: 700,
           color: 'var(--bmc-white)',
           marginBottom: 14,
           lineHeight: 1.4,
-          transform: hovered ? 'translateZ(12px)' : 'translateZ(0)',
-          transition: 'transform 0.35s',
         }}>
           {svc.title}
         </h2>
@@ -238,7 +164,7 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
               style={{
                 display: 'flex', alignItems: 'center', gap: 8,
                 fontSize: 12.5, color: 'rgba(245,240,232,0.62)',
-                transform: hovered ? `translateX(${4}px)` : 'translateX(0)',
+                transform: hovered ? 'translateX(2px)' : 'translateX(0)',
                 transition: `transform ${0.25 + j * 0.05}s cubic-bezier(0.23,1,0.32,1)`,
               }}
             >
@@ -258,8 +184,6 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
             border: '1px solid rgba(184,164,114,0.35)', borderRadius: 3,
             display: 'inline-flex', alignItems: 'center', gap: 6,
             overflow: 'hidden', position: 'relative',
-            transform: hovered ? 'translateZ(20px)' : 'translateZ(0)',
-            transition: 'transform 0.35s',
           }}
         >
           {learnMore}

@@ -117,15 +117,6 @@ export default function WorksPage({ lang, setLang }) {
             <span style={{ color: 'rgba(184,164,114,0.35)' }}>/</span>
             <span style={{ color: 'var(--bmc-gold)', fontWeight: 700 }}>{lang === 'ar' ? 'أعمالنا' : 'Works'}</span>
           </div>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(184,164,114,0.1)', border: '1px solid rgba(184,164,114,0.25)',
-            padding: '6px 16px', borderRadius: 20, marginBottom: 28,
-          }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--bmc-gold)', display: 'inline-block' }} />
-            <span style={{ fontSize: 12, color: 'var(--bmc-gold)', fontWeight: 600, letterSpacing: 1 }}>{tx.badge}</span>
-          </div>
-
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
             fontSize: 'clamp(36px, 5vw, 68px)',

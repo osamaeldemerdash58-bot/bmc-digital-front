@@ -18,17 +18,6 @@ const serviceAccents = {
   'tech-consulting': '#2C3E50',
 };
 
-function renderServiceIcon(slug, color = '#B8A472') {
-  const props = { viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: '1.6', strokeLinecap: 'round', strokeLinejoin: 'round' };
-  if (slug === 'web-development') return <svg {...props}><path d="M3 4h18v12H3z" /><path d="M8 20h8M12 16v4M7 9h4M7 12h7" /></svg>;
-  if (slug === 'e-commerce-website-development') return <svg {...props}><path d="M4 7h16v12H4z" /><path d="M9 7V5a3 3 0 0 1 6 0v2M4 11h16" /></svg>;
-  if (slug === 'mobile-app-development') return <svg {...props}><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M10 6h4M12 18h.01M9 11l2 2 4-4" /></svg>;
-  if (slug === 'erp-systems') return <svg {...props}><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><path d="M14 17h7M17 14v7" /></svg>;
-  if (slug === 'ui-ux-design') return <svg {...props}><path d="M4 20l5.5-1.2L20 8.3 15.7 4 5.2 14.5z" /><path d="M13.5 6.2l4.3 4.3M4 20h6" /></svg>;
-  if (slug === 'ai-solutions') return <svg {...props}><circle cx="12" cy="12" r="4" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" /></svg>;
-  return <svg {...props}><path d="M4 5h16v10H7l-3 3z" /><path d="M8 9h8M8 12h5" /></svg>;
-}
-
 /* ── 3D tilt card hook ── */
 function useTilt(strength = 10) {
   const ref = useRef(null);
@@ -112,35 +101,6 @@ function DetailCard3D({ children, accent, delay = 0, isBenefit = false }) {
         borderRadius: 2,
       }} />
       {children({ hovered, accent })}
-    </div>
-  );
-}
-
-/* Hero icon with continuous 3D spin on hover */
-function HeroIcon3D({ slug, accent }) {
-  const [spin, setSpin] = useState(false);
-  return (
-    <div
-      onMouseEnter={() => setSpin(true)}
-      onMouseLeave={() => setSpin(false)}
-      style={{
-        width: 92,
-        height: 92,
-        borderRadius: 22,
-        border: `1px solid ${accent}66`,
-        background: `${accent}18`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        margin: '0 auto 24px',
-        boxShadow: `0 0 40px ${accent}22, inset 0 1px 0 rgba(255,255,255,0.08)`,
-        animation: spin ? 'iconSpin3d 1.2s cubic-bezier(0.23,1,0.32,1) infinite' : 'heroIconFloat 4s ease-in-out infinite',
-        transformStyle: 'preserve-3d',
-        cursor: 'pointer',
-        transition: 'box-shadow 0.3s',
-      }}
-    >
-      <div style={{ width: 46, height: 46 }}>
-        {renderServiceIcon(slug, accent)}
-      </div>
     </div>
   );
 }
@@ -235,11 +195,6 @@ export default function ServiceDetailPage({ lang, setLang }) {
             </Link>
             <span style={{ color: 'rgba(184,164,114,0.3)' }}>/</span>
             <span style={{ color: 'var(--bmc-gold)', fontWeight: 700 }}>{title}</span>
-          </div>
-
-          {/* 3D floating icon */}
-          <div className="hero-icon-wrap">
-            <HeroIcon3D slug={service.slug} accent={accent} />
           </div>
 
           <h1 className="hero-title-detail" style={{
@@ -391,22 +346,11 @@ export default function ServiceDetailPage({ lang, setLang }) {
           0%, 100% { transform: translateY(0) scale(1); }
           50% { transform: translateY(18px) scale(0.96); }
         }
-        @keyframes heroIconFloat {
-          0%, 100% { transform: perspective(600px) rotateX(0deg) rotateY(0deg) translateZ(0); }
-          25% { transform: perspective(600px) rotateX(6deg) rotateY(8deg) translateZ(8px); }
-          50% { transform: perspective(600px) rotateX(0deg) rotateY(12deg) translateZ(12px); }
-          75% { transform: perspective(600px) rotateX(-6deg) rotateY(6deg) translateZ(8px); }
-        }
-        @keyframes iconSpin3d {
-          0% { transform: perspective(600px) rotateY(0deg); }
-          100% { transform: perspective(600px) rotateY(360deg); }
-        }
         @keyframes cardEntry {
           from { opacity: 0; transform: perspective(900px) rotateX(20deg) translateY(36px); }
           to   { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
         }
         .hero-breadcrumb { animation: cardEntry 0.7s cubic-bezier(0.23,1,0.32,1) both; }
-        .hero-icon-wrap  { animation: cardEntry 0.75s cubic-bezier(0.23,1,0.32,1) 0.08s both; }
         .hero-title-detail { animation: cardEntry 0.8s cubic-bezier(0.23,1,0.32,1) 0.14s both; }
         .desc-block { animation: cardEntry 0.8s cubic-bezier(0.23,1,0.32,1) 0.1s both; }
         .detail-card { animation: cardEntry 0.75s cubic-bezier(0.23,1,0.32,1) both; }
