@@ -4,14 +4,49 @@ import { useData } from '../DataContext';
 import SnakeButton from './SnakeButton';
 import '../animations.css';
 
+/* ─────────────────────────────────────────
+   أيقونات جديدة — أنيقة ومتناسقة مع الموقع
+───────────────────────────────────────── */
 const serviceIcons = [
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 4h18v12H3z"/><path d="M8 20h8M12 16v4M7 9h4M7 12h7"/></svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10 6h4M12 18h.01M9 11l2 2 4-4"/></svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h16v12H4z"/><path d="M9 7V5a3 3 0 0 1 6 0v2M4 11h16"/></svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17h7M17 14v7"/></svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 20l5.5-1.2L20 8.3 15.7 4 5.2 14.5z"/><path d="M13.5 6.2l4.3 4.3M4 20h6"/></svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></svg>,
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5h16v10H7l-3 3z"/><path d="M8 9h8M8 12h5"/></svg>,
+  /* 0 — Web Development */
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="3" width="20" height="14" rx="2"/>
+    <path d="M8 21h8M12 17v4"/>
+    <path d="M7 8l3 3-3 3M13 14h4"/>
+  </svg>,
+  /* 1 — Mobile App */
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="6" y="2" width="12" height="20" rx="3"/>
+    <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/>
+    <path d="M9 6h6"/>
+  </svg>,
+  /* 2 — E-commerce */
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+    <path d="M3 6h18"/>
+    <path d="M16 10a4 4 0 01-8 0"/>
+  </svg>,
+  /* 3 — ERP Systems */
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+    <path d="M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+  </svg>,
+  /* 4 — UI/UX Design */
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+    <circle cx="8" cy="8" r="2"/>
+  </svg>,
+  /* 5 — AI Solutions */
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+  </svg>,
+  /* 6 — Tech Consulting */
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+    <path d="M8 10h8M8 13h5"/>
+  </svg>,
 ];
 
 const serviceDetailSlugs = [
@@ -35,7 +70,7 @@ function resolveServiceSlug(item, index) {
   return serviceDetailSlugs[index] || 'web-development';
 }
 
-/* ── Floating particles — identical approach to About.jsx ── */
+/* ── Floating particles ── */
 function ServiceParticles() {
   const items = Array.from({ length: 22 }, (_, i) => ({
     size: Math.random() * 3 + 1,
@@ -60,7 +95,7 @@ function ServiceParticles() {
   );
 }
 
-/* ── Orbiting ring behind hero number — mirrors About sphere rings ── */
+/* ── Orbiting rings ── */
 function HeroOrb() {
   return (
     <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', pointerEvents: 'none' }}>
@@ -104,7 +139,7 @@ function useScrollReveal() {
   }, []);
 }
 
-/* ── Icon pulse canvas — small animated glow dot like About sphere dot ── */
+/* ── Icon glow dot ── */
 function IconGlowDot({ color }) {
   const ref = useRef(null);
   const raf = useRef(null);
@@ -197,17 +232,25 @@ export default function ServicesPage({ lang }) {
           <p className="section-label svc-reveal" style={{ opacity: 0, transform: 'translateY(16px)', transition: 'all 0.6s 0.1s' }}>
             {tx.label}
           </p>
+
+          {/* ─ Fix: paddingBottom يمنع تاكل الكلمة من الأنيميشن ─ */}
           <h1 className="svc-reveal" style={{
             opacity: 0, transform: 'translateY(24px)', transition: 'all 0.7s 0.2s',
             fontFamily: 'Playfair Display, serif',
             fontSize: 'clamp(36px,6vw,72px)', fontWeight: 900,
-            color: 'var(--bmc-white)', lineHeight: 1.36, marginBottom: 16, paddingBottom: 6, textWrap: 'balance',
+            color: 'var(--bmc-white)', lineHeight: 1.36,
+            marginBottom: 16,
+            paddingBottom: 12,   /* ← Fix: يمنع قص الـ descenders */
+            overflow: 'visible', /* ← Fix: مش يقطع الحروف */
+            textWrap: 'balance',
           }}>
             {tx.title}{' '}
             <span style={{
               background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
               backgroundClip: 'text', fontStyle: 'italic',
+              display: 'inline-block', /* ← Fix: ضروري عشان البادينج يشتغل على الـ span */
+              paddingBottom: 4,
             }}>{tx.titleSpan}</span>
           </h1>
 
@@ -265,17 +308,17 @@ export default function ServicesPage({ lang }) {
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
               >
-                {/* Radial glow on hover — mirrors About sphere outer glow */}
+                {/* Radial glow */}
                 <div style={{
-                  position: 'absolute', inset: 0, borderRadius: 0,
+                  position: 'absolute', inset: 0,
                   background: isHov
-                    ? `radial-gradient(ellipse at 50% 0%, ${serviceColors[i]}14 0%, transparent 65%)`
+                    ? `radial-gradient(ellipse at 50% 0%, ${serviceColors[i % serviceColors.length]}14 0%, transparent 65%)`
                     : 'transparent',
                   transition: 'background 0.5s ease',
                   pointerEvents: 'none',
                 }} />
 
-                {/* Scan shimmer on hover */}
+                {/* Scan shimmer */}
                 {isHov && (
                   <div style={{
                     position: 'absolute', top: 0, left: '-100%',
@@ -288,18 +331,11 @@ export default function ServicesPage({ lang }) {
 
                 {item.cardImage && (
                   <div style={{
-                    height: 120,
-                    marginBottom: 18,
-                    borderRadius: 12,
-                    overflow: 'hidden',
+                    height: 120, marginBottom: 18, borderRadius: 12, overflow: 'hidden',
                     border: `1px solid ${serviceColors[i % serviceColors.length]}55`,
                   }}>
-                    <img
-                      src={item.cardImage}
-                      alt={item.title}
-                      loading="lazy"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                    <img src={item.cardImage} alt={item.title} loading="lazy"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                 )}
 
@@ -313,23 +349,31 @@ export default function ServicesPage({ lang }) {
                   }}>
                     {String(i + 1).padStart(2, '0')}
                   </div>
+
+                  {/* Icon container — مربع بدون دائرة */}
                   <div style={{
-                    width: isFull ? 64 : 52, height: isFull ? 64 : 52,
-                    border: `1px solid ${isHov ? 'rgba(184,164,114,0.5)' : 'rgba(184,164,114,0.18)'}`,
+                    width: isFull ? 64 : 54, height: isFull ? 64 : 54,
+                    borderRadius: 12,
+                    border: `1.5px solid ${isHov ? serviceColors[i % serviceColors.length] + '70' : 'rgba(184,164,114,0.16)'}`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: `${serviceColors[i]}10`,
-                    transition: 'all 0.35s ease',
-                    transform: isHov ? 'translateY(-5px) scale(1.1)' : 'translateY(0) scale(1)',
-                    boxShadow: isHov ? `0 10px 30px ${serviceColors[i]}35` : 'none',
+                    background: isHov
+                      ? `linear-gradient(135deg, ${serviceColors[i % serviceColors.length]}22, ${serviceColors[i % serviceColors.length]}08)`
+                      : 'rgba(184,164,114,0.05)',
+                    transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
+                    transform: isHov ? 'translateY(-6px) scale(1.08) rotate(3deg)' : 'translateY(0) scale(1) rotate(0)',
+                    boxShadow: isHov ? `0 12px 32px ${serviceColors[i % serviceColors.length]}30` : 'none',
                     position: 'relative',
                   }}>
-                    <div style={{ width: isFull ? 28 : 24, height: isFull ? 28 : 24 }}>
-                      {React.cloneElement(serviceIcons[i] || serviceIcons[0], {
-                        style: { width: '100%', height: '100%', stroke: serviceColors[i] }
+                    <div style={{ width: isFull ? 30 : 26, height: isFull ? 30 : 26 }}>
+                      {React.cloneElement(serviceIcons[i % serviceIcons.length] || serviceIcons[0], {
+                        style: {
+                          width: '100%', height: '100%',
+                          stroke: isHov ? serviceColors[i % serviceColors.length] : 'rgba(184,164,114,0.7)',
+                          transition: 'stroke 0.3s ease',
+                        }
                       })}
                     </div>
-                    {/* Animated glow dot — same technique as About sphere bright dot */}
-                    {isHov && <IconGlowDot color={serviceColors[i]} />}
+                    {isHov && <IconGlowDot color={serviceColors[i % serviceColors.length]} />}
                   </div>
                 </div>
 
@@ -363,11 +407,10 @@ export default function ServicesPage({ lang }) {
                   </div>
                 </div>
 
-                {/* Bottom gold line slide */}
+                {/* Bottom gold line */}
                 <div style={{
                   position: 'absolute', bottom: 0, left: 0,
-                  width: isHov ? '100%' : 0,
-                  height: 2,
+                  width: isHov ? '100%' : 0, height: 2,
                   background: 'linear-gradient(90deg, var(--bmc-gold), rgba(184,164,114,0.4))',
                   transition: 'width 0.5s ease',
                 }} />
@@ -432,9 +475,9 @@ export default function ServicesPage({ lang }) {
           from { left: -60%; }
           to   { left: 160%; }
         }
-        @keyframes svcOrbit0 { from { transform: translate(-50%,-50%) rotate(0deg)  scaleX(1.5); } to { transform: translate(-50%,-50%) rotate(360deg)  scaleX(1.5); } }
-        @keyframes svcOrbit1 { from { transform: translate(-50%,-50%) rotate(0deg)  scaleX(1.6); } to { transform: translate(-50%,-50%) rotate(360deg)  scaleX(1.6); } }
-        @keyframes svcOrbit2 { from { transform: translate(-50%,-50%) rotate(0deg)  scaleX(1.7); } to { transform: translate(-50%,-50%) rotate(360deg)  scaleX(1.7); } }
+        @keyframes svcOrbit0 { from { transform: translate(-50%,-50%) rotate(0deg)   scaleX(1.5); } to { transform: translate(-50%,-50%) rotate(360deg)  scaleX(1.5); } }
+        @keyframes svcOrbit1 { from { transform: translate(-50%,-50%) rotate(0deg)   scaleX(1.6); } to { transform: translate(-50%,-50%) rotate(360deg)  scaleX(1.6); } }
+        @keyframes svcOrbit2 { from { transform: translate(-50%,-50%) rotate(0deg)   scaleX(1.7); } to { transform: translate(-50%,-50%) rotate(360deg)  scaleX(1.7); } }
         @keyframes svcGlowPulse {
           0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(1); }
           50%     { opacity: 1;  transform: translate(-50%,-50%) scale(1.2); }
