@@ -77,7 +77,7 @@ export default function Navbar({ lang, setLang }) {
         zIndex: 1000,
         transition: 'all 0.4s ease',
         background: scrolled
-          ? 'rgba(10, 14, 13, 0.95)'
+          ? 'rgba(11, 15, 21, 0.95)'
           : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         borderBottom: scrolled
@@ -183,7 +183,7 @@ export default function Navbar({ lang, setLang }) {
                   top: '100%',
                   [lang === 'ar' ? 'right' : 'left']: 0,
                   minWidth: 280,
-                  background: 'rgba(10, 14, 13, 0.98)',
+                  background: 'rgba(11, 15, 21, 0.98)',
                   border: '1px solid rgba(184, 164, 114, 0.15)',
                   backdropFilter: 'blur(20px)',
                   padding: '8px 0',
@@ -339,7 +339,7 @@ export default function Navbar({ lang, setLang }) {
       {menuOpen && (
         <div
           style={{
-            background: 'rgba(10, 14, 13, 0.98)',
+            background: 'rgba(11, 15, 21, 0.98)',
             padding: '20px 24px',
             borderTop: '1px solid rgba(184, 164, 114, 0.1)',
           }}

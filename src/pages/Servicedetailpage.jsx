@@ -79,8 +79,8 @@ function DetailCard3D({ children, accent, delay = 0, isBenefit = false }) {
       className="detail-card"
       style={{
         background: hovered
-          ? `linear-gradient(145deg, rgba(20,28,26,0.98) 0%, rgba(15,21,18,1) 100%)`
-          : `linear-gradient(145deg, rgba(14,20,18,0.95) 0%, rgba(10,14,13,1) 100%)`,
+          ? `linear-gradient(145deg, rgba(20,29,41,0.98) 0%, rgba(16,23,34,1) 100%)`
+          : `linear-gradient(145deg, rgba(16,23,34,0.95) 0%, rgba(11,15,21,1) 100%)`,
         border: `1px solid ${hovered ? accent + '66' : 'rgba(184,164,114,0.14)'}`,
         borderRadius: 16,
         padding: '26px 22px',
@@ -200,7 +200,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
       {/* Hero with 3D depth layers */}
       <section style={{
         minHeight: '52vh',
-        backgroundImage: `linear-gradient(135deg, rgba(8,12,11,0.93) 0%, rgba(15,21,18,0.94) 100%), url(${service.cardImage || servicesBgImage})`,
+        backgroundImage: `linear-gradient(135deg, rgba(8,11,16,0.93) 0%, rgba(16,23,34,0.94) 100%), url(${service.cardImage || servicesBgImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
@@ -281,7 +281,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
       <section style={{ background: 'var(--bmc-dark-2)', padding: '40px 0 10px' }}>
         <div className="container">
           <div className="desc-block" style={{
-            background: `linear-gradient(145deg, rgba(14,20,18,0.9), rgba(10,14,13,0.95))`,
+            background: `linear-gradient(145deg, rgba(16,23,34,0.9), rgba(11,15,21,0.95))`,
             border: `1px solid rgba(184,164,114,0.14)`,
             borderRadius: 16,
             padding: '24px 26px',

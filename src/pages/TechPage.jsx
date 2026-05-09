@@ -52,7 +52,7 @@ export default function TechPage({ lang, setLang }) {
       {/* Hero */}
       <section style={{
         minHeight: '45vh',
-        background: 'linear-gradient(135deg, #0A0E0D 0%, #0F1512 100%)',
+        background: 'linear-gradient(135deg, #0D1117 0%, #131A24 100%)',
         display: 'flex',
         alignItems: 'center',
         paddingTop: 110,

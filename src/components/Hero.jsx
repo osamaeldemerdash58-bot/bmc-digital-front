@@ -112,7 +112,7 @@ export default function Hero({ lang }) {
         paddingTop: 110,
         paddingBottom: 130,
         overflow: 'hidden',
-        background: 'linear-gradient(135deg, #0A0E0D 0%, #0F1512 50%, #0A0E0D 100%)',
+        background: 'linear-gradient(135deg, #0D1117 0%, #131A24 50%, #0D1117 100%)',
       }}
     >
       <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
@@ -144,17 +144,17 @@ export default function Hero({ lang }) {
             }}
           />
         </picture>
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,14,13,0.3)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(13,17,23,0.32)' }} />
         <div style={{
           position: 'absolute', inset: 0,
           background: lang === 'ar'
-            ? 'linear-gradient(to left, rgba(10,14,13,0.05) 0%, rgba(10,14,13,0.22) 55%, rgba(10,14,13,0.55) 100%)'
-            : 'linear-gradient(to right, rgba(10,14,13,0.05) 0%, rgba(10,14,13,0.22) 55%, rgba(10,14,13,0.55) 100%)',
+            ? 'linear-gradient(to left, rgba(13,17,23,0.06) 0%, rgba(13,17,23,0.24) 55%, rgba(13,17,23,0.58) 100%)'
+            : 'linear-gradient(to right, rgba(13,17,23,0.06) 0%, rgba(13,17,23,0.24) 55%, rgba(13,17,23,0.58) 100%)',
         }} />
         {/* Bottom fade — يخلي النص يبان واضح */}
         <div style={{
           position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%',
-          background: 'linear-gradient(to top, rgba(10,14,13,0.85) 0%, rgba(10,14,13,0.4) 60%, transparent 100%)',
+          background: 'linear-gradient(to top, rgba(13,17,23,0.88) 0%, rgba(13,17,23,0.45) 60%, transparent 100%)',
           zIndex: 1,
         }} />
       </div>

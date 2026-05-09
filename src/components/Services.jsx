@@ -4,51 +4,6 @@ import { useData } from '../DataContext';
 import SnakeButton from './SnakeButton';
 import '../animations.css';
 
-/* ─────────────────────────────────────────
-   أيقونات جديدة — أنيقة ومتناسقة مع الموقع
-───────────────────────────────────────── */
-const serviceIcons = [
-  /* 0 — Web Development */
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="3" width="20" height="14" rx="2"/>
-    <path d="M8 21h8M12 17v4"/>
-    <path d="M7 8l3 3-3 3M13 14h4"/>
-  </svg>,
-  /* 1 — Mobile App */
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="6" y="2" width="12" height="20" rx="3"/>
-    <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/>
-    <path d="M9 6h6"/>
-  </svg>,
-  /* 2 — E-commerce */
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-    <path d="M3 6h18"/>
-    <path d="M16 10a4 4 0 01-8 0"/>
-  </svg>,
-  /* 3 — ERP Systems */
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="3"/>
-    <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-    <path d="M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
-  </svg>,
-  /* 4 — UI/UX Design */
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 19l7-7 3 3-7 7-3-3z"/>
-    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
-    <circle cx="8" cy="8" r="2"/>
-  </svg>,
-  /* 5 — AI Solutions */
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
-  </svg>,
-  /* 6 — Tech Consulting */
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-    <path d="M8 10h8M8 13h5"/>
-  </svg>,
-];
-
 const serviceDetailSlugs = [
   'web-development','mobile-app-development','e-commerce-website-development',
   'erp-systems','ui-ux-design','ai-solutions','tech-consulting',
@@ -139,30 +94,30 @@ function useScrollReveal() {
   }, []);
 }
 
-/* ── Icon glow dot ── */
-function IconGlowDot({ color }) {
-  const ref = useRef(null);
-  const raf = useRef(null);
-  useEffect(() => {
-    const c = ref.current; if (!c) return;
-    const ctx = c.getContext('2d');
-    let t = 0;
-    function draw() {
-      ctx.clearRect(0, 0, 40, 40);
-      const x = 20 + 10 * Math.cos(t * 1.3);
-      const y = 20 + 8  * Math.sin(t * 0.9);
-      const g = ctx.createRadialGradient(x, y, 0, x, y, 12);
-      g.addColorStop(0, `${color}CC`);
-      g.addColorStop(1, `${color}00`);
-      ctx.beginPath(); ctx.arc(x, y, 12, 0, Math.PI * 2);
-      ctx.fillStyle = g; ctx.fill();
-      t += 0.04;
-      raf.current = requestAnimationFrame(draw);
-    }
-    draw();
-    return () => cancelAnimationFrame(raf.current);
-  }, [color]);
-  return <canvas ref={ref} width={40} height={40} style={{ position: 'absolute', top: -8, right: -8, pointerEvents: 'none' }} />;
+/* ── Image placeholder when no cardImage ── */
+function CardImagePlaceholder({ color, index }) {
+  return (
+    <div style={{
+      width: '100%',
+      height: '100%',
+      background: `linear-gradient(135deg, ${color}18 0%, ${color}08 50%, rgba(184,164,114,0.04) 100%)`,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      {/* subtle number watermark */}
+      <span style={{
+        fontSize: 80,
+        fontWeight: 900,
+        fontFamily: 'Playfair Display, serif',
+        color: `${color}12`,
+        userSelect: 'none',
+        lineHeight: 1,
+      }}>
+        {String(index + 1).padStart(2, '0')}
+      </span>
+    </div>
+  );
 }
 
 export default function ServicesPage({ lang }) {
@@ -233,15 +188,14 @@ export default function ServicesPage({ lang }) {
             {tx.label}
           </p>
 
-          {/* ─ Fix: paddingBottom يمنع تاكل الكلمة من الأنيميشن ─ */}
           <h1 className="svc-reveal" style={{
             opacity: 0, transform: 'translateY(24px)', transition: 'all 0.7s 0.2s',
             fontFamily: isAr ? 'Cairo, sans-serif' : 'Playfair Display, serif',
             fontSize: 'clamp(36px,6vw,72px)', fontWeight: 900,
             color: 'var(--bmc-white)', lineHeight: 1.36,
             marginBottom: 16,
-            paddingBottom: 12,   /* ← Fix: يمنع قص الـ descenders */
-            overflow: 'visible', /* ← Fix: مش يقطع الحروف */
+            paddingBottom: 12,
+            overflow: 'visible',
             textWrap: 'balance',
           }}>
             {tx.title}{' '}
@@ -281,121 +235,164 @@ export default function ServicesPage({ lang }) {
         }}>
           {items.map((item, i) => {
             const isLast = i === items.length - 1;
-            const isFull = isLast && items.length % 2 !== 0;
+            const isFull = isLast && items.length % 3 !== 0 && items.length % 3 === 1;
             const isHov = hovered === i;
+            const color = serviceColors[i % serviceColors.length];
 
             return (
               <div
                 key={i}
-                className="svc-reveal"
+                className="svc-reveal svc-card"
                 onClick={() => navigate(`/service/${item.slug || resolveServiceSlug(item, i)}`)}
                 style={{
                   opacity: 0,
                   transform: 'translateY(50px) scale(0.97)',
                   transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s,
                                transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s,
-                               background 0.35s ease, border-color 0.3s ease`,
+                               background 0.35s ease`,
                   background: isHov ? 'var(--bmc-dark-3)' : 'var(--bmc-dark)',
-                  padding: '44px 36px',
                   cursor: 'pointer',
                   position: 'relative', overflow: 'hidden',
                   gridColumn: isFull ? '1 / -1' : undefined,
-                  display: isFull ? 'grid' : 'block',
-                  gridTemplateColumns: isFull ? '100px 1fr' : undefined,
-                  alignItems: isFull ? 'center' : undefined,
-                  gap: isFull ? 40 : undefined,
-                  borderBottom: isHov ? '2px solid var(--bmc-gold)' : '2px solid transparent',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderBottom: `2px solid ${isHov ? 'var(--bmc-gold)' : 'transparent'}`,
+                  transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s,
+                               transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s,
+                               background 0.35s ease, border-color 0.3s ease`,
                 }}
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
               >
-                {/* Radial glow */}
+                {/* ── Card Image — full width, top of card ── */}
                 <div style={{
-                  position: 'absolute', inset: 0,
-                  background: isHov
-                    ? `radial-gradient(ellipse at 50% 0%, ${serviceColors[i % serviceColors.length]}14 0%, transparent 65%)`
-                    : 'transparent',
-                  transition: 'background 0.5s ease',
-                  pointerEvents: 'none',
-                }} />
+                  width: '100%',
+                  height: 200,
+                  overflow: 'hidden',
+                  position: 'relative',
+                  flexShrink: 0,
+                }}>
+                  {item.cardImage ? (
+                    <img
+                      src={item.cardImage}
+                      alt={item.title}
+                      loading="lazy"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
+                        transform: isHov ? 'scale(1.06)' : 'scale(1)',
+                        display: 'block',
+                      }}
+                    />
+                  ) : (
+                    <CardImagePlaceholder color={color} index={i} />
+                  )}
 
-                {/* Scan shimmer */}
-                {isHov && (
+                  {/* overlay gradient — fades image into card body */}
                   <div style={{
-                    position: 'absolute', top: 0, left: '-100%',
-                    width: '60%', height: '100%',
-                    background: 'linear-gradient(90deg, transparent, rgba(184,164,114,0.05), transparent)',
-                    animation: 'svcScan 1.4s ease-in-out forwards',
+                    position: 'absolute', bottom: 0, left: 0, right: 0, height: 80,
+                    background: `linear-gradient(to bottom, transparent, ${isHov ? 'var(--bmc-dark-3)' : 'var(--bmc-dark)'})`,
+                    transition: 'background 0.35s ease',
                     pointerEvents: 'none',
                   }} />
-                )}
 
-                {item.cardImage && (
+                  {/* color accent top-left corner */}
                   <div style={{
-                    height: 120, marginBottom: 18, borderRadius: 12, overflow: 'hidden',
-                    border: `1px solid ${serviceColors[i % serviceColors.length]}55`,
-                  }}>
-                    <img src={item.cardImage} alt={item.title} loading="lazy"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                )}
+                    position: 'absolute', top: 0, left: 0,
+                    width: isHov ? 4 : 0, height: '100%',
+                    background: `linear-gradient(to bottom, ${color}, ${color}44)`,
+                    transition: 'width 0.4s ease',
+                  }} />
 
-                {/* Icon block */}
-                <div style={{ marginBottom: isFull ? 0 : 24, position: 'relative' }}>
+                  {/* index badge */}
                   <div style={{
+                    position: 'absolute', top: 16, right: 16,
                     fontSize: 11, fontWeight: 700, letterSpacing: 2,
-                    color: isHov ? 'rgba(184,164,114,0.6)' : 'rgba(184,164,114,0.3)',
-                    fontFamily: 'Playfair Display, serif', marginBottom: 16,
+                    color: isHov ? 'rgba(184,164,114,0.9)' : 'rgba(184,164,114,0.5)',
+                    fontFamily: 'Playfair Display, serif',
+                    background: 'rgba(10,10,20,0.55)',
+                    backdropFilter: 'blur(6px)',
+                    padding: '3px 8px', borderRadius: 4,
                     transition: 'color 0.3s',
+                    border: '1px solid rgba(184,164,114,0.15)',
                   }}>
                     {String(i + 1).padStart(2, '0')}
                   </div>
-
-                  {/* Icon container — مربع بدون دائرة */}
-                  <div style={{
-                    width: isFull ? 64 : 54, height: isFull ? 64 : 54,
-                    borderRadius: 12,
-                    border: `1.5px solid ${isHov ? serviceColors[i % serviceColors.length] + '70' : 'rgba(184,164,114,0.16)'}`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: isHov
-                      ? `linear-gradient(135deg, ${serviceColors[i % serviceColors.length]}22, ${serviceColors[i % serviceColors.length]}08)`
-                      : 'rgba(184,164,114,0.05)',
-                    transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
-                    transform: isHov ? 'translateY(-6px) scale(1.08) rotate(3deg)' : 'translateY(0) scale(1) rotate(0)',
-                    boxShadow: isHov ? `0 12px 32px ${serviceColors[i % serviceColors.length]}30` : 'none',
-                    position: 'relative',
-                  }}>
-                    <div style={{ width: isFull ? 30 : 26, height: isFull ? 30 : 26 }}>
-                      {React.cloneElement(serviceIcons[i % serviceIcons.length] || serviceIcons[0], {
-                        style: {
-                          width: '100%', height: '100%',
-                          stroke: isHov ? serviceColors[i % serviceColors.length] : 'rgba(184,164,114,0.7)',
-                          transition: 'stroke 0.3s ease',
-                        }
-                      })}
-                    </div>
-                    {isHov && <IconGlowDot color={serviceColors[i % serviceColors.length]} />}
-                  </div>
                 </div>
 
-                {/* Text */}
-                <div>
-                  <h3 style={{
-                    fontSize: isFull ? 22 : 18, fontWeight: 700,
-                    color: isHov ? 'var(--bmc-white)' : 'rgba(245,240,232,0.85)',
-                    marginBottom: 10, lineHeight: 1.35, transition: 'color 0.3s',
-                  }}>{item.title}</h3>
-                  <p style={{
-                    fontSize: 14, color: 'rgba(245,240,232,0.5)',
-                    lineHeight: 1.9, marginBottom: 20,
-                    maxWidth: isFull ? 700 : '100%',
-                  }}>{item.desc}</p>
+                {/* ── Card Body ── */}
+                <div style={{
+                  padding: '28px 32px 36px',
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 0,
+                  position: 'relative',
+                }}>
+                  {/* Radial glow */}
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: isHov
+                      ? `radial-gradient(ellipse at 50% 0%, ${color}12 0%, transparent 70%)`
+                      : 'transparent',
+                    transition: 'background 0.5s ease',
+                    pointerEvents: 'none',
+                  }} />
 
+                  {/* Scan shimmer */}
+                  {isHov && (
+                    <div style={{
+                      position: 'absolute', top: 0, left: '-100%',
+                      width: '60%', height: '100%',
+                      background: 'linear-gradient(90deg, transparent, rgba(184,164,114,0.04), transparent)',
+                      animation: 'svcScan 1.4s ease-in-out forwards',
+                      pointerEvents: 'none',
+                    }} />
+                  )}
+
+                  {/* Title */}
+                  <h3 style={{
+                    fontSize: 19, fontWeight: 700,
+                    color: isHov ? 'var(--bmc-white)' : 'rgba(245,240,232,0.88)',
+                    marginBottom: 10, lineHeight: 1.35,
+                    transition: 'color 0.3s',
+                    position: 'relative',
+                  }}>
+                    {/* colored left bar */}
+                    <span style={{
+                      display: 'inline-block',
+                      width: 3, height: '1em',
+                      background: color,
+                      borderRadius: 2,
+                      marginInlineEnd: 10,
+                      verticalAlign: 'middle',
+                      opacity: isHov ? 1 : 0.4,
+                      transition: 'opacity 0.3s',
+                    }} />
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p style={{
+                    fontSize: 14,
+                    color: 'rgba(245,240,232,0.52)',
+                    lineHeight: 1.85,
+                    marginBottom: 20,
+                    flex: 1,
+                    position: 'relative',
+                  }}>
+                    {item.desc}
+                  </p>
+
+                  {/* Learn more CTA */}
                   <div style={{
                     display: 'inline-flex', alignItems: 'center', gap: 6,
                     fontSize: 12, fontWeight: 700, letterSpacing: 1,
                     color: isHov ? 'var(--bmc-gold)' : 'rgba(184,164,114,0.4)',
                     transition: 'color 0.3s, gap 0.3s', textTransform: 'uppercase',
+                    position: 'relative',
                   }}>
                     {isAr ? 'اعرف أكثر' : 'Learn More'}
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
@@ -483,6 +480,9 @@ export default function ServicesPage({ lang }) {
           0%,100% { opacity: .5; transform: translate(-50%,-50%) scale(1); }
           50%     { opacity: 1;  transform: translate(-50%,-50%) scale(1.2); }
         }
+
+        /* card image hover zoom needs the img directly */
+        .svc-card:hover img { transform: scale(1.06) !important; }
 
         @media (max-width: 900px) {
           #services .services-grid { grid-template-columns: repeat(2,1fr) !important; }

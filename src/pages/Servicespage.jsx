@@ -125,8 +125,8 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
         onMouseLeave={() => setHovered(false)}
         style={{
           background: hovered
-            ? `linear-gradient(145deg, rgba(20,28,26,0.98) 0%, rgba(15,21,18,1) 100%)`
-            : `linear-gradient(145deg, rgba(15,21,18,0.95) 0%, rgba(10,14,13,1) 100%)`,
+            ? `linear-gradient(145deg, rgba(20,29,41,0.98) 0%, rgba(16,23,34,1) 100%)`
+            : `linear-gradient(145deg, rgba(16,23,34,0.95) 0%, rgba(11,15,21,1) 100%)`,
           border: `1px solid ${hovered ? accent + '88' : 'rgba(184,164,114,0.14)'}`,
           borderRadius: 18,
           padding: '26px 24px 32px',
@@ -174,7 +174,7 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
             transition: 'transform 0.4s cubic-bezier(0.23,1,0.32,1)',
           }}>
             <img src={svc.cardImage} alt={svc.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${accent}18 0%, rgba(10,14,13,0.16) 45%, rgba(10,14,13,0.78) 100%)` }} />
+            <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${accent}18 0%, rgba(11,15,21,0.2) 45%, rgba(11,15,21,0.82) 100%)` }} />
           </div>
         ) : (
           <div style={{
@@ -182,7 +182,7 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
             marginBottom: 22,
             borderRadius: 12,
             border: `1px solid ${accent}${hovered ? '55' : '28'}`,
-            background: `linear-gradient(135deg, ${accent}${hovered ? '20' : '0f'} 0%, rgba(15,21,18,0.8) 60%, rgba(10,14,13,0.95) 100%)`,
+            background: `linear-gradient(135deg, ${accent}${hovered ? '20' : '0f'} 0%, rgba(16,23,34,0.8) 60%, rgba(11,15,21,0.95) 100%)`,
             position: 'relative',
             overflow: 'hidden',
             transition: 'background 0.4s, border-color 0.4s',
@@ -294,7 +294,7 @@ export default function ServicesPage({ lang, setLang }) {
       {/* Hero */}
       <section style={{
         minHeight: '52vh',
-        backgroundImage: `linear-gradient(135deg, rgba(8,12,11,0.93) 0%, rgba(15,21,18,0.94) 100%), url(${servicesBgImage})`,
+        backgroundImage: `linear-gradient(135deg, rgba(8,11,16,0.93) 0%, rgba(16,23,34,0.94) 100%), url(${servicesBgImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',

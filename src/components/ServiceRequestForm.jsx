@@ -204,9 +204,9 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
             backgroundPosition: isAr ? 'left 16px center' : 'right 16px center',
           }}
         >
-          <option value="" disabled style={{ background: '#0A0E0D' }}>{labels.servicePlaceholder}</option>
+          <option value="" disabled style={{ background: '#0D1117' }}>{labels.servicePlaceholder}</option>
           {labels.serviceOptions.map((opt) => (
-            <option key={opt.value} value={opt.value} style={{ background: '#0A0E0D' }}>{opt.label}</option>
+            <option key={opt.value} value={opt.value} style={{ background: '#0D1117' }}>{opt.label}</option>
           ))}
         </select>
       </div>
