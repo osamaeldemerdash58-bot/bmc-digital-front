@@ -7,6 +7,7 @@ import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import SnakeButton from '../components/SnakeButton';
 import { useReveal } from '../hooks/useReveal';
 import { useData } from '../DataContext';
+import { overrideServiceCard } from '../data/digitalMarketingService';
 import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
 
 const servicesData = {
@@ -25,7 +26,7 @@ const servicesData = {
       { slug: 'mobile-app-development', title: 'تطوير التطبيقات', desc: 'تطبيقات جوال احترافية لنظامي iOS و Android تمنح مستخدميك تجربة استثنائية.', features: ['iOS و Android', 'أداء عالي', 'واجهة مستخدم جذابة', 'تكامل مع الخدمات الخارجية'], icon: '📱' },
       { slug: 'erp-systems', title: 'أنظمة ERP', desc: 'أنظمة تخطيط موارد المؤسسة المخصصة لإدارة العمليات والحسابات والموارد البشرية بكفاءة عالية.', features: ['إدارة الموارد البشرية', 'المحاسبة والمالية', 'إدارة المخزون', 'تقارير ولوحات تحكم'], icon: '⚙️' },
       { slug: 'ui-ux-design', title: 'تصميم UI/UX', desc: 'تصاميم جذابة وواجهات مستخدم بديهية تعكس هوية علامتك التجارية وتحقق أهدافك.', features: ['بحث المستخدمين', 'نماذج Wireframes', 'تصميم واجهات UI', 'تجربة المستخدم UX'], icon: '🎨' },
-      { slug: 'ai-solutions', title: 'حلول الذكاء الاصطناعي', desc: 'دمج تقنيات الذكاء الاصطناعي في منتجاتك — chatbots، تحليل البيانات، والتوصيات الذكية.', features: ['روبوتات محادثة', 'تحليل البيانات', 'أنظمة التوصية', 'معالجة اللغة الطبيعية'], icon: '🤖' },
+      { slug: 'ai-solutions', title: 'التسويق الرقمي', desc: 'في البنية الماسية الرقمية نقدّم حلول تسويق إلكتروني متكاملة تساعدك على جذب العملاء، زيادة المبيعات، ورفع حضور علامتك التجارية على جميع المنصات الرقمية.', features: ['إدارة الحملات الإعلانية', 'إعداد الاستراتيجيات التسويقية', 'تحليل الأداء وتحسين النتائج', 'إدارة السوشيال ميديا'], icon: '📣' },
     ],
   },
   en: {
@@ -43,7 +44,7 @@ const servicesData = {
       { slug: 'mobile-app-development', title: 'Mobile App Development', desc: 'Professional mobile apps for iOS and Android that give your users an exceptional experience.', features: ['iOS & Android', 'High performance', 'Attractive UI', 'Third-party integration'], icon: '📱' },
       { slug: 'erp-systems', title: 'ERP Systems', desc: 'Custom enterprise resource planning systems for efficient operations, accounting, and HR management.', features: ['HR Management', 'Accounting & Finance', 'Inventory Management', 'Reports & Dashboards'], icon: '⚙️' },
       { slug: 'ui-ux-design', title: 'UI/UX Design', desc: 'Attractive designs and intuitive interfaces that reflect your brand identity and achieve your goals.', features: ['User Research', 'Wireframes', 'UI Interface Design', 'UX Optimization'], icon: '🎨' },
-      { slug: 'ai-solutions', title: 'AI Solutions', desc: 'Integrate AI technologies into your products — chatbots, data analytics, and smart recommendations.', features: ['Chatbots', 'Data Analytics', 'Recommendation Systems', 'NLP'], icon: '🤖' },
+      { slug: 'ai-solutions', title: 'Digital Marketing', desc: 'We deliver integrated digital marketing solutions that help you attract customers, increase sales, and strengthen your brand presence across digital platforms.', features: ['Ad campaign management', 'Marketing strategies', 'Performance analysis', 'Social media management'], icon: '📣' },
     ],
   },
 };
@@ -201,13 +202,13 @@ export default function ServicesPage({ lang, setLang }) {
   const dbServices = (data?.services || [])
     .filter((svc) => svc?.visible !== false && svc?.slug !== 'tech-consulting')
     .sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
-    .map((svc) => ({
+    .map((svc) => overrideServiceCard({
       slug: svc.slug,
       title: lang === 'ar' ? svc.titleAr : svc.titleEn,
       desc: lang === 'ar' ? svc.descAr : svc.descEn,
       features: (lang === 'ar' ? svc.featuresAr : svc.featuresEn) || [],
       cardImage: svc.cardImage || '',
-    }));
+    }, lang));
   const servicesList = dbServices.length ? dbServices : tx.services;
   const tickerItems = Array.from({ length: 4 }, () => servicesList).flat();
 

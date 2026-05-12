@@ -37,7 +37,7 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
       { value: 'mobile', label: isAr ? 'تطوير تطبيق موبايل' : 'Mobile App Development' },
       { value: 'erp', label: isAr ? 'نظام ERP / إدارة' : 'ERP / Management System' },
       { value: 'uiux', label: isAr ? 'تصميم UI/UX' : 'UI/UX Design' },
-      { value: 'ai', label: isAr ? 'حلول الذكاء الاصطناعي' : 'AI Solutions' },
+      { value: 'ai', label: isAr ? 'التسويق الرقمي' : 'Digital Marketing' },
       { value: 'other', label: isAr ? 'أخرى' : 'Other' },
     ],
     details: isAr ? 'اكتب طلبك بالتفصيل' : 'Describe your request in detail',

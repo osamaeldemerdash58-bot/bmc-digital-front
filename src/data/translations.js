@@ -55,8 +55,8 @@ export const t = {
           desc: 'تصاميم جذابة وواجهات مستخدم بديهية تعكس هوية علامتك التجارية وتحقق أهدافك.',
         },
         {
-          title: 'حلول الذكاء الاصطناعي',
-          desc: 'دمج تقنيات الذكاء الاصطناعي في منتجاتك — chatbots، تحليل البيانات، والتوصيات الذكية.',
+          title: 'التسويق الرقمي',
+          desc: 'في البنية الماسية الرقمية نقدّم حلول تسويق إلكتروني متكاملة تساعدك على جذب العملاء، زيادة المبيعات، ورفع حضور علامتك التجارية على جميع المنصات الرقمية.',
         },
         {
           title: 'استشارات تقنية ودعم',
@@ -148,7 +148,7 @@ export const t = {
         { title: 'E-Commerce', desc: 'Full e-commerce platforms with secure payment gateways, inventory management, and great shopping experience.' },
         { title: 'ERP Systems', desc: 'Custom enterprise resource planning systems for efficient operations, accounting, and HR management.' },
         { title: 'UI/UX Design', desc: 'Attractive designs and intuitive interfaces that reflect your brand identity and achieve your goals.' },
-        { title: 'AI Solutions', desc: 'Integrate AI technologies into your products — chatbots, data analytics, and smart recommendations.' },
+        { title: 'Digital Marketing', desc: 'We deliver integrated digital marketing solutions that help you attract customers, increase sales, and strengthen your brand presence across digital platforms.' },
         { title: 'Tech Consulting & Support', desc: 'Expert technical consulting and comprehensive digital transformation plans, with ongoing support and maintenance.' },
       ],
     },

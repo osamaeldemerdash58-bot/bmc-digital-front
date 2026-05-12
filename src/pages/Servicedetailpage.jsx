@@ -6,6 +6,7 @@ import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
 import { useData } from '../DataContext';
+import { overrideServiceDetail } from '../data/digitalMarketingService';
 import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
 
 const serviceAccents = {
@@ -109,7 +110,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
   useReveal();
   const { slug } = useParams();
   const { data } = useData();
-  const service = data?.services?.find(s => s.slug === slug);
+  const service = overrideServiceDetail(data?.services?.find(s => s.slug === slug));
 
   const sanitizeServiceText = (text) => String(text || '')
     .replace(/استشارات تقنية متخصصة/g, 'استشارات تقنية')

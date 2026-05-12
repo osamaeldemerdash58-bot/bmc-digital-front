@@ -96,7 +96,7 @@ const serviceLabels = {
     mobile: 'تطبيقات موبايل',
     erp: 'نظام ERP',
     uiux: 'تصميم UI/UX',
-    ai: 'حلول ذكاء اصطناعي',
+    ai: 'التسويق الرقمي',
     other: 'أخرى',
   },
   en: {
@@ -105,7 +105,7 @@ const serviceLabels = {
     mobile: 'Mobile App',
     erp: 'ERP System',
     uiux: 'UI/UX Design',
-    ai: 'AI Solutions',
+    ai: 'Digital Marketing',
     other: 'Other',
   },
 };

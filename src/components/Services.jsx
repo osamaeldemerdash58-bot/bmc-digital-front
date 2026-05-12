@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../DataContext';
+import { overrideServiceCard } from '../data/digitalMarketingService';
 
 
 const serviceDetailSlugs = [
@@ -19,7 +20,7 @@ function resolveServiceSlug(item, index) {
   if (/متجر|commerce/.test(title)) return 'e-commerce-website-development';
   if (/erp/.test(title)) return 'erp-systems';
   if (/ui|ux|تصميم/.test(title)) return 'ui-ux-design';
-  if (/ذكاء|ai/.test(title)) return 'ai-solutions';
+  if (/ذكاء|ai|تسويق|marketing/.test(title)) return 'ai-solutions';
   if (/استشار|consult/.test(title)) return 'tech-consulting';
   return serviceDetailSlugs[index] || 'web-development';
 }
@@ -215,19 +216,21 @@ export default function ServicesPage({ lang }) {
   const dbItems = (data?.services || [])
     .filter((svc) => svc?.visible !== false && svc?.slug !== 'tech-consulting')
     .sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
-    .map((svc) => ({
+    .map((svc) => overrideServiceCard({
       slug: svc.slug,
       title: sanitize(lang === 'ar' ? svc.titleAr : svc.titleEn),
       desc: sanitize(lang === 'ar' ? svc.descAr : svc.descEn),
       features: (lang === 'ar' ? svc.featuresAr : svc.featuresEn) || [],
       cardImage: svc.cardImage || '',
-    }));
-  const fallbackItems = (tx.items || []).filter(i => !isTech(i)).map((i, idx) => ({
-    ...i, title: sanitize(i?.title), desc: sanitize(i?.desc),
+    }, lang));
+  const fallbackItems = (tx.items || []).filter(i => !isTech(i)).map((i, idx) => overrideServiceCard({
+    ...i,
+    title: sanitize(i?.title),
+    desc: sanitize(i?.desc),
     features: Array.isArray(i?.features) ? i.features.map(sanitize) : i?.features,
     slug: resolveServiceSlug(i, idx),
     cardImage: '',
-  }));
+  }, lang));
   const items = dbItems.length ? dbItems : fallbackItems;
 
   const [hovered, setHovered] = useState(null);

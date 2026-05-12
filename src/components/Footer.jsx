@@ -115,7 +115,7 @@ export default function Footer({ lang }) {
                 <li><a href="#services">{lang === 'ar' ? 'المتاجر الإلكترونية' : 'E-Commerce'}</a></li>
                 <li><a href="#services">{lang === 'ar' ? 'تطوير التطبيقات' : 'Mobile Apps'}</a></li>
                 <li><a href="#services">{lang === 'ar' ? 'تصميم UI/UX' : 'UI/UX Design'}</a></li>
-                <li><a href="#services">{lang === 'ar' ? 'حلول الذكاء الاصطناعي' : 'AI Solutions'}</a></li>
+                <li><a href="#services">{lang === 'ar' ? 'التسويق الرقمي' : 'Digital Marketing'}</a></li>
               </ul>
             </div>
 
