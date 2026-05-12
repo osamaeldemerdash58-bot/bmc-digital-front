@@ -25,6 +25,7 @@ import ContactPage from './pages/Contactpage';
 import AdminPage from './pages/AdminPage';
 
 import './index.css';
+import './mobile-responsive.css';
 
 function ScrollToTop() {
   const { pathname } = useLocation();

@@ -1,0 +1,446 @@
+/* ═══════════════════════════════════════════════════════════════════
+   BMC Digital — Mobile Responsive Stylesheet  v2.0
+   ملف: src/mobile-responsive.css
+   استورده في App.jsx أو main.jsx:  import './mobile-responsive.css';
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────
+   TOKENS
+───────────────────────────────────────── */
+:root {
+  --mob-px:   20px;
+  --mob-py:   56px;
+  --mob-gap:  20px;
+}
+
+/* ─────────────────────────────────────────
+   GLOBAL FIXES
+───────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 768px) {
+  body { overflow-x: hidden; }
+  section { overflow-x: hidden !important; }
+
+  /* Stop giant BG text from causing horizontal scroll */
+  [style*="whiteSpace: 'nowrap'"],
+  [style*="white-space: nowrap"] {
+    overflow: hidden !important;
+  }
+
+  /* Touch-friendly buttons */
+  button, a { -webkit-tap-highlight-color: transparent; }
+  button, a[style] { min-height: 44px; }
+
+  /* Container padding */
+  .container {
+    padding-left: var(--mob-px) !important;
+    padding-right: var(--mob-px) !important;
+  }
+
+  /* Section vertical rhythm */
+  .section { padding: var(--mob-py) 0 !important; }
+
+  /* Section headers */
+  .section-title {
+    font-size: clamp(24px, 7vw, 36px) !important;
+    line-height: 1.4 !important;
+  }
+  .section-label {
+    font-size: 11px !important;
+    letter-spacing: 1.5px !important;
+  }
+  .section-header-anim { margin-bottom: 36px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   1. HERO
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  #hero {
+    min-height: 100svh !important;
+    padding-top: 88px !important;
+    padding-bottom: 72px !important;
+    align-items: flex-end !important;
+  }
+
+  #hero h1 {
+    font-size: clamp(28px, 7.5vw, 40px) !important;
+    line-height: 1.45 !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Gold italic subtitle */
+  #hero h1 span:last-child {
+    font-size: clamp(17px, 4.8vw, 24px) !important;
+    margin-top: 12px !important;
+  }
+
+  /* CTA buttons stack */
+  .hero-content-wrap > div > div[style*="gap: 16"] {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .hero-content-wrap > div > div[style*="gap: 16"] > a,
+  .hero-content-wrap > div > div[style*="gap: 16"] > button {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+  }
+
+  .hero-scroll { display: none !important; }
+}
+
+/* ═══════════════════════════════════════════
+   2. SERVICES — homepage
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  #services .services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+}
+@media (max-width: 540px) {
+  #services .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   3. WORKS — homepage
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  #works div[style*="gap: 36"][style*="marginTop: 44"] {
+    gap: 24px !important;
+    flex-wrap: wrap !important;
+  }
+  #works div[style*="fontSize: 36"] { font-size: 28px !important; }
+  .works-card-wrap > div { padding: 26px 22px 24px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   4. PROCESS — homepage
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  #process svg { width: 100% !important; height: auto !important; }
+  .proc-center-line { display: none !important; }
+  #process .proc-row { justify-content: flex-start !important; margin-bottom: 20px !important; }
+  #process .proc-row > div:first-child { width: 92% !important; }
+  .proc-arm { display: none !important; }
+  #process .proc-row > div:first-child > div { padding: 22px 20px !important; transform: none !important; }
+  #process .proc-row div[style*="fontSize: 52"] { font-size: 38px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   5. TECH — homepage
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  #tech div[style*="gridTemplateColumns"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+@media (max-width: 420px) {
+  #tech div[style*="gridTemplateColumns"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   6. ABOUT — homepage
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  #about .container > div {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  #about .container > div > div:last-child { order: -1; }
+}
+@media (max-width: 600px) {
+  #about div[style*="width: 280"][style*="height: 280"] {
+    width: 220px !important;
+    height: 220px !important;
+    margin: 0 auto;
+  }
+  #about div[style*="gap: 40"][style*="marginTop: 28"] { gap: 28px !important; }
+  #about div[style*="fontSize: 28"] { font-size: 24px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   7. TESTIMONIALS
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  #testimonials > div:last-child > div > div:first-child {
+    padding: 28px 22px !important;
+  }
+  #testimonials blockquote {
+    font-size: 15px !important;
+    line-height: 1.85 !important;
+    margin-bottom: 24px !important;
+  }
+  #testimonials button[style*="width: 40"] {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   8. FAQ
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  #faq .container > div:last-child { margin: 0 !important; }
+  .faq-item > button { padding: 16px 0 !important; gap: 12px !important; }
+  .faq-item > button > span:first-child { font-size: 14px !important; }
+  .faq-item > div > p {
+    font-size: 14px !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-bottom: 18px !important;
+  }
+  .faq-item > button > div { width: 28px !important; height: 28px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   9. CONTACT — homepage
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  #contact .container > div {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  #contact div[style*="width: 44"][style*="height: 44"] {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   10. SERVICE REQUEST FORM
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  form > div:nth-child(2) {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  /* Prevent iOS zoom */
+  form input,
+  form select,
+  form textarea { font-size: 16px !important; }
+  form button[type="submit"] { width: 100% !important; }
+  form[style*="gap: 20"] { gap: 16px !important; }
+  form label { font-size: 12px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   11. SERVICE REQUEST POPUP
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  div[style*="position: fixed"][style*="zIndex: 99999"] {
+    padding: 12px 10px !important;
+    align-items: flex-end !important;
+  }
+  div[style*="min(980px"] {
+    max-height: 95vh !important;
+    padding: 20px 16px 24px !important;
+    border-radius: 14px 14px 0 0 !important;
+    width: 100% !important;
+  }
+  div[style*="position: fixed"] h3 {
+    font-size: 18px !important;
+    margin-bottom: 6px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   12. SERVICES PAGE — full page cards
+═══════════════════════════════════════════ */
+@media (max-width: 960px) {
+  div[style*="gridTemplateColumns: 'repeat(3, 1fr)'"],
+  div[style*='gridTemplateColumns: "repeat(3, 1fr)"'] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+}
+@media (max-width: 560px) {
+  div[style*="gridTemplateColumns: 'repeat(3, 1fr)'"],
+  div[style*='gridTemplateColumns: "repeat(3, 1fr)"'] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card-entry > div {
+    padding: 20px 18px 24px !important;
+    border-radius: 12px !important;
+  }
+  .card-entry > div > div[style*="height: 160"] {
+    height: 130px !important;
+    margin-bottom: 14px !important;
+  }
+  .card-entry h2 { font-size: 16px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   13. SERVICE DETAIL PAGE
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .detail-features-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 540px) {
+  .detail-features-grid { grid-template-columns: 1fr !important; }
+  .detail-card { transform: none !important; will-change: auto !important; }
+  div[style*="display: 'flex'"][style*="gap: 40"] {
+    gap: 16px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   14. TECH PAGE — full page
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  div[style*="gridTemplateColumns: '1fr 1fr'"][style*="gap: 80"] {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+}
+@media (max-width: 600px) {
+  div[style*="gridTemplateColumns: 'repeat(3, 1fr)'"] > div {
+    padding: 20px 12px !important;
+  }
+  div[style*="gridTemplateColumns: 'repeat(3, 1fr)'"] > div > div:first-child {
+    width: 40px !important;
+    height: 40px !important;
+    margin-bottom: 10px !important;
+    font-size: 14px !important;
+  }
+  div[style*="gridTemplateColumns: 'repeat(3, 1fr)'"] > div > div:last-child {
+    font-size: 11px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   15. WORKS PAGE — full page
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .works-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; }
+}
+@media (max-width: 560px) {
+  .works-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+  .works-grid > div { padding: 30px 22px !important; border-radius: 12px !important; }
+  .works-grid > div > div:first-child { font-size: clamp(36px, 12vw, 56px) !important; }
+  .works-grid > div h3 { font-size: 16px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   16. PROCESS PAGE — full page
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .reveal[style*="justifyContent"] { justify-content: flex-start !important; }
+  .reveal > div[style*="width: 'calc(50%"] { width: 95% !important; }
+  .reveal > div > div[style*="padding: '32px 36px'"] { padding: 22px 20px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   17. CONTACT PAGE — full page
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+}
+@media (max-width: 600px) {
+  .contact-grid > div > div > a { padding: 14px 16px !important; border-radius: 10px !important; }
+  .contact-grid a div[style*="width: 44"] { width: 38px !important; height: 38px !important; }
+  .contact-grid a > div > div:last-child { font-size: 13px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   18. FOOTER
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+  .footer-map-wrap { width: 100% !important; }
+  .footer-map-link iframe { height: 170px !important; }
+}
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .footer-top { padding: 42px 0 34px !important; }
+  .footer-logo-mark { font-size: 26px !important; }
+  .footer-logo-mid  { font-size: 32px !important; }
+  .footer-bottom-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+  .footer-reg-info { flex-wrap: wrap !important; gap: 10px !important; width: 100% !important; }
+  .footer-reg-divider { width: 100% !important; height: 1px !important; }
+  .payment-badge { min-width: 64px !important; height: 42px !important; padding: 6px 10px !important; }
+  .payment-badge-img { height: 24px !important; }
+  .footer-payments-icons { gap: 8px !important; }
+}
+
+/* ═══════════════════════════════════════════
+   19. PAGE HEROES (all inner pages)
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  section > div.container h1 {
+    font-size: clamp(26px, 7vw, 40px) !important;
+    line-height: 1.42 !important;
+    padding-bottom: 6px !important;
+  }
+  section > div.container > p { font-size: 14px !important; line-height: 1.75 !important; }
+
+  /* Hide giant BG watermark text */
+  div[style*="fontSize: 'clamp(60px"],
+  div[style*='fontSize: "clamp(60px'] {
+    display: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   20. POPUP TRIGGER CARD
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  div[style*="padding: '40px 36px'"] {
+    padding: 28px 20px !important;
+  }
+  div[style*="padding: '40px 36px'"] h3 { font-size: 18px !important; }
+  div[style*="padding: '40px 36px'"] > button {
+    width: 100% !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   21. DISABLE 3D TILT ON TOUCH DEVICES
+═══════════════════════════════════════════ */
+@media (hover: none) {
+  .works-card-wrap > div { transform: none !important; will-change: auto !important; }
+  .detail-card { transform: none !important; will-change: auto !important; }
+}
+
+/* ═══════════════════════════════════════════
+   22. SCROLLBAR STYLE
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(184,164,114,0.3); border-radius: 4px; }
+}
+
+/* ═══════════════════════════════════════════
+   23. SAFE AREA (iPhone notch/home bar)
+═══════════════════════════════════════════ */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer.footer {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

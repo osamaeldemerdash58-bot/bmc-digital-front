@@ -256,7 +256,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
       {/* 3D Content Grid */}
       <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0 100px' }}>
         <div className="container">
-          <div className="service-detail-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+          <div className="service-detail-grid detail-features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
             {features?.map((f, i) => (
               <DetailCard3D key={`f-${i}`} accent={accent} delay={i * 0.07}>
                 {({ hovered }) => (
