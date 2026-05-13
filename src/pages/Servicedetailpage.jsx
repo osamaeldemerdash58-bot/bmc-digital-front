@@ -6,7 +6,7 @@ import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
 import { useData } from '../DataContext';
-import { overrideServiceDetail } from '../data/digitalMarketingService';
+import { overrideServiceCard, overrideServiceDetail } from '../data/digitalMarketingService';
 import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
 
 const serviceAccents = {
@@ -282,28 +282,33 @@ function AnimatedTracker({ rowCount, accent, isAr, label, containerRef }) {
   const [phase, setPhase] = useState('visible');
   const [displayNum, setDisplayNum] = useState(1);
   const [trackerY, setTrackerY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Measure actual row positions from container's children
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 700);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const measureY = (idx) => {
     const container = containerRef?.current;
-    if (!container) return idx * 58;
+    if (!container) return 0;
     const rows = Array.from(container.children);
-    if (!rows[idx]) return idx * 58;
-    const containerTop = container.getBoundingClientRect().top;
-    const rowRect = rows[idx].getBoundingClientRect();
-    const rowCenter = rowRect.top - containerTop + rowRect.height / 2;
-    return rowCenter - 19; // 19 = half tracker height
+    if (!rows[idx]) return 0;
+    // offsetTop is relative to offsetParent — accurate for absolute positioning
+    const rowEl = rows[idx];
+    return rowEl.offsetTop + rowEl.offsetHeight / 2 - 19;
   };
 
   useEffect(() => {
-    // Set initial position after mount
-    const timer = setTimeout(() => setTrackerY(measureY(0)), 50);
+    const timer = setTimeout(() => setTrackerY(measureY(0)), 80);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     if (rowCount === 0) return;
-    const DWELL = 1800;
+    const DWELL = 1900;
     const TRANSITION = 260;
 
     const cycle = () => {
@@ -312,7 +317,14 @@ function AnimatedTracker({ rowCount, accent, isAr, label, containerRef }) {
         setActiveIdx(prev => {
           const next = (prev + 1) % rowCount;
           setDisplayNum(next + 1);
-          setTrackerY(measureY(next));
+          // Measure after state update in next tick
+          requestAnimationFrame(() => {
+            const container = containerRef?.current;
+            if (!container) return;
+            const rows = Array.from(container.children);
+            if (!rows[next]) return;
+            setTrackerY(rows[next].offsetTop + rows[next].offsetHeight / 2 - 19);
+          });
           return next;
         });
         setPhase('enter');
@@ -328,17 +340,59 @@ function AnimatedTracker({ rowCount, accent, isAr, label, containerRef }) {
 
   const slideStyle = {
     visible: { opacity: 1, transform: 'translateY(0px)' },
-    exit:    { opacity: 0, transform: 'translateY(-10px)' },
-    enter:   { opacity: 0, transform: 'translateY(10px)' },
+    exit:    { opacity: 0, transform: 'translateY(-8px)' },
+    enter:   { opacity: 0, transform: 'translateY(8px)' },
   }[phase];
 
+  if (isMobile) {
+    // On mobile: show as a small horizontal pill at the top of the list
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 8,
+        padding: '6px 12px',
+        border: `1px solid ${accent}44`,
+        borderRadius: 20,
+        background: `${accent}0c`,
+        width: 'fit-content',
+      }}>
+        <div style={{
+          width: 6, height: 6, borderRadius: '50%',
+          background: accent,
+          boxShadow: `0 0 6px ${accent}`,
+          animation: 'pulse 1.4s ease-in-out infinite',
+        }} />
+        <span style={{
+          fontSize: 11,
+          fontWeight: 800,
+          color: accent,
+          fontFamily: 'monospace',
+          ...slideStyle,
+          transition: 'opacity 0.26s ease, transform 0.26s ease',
+        }}>
+          {String(displayNum).padStart(2, '0')}
+        </span>
+        <span style={{
+          fontSize: 9,
+          fontWeight: 700,
+          color: `${accent}88`,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+        }}>{label}</span>
+      </div>
+    );
+  }
+
+  // Desktop: vertical tracker on the side
   return (
     <div style={{
       position: 'absolute',
-      [isAr ? 'right' : 'left']: -68,
+      [isAr ? 'right' : 'left']: -60,
       top: 0,
       bottom: 0,
-      width: 48,
+      width: 44,
       pointerEvents: 'none',
       zIndex: 10,
     }}>
@@ -346,9 +400,9 @@ function AnimatedTracker({ rowCount, accent, isAr, label, containerRef }) {
       <div style={{
         position: 'absolute',
         left: '50%',
-        top: 0, bottom: 0,
+        top: 10, bottom: 10,
         width: 1,
-        background: `linear-gradient(180deg, transparent 0%, ${accent}44 10%, ${accent}44 90%, transparent 100%)`,
+        background: `linear-gradient(180deg, transparent 0%, ${accent}55 15%, ${accent}55 85%, transparent 100%)`,
         transform: 'translateX(-50%)',
       }} />
 
@@ -358,13 +412,13 @@ function AnimatedTracker({ rowCount, accent, isAr, label, containerRef }) {
         top: trackerY,
         left: '50%',
         transform: 'translateX(-50%)',
-        transition: 'top 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-        width: 42,
+        transition: 'top 0.55s cubic-bezier(0.4, 0, 0.2, 1)',
+        width: 40,
         height: 38,
         borderRadius: 8,
         border: `1.5px solid ${accent}`,
-        background: `linear-gradient(135deg, ${accent}1c 0%, ${accent}08 100%)`,
-        boxShadow: `0 0 16px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.07)`,
+        background: `linear-gradient(135deg, ${accent}1c 0%, ${accent}06 100%)`,
+        boxShadow: `0 0 18px ${accent}55, 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -372,7 +426,7 @@ function AnimatedTracker({ rowCount, accent, isAr, label, containerRef }) {
         gap: 2,
       }}>
         <div style={{
-          fontSize: 14,
+          fontSize: 13,
           fontWeight: 900,
           color: accent,
           fontFamily: 'monospace',
@@ -385,7 +439,7 @@ function AnimatedTracker({ rowCount, accent, isAr, label, containerRef }) {
         <div style={{
           fontSize: 7,
           fontWeight: 700,
-          color: `${accent}99`,
+          color: `${accent}88`,
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
           lineHeight: 1,
@@ -552,6 +606,136 @@ function SubTypesTicker({ types, accent, isAr }) {
   );
 }
 
+function RelatedServiceCard({ item, isAr, index = 0 }) {
+  const [hovered, setHovered] = useState(false);
+  const accent = serviceAccents[item.slug] || 'var(--bmc-gold)';
+
+  return (
+    <Link
+      to={`/services/${item.slug}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: 'block',
+        textDecoration: 'none',
+        borderRadius: 24,
+        overflow: 'hidden',
+        border: `1px solid ${hovered ? accent + '55' : 'rgba(255,255,255,0.08)'}`,
+        background: 'linear-gradient(180deg, rgba(18,24,34,0.96) 0%, rgba(11,15,22,0.98) 100%)',
+        boxShadow: hovered ? `0 20px 60px ${accent}22` : '0 16px 48px rgba(0,0,0,0.2)',
+        transform: hovered ? 'translateY(-8px)' : 'translateY(0)',
+        transition: 'transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease',
+        height: '100%',
+      }}
+    >
+      <div style={{
+        position: 'relative',
+        height: 220,
+        overflow: 'hidden',
+        background: `linear-gradient(135deg, ${accent}22 0%, rgba(7,10,14,0.95) 100%)`,
+      }}>
+        {item.cardImage ? (
+          <img
+            src={item.cardImage}
+            alt={item.title}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transform: hovered ? 'scale(1.06)' : 'scale(1)',
+              transition: 'transform 0.5s ease',
+            }}
+          />
+        ) : (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            background: `linear-gradient(135deg, ${accent}18 0%, rgba(8,11,16,1) 100%)`,
+          }} />
+        )}
+
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(180deg, rgba(8,11,16,0.02) 0%, rgba(8,11,16,0.72) 78%, rgba(8,11,16,0.95) 100%)',
+        }} />
+
+        <div style={{
+          position: 'absolute',
+          top: 18,
+          [isAr ? 'right' : 'left']: 18,
+          padding: '8px 12px',
+          borderRadius: 999,
+          border: `1px solid ${accent}44`,
+          background: 'rgba(8,11,16,0.72)',
+          color: accent,
+          fontSize: 11,
+          fontWeight: 800,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          backdropFilter: 'blur(10px)',
+        }}>
+          {isAr ? 'خدمة مقترحة' : 'Suggested'}
+        </div>
+
+        <div style={{
+          position: 'absolute',
+          bottom: 16,
+          [isAr ? 'left' : 'right']: 18,
+          fontSize: 36,
+          fontWeight: 900,
+          fontFamily: 'Playfair Display, serif',
+          color: `${accent}44`,
+          lineHeight: 1,
+          userSelect: 'none',
+        }}>
+          {String(index + 1).padStart(2, '0')}
+        </div>
+      </div>
+
+      <div style={{ padding: 24 }}>
+        <h3 style={{
+          margin: '0 0 12px',
+          fontSize: 23,
+          fontWeight: 900,
+          lineHeight: 1.35,
+          color: 'var(--bmc-white)',
+          fontFamily: 'Playfair Display, serif',
+          textAlign: isAr ? 'right' : 'left',
+        }}>
+          {item.title}
+        </h3>
+
+        <p style={{
+          margin: '0 0 20px',
+          fontSize: 14,
+          lineHeight: 1.9,
+          color: 'rgba(245,240,232,0.58)',
+          textAlign: isAr ? 'right' : 'left',
+          display: '-webkit-box',
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+        }}>
+          {item.desc}
+        </p>
+
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          color: accent,
+          fontSize: 13,
+          fontWeight: 800,
+        }}>
+          <span>{isAr ? 'اكتشف الخدمة' : 'Explore Service'}</span>
+          <span aria-hidden="true">{isAr ? '←' : '→'}</span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export default function ServiceDetailPage({ lang, setLang }) {
   useReveal();
   const { slug } = useParams();
@@ -603,6 +787,23 @@ export default function ServiceDetailPage({ lang, setLang }) {
   // Sub-types for this service
   const subTypes = serviceSubTypes[service.slug] || [];
   const whyCards = isAr ? whyChooseUs.ar : whyChooseUs.en;
+  const orderedServices = (data?.services || [])
+    .filter((item) => item?.visible !== false && item?.slug)
+    .sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
+    .map((item) => overrideServiceCard({
+      slug: item.slug,
+      title: sanitizeServiceText(isAr ? item.titleAr : item.titleEn),
+      desc: sanitizeServiceText(isAr ? item.descAr : item.descEn),
+      titleAr: item.titleAr,
+      titleEn: item.titleEn,
+      features: (isAr ? item.featuresAr : item.featuresEn) || [],
+      cardImage: item.cardImage || '',
+    }, lang));
+  const currentServiceIndex = orderedServices.findIndex((item) => item.slug === service.slug);
+  const rotatedServices = currentServiceIndex >= 0
+    ? [...orderedServices.slice(currentServiceIndex + 1), ...orderedServices.slice(0, currentServiceIndex)]
+    : orderedServices;
+  const relatedServices = rotatedServices.filter((item) => item.slug !== service.slug).slice(0, 3);
 
   return (
     <>
@@ -907,6 +1108,95 @@ export default function ServiceDetailPage({ lang, setLang }) {
           </div>
         </div>
       </section>
+
+      {relatedServices.length > 0 && (
+        <section style={{
+          background: 'linear-gradient(180deg, rgba(12,17,25,1) 0%, rgba(8,11,16,1) 100%)',
+          padding: '88px 0 96px',
+          borderTop: '1px solid rgba(255,255,255,0.04)',
+          borderBottom: '1px solid rgba(255,255,255,0.04)',
+        }}>
+          <div className="container">
+            <div style={{
+              display: 'flex',
+              alignItems: 'flex-end',
+              justifyContent: 'space-between',
+              gap: 24,
+              flexWrap: 'wrap',
+              marginBottom: 40,
+            }}>
+              <div style={{ maxWidth: 700 }}>
+                <span style={{
+                  display: 'inline-block',
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: accent,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  marginBottom: 12,
+                }}>
+                  {isAr ? '— خدمات ذات صلة' : '— Related Services'}
+                </span>
+                <h2 style={{
+                  margin: '0 0 14px',
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: 'clamp(28px, 3.6vw, 46px)',
+                  fontWeight: 900,
+                  lineHeight: 1.25,
+                  color: 'var(--bmc-white)',
+                }}>
+                  {isAr ? 'اقتراحات لبعض خدماتنا' : 'Suggested Services'}
+                </h2>
+                <p style={{
+                  margin: 0,
+                  fontSize: 14,
+                  lineHeight: 1.9,
+                  color: 'rgba(245,240,232,0.52)',
+                }}>
+                  {isAr
+                    ? 'يمكنك أيضًا استكشاف خدمات أخرى مكمّلة لمشروعك الرقمي لتبني تجربة متكاملة ونتائج أقوى.'
+                    : 'You can also explore complementary services that help you build a stronger and more complete digital experience.'}
+                </p>
+              </div>
+
+              <Link
+                to="/services"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '13px 22px',
+                  borderRadius: 999,
+                  textDecoration: 'none',
+                  color: 'rgba(245,240,232,0.82)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  background: 'rgba(255,255,255,0.02)',
+                  fontSize: 13,
+                  fontWeight: 700,
+                }}
+              >
+                <span>{isAr ? 'عرض كل الخدمات' : 'View All Services'}</span>
+                <span aria-hidden="true">{isAr ? '←' : '→'}</span>
+              </Link>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: 24,
+            }}>
+              {relatedServices.map((item, index) => (
+                <RelatedServiceCard
+                  key={item.slug}
+                  item={item}
+                  isAr={isAr}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Service Request Form ── */}
       <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0', position: 'relative', overflow: 'hidden' }}>
