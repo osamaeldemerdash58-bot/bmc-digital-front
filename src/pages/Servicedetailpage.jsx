@@ -19,6 +19,90 @@ const serviceAccents = {
   'tech-consulting': '#2C3E50',
 };
 
+/* ── Service sub-types per slug ── */
+const serviceSubTypes = {
+  'web-development': [
+    { ar: 'مواقع تعريفية', en: 'Corporate Websites' },
+    { ar: 'مواقع قانونية', en: 'Legal Websites' },
+    { ar: 'مواقع إسلامية', en: 'Islamic Websites' },
+    { ar: 'منصات تعليمية', en: 'Educational Platforms' },
+    { ar: 'جمعيات خيرية', en: 'Charity Sites' },
+    { ar: 'مواقع تجارية', en: 'Business Websites' },
+    { ar: 'متاجر إلكترونية', en: 'Online Stores' },
+    { ar: 'مواقع حكومية', en: 'Government Portals' },
+  ],
+  'e-commerce-website-development': [
+    { ar: 'متاجر WooCommerce', en: 'WooCommerce Stores' },
+    { ar: 'متاجر Shopify', en: 'Shopify Stores' },
+    { ar: 'بوابات دفع إلكتروني', en: 'Payment Gateways' },
+    { ar: 'إدارة المنتجات', en: 'Product Management' },
+    { ar: 'تتبع الطلبات', en: 'Order Tracking' },
+    { ar: 'برامج الولاء', en: 'Loyalty Programs' },
+    { ar: 'متاجر B2B', en: 'B2B Marketplaces' },
+  ],
+  'mobile-app-development': [
+    { ar: 'تطبيقات iOS', en: 'iOS Apps' },
+    { ar: 'تطبيقات Android', en: 'Android Apps' },
+    { ar: 'تطبيقات React Native', en: 'React Native Apps' },
+    { ar: 'تطبيقات Flutter', en: 'Flutter Apps' },
+    { ar: 'تطبيقات الأعمال', en: 'Business Apps' },
+    { ar: 'تطبيقات التوصيل', en: 'Delivery Apps' },
+    { ar: 'تطبيقات التعليم', en: 'EdTech Apps' },
+  ],
+  'erp-systems': [
+    { ar: 'إدارة الموارد البشرية', en: 'HR Management' },
+    { ar: 'المحاسبة والمالية', en: 'Finance & Accounting' },
+    { ar: 'إدارة المخزون', en: 'Inventory Management' },
+    { ar: 'إدارة المشاريع', en: 'Project Management' },
+    { ar: 'إدارة العملاء CRM', en: 'CRM Systems' },
+    { ar: 'تقارير وتحليلات', en: 'Reports & Analytics' },
+  ],
+  'ui-ux-design': [
+    { ar: 'تصميم واجهات المستخدم', en: 'UI Design' },
+    { ar: 'تجربة المستخدم UX', en: 'UX Research' },
+    { ar: 'نماذج أولية Prototyping', en: 'Prototyping' },
+    { ar: 'هوية بصرية', en: 'Visual Identity' },
+    { ar: 'تصميم نظام Design System', en: 'Design Systems' },
+    { ar: 'اختبار المستخدم', en: 'User Testing' },
+  ],
+  'ai-solutions': [
+    { ar: 'شات بوت ذكي', en: 'AI Chatbots' },
+    { ar: 'معالجة اللغات الطبيعية', en: 'NLP Solutions' },
+    { ar: 'تحليل البيانات', en: 'Data Analytics' },
+    { ar: 'رؤية حاسوبية', en: 'Computer Vision' },
+    { ar: 'أتمتة العمليات', en: 'Process Automation' },
+    { ar: 'نماذج تنبؤية', en: 'Predictive Models' },
+  ],
+  'tech-consulting': [
+    { ar: 'استراتيجية رقمية', en: 'Digital Strategy' },
+    { ar: 'تحويل رقمي', en: 'Digital Transformation' },
+    { ar: 'أمن المعلومات', en: 'Cybersecurity' },
+    { ar: 'بنية تحتية سحابية', en: 'Cloud Infrastructure' },
+    { ar: 'تدقيق تقني', en: 'Tech Auditing' },
+    { ar: 'تخطيط الأنظمة', en: 'Systems Planning' },
+  ],
+};
+
+/* ── Why Choose Us cards per slug ── */
+const whyChooseUs = {
+  ar: [
+    { icon: '🏆', title: 'خبرة واسعة', desc: 'فريق من المطورين والمصممين ذوي الخبرة العالية في مجالاتهم.' },
+    { icon: '⚡', title: 'تسليم سريع', desc: 'نلتزم بالمواعيد ونسلّم مشروعك في الوقت المحدد دون تأخير.' },
+    { icon: '💎', title: 'جودة عالية', desc: 'كود نظيف وتصاميم احترافية تعكس هوية علامتك التجارية.' },
+    { icon: '🛡️', title: 'دعم مستمر', desc: 'نقف معك بعد التسليم بدعم فني متواصل وصيانة دورية.' },
+    { icon: '💰', title: 'أسعار تنافسية', desc: 'نوفر لك أفضل قيمة مقابل ميزانيتك دون أي تنازلات على الجودة.' },
+    { icon: '🎯', title: 'حلول مخصصة', desc: 'نبني حلولاً تناسب احتياجات مشروعك تحديداً لا حلولاً جاهزة.' },
+  ],
+  en: [
+    { icon: '🏆', title: 'Proven Expertise', desc: 'A team of highly experienced developers and designers in their fields.' },
+    { icon: '⚡', title: 'Fast Delivery', desc: 'We commit to deadlines and deliver your project on time, every time.' },
+    { icon: '💎', title: 'Top Quality', desc: 'Clean code and professional designs that reflect your brand identity.' },
+    { icon: '🛡️', title: 'Ongoing Support', desc: 'We stand by you post-delivery with continuous technical support and maintenance.' },
+    { icon: '💰', title: 'Competitive Pricing', desc: 'Best value for your budget with zero compromises on quality.' },
+    { icon: '🎯', title: 'Custom Solutions', desc: 'We build solutions specifically tailored to your project, not generic templates.' },
+  ],
+};
+
 /* ── 3D tilt card hook ── */
 function useTilt(strength = 10) {
   const ref = useRef(null);
@@ -57,52 +141,414 @@ function useTilt(strength = 10) {
   return ref;
 }
 
-function DetailCard3D({ children, accent, delay = 0, isBenefit = false }) {
-  const tiltRef = useTilt(8);
+function FeatureRow({ text, index, accent }) {
   const [hovered, setHovered] = useState(false);
-
   return (
     <div
-      ref={tiltRef}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="detail-card"
       style={{
-        background: hovered
-          ? `linear-gradient(145deg, rgba(20,29,41,0.98) 0%, rgba(16,23,34,1) 100%)`
-          : `linear-gradient(145deg, rgba(16,23,34,0.95) 0%, rgba(11,15,21,1) 100%)`,
-        border: `1px solid ${hovered ? accent + '66' : 'rgba(184,164,114,0.14)'}`,
-        borderRadius: 16,
-        padding: '26px 22px',
-        boxShadow: hovered
-          ? `0 28px 56px rgba(0,0,0,0.45), 0 0 0 1px ${accent}33, inset 0 1px 0 rgba(255,255,255,0.05)`
-          : '0 12px 30px rgba(0,0,0,0.24)',
-        transition: 'background 0.3s, border-color 0.3s, box-shadow 0.4s',
-        animationDelay: `${delay}s`,
-        willChange: 'transform',
-        transformStyle: 'preserve-3d',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 16,
+        padding: '18px 16px 18px 20px',
+        borderBottom: `1px solid rgba(255,255,255,${hovered ? '0.07' : '0.04'})`,
+        background: hovered ? `linear-gradient(90deg, ${accent}08 0%, transparent 60%)` : 'transparent',
+        transition: 'background 0.3s ease',
+        cursor: 'default',
         position: 'relative',
-        overflow: 'hidden',
+        minHeight: 58,
       }}
     >
-      {/* Corner accent glow */}
+      {/* Dot */}
       <div style={{
-        position: 'absolute', top: 0, right: 0,
-        width: 120, height: 120,
-        background: `radial-gradient(circle at top right, ${accent}${hovered ? '1e' : '08'} 0%, transparent 70%)`,
-        transition: 'background 0.4s',
+        width: hovered ? 7 : 5,
+        height: hovered ? 7 : 5,
+        borderRadius: '50%',
+        background: hovered ? accent : `${accent}55`,
+        flexShrink: 0,
+        boxShadow: hovered ? `0 0 10px ${accent}88` : 'none',
+        transition: 'all 0.25s ease',
+      }} />
+      <span style={{
+        fontSize: 14,
+        fontWeight: 600,
+        color: hovered ? 'rgba(245,240,232,0.95)' : 'rgba(245,240,232,0.65)',
+        flex: 1,
+        lineHeight: 1.5,
+        transition: 'color 0.25s',
+      }}>{text}</span>
+    </div>
+  );
+}
+
+function BenefitItem({ title, desc, accent, index }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: 'flex',
+        gap: 16,
+        padding: '20px 16px 20px 20px',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        transition: 'all 0.3s ease',
+        cursor: 'default',
+        minHeight: 58,
+        background: hovered ? `linear-gradient(90deg, ${accent}06 0%, transparent 60%)` : 'transparent',
+      }}
+    >
+      {/* Dot */}
+      <div style={{
+        flexShrink: 0,
+        width: 5,
+        height: 5,
+        borderRadius: '50%',
+        background: hovered ? accent : `${accent}55`,
+        marginTop: 6,
+        boxShadow: hovered ? `0 0 8px ${accent}` : 'none',
+        transition: 'all 0.3s ease',
+      }} />
+      <div style={{ flex: 1 }}>
+        <h4 style={{
+          fontSize: 14.5,
+          fontWeight: 700,
+          color: hovered ? '#fff' : 'rgba(245,240,232,0.82)',
+          marginBottom: 5,
+          transition: 'color 0.3s',
+        }}>{title}</h4>
+        <p style={{
+          fontSize: 12.5,
+          color: 'rgba(245,240,232,0.45)',
+          lineHeight: 1.75,
+          margin: 0,
+        }}>{desc}</p>
+      </div>
+    </div>
+  );
+}
+
+// Keep old DetailCard3D as unused (won't be referenced)
+function DetailCard3D({ children, accent, delay = 0 }) {
+  return <div style={{ animationDelay: `${delay}s` }}>{children({ hovered: false, accent })}</div>;
+}
+
+/* ── Why Choose Card - horizontal editorial layout ── */
+function WhyCard({ title, desc, accent, delay = 0, isAr = false, index = 0, isActive = false }) {
+  const [hovered, setHovered] = useState(false);
+  const active = hovered || isActive;
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="why-card"
+      style={{
+        display: 'flex',
+        gap: 20,
+        alignItems: 'flex-start',
+        padding: '22px 0',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
+        transition: 'all 0.3s ease',
+        cursor: 'default',
+        animationDelay: `${delay}s`,
+        flexDirection: isAr ? 'row-reverse' : 'row',
+        background: active ? `linear-gradient(${isAr ? '270deg' : '90deg'}, ${accent}06 0%, transparent 60%)` : 'transparent',
+        borderRadius: 4,
+        paddingLeft: isAr ? 0 : 8,
+        paddingRight: isAr ? 8 : 0,
+      }}
+    >
+      {/* Text */}
+      <div style={{ flex: 1, textAlign: isAr ? 'right' : 'left' }}>
+        <h3 style={{
+          fontSize: 15,
+          fontWeight: 700,
+          color: active ? '#fff' : 'rgba(245,240,232,0.75)',
+          marginBottom: 5,
+          transition: 'color 0.3s',
+        }}>
+          {title}
+        </h3>
+        <p style={{ fontSize: 13, color: active ? 'rgba(245,240,232,0.55)' : 'rgba(245,240,232,0.35)', lineHeight: 1.75, margin: 0, transition: 'color 0.3s' }}>{desc}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ── Animated Tracker Box ── */
+function AnimatedTracker({ rowCount, accent, isAr, label, containerRef }) {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [phase, setPhase] = useState('visible');
+  const [displayNum, setDisplayNum] = useState(1);
+  const [trackerY, setTrackerY] = useState(0);
+
+  // Measure actual row positions from container's children
+  const measureY = (idx) => {
+    const container = containerRef?.current;
+    if (!container) return idx * 58;
+    const rows = Array.from(container.children);
+    if (!rows[idx]) return idx * 58;
+    const containerTop = container.getBoundingClientRect().top;
+    const rowRect = rows[idx].getBoundingClientRect();
+    const rowCenter = rowRect.top - containerTop + rowRect.height / 2;
+    return rowCenter - 19; // 19 = half tracker height
+  };
+
+  useEffect(() => {
+    // Set initial position after mount
+    const timer = setTimeout(() => setTrackerY(measureY(0)), 50);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (rowCount === 0) return;
+    const DWELL = 1800;
+    const TRANSITION = 260;
+
+    const cycle = () => {
+      setPhase('exit');
+      setTimeout(() => {
+        setActiveIdx(prev => {
+          const next = (prev + 1) % rowCount;
+          setDisplayNum(next + 1);
+          setTrackerY(measureY(next));
+          return next;
+        });
+        setPhase('enter');
+        setTimeout(() => setPhase('visible'), TRANSITION);
+      }, TRANSITION);
+    };
+
+    const interval = setInterval(cycle, DWELL + TRANSITION * 2);
+    return () => clearInterval(interval);
+  }, [rowCount]);
+
+  if (rowCount === 0) return null;
+
+  const slideStyle = {
+    visible: { opacity: 1, transform: 'translateY(0px)' },
+    exit:    { opacity: 0, transform: 'translateY(-10px)' },
+    enter:   { opacity: 0, transform: 'translateY(10px)' },
+  }[phase];
+
+  return (
+    <div style={{
+      position: 'absolute',
+      [isAr ? 'right' : 'left']: -68,
+      top: 0,
+      bottom: 0,
+      width: 48,
+      pointerEvents: 'none',
+      zIndex: 10,
+    }}>
+      {/* Track line */}
+      <div style={{
+        position: 'absolute',
+        left: '50%',
+        top: 0, bottom: 0,
+        width: 1,
+        background: `linear-gradient(180deg, transparent 0%, ${accent}44 10%, ${accent}44 90%, transparent 100%)`,
+        transform: 'translateX(-50%)',
+      }} />
+
+      {/* Moving box */}
+      <div style={{
+        position: 'absolute',
+        top: trackerY,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        transition: 'top 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+        width: 42,
+        height: 38,
+        borderRadius: 8,
+        border: `1.5px solid ${accent}`,
+        background: `linear-gradient(135deg, ${accent}1c 0%, ${accent}08 100%)`,
+        boxShadow: `0 0 16px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.07)`,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 2,
+      }}>
+        <div style={{
+          fontSize: 14,
+          fontWeight: 900,
+          color: accent,
+          fontFamily: 'monospace',
+          lineHeight: 1,
+          ...slideStyle,
+          transition: 'opacity 0.26s ease, transform 0.26s cubic-bezier(0.4,0,0.2,1)',
+        }}>
+          {String(displayNum).padStart(2, '0')}
+        </div>
+        <div style={{
+          fontSize: 7,
+          fontWeight: 700,
+          color: `${accent}99`,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          lineHeight: 1,
+        }}>
+          {label}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TrackedFeatureList({ items, accent, isAr }) {
+  const rowsRef = useRef(null);
+  return (
+    <>
+      <div style={{
+        fontSize: 11, fontWeight: 800, color: 'rgba(245,240,232,0.35)',
+        letterSpacing: '0.14em', textTransform: 'uppercase',
+        marginBottom: 4, paddingBottom: 16,
+        borderBottom: `2px solid ${accent}`, display: 'inline-block',
+      }}>
+        {isAr ? 'المميزات' : 'Features'}
+      </div>
+      <div style={{ position: 'relative' }}>
+        <AnimatedTracker
+          rowCount={items.length}
+          accent={accent}
+          isAr={isAr}
+          label={isAr ? 'ميزة' : 'feat'}
+          containerRef={rowsRef}
+        />
+        <div ref={rowsRef}>
+          {items.map((f, i) => (
+            <FeatureRow key={`f-${i}`} text={f} index={i} accent={accent} />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function TrackedBenefitList({ items, accent, isAr }) {
+  const rowsRef = useRef(null);
+  return (
+    <>
+      <div style={{
+        fontSize: 11, fontWeight: 800, color: 'rgba(245,240,232,0.35)',
+        letterSpacing: '0.14em', textTransform: 'uppercase',
+        marginBottom: 4, paddingBottom: 16,
+        borderBottom: `2px solid ${accent}55`, display: 'inline-block',
+      }}>
+        {isAr ? 'الفوائد' : 'Benefits'}
+      </div>
+      <div style={{ position: 'relative' }}>
+        <AnimatedTracker
+          rowCount={items.length}
+          accent={accent}
+          isAr={isAr}
+          label={isAr ? 'فائدة' : 'ben'}
+          containerRef={rowsRef}
+        />
+        <div ref={rowsRef}>
+          {items.map((b, i) => (
+            <BenefitItem key={`b-${i}`} title={b.title} desc={b.desc} accent={accent} index={i} />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function TrackedWhyList({ items, accent, isAr }) {
+  const rowsRef = useRef(null);
+  return (
+    <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', position: 'relative' }}>
+      <AnimatedTracker
+        rowCount={items.length}
+        accent={accent}
+        isAr={isAr}
+        label={isAr ? 'سبب' : 'why'}
+        containerRef={rowsRef}
+      />
+      <div ref={rowsRef}>
+        {items.map((card, i) => (
+          <WhyCard
+            key={i}
+            title={card.title}
+            desc={card.desc}
+            accent={accent}
+            delay={i * 0.08}
+            isAr={isAr}
+            index={i}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── Scrolling Sub-Types Ticker ── */
+function SubTypesTicker({ types, accent, isAr }) {
+  // Duplicate for infinite scroll
+  const items = [...types, ...types, ...types];
+  return (
+    <section style={{
+      background: 'var(--bmc-dark-2)',
+      borderTop: `1px solid ${accent}44`,
+      borderBottom: `1px solid ${accent}44`,
+      overflow: 'hidden',
+      padding: '0',
+      position: 'relative',
+    }}>
+      {/* Left/right fade overlays */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, bottom: 0, width: 80, zIndex: 2,
+        background: 'linear-gradient(90deg, var(--bmc-dark-2) 0%, transparent 100%)',
         pointerEvents: 'none',
       }} />
-      {/* Bottom glow line */}
       <div style={{
-        position: 'absolute', bottom: 0, left: hovered ? 0 : '50%', right: hovered ? 0 : '50%',
-        height: 2,
-        background: `linear-gradient(90deg, transparent, ${accent}bb, transparent)`,
-        transition: 'left 0.5s cubic-bezier(0.23,1,0.32,1), right 0.5s cubic-bezier(0.23,1,0.32,1)',
-        borderRadius: 2,
+        position: 'absolute', top: 0, right: 0, bottom: 0, width: 80, zIndex: 2,
+        background: 'linear-gradient(270deg, var(--bmc-dark-2) 0%, transparent 100%)',
+        pointerEvents: 'none',
       }} />
-      {children({ hovered, accent })}
-    </div>
+
+      <div style={{
+        display: 'flex',
+        width: 'max-content',
+        animation: `subTypeTicker ${types.length * 3}s linear infinite`,
+        direction: 'ltr',
+      }}>
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="subtype-pill"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '16px 28px',
+              whiteSpace: 'nowrap',
+              cursor: 'default',
+              borderRight: `1px solid ${accent}22`,
+            }}
+          >
+            <span style={{
+              width: 8, height: 8, borderRadius: '50%',
+              background: accent,
+              boxShadow: `0 0 8px ${accent}`,
+              flexShrink: 0,
+              display: 'inline-block',
+            }} />
+            <span style={{
+              fontSize: 14,
+              fontWeight: 700,
+              color: 'rgba(245,240,232,0.85)',
+              letterSpacing: '0.02em',
+            }}>
+              {isAr ? item.ar : item.en}
+            </span>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -154,11 +600,15 @@ export default function ServiceDetailPage({ lang, setLang }) {
   const heroTitleMain = detailTitle || title;
   const heroTitleSpan = detailTitleSpan || '';
 
+  // Sub-types for this service
+  const subTypes = serviceSubTypes[service.slug] || [];
+  const whyCards = isAr ? whyChooseUs.ar : whyChooseUs.en;
+
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
 
-      {/* Hero with 3D depth layers */}
+      {/* ── Hero ── */}
       <section style={{
         minHeight: '52vh',
         backgroundImage: `linear-gradient(135deg, rgba(8,11,16,0.93) 0%, rgba(16,23,34,0.94) 100%), url(${service.cardImage || servicesBgImage})`,
@@ -171,7 +621,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        {/* Depth layer orbs */}
+        {/* Depth orbs */}
         <div style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: `radial-gradient(circle, ${accent}08 0%, transparent 70%)`, top: '10%', left: '-8%', animation: 'orbFloat1 10s ease-in-out infinite', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', width: 350, height: 350, borderRadius: '50%', background: `radial-gradient(circle, ${accent}06 0%, transparent 70%)`, bottom: '-5%', right: '5%', animation: 'orbFloat2 13s ease-in-out infinite 1.5s', pointerEvents: 'none' }} />
 
@@ -218,98 +668,247 @@ export default function ServiceDetailPage({ lang, setLang }) {
               }}>{heroTitleSpan}</span>
             )}
           </h1>
+
+          {/* CTA button */}
+          <a
+            href="https://wa.me/201000000000"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-cta-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              marginTop: 10,
+              padding: '14px 32px',
+              background: `linear-gradient(135deg, ${accent} 0%, ${accent}cc 100%)`,
+              color: '#fff',
+              fontWeight: 800,
+              fontSize: 15,
+              borderRadius: 50,
+              textDecoration: 'none',
+              boxShadow: `0 8px 32px ${accent}44`,
+              transition: 'transform 0.25s, box-shadow 0.25s',
+              animation: 'cardEntry 0.9s cubic-bezier(0.23,1,0.32,1) 0.3s both',
+            }}
+          >
+            <span>💬</span>
+            {isAr ? 'اطلب الخدمة الآن' : 'Request This Service'}
+          </a>
         </div>
       </section>
 
-      {/* Animated features ticker */}
-      <section style={{ background: 'var(--bmc-dark-2)', borderTop: `1px solid ${accent}33`, borderBottom: `1px solid ${accent}33`, overflow: 'hidden' }}>
+      {/* ── Animated Sub-Types Ticker (NEW) ── */}
+      {subTypes.length > 0 && (
+        <SubTypesTicker types={subTypes} accent={accent} isAr={isAr} />
+      )}
+
+      {/* ── Features ticker (original) ── */}
+      <section style={{ background: 'rgba(8,11,16,0.98)', borderBottom: `1px solid ${accent}22`, overflow: 'hidden' }}>
         <div style={{ display: 'flex', width: 'max-content', animation: 'featureTicker 22s linear infinite' }}>
           {tickerFeatures.map((item, i) => (
-            <div key={`${item}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 22px', fontSize: 12.5, whiteSpace: 'nowrap', color: 'rgba(245,240,232,0.75)' }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: accent, boxShadow: `0 0 6px ${accent}88`, flexShrink: 0 }} />
+            <div key={`${item}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 22px', fontSize: 12, whiteSpace: 'nowrap', color: 'rgba(245,240,232,0.5)' }}>
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: accent + '88', flexShrink: 0 }} />
               {item}
             </div>
           ))}
         </div>
       </section>
 
-      {/* Description block with 3D lift */}
-      <section style={{ background: 'var(--bmc-dark-2)', padding: '40px 0 10px' }}>
+      {/* ── Description block ── */}
+      <section style={{ background: 'var(--bmc-dark-2)', padding: '56px 0 20px' }}>
         <div className="container">
           <div className="desc-block" style={{
-            background: `linear-gradient(145deg, rgba(16,23,34,0.9), rgba(11,15,21,0.95))`,
-            border: `1px solid rgba(184,164,114,0.14)`,
-            borderRadius: 16,
-            padding: '24px 26px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.28)',
-            position: 'relative',
-            overflow: 'hidden',
+            display: 'grid',
+            gridTemplateColumns: '3px 1fr',
+            gap: '0 32px',
+            alignItems: 'stretch',
           }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, width: 4, height: '100%', background: `linear-gradient(180deg, ${accent}, ${accent}44)`, borderRadius: '4px 0 0 4px' }} />
-            <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2, margin: 0 }}>
+            {/* Vertical accent line */}
+            <div style={{
+              background: `linear-gradient(180deg, ${accent} 0%, ${accent}22 100%)`,
+              borderRadius: 4,
+              minHeight: 60,
+            }} />
+            <p style={{
+              fontSize: 16,
+              color: 'rgba(245,240,232,0.72)',
+              lineHeight: 2,
+              margin: 0,
+              paddingTop: 4,
+            }}>
               {detailDesc}
             </p>
           </div>
         </div>
       </section>
 
-      {/* 3D Content Grid */}
-      <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0 100px' }}>
+      {/* ── Features & Benefits ── */}
+      <section style={{ background: 'var(--bmc-dark-2)', padding: '70px 0 80px' }}>
         <div className="container">
-          <div className="service-detail-grid detail-features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-            {features?.map((f, i) => (
-              <DetailCard3D key={`f-${i}`} accent={accent} delay={i * 0.07}>
-                {({ hovered }) => (
-                  <>
-                    <div style={{
-                      display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12,
-                      transform: hovered ? 'translateZ(14px)' : 'translateZ(0)',
-                      transition: 'transform 0.35s cubic-bezier(0.23,1,0.32,1)',
-                    }}>
-                      <span style={{
-                        color: accent,
-                        fontSize: 16,
-                        fontWeight: 900,
-                        textShadow: `0 0 8px ${accent}88`,
-                        flexShrink: 0,
-                      }}>✓</span>
-                      <span style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--bmc-white)' }}>{f}</span>
-                    </div>
-                    <p style={{ fontSize: 13, color: 'rgba(245,240,232,0.52)', lineHeight: 1.85, margin: 0 }}>
-                      {isAr ? 'تنفيذ احترافي متوافق مع أهداف مشروعك.' : 'Professional execution aligned with your project goals.'}
-                    </p>
-                  </>
+          {/* Section header */}
+          <div style={{ marginBottom: 52, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+            <div>
+              <span style={{
+                display: 'inline-block',
+                fontSize: 11,
+                fontWeight: 800,
+                color: accent,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                marginBottom: 10,
+              }}>
+                {isAr ? '— ما يشمله الحل' : '— What We Deliver'}
+              </span>
+              <h2 style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: 'clamp(26px, 3.5vw, 44px)',
+                fontWeight: 900,
+                color: 'var(--bmc-white)',
+                lineHeight: 1.25,
+                margin: 0,
+              }}>
+                {isAr ? (
+                  <>المميزات<br /><span style={{ background: `linear-gradient(135deg, ${accent} 0%, ${accent}88 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>والفوائد</span></>
+                ) : (
+                  <>Features &<br /><span style={{ background: `linear-gradient(135deg, ${accent} 0%, ${accent}88 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Benefits</span></>
                 )}
-              </DetailCard3D>
-            ))}
+              </h2>
+            </div>
+            {/* Stat badge */}
+            <div style={{
+              padding: '12px 24px',
+              border: `1px solid ${accent}33`,
+              borderRadius: 8,
+              background: `${accent}08`,
+              textAlign: 'center',
+            }}>
+              <div style={{ fontSize: 26, fontWeight: 900, color: accent, fontFamily: 'monospace', lineHeight: 1 }}>
+                {(features?.length || 0) + (benefits?.length || 0)}
+              </div>
+              <div style={{ fontSize: 11, color: 'rgba(245,240,232,0.45)', marginTop: 4, fontWeight: 600, letterSpacing: '0.06em' }}>
+                {isAr ? 'نقطة قوة' : 'KEY POINTS'}
+              </div>
+            </div>
+          </div>
 
-            {(benefits || []).map((b, i) => (
-              <DetailCard3D key={`b-${i}`} accent={accent} delay={(features?.length || 0) * 0.07 + i * 0.07} isBenefit>
-                {({ hovered }) => (
-                  <>
-                    <h3 style={{
-                      fontSize: 17,
-                      fontWeight: 700,
-                      color: accent,
-                      marginBottom: 12,
-                      textShadow: hovered ? `0 0 16px ${accent}44` : 'none',
-                      transform: hovered ? 'translateZ(16px)' : 'translateZ(0)',
-                      transition: 'transform 0.35s cubic-bezier(0.23,1,0.32,1), text-shadow 0.3s',
-                    }}>
-                      {b.title}
-                    </h3>
-                    <p style={{ fontSize: 13.5, color: 'rgba(245,240,232,0.58)', lineHeight: 1.85, margin: 0 }}>
-                      {b.desc}
-                    </p>
-                  </>
-                )}
-              </DetailCard3D>
-            ))}
+          {/* Two-column layout: features left, benefits right */}
+          <div className="fb-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 60px' }}>
+            {/* Features column */}
+            <div>
+              {features && features.length > 0 && (
+                <TrackedFeatureList items={features} accent={accent} isAr={isAr} />
+              )}
+            </div>
+
+            {/* Benefits column */}
+            <div>
+              {benefits && benefits.length > 0 && (
+                <TrackedBenefitList items={benefits} accent={accent} isAr={isAr} />
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Service Request Form */}
+      {/* ── Why Choose Us ── */}
+      <section style={{
+        background: 'linear-gradient(180deg, rgba(8,11,16,1) 0%, rgba(12,17,25,1) 100%)',
+        padding: '90px 0 100px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        {/* BG glow */}
+        <div style={{
+          position: 'absolute', top: '40%', left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 700, height: 700,
+          background: `radial-gradient(circle, ${accent}07 0%, transparent 65%)`,
+          pointerEvents: 'none',
+        }} />
+
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          {/* Two-col layout: heading left, list right */}
+          <div className="why-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '0 80px', alignItems: 'start' }}>
+
+            {/* Left: sticky heading */}
+            <div style={{ position: 'sticky', top: 120 }}>
+              <span style={{
+                display: 'inline-block',
+                fontSize: 11,
+                fontWeight: 800,
+                color: accent,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                marginBottom: 16,
+              }}>
+                {isAr ? '— لماذا نحن؟' : '— Why Us?'}
+              </span>
+              <h2 style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: 'clamp(28px, 3vw, 46px)',
+                fontWeight: 900,
+                color: 'var(--bmc-white)',
+                lineHeight: 1.22,
+                marginBottom: 24,
+              }}>
+                {isAr ? (
+                  <>لماذا<br />تختارنا<br /><span style={{ background: `linear-gradient(135deg, #D4C48F 0%, ${accent} 50%, #B8A472 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>لمشروعك؟</span></>
+                ) : (
+                  <>Why<br />Choose<br /><span style={{ background: `linear-gradient(135deg, #D4C48F 0%, ${accent} 50%, #B8A472 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Us?</span></>
+                )}
+              </h2>
+              <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.45)', lineHeight: 1.8, marginBottom: 32 }}>
+                {isAr
+                  ? 'مع فريقنا، أنت لا تحصل فقط على خدمة، بل على شريك استراتيجي يضمن نجاح مشروعك الرقمي.'
+                  : 'With our team, you get more than a service — a strategic partner committed to your digital success.'}
+              </p>
+              {/* CTA buttons stacked */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <a
+                  href="https://wa.me/201000000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                    padding: '13px 28px',
+                    background: `linear-gradient(135deg, ${accent} 0%, ${accent}cc 100%)`,
+                    color: '#fff',
+                    fontWeight: 800, fontSize: 14,
+                    borderRadius: 8,
+                    textDecoration: 'none',
+                    boxShadow: `0 6px 24px ${accent}44`,
+                    transition: 'transform 0.25s, box-shadow 0.25s',
+                  }}
+                >
+                  💬 {isAr ? 'احجز استشارة مجانية' : 'Book Free Consultation'}
+                </a>
+                <Link
+                  to="/contact"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                    padding: '13px 28px',
+                    background: 'transparent',
+                    color: 'rgba(245,240,232,0.7)',
+                    fontWeight: 600, fontSize: 14,
+                    borderRadius: 8,
+                    textDecoration: 'none',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    transition: 'all 0.25s',
+                  }}
+                >
+                  {isAr ? 'تواصل معنا الآن' : 'Contact Us Now'} →
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: why cards as list */}
+            <TrackedWhyList items={whyCards} accent={accent} isAr={isAr} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Service Request Form ── */}
       <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 800, height: 800, background: 'radial-gradient(circle, rgba(184,164,114,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
@@ -327,6 +926,19 @@ export default function ServiceDetailPage({ lang, setLang }) {
       <WhatsAppFloat lang={lang} />
 
       <style>{`
+        /* Sub-types ticker */
+        @keyframes subTypeTicker {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+        .subtype-pill:hover {
+          background: rgba(255,255,255,0.03);
+        }
+        .subtype-pill:hover span:last-child {
+          color: rgba(245,240,232,1);
+        }
+
+        /* Original animations */
         @keyframes featureTicker {
           0% { transform: translateX(0); }
           100% { transform: translateX(-25%); }
@@ -351,18 +963,28 @@ export default function ServiceDetailPage({ lang, setLang }) {
           from { opacity: 0; transform: perspective(900px) rotateX(20deg) translateY(36px); }
           to   { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
         }
+
+        .hero-cta-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+        }
+
         .hero-breadcrumb { animation: cardEntry 0.7s cubic-bezier(0.23,1,0.32,1) both; }
         .hero-title-detail { animation: cardEntry 0.8s cubic-bezier(0.23,1,0.32,1) 0.14s both; }
         .desc-block { animation: cardEntry 0.8s cubic-bezier(0.23,1,0.32,1) 0.1s both; }
         .detail-card { animation: cardEntry 0.75s cubic-bezier(0.23,1,0.32,1) both; }
+        .why-card { animation: cardEntry 0.75s cubic-bezier(0.23,1,0.32,1) both; }
 
         @media (max-width: 1080px) {
-          .service-detail-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .fb-grid { grid-template-columns: 1fr !important; gap: 40px 0 !important; }
+          .why-layout { grid-template-columns: 1fr !important; }
+          .why-layout > div:first-child { position: static !important; }
         }
         @media (max-width: 700px) {
           .container { padding: 0 18px; }
           section h1 { line-height: 1.38 !important; }
-          .service-detail-grid { grid-template-columns: 1fr !important; }
+          .fb-grid { grid-template-columns: 1fr !important; }
+          .why-layout { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </>
