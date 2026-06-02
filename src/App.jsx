@@ -53,15 +53,15 @@ function LoadingScreen() {
         fontWeight: 900,
         letterSpacing: 2,
       }}>
-        <span style={{ color: '#b8a472' }}>B</span>
+        <span style={{ color: 'var(--neon-blue)' }}>B</span>
         <span style={{ color: '#f5f0e8' }}>M</span>
-        <span style={{ color: '#b8a472' }}>C</span>
+        <span style={{ color: 'var(--neon-blue)' }}>C</span>
       </div>
       <div style={{
         width: 40,
         height: 40,
-        border: '3px solid rgba(184,164,114,0.2)',
-        borderTopColor: '#b8a472',
+        border: '3px solid rgba(0,194,255,0.22)',
+        borderTopColor: 'var(--neon-blue)',
         borderRadius: '50%',
         animation: 'spin 1s linear infinite',
       }} />

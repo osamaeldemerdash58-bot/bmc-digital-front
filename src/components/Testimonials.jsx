@@ -235,9 +235,10 @@ export default function Testimonials({ lang }) {
           </div>
 
           {/* Navigation */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
+          <div className="testi-nav" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
             <button
               onClick={() => goTo((active - 1 + tx.items.length) % tx.items.length)}
+              className="testi-arrow"
               style={{
                 width: 40, height: 40, borderRadius: '50%',
                 background: 'transparent', border: '1px solid rgba(0,194,255,0.3)',
@@ -252,18 +253,21 @@ export default function Testimonials({ lang }) {
               </svg>
             </button>
 
-            <div style={{ display: 'flex', gap: 8 }}>
+            <div className="testi-dots" style={{ display: 'flex', gap: 8 }}>
               {tx.items.map((_, i) => (
-                <button key={i} onClick={() => goTo(i)} style={{
-                  width: i === active ? 24 : 8, height: 8, borderRadius: 4,
-                  background: i === active ? '#00C2FF' : 'rgba(0,194,255,0.25)',
-                  border: 'none', cursor: 'pointer', transition: 'all 0.35s ease', padding: 0,
-                }} />
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  className="testi-dot"
+                  data-active={i === active ? 'true' : 'false'}
+                  style={{ border: 'none', cursor: 'pointer' }}
+                />
               ))}
             </div>
 
             <button
               onClick={() => goTo((active + 1) % tx.items.length)}
+              className="testi-arrow"
               style={{
                 width: 40, height: 40, borderRadius: '50%',
                 background: 'transparent', border: '1px solid rgba(0,194,255,0.3)',
@@ -298,8 +302,53 @@ export default function Testimonials({ lang }) {
         }
         @keyframes tAvRing  { from { transform: rotate(0deg);   } to { transform: rotate(360deg);   } }
         @keyframes tAvDot   { from { transform: rotate(0deg);   } to { transform: rotate(360deg);   } }
+
+        .testi-dots {
+          width: min(520px, 72vw);
+          justify-content: center;
+          flex-wrap: wrap;
+          row-gap: 8px;
+          padding: 6px 2px;
+        }
+        .testi-dot {
+          width: 28px;
+          height: 28px;
+          border-radius: 999px;
+          background: transparent;
+          display: grid;
+          place-items: center;
+          transition: transform 0.25s ease;
+          flex: 0 0 auto;
+        }
+        .testi-dot::before {
+          content: '';
+          width: 8px;
+          height: 8px;
+          border-radius: 999px;
+          background: rgba(0,194,255,0.25);
+          transition: width 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+        }
+        .testi-dot[data-active="true"]::before {
+          width: 18px;
+          background: #00C2FF;
+          box-shadow: 0 0 14px rgba(0,194,255,0.35);
+        }
         @media (max-width: 768px) {
           #testimonials .container > div:last-child > div:first-child { padding: 36px 28px !important; }
+          .testi-nav { gap: 14px !important; }
+          .testi-arrow { width: 34px !important; height: 34px !important; }
+          .testi-dots { width: min(420px, 62vw); }
+          .testi-dot { width: 26px; height: 26px; }
+          .testi-dot::before { width: 7px; height: 7px; }
+          .testi-dot[data-active="true"]::before { width: 16px; }
+        }
+        @media (max-width: 420px) {
+          .testi-nav { gap: 10px !important; }
+          .testi-arrow { width: 32px !important; height: 32px !important; }
+          .testi-dots { width: min(320px, 58vw); }
+          .testi-dot { width: 24px; height: 24px; }
+          .testi-dot::before { width: 6px; height: 6px; }
+          .testi-dot[data-active="true"]::before { width: 14px; }
         }
       `}</style>
     </section>
