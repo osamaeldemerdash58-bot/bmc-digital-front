@@ -10,7 +10,7 @@ const serviceDetailSlugs = [
 ];
 
 export const serviceColors = [
-  '#4A90D9','#27AE60','#E74C3C','#8E44AD','#F39C12','#16A085','#2C3E50',
+  '#3B8DFF', '#27AE60', '#E74C3C', '#6C63FF', '#00C2FF', '#16A085', '#9B59B6',
 ];
 
 function resolveServiceSlug(item, index) {
@@ -41,7 +41,7 @@ function ServiceParticles() {
           position: 'absolute',
           width: p.size, height: p.size,
           borderRadius: '50%',
-          background: 'rgba(184,164,114,0.45)',
+          background: 'rgba(0,194,255,0.38)',
           left: `${p.left}%`,
           animation: `svcParticleRise ${p.dur}s linear ${p.delay}s infinite`,
         }} />
@@ -59,7 +59,7 @@ function HeroOrb() {
           position: 'absolute',
           width: size, height: size,
           borderRadius: '50%',
-          border: `1px solid rgba(184,164,114,${0.06 - i * 0.015})`,
+          border: `1px solid rgba(0,194,255,${0.08 - i * 0.02})`,
           top: '50%', left: '50%',
           transform: 'translate(-50%,-50%)',
           animation: `svcOrbit${i} ${14 + i * 6}s linear infinite ${i % 2 ? 'reverse' : ''}`,
@@ -69,7 +69,7 @@ function HeroOrb() {
         position: 'absolute',
         width: 200, height: 200,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(184,164,114,0.07) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(108,99,255,0.09) 0%, transparent 70%)',
         top: '50%', left: '50%',
         transform: 'translate(-50%,-50%)',
         animation: 'svcGlowPulse 5s ease-in-out infinite',
@@ -164,7 +164,7 @@ function CardImagePlaceholder({ color, index }) {
     <div style={{
       width: '100%',
       height: '100%',
-      background: `linear-gradient(135deg, ${color}14 0%, rgba(10,8,4,0) 60%)`,
+      background: `linear-gradient(135deg, ${color}14 0%, rgba(2,4,20,0) 60%)`,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -237,81 +237,43 @@ export default function ServicesPage({ lang }) {
   const isAr = lang === 'ar';
 
   return (
-    <div id="services" style={{ background: 'var(--bmc-dark)', minHeight: '100vh', paddingTop: 100, position: 'relative', overflow: 'hidden' }}>
+    <section id="services" className="section" style={{ background: 'var(--bmc-dark-2)', position: 'relative', overflow: 'hidden' }}>
+
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+        background: 'linear-gradient(90deg, transparent, rgba(0,194,255,0.25), transparent)',
+        zIndex: 1,
+      }} />
 
       <ServiceParticles />
+      <HeroOrb />
 
-      {/* ── Hero ── */}
-      <div className="svc-reveal" style={{
-        position: 'relative', padding: '80px 0 100px', overflow: 'visible',
-        opacity: 0, transform: 'translateY(30px)',
-        transition: 'opacity 0.9s ease, transform 0.9s ease',
-      }}>
-        <HeroOrb />
-
-        <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 32 }}>
-            <button
-              onClick={() => navigate('/')}
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                color: 'rgba(245,240,232,0.4)', fontSize: 13, fontWeight: 600,
-                padding: '4px 12px', transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = '#00C2FF'}
-              onMouseLeave={e => e.currentTarget.style.color = 'rgba(245,240,232,0.4)'}
-            >
-              {isAr ? 'الرئيسية' : 'Home'}
-            </button>
-            <span style={{ color: 'rgba(0,194,255,0.3)', fontSize: 13 }}>/</span>
-            <span style={{ color: '#00C2FF', fontSize: 13, fontWeight: 700 }}>
-              {isAr ? 'خدماتنا' : 'Services'}
-            </span>
-          </div>
-
-          <p className="section-label svc-reveal" style={{ opacity: 0, transform: 'translateY(16px)', transition: 'all 0.6s 0.1s' }}>
-            {tx.label}
-          </p>
-
-          <h1 className="svc-reveal" style={{
-            opacity: 0, transform: 'translateY(24px)', transition: 'all 0.7s 0.2s',
-            fontFamily: isAr ? 'Cairo, sans-serif' : 'Playfair Display, serif',
-            fontSize: 'clamp(36px,6vw,72px)', fontWeight: 900,
-            color: 'var(--bmc-white)', lineHeight: 1.36,
-            marginBottom: 16,
-            paddingBottom: 12,
-            overflow: 'visible',
-            textWrap: 'balance',
-          }}>
-            {tx.title}{' '}
-            <span style={{
-              background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              fontStyle: isAr ? 'normal' : 'italic',
-              display: isAr ? 'inline' : 'inline-block',
-              paddingBottom: isAr ? 0 : 4,
-            }}>{tx.titleSpan}</span>
-          </h1>
-
-          <div className="gold-line svc-reveal" style={{
-            opacity: 0, transition: 'opacity 0.7s 0.3s',
-            margin: '24px auto',
-          }} />
-
-          <p className="svc-reveal" style={{
-            opacity: 0, transform: 'translateY(16px)', transition: 'all 0.7s 0.35s',
-            fontSize: 16, color: 'rgba(245,240,232,0.5)', maxWidth: 540, margin: '0 auto', lineHeight: 1.9,
+      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+        <div className="svc-reveal" style={{
+          textAlign: 'center',
+          opacity: 0,
+          transform: 'translateY(30px)',
+          transition: 'opacity 0.9s ease, transform 0.9s ease',
+          marginBottom: 56,
+        }}>
+          <p className="section-label">{tx.label}</p>
+          <h2 className="section-title" style={{ marginBottom: 18 }}>
+            {tx.title} <span>{tx.titleSpan}</span>
+          </h2>
+          <div className="gold-line" style={{ margin: '0 auto 22px' }} />
+          <p style={{
+            fontSize: 15,
+            color: 'rgba(245,240,232,0.6)',
+            maxWidth: 720,
+            margin: '0 auto',
+            lineHeight: 1.9,
           }}>
             {isAr
-              ? 'نقدم حلولاً رقمية متكاملة تلبي احتياجات عملك وتسرّع نموه في السوق.'
+              ? 'نقدّم حلولاً رقمية متكاملة تلبي احتياجات عملك وتسرّع نموه في السوق.'
               : 'We deliver comprehensive digital solutions tailored to your business needs and growth.'}
           </p>
         </div>
-      </div>
 
-      {/* ── Grid ── */}
-      <div className="container" style={{ paddingBottom: 100, position: 'relative', zIndex: 1 }}>
         <div className="services-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3,1fr)',
@@ -336,15 +298,15 @@ export default function ServicesPage({ lang }) {
                                transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s,
                                box-shadow 0.4s ease, border-color 0.4s ease`,
                   background: isHov
-                    ? `linear-gradient(145deg, rgba(20,18,14,0.95) 0%, rgba(28,24,16,0.98) 100%)`
-                    : `linear-gradient(145deg, rgba(15,13,10,0.85) 0%, rgba(20,18,14,0.9) 100%)`,
+                    ? `linear-gradient(145deg, rgba(7,11,32,0.92) 0%, rgba(4,7,26,0.98) 100%)`
+                    : `linear-gradient(145deg, rgba(4,7,26,0.78) 0%, rgba(7,11,32,0.86) 100%)`,
                   cursor: 'pointer',
                   position: 'relative', overflow: 'hidden',
                   gridColumn: isFull ? '1 / -1' : undefined,
                   display: 'flex',
                   flexDirection: 'column',
                   borderRadius: 20,
-                  border: `1px solid ${isHov ? `${color}55` : 'rgba(108,99,255,0.1)'}`,
+                  border: `1px solid ${isHov ? `${color}55` : 'rgba(0,194,255,0.12)'}`,
                   boxShadow: isHov
                     ? `0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px ${color}22, inset 0 1px 0 rgba(255,255,255,0.06)`
                     : `0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)`,
@@ -360,7 +322,7 @@ export default function ServicesPage({ lang }) {
                   height: 1,
                   background: isHov
                     ? `linear-gradient(90deg, transparent, ${color}99, transparent)`
-                    : `linear-gradient(90deg, transparent, rgba(0,194,255,0.25), transparent)`,
+                    : `linear-gradient(90deg, transparent, rgba(0,194,255,0.2), transparent)`,
                   transition: 'background 0.4s ease',
                   borderRadius: '20px 20px 0 0',
                 }} />
@@ -395,9 +357,21 @@ export default function ServicesPage({ lang }) {
                     />
                     <div style={{
                       position: 'absolute', bottom: 0, left: 0, right: 0, height: 80,
-                      background: 'linear-gradient(to bottom, transparent, rgba(15,13,10,0.95))',
+                      background: 'linear-gradient(to bottom, transparent, rgba(4,7,26,0.96))',
                       pointerEvents: 'none',
                     }} />
+                  </div>
+                )}
+                {!item.cardImage && (
+                  <div style={{
+                    width: '100%',
+                    height: 180,
+                    overflow: 'hidden',
+                    position: 'relative',
+                    flexShrink: 0,
+                    borderRadius: '20px 20px 0 0',
+                  }}>
+                    <CardImagePlaceholder color={color} index={i} />
                   </div>
                 )}
 
@@ -412,7 +386,7 @@ export default function ServicesPage({ lang }) {
                   <span style={{
                     display: 'block', marginBottom: 20,
                     fontSize: 11, fontWeight: 800, letterSpacing: 2,
-                    color: isHov ? color : 'rgba(0,194,255,0.3)',
+                    color: isHov ? color : 'rgba(0,194,255,0.26)',
                     fontFamily: 'Playfair Display, serif',
                     transition: 'color 0.3s',
                   }}>
@@ -451,7 +425,7 @@ export default function ServicesPage({ lang }) {
                   <div style={{
                     display: 'inline-flex', alignItems: 'center', gap: isHov ? 10 : 6,
                     fontSize: 12, fontWeight: 700, letterSpacing: 1.2,
-                    color: isHov ? color : 'rgba(0,194,255,0.35)',
+                    color: isHov ? color : 'rgba(0,194,255,0.34)',
                     transition: 'color 0.3s, gap 0.3s',
                     textTransform: 'uppercase',
                   }}>
@@ -503,43 +477,29 @@ export default function ServicesPage({ lang }) {
             href="https://wa.me/966535166370"
             target="_blank"
             rel="noopener noreferrer"
-            className="svc-wa-btn"
+            className="btn-primary svc-wa-btn"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 12,
               padding: '15px 36px',
-              background: 'linear-gradient(135deg, #8B7340 0%, #6B5828 100%)',
-              color: '#F5F0E8',
               fontWeight: 700, fontSize: 15, letterSpacing: 0.3,
               textDecoration: 'none', borderRadius: 50,
-              border: '1px solid rgba(0,194,255,0.25)',
-              boxShadow: '0 8px 32px rgba(107,88,40,0.3), 0 2px 8px rgba(0,0,0,0.5)',
-              transition: 'all 0.35s cubic-bezier(0.16,1,0.3,1)',
+              transition: 'none',
               position: 'relative', overflow: 'hidden',
               fontFamily: isAr ? 'Cairo, sans-serif' : 'inherit',
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-4px) scale(1.03)';
-              e.currentTarget.style.boxShadow = '0 16px 48px rgba(107,88,40,0.45), 0 4px 16px rgba(0,0,0,0.5)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(107,88,40,0.3), 0 2px 8px rgba(0,0,0,0.5)';
-            }}
           >
-            {/* shimmer sweep */}
-            <span style={{
-              position: 'absolute', top: 0, left: '-75%',
-              width: '50%', height: '100%',
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)',
-              animation: 'waShimmer 2.8s ease-in-out infinite',
-              pointerEvents: 'none',
-            }} />
             {isAr ? 'جاهز تطور عملك بخدماتنا ؟' : 'Ready to grow your business?'}
           </a>
         </div>
       </div>
 
       <style>{`
+        .svc-wa-btn {
+          overflow: hidden !important;
+          isolation: isolate;
+        }
+        .svc-wa-btn > span { border-radius: 999px; }
+
         .svc-reveal.svc-revealed {
           opacity: 1 !important;
           transform: translateY(0) scale(1) !important;
@@ -566,11 +526,6 @@ export default function ServicesPage({ lang }) {
         /* card image hover zoom needs the img directly */
         .svc-card:hover img { transform: scale(1.06) !important; }
 
-        @keyframes waShimmer {
-          0%   { left: -75%; }
-          100% { left: 125%; }
-        }
-
         @media (max-width: 900px) {
           #services .services-grid { grid-template-columns: repeat(2,1fr) !important; }
         }
@@ -578,6 +533,6 @@ export default function ServicesPage({ lang }) {
           #services .services-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
-    </div>
+    </section>
   );
 }

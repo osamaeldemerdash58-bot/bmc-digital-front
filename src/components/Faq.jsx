@@ -51,10 +51,10 @@ export default function FAQ({ lang }) {
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <section id="faq" className="section" style={{ background: 'var(--bmc-dark-2)', position: 'relative', overflow: 'hidden' }}>
+    <section id="faq" className="section" style={{ background: 'var(--bmc-dark-2)', position: 'relative', overflow: 'hidden', padding: '80px 0' }}>
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-        background: 'linear-gradient(90deg, transparent, rgba(0,194,255,0.3), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(0,194,255,0.25), transparent)',
       }} />
 
       <div className="container">
@@ -65,13 +65,19 @@ export default function FAQ({ lang }) {
           <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.5)', lineHeight: 1.8 }}>{tx.subtitle}</p>
         </div>
 
-        <div style={{ maxWidth: 800, margin: '0 auto' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 16px' }}>
           {items.map((item, i) => (
             <div
               key={i}
               className="faq-item"
               style={{
-                borderBottom: '1px solid rgba(108,99,255,0.15)',
+                border: '1px solid rgba(0,194,255,0.14)',
+                borderRadius: 16,
+                padding: '0 8px',
+                margin: '12px 0',
+                background: openIndex === i
+                  ? 'linear-gradient(135deg, rgba(108,99,255,0.06) 0%, rgba(0,194,255,0.04) 100%)'
+                  : 'rgba(255,255,255,0.01)',
                 transitionDelay: `${i * 0.07}s`,
                 /* override base opacity/transform with specific transition */
                 transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.07}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.07}s`,
@@ -79,13 +85,14 @@ export default function FAQ({ lang }) {
             >
               <button
                 onClick={() => toggle(i)}
+                className="faq-toggle"
                 style={{
                   width: '100%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   gap: 16,
-                  padding: '24px 0',
+                  padding: '22px 0',
                   background: 'transparent',
                   border: 'none',
                   cursor: 'pointer',
@@ -95,7 +102,7 @@ export default function FAQ({ lang }) {
               >
                 <span style={{
                   fontSize: 16, fontWeight: 600,
-                  color: openIndex === i ? '#00C2FF' : 'var(--bmc-white)',
+                  color: openIndex === i ? 'var(--neon-blue)' : 'var(--bmc-white)',
                   lineHeight: 1.5, transition: 'color 0.3s', flex: 1,
                 }}>
                   {item.q}
@@ -103,12 +110,13 @@ export default function FAQ({ lang }) {
 
                 <div style={{
                   width: 32, height: 32, borderRadius: '50%',
-                  border: `1px solid ${openIndex === i ? '#00C2FF' : 'rgba(0,194,255,0.3)'}`,
+                  border: `1px solid ${openIndex === i ? 'rgba(0,194,255,0.9)' : 'rgba(0,194,255,0.28)'}`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0, transition: 'all 0.3s',
-                  background: openIndex === i ? 'rgba(108,99,255,0.1)' : 'transparent',
+                  background: openIndex === i ? 'rgba(0,194,255,0.08)' : 'transparent',
+                  color: openIndex === i ? 'var(--neon-blue)' : 'rgba(0,194,255,0.75)',
                 }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C2FF" strokeWidth="2"
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                     style={{ transform: openIndex === i ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}>
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
@@ -120,8 +128,9 @@ export default function FAQ({ lang }) {
                 <p style={{
                   fontSize: 15, color: 'rgba(245,240,232,0.6)', lineHeight: 1.9,
                   paddingBottom: 24,
-                  paddingRight: lang === 'ar' ? 0 : 48,
-                  paddingLeft: lang === 'ar' ? 48 : 0,
+                  paddingInline: 6,
+                  paddingInlineEnd: 'clamp(16px, 5vw, 48px)',
+                  textAlign: lang === 'ar' ? 'right' : 'left',
                 }}>
                   {item.a}
                 </p>

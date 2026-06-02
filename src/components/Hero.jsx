@@ -14,23 +14,15 @@ export default function Hero({ lang }) {
   const [btn2Hovered, setBtn2Hovered] = useState(false);
 
   // Avoid duplicate "نبني" in Arabic by keeping it in the first line only.
-  const titleSpan = lang === 'ar' ? 'مستقبلك الرقمي' : 'We Build Your Digital Future';
-  const titleSpanStyle = lang === 'ar'
-    ? {
-        background: 'linear-gradient(135deg, #6C63FF 0%, #00C2FF 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
-        fontStyle: 'normal',
-        fontFamily: 'Cairo, sans-serif',
-      }
-    : {
-        background: 'linear-gradient(135deg, #D4C48F, #B8A472, #8A7A55)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
-        fontStyle: 'italic',
-      };
+  const titleSpan = lang === 'ar' ? 'مستقبلك الرقمي' : (tx.titleSpan || 'Digital Future');
+  const titleSpanStyle = {
+    background: 'linear-gradient(135deg, #6C63FF 0%, #00C2FF 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    fontStyle: 'normal',
+    fontFamily: lang === 'ar' ? 'Cairo, sans-serif' : 'Playfair Display, serif',
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -67,7 +59,7 @@ export default function Hero({ lang }) {
         if (p.y < 0 || p.y > H) p.vy *= -1;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(184, 164, 114, ${p.alpha})`;
+        ctx.fillStyle = `rgba(0, 194, 255, ${p.alpha})`;
         ctx.fill();
       });
       for (let i = 0; i < particles.length; i++) {
@@ -79,7 +71,7 @@ export default function Hero({ lang }) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(184, 164, 114, ${0.06 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(108, 99, 255, ${0.06 * (1 - dist / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -125,7 +117,7 @@ export default function Hero({ lang }) {
         style={{
           position: 'absolute', top: 0, left: 0,
           width: 600, height: 600, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(184,164,114,0.08) 0%, rgba(184,164,114,0.03) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0,194,255,0.09) 0%, rgba(108,99,255,0.04) 45%, transparent 72%)',
           pointerEvents: 'none', zIndex: 2,
           transition: 'transform 0.15s ease-out', willChange: 'transform',
         }}
