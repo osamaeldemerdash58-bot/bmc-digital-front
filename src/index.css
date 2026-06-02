@@ -4,33 +4,54 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ════════════════════════════════════════════════
+   BMC DIGITAL — DESIGN TOKENS
+════════════════════════════════════════════════ */
 :root {
-  --bmc-gold: #B8A472;
-  --bmc-gold-light: #D4C48F;
-  --bmc-gold-dark: #8A7A55;
-  --bmc-dark: #0B0F15;
-  --bmc-dark-2: #101722;
-  --bmc-dark-3: #161F2D;
-  --bmc-dark-4: #1D2738;
+  /* Legacy gold (kept for gradual transition) */
+  --bmc-gold:       #6C63FF;
+  --bmc-gold-light: #00C2FF;
+  --bmc-gold-dark:  #4A44CC;
+
+  /* Brand neon palette */
+  --neon-purple:    #6C63FF;
+  --neon-blue:      #00C2FF;
+  --neon-mid:       #3B8DFF;
+
+  /* Backgrounds */
+  --bmc-dark:   #020414;
+  --bmc-dark-2: #04071A;
+  --bmc-dark-3: #070B20;
+  --bmc-dark-4: #0A1028;
+
   --bmc-white: #F5F0E8;
+
+  /* ── Button — Glassmorphism Neon Blue Pill ── */
+  --btn-gradient:       linear-gradient(135deg, #1A1A4E 0%, #0D2060 60%, #0A3080 100%);
+  --btn-gradient-hover: linear-gradient(135deg, #2A2A6E 0%, #1D3080 60%, #1A4090 100%);
+  --btn-glow:           0 0 18px rgba(0, 194, 255, 0.45), 0 0 40px rgba(108, 99, 255, 0.25);
+  --btn-glow-hover:     0 0 28px rgba(0, 194, 255, 0.65), 0 0 60px rgba(108, 99, 255, 0.4);
+  --btn-inner-glow:     inset 0 1px 0 rgba(0, 194, 255, 0.25), inset 0 -1px 0 rgba(108, 99, 255, 0.1);
+  --btn-radius:         50px;
+  --btn-border:         1px solid rgba(0, 194, 255, 0.35);
+
+  /* ── Text gradient ── */
+  --text-gradient: linear-gradient(135deg, #6C63FF 0%, #00C2FF 100%);
 }
 
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
+/* ════════════════════════════════════════════════
+   RESET & BASE
+════════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0; padding: 0;
   box-sizing: border-box;
   font-family: 'Cairo', sans-serif !important;
 }
 
-/* auto بدل smooth عشان الـ JS scroll ميتعارضش مع الـ native */
-html {
-  scroll-behavior: auto;
-}
+html { scroll-behavior: auto; }
 
 body {
-  background: var(--bmc-dark);
+  background: #020414;
   color: var(--bmc-white);
   font-family: 'Cairo', sans-serif !important;
   direction: rtl;
@@ -40,121 +61,204 @@ body.ltr { direction: ltr; }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bmc-dark); }
-::-webkit-scrollbar-thumb { background: var(--bmc-gold-dark); border-radius: 2px; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6C63FF, #00C2FF);
+  border-radius: 2px;
+}
 
+/* ════════════════════════════════════════════════
+   LAYOUT UTILITIES
+════════════════════════════════════════════════ */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.section { padding: 100px 0; }
+.section    { padding: 100px 0; }
+
 .section-label {
   font-size: 11px; font-weight: 700; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--bmc-gold);
+  text-transform: uppercase;
+  background: var(--text-gradient);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 16px; text-align: center; width: 100%;
 }
+
 .section-title {
   font-family: 'Cairo', sans-serif !important;
-  font-size: clamp(28px, 4vw, 48px); font-weight: 700;
+  font-size: clamp(28px, 4vw, 48px); font-weight: 800;
   color: var(--bmc-white); line-height: 1.2;
   text-align: center; width: 100%;
 }
-.section-title span { color: var(--bmc-gold); font-style: normal; }
-.gold-line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--bmc-gold), transparent); }
+.section-title span {
+  background: var(--text-gradient);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: normal;
+}
+
+/* Accent line — replaces gold line */
+.gold-line {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, transparent, #6C63FF, #00C2FF, transparent);
+}
 
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
 .text-gradient {
-  background: linear-gradient(135deg, var(--bmc-gold-light), var(--bmc-gold), var(--bmc-gold-dark));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  background: var(--text-gradient);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* ================================================
-   SNAKE BUTTON — rotating gold light on border
-   ================================================ */
+/* ════════════════════════════════════════════════
+   GLOBAL BUTTON — Glassmorphism Neon Pill
+════════════════════════════════════════════════ */
 
-@keyframes snakeRotate {
-  to { transform: rotate(360deg); }
+/* Every button and CTA link in the site */
+button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn),
+a.snake-btn,
+.btn-primary,
+a.btn-primary {
+  background:    var(--btn-gradient) !important;
+  color:         #fff !important;
+  border:        var(--btn-border) !important;
+  border-radius: var(--btn-radius) !important;
+  box-shadow:    var(--btn-glow), var(--btn-inner-glow) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  font-weight:   700 !important;
+  transition:    all 0.35s ease !important;
+  position:      relative !important;
+  overflow:      visible !important;
+  letter-spacing: 0.5px !important;
 }
 
-a.snake-edge,
-button.snake-edge {
-  position: relative;
-  isolation: isolate;
-  overflow: visible;
+button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn):hover,
+a.snake-btn:hover,
+.btn-primary:hover,
+a.btn-primary:hover {
+  background:  var(--btn-gradient-hover) !important;
+  box-shadow:  var(--btn-glow-hover), var(--btn-inner-glow) !important;
+  transform:   translateY(-3px) !important;
 }
 
-a.snake-edge > *,
-button.snake-edge > * {
-  position: relative;
-  z-index: 2;
+/* Outline / ghost variant */
+button.btn-outline,
+a.btn-outline {
+  background:    rgba(108, 99, 255, 0.05) !important;
+  border:        1px solid rgba(108, 99, 255, 0.4) !important;
+  box-shadow:    0 0 12px rgba(108, 99, 255, 0.2), var(--btn-inner-glow) !important;
+}
+button.btn-outline:hover,
+a.btn-outline:hover {
+  background:  rgba(108, 99, 255, 0.12) !important;
+  border-color: rgba(0, 194, 255, 0.6) !important;
+  box-shadow:  0 0 24px rgba(0, 194, 255, 0.4), var(--btn-inner-glow) !important;
 }
 
-a.snake-edge::before,
-button.snake-edge::before {
+/* Danger button (admin delete) */
+button.btn-danger {
+  background:  linear-gradient(135deg, #3A0A0A 0%, #6B1010 100%) !important;
+  border:      1px solid rgba(231, 76, 60, 0.35) !important;
+  box-shadow:  0 0 14px rgba(231, 76, 60, 0.25) !important;
+  color:       #ff6b5d !important;
+}
+
+/* Small buttons (admin) */
+button.btn-sm {
+  padding: 6px 14px !important;
+  font-size: 12px !important;
+  border-radius: 50px !important;
+}
+
+/* Toggle — keep circular */
+button.toggle-btn {
+  border-radius: 12px !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Close / icon-only buttons */
+button.icon-btn {
+  border-radius: 50% !important;
+  padding: 0 !important;
+  backdrop-filter: none !important;
+}
+
+/* ════════════════════════════════════════════════
+   SNAKE BUTTON
+════════════════════════════════════════════════ */
+@keyframes snakeRotate { to { transform: rotate(360deg); } }
+
+a.snake-edge, button.snake-edge {
+  position: relative; isolation: isolate; overflow: visible;
+}
+a.snake-edge > *, button.snake-edge > * { position: relative; z-index: 2; }
+a.snake-edge::before, button.snake-edge::before {
   content: '';
-  position: absolute;
-  inset: -2px;
-  padding: 2px;
+  position: absolute; inset: -2px; padding: 2px;
   border-radius: inherit;
   background: conic-gradient(
-    transparent 0deg,
-    transparent 312deg,
-    rgba(138, 122, 85, 0.85) 326deg,
-    rgba(184, 164, 114, 1) 338deg,
-    rgba(255, 232, 160, 1) 346deg,
-    rgba(184, 164, 114, 1) 354deg,
-    rgba(138, 122, 85, 0.85) 358deg,
-    transparent 360deg
+    transparent 0deg, transparent 312deg,
+    rgba(108,99,255,0.85) 326deg, rgba(0,194,255,1) 338deg,
+    rgba(180,240,255,1) 346deg, rgba(0,194,255,1) 354deg,
+    rgba(108,99,255,0.85) 358deg, transparent 360deg
   );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
   animation: snakeRotate 2.4s linear infinite;
-  z-index: -1;
-  pointer-events: none;
+  z-index: -1; pointer-events: none;
 }
-
 .snake-light { display: none; }
+.snake-btn   { border-radius: var(--btn-radius) !important; }
 
-/* ================================================
-   HERO IMAGE WRAP — responsive
-   ================================================ */
-.hero-image-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-}
-
-/* ================================================
-   NAV — service icon wrapper
-   ================================================ */
+/* ════════════════════════════════════════════════
+   NAV SERVICE ICON
+════════════════════════════════════════════════ */
 .nav-service-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: rgba(184, 164, 114, 0.1);
-  border: 1px solid rgba(184, 164, 114, 0.2);
-  font-size: 14px;
-  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 6px;
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.2);
+  font-size: 14px; flex-shrink: 0;
   transition: background 0.2s, border-color 0.2s;
 }
 .nav-service-link:hover .nav-service-icon {
-  background: rgba(184, 164, 114, 0.2);
-  border-color: rgba(184, 164, 114, 0.45);
+  background: rgba(0, 194, 255, 0.15);
+  border-color: rgba(0, 194, 255, 0.45);
 }
 
-/* ================================================
+/* ════════════════════════════════════════════════
+   HERO IMAGE WRAP
+════════════════════════════════════════════════ */
+.hero-image-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center center;
+}
+
+/* ════════════════════════════════════════════════
    RESPONSIVE
-   ================================================ */
+════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .nav-links-desktop { display: none !important; }
-  .burger-btn { display: flex !important; }
+  .burger-btn        { display: flex !important; }
+}
+@media (max-width: 900px) { html { scroll-behavior: smooth; } }
+
+/* ── Dot indicators — carousel dots, not pill buttons ── */
+button[style*="width: i === active"][style*="height: 8"],
+button.dot-indicator {
+  background: linear-gradient(90deg, #6C63FF, #00C2FF) !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  border-radius: 4px !important;
+  padding: 0 !important;
 }
 
-/* موبايل → native scroll عادي بدون مقاومة */
-@media (max-width: 900px) {
-  html { scroll-behavior: smooth; }
+/* ── WhatsApp float — keep its own style ── */
+.whatsapp-float {
+  background: linear-gradient(135deg, #6C63FF, #00C2FF) !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(108,99,255,0.4), 0 8px 40px rgba(0,0,0,0.3) !important;
 }

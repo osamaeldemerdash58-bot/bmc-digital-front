@@ -104,6 +104,8 @@
 .gold-line-animate {
   width: 0 !important;
   transition: width 1.2s cubic-bezier(0.77, 0, 0.175, 1) !important;
+  background: linear-gradient(90deg, transparent, #6C63FF, #00C2FF, transparent) !important;
+  height: 2px !important;
 }
 .gold-line-animate.anim-visible {
   width: 60px !important;

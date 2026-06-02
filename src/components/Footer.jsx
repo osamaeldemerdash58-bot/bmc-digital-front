@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import logoImg from '../assets/WhatsApp_Image_2026-03-30_at_2.52.18_PM-removebg-preview.png';
+import logoImg from '../assets/IMG-20260531-WA0122.jpg-removebg-preview.png';
 import vatImg from '../assets/vat-QVSDUwyA.png';
 
 const PinIcon = () => (

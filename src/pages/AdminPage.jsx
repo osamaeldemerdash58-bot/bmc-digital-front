@@ -6,24 +6,24 @@ const API_BASE = 'https://bmc-digital-server.vercel.app/api';
 
 const styles = {
   page: { minHeight: '100vh', background: '#0A0E0D', color: '#F5F0E8', fontFamily: 'Cairo, sans-serif' },
-  sidebar: { position: 'fixed', left: 0, top: 0, bottom: 0, width: 240, background: '#0F1512', borderRight: '1px solid rgba(184,164,114,0.15)', padding: '24px 0', overflowY: 'auto' },
-  sidebarLogo: { padding: '0 24px 24px', borderBottom: '1px solid rgba(184,164,114,0.1)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' },
-  navItem: (active) => ({ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 24px', color: active ? '#B8A472' : 'rgba(245,240,232,0.6)', fontWeight: active ? 700 : 500, fontSize: 14, cursor: 'pointer', transition: 'all 0.2s', borderRight: active ? '3px solid #B8A472' : '3px solid transparent', background: active ? 'rgba(184,164,114,0.05)' : 'transparent' }),
+  sidebar: { position: 'fixed', left: 0, top: 0, bottom: 0, width: 240, background: '#0F1512', borderRight: '1px solid rgba(108,99,255,0.15)', padding: '24px 0', overflowY: 'auto' },
+  sidebarLogo: { padding: '0 24px 24px', borderBottom: '1px solid rgba(108,99,255,0.1)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' },
+  navItem: (active) => ({ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 24px', color: active ? '#00C2FF' : 'rgba(245,240,232,0.6)', fontWeight: active ? 700 : 500, fontSize: 14, cursor: 'pointer', transition: 'all 0.2s', borderRight: active ? '3px solid #B8A472' : '3px solid transparent', background: active ? 'rgba(108,99,255,0.05)' : 'transparent' }),
   main: { marginLeft: 240, padding: '32px 40px', minHeight: '100vh' },
-  card: { background: '#0F1512', border: '1px solid rgba(184,164,114,0.12)', borderRadius: 4, padding: 24, marginBottom: 24 },
+  card: { background: '#0F1512', border: '1px solid rgba(108,99,255,0.12)', borderRadius: 14, padding: 24, marginBottom: 24 },
   title: { fontFamily: 'Playfair Display, serif', fontSize: 28, fontWeight: 900, marginBottom: 8, color: '#F5F0E8' },
   subtitle: { fontSize: 14, color: 'rgba(245,240,232,0.5)', marginBottom: 24 },
-  label: { fontSize: 12, fontWeight: 700, color: '#B8A472', letterSpacing: 1, marginBottom: 8, display: 'block' },
-  input: { width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(184,164,114,0.2)', padding: '10px 14px', color: '#F5F0E8', fontSize: 14, fontFamily: 'Cairo, sans-serif', borderRadius: 2, outline: 'none', marginBottom: 16, boxSizing: 'border-box' },
-  textarea: { width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(184,164,114,0.2)', padding: '10px 14px', color: '#F5F0E8', fontSize: 14, fontFamily: 'Cairo, sans-serif', borderRadius: 2, outline: 'none', marginBottom: 16, resize: 'vertical', minHeight: 80, boxSizing: 'border-box' },
-  btn: { background: '#B8A472', color: '#0A0E0D', border: 'none', padding: '10px 24px', fontSize: 14, fontWeight: 700, fontFamily: 'Cairo, sans-serif', cursor: 'pointer', borderRadius: 2, transition: 'all 0.3s' },
+  label: { fontSize: 12, fontWeight: 700, color: '#00C2FF', letterSpacing: 1, marginBottom: 8, display: 'block' },
+  input: { width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(108,99,255,0.2)', padding: '10px 14px', color: '#F5F0E8', fontSize: 14, fontFamily: 'Cairo, sans-serif', borderRadius: 8, outline: 'none', marginBottom: 16, boxSizing: 'border-box' },
+  textarea: { width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(108,99,255,0.2)', padding: '10px 14px', color: '#F5F0E8', fontSize: 14, fontFamily: 'Cairo, sans-serif', borderRadius: 8, outline: 'none', marginBottom: 16, resize: 'vertical', minHeight: 80, boxSizing: 'border-box' },
+  btn: { background: 'linear-gradient(135deg, #C4A96A 0%, #7A6035 100%)', color: '#0A0E0D', border: 'none', padding: '10px 24px', fontSize: 14, fontWeight: 700, fontFamily: 'Cairo, sans-serif', cursor: 'pointer', borderRadius: 50, transition: 'all 0.3s', boxShadow: '0 4px 14px rgba(140,100,40,0.35)' },
   btnDanger: { background: 'transparent', color: '#e74c3c', border: '1px solid #e74c3c', padding: '8px 16px', fontSize: 12, fontWeight: 700, cursor: 'pointer', borderRadius: 2 },
-  btnSmall: { background: 'rgba(184,164,114,0.1)', color: '#B8A472', border: '1px solid rgba(184,164,114,0.3)', padding: '6px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer', borderRadius: 2 },
-  toggle: (on) => ({ width: 44, height: 24, borderRadius: 12, background: on ? '#B8A472' : 'rgba(184,164,114,0.2)', border: 'none', cursor: 'pointer', position: 'relative', transition: 'all 0.3s' }),
+  btnSmall: { background: 'rgba(108,99,255,0.1)', color: '#00C2FF', border: '1px solid rgba(0,194,255,0.3)', padding: '6px 14px', fontSize: 12, fontWeight: 600, cursor: 'pointer', borderRadius: 2 },
+  toggle: (on) => ({ width: 44, height: 24, borderRadius: 12, background: on ? 'linear-gradient(135deg, #D4C48F 0%, #B8A472 100%)' : 'rgba(108,99,255,0.2)', border: 'none', cursor: 'pointer', position: 'relative', transition: 'all 0.3s' }),
   toggleDot: (on) => ({ width: 18, height: 18, borderRadius: '50%', background: '#F5F0E8', position: 'absolute', top: 3, transition: 'all 0.3s', left: on ? 23 : 3 }),
   grid2: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 },
-  tag: { display: 'inline-block', padding: '4px 10px', background: 'rgba(184,164,114,0.1)', border: '1px solid rgba(184,164,114,0.2)', fontSize: 12, color: '#B8A472', borderRadius: 2, marginRight: 8, marginBottom: 8 },
-  badge: (count) => ({ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: 20, height: 20, borderRadius: 10, background: count > 0 ? '#e74c3c' : 'rgba(184,164,114,0.2)', color: count > 0 ? '#fff' : 'rgba(245,240,232,0.4)', fontSize: 11, fontWeight: 700, marginLeft: 6, padding: '0 6px' }),
+  tag: { display: 'inline-block', padding: '4px 10px', background: 'rgba(108,99,255,0.1)', border: '1px solid rgba(108,99,255,0.2)', fontSize: 12, color: '#00C2FF', borderRadius: 50, marginRight: 8, marginBottom: 8 },
+  badge: (count) => ({ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: 20, height: 20, borderRadius: 10, background: count > 0 ? '#e74c3c' : 'rgba(108,99,255,0.2)', color: count > 0 ? '#fff' : 'rgba(245,240,232,0.4)', fontSize: 11, fontWeight: 700, marginLeft: 6, padding: '0 6px' }),
   statusBadge: (status) => {
     const colors = {
       new: { bg: 'rgba(52,152,219,0.15)', color: '#3498db', border: 'rgba(52,152,219,0.3)' },
@@ -55,7 +55,7 @@ const styles = {
     color: '#ff6b5d',
     border: '1px solid rgba(231,76,60,0.45)',
     cursor: 'pointer',
-    borderRadius: 4,
+    borderRadius: 50,
     fontSize: 16,
     fontWeight: 700,
   },
@@ -64,10 +64,10 @@ const styles = {
     alignItems: 'center',
     gap: 8,
     padding: '6px 10px',
-    border: '1px solid rgba(184,164,114,0.3)',
-    background: 'rgba(184,164,114,0.08)',
+    border: '1px solid rgba(0,194,255,0.3)',
+    background: 'rgba(108,99,255,0.08)',
     color: '#F5F0E8',
-    borderRadius: 4,
+    borderRadius: 50,
     fontSize: 12,
     cursor: 'pointer',
     fontWeight: 700,
@@ -121,7 +121,7 @@ const TABS = [
   { key: 'techs', icon: '💻' },
 ];
 
-const DEFAULT_TECH_COLOR = '#B8A472';
+const DEFAULT_TECH_COLOR = '#00C2FF';
 
 const TECHNOLOGY_OPTIONS = [
   { name: 'React', icon: 'https://cdn.simpleicons.org/react', color: '#61DAFB' },
@@ -179,7 +179,7 @@ function LoginPage({ onLogin }) {
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <Link to="/" style={{ textDecoration: 'none' }}>
             <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 36, fontWeight: 900 }}>
-              <span style={{ color: '#B8A472' }}>B</span><span style={{ color: '#F5F0E8' }}>M</span><span style={{ color: '#B8A472' }}>C</span>
+              <span style={{ color: '#00C2FF' }}>B</span><span style={{ color: '#F5F0E8' }}>M</span><span style={{ color: '#00C2FF' }}>C</span>
             </span>
           </Link>
           <p style={{ color: 'rgba(245,240,232,0.4)', fontSize: 13, letterSpacing: 2, marginTop: 8 }}>ADMIN DASHBOARD</p>
@@ -236,8 +236,8 @@ export default function AdminPage() {
     ...styles.sidebar,
     left: isArUI ? 'auto' : 0,
     right: isArUI ? 0 : 'auto',
-    borderRight: isArUI ? 'none' : '1px solid rgba(184,164,114,0.15)',
-    borderLeft: isArUI ? '1px solid rgba(184,164,114,0.15)' : 'none',
+    borderRight: isArUI ? 'none' : '1px solid rgba(108,99,255,0.15)',
+    borderLeft: isArUI ? '1px solid rgba(108,99,255,0.15)' : 'none',
   };
   const mainStyle = {
     ...styles.main,
@@ -503,14 +503,14 @@ export default function AdminPage() {
   const unreadMessagesCount = messages.filter(m => !m.read).length;
 
   if (!auth) return <LoginPage onLogin={handleLogin} />;
-  if (loading) return <div style={{ ...styles.page, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={{ color: '#B8A472' }}>Loading...</p></div>;
+  if (loading) return <div style={{ ...styles.page, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={{ color: '#00C2FF' }}>Loading...</p></div>;
 
   return (
     <div style={{ ...styles.page, direction: uiLang === 'ar' ? 'rtl' : 'ltr' }}>
       <div style={sidebarStyle}>
         <Link to="/" style={styles.sidebarLogo}>
           <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 20, fontWeight: 900 }}>
-            <span style={{ color: '#B8A472' }}>B</span><span style={{ color: '#F5F0E8' }}>M</span><span style={{ color: '#B8A472' }}>C</span>
+            <span style={{ color: '#00C2FF' }}>B</span><span style={{ color: '#F5F0E8' }}>M</span><span style={{ color: '#00C2FF' }}>C</span>
           </span>
           <span style={{ fontSize: 11, color: 'rgba(245,240,232,0.5)', letterSpacing: 1 }}>ADMIN</span>
         </Link>
@@ -522,12 +522,12 @@ export default function AdminPage() {
             {t.key === 'messages' && unreadMessagesCount > 0 && <span style={styles.badge(unreadMessagesCount)}>{unreadMessagesCount}</span>}
           </div>
         ))}
-        <div style={{ padding: '16px 24px', borderTop: '1px solid rgba(184,164,114,0.1)', marginTop: 16 }}>
+        <div style={{ padding: '16px 24px', borderTop: '1px solid rgba(108,99,255,0.1)', marginTop: 16 }}>
           <button onClick={() => setUiLang(prev => (prev === 'ar' ? 'en' : 'ar'))} style={{ ...styles.langSwitch, width: '100%', justifyContent: 'center', marginBottom: 10 }}>
             {uiLang === 'ar' ? 'English' : 'العربية'}
           </button>
           <p style={{ fontSize: 11, color: 'rgba(245,240,232,0.3)', marginBottom: 8 }}>{auth.email}</p>
-          <button onClick={handleLogout} style={{ background: 'none', border: '1px solid rgba(231,76,60,0.3)', color: '#e74c3c', padding: '8px 16px', fontSize: 12, cursor: 'pointer', borderRadius: 2, width: '100%' }}>
+          <button onClick={handleLogout} style={{ background: 'none', border: '1px solid rgba(231,76,60,0.3)', color: '#e74c3c', padding: '8px 16px', fontSize: 12, cursor: 'pointer', borderRadius: 50, width: '100%' }}>
             {tr('تسجيل الخروج', 'Logout')}
           </button>
         </div>
@@ -535,7 +535,7 @@ export default function AdminPage() {
 
       <div style={mainStyle}>
         {saved && (
-          <div style={{ position: 'fixed', top: 20, right: 20, background: '#27ae60', color: '#fff', padding: '12px 24px', borderRadius: 4, zIndex: 9999, fontWeight: 700, fontSize: 14 }}>
+          <div style={{ position: 'fixed', top: 20, right: 20, background: '#27ae60', color: '#fff', padding: '12px 24px', borderRadius: 50, zIndex: 9999, fontWeight: 700, fontSize: 14 }}>
             {tr('✓ تم الحفظ', '✓ Saved successfully')}
           </div>
         )}
@@ -548,7 +548,7 @@ export default function AdminPage() {
               background: toast.type === 'error' ? '#c0392b' : '#1f8f58',
               color: '#fff',
               padding: '10px 18px',
-              borderRadius: 4,
+              borderRadius: 50,
               zIndex: 10000,
               fontWeight: 700,
               fontSize: 13,
@@ -642,27 +642,27 @@ export default function AdminPage() {
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 16 }}>
-                    <div style={{ background: 'rgba(184,164,114,0.05)', padding: '10px 14px', borderRadius: 2 }}>
-                      <span style={{ fontSize: 11, color: '#B8A472', fontWeight: 600 }}>📞 {tr('الهاتف', 'Phone')}</span>
+                    <div style={{ background: 'rgba(108,99,255,0.05)', padding: '10px 14px', borderRadius: 2 }}>
+                      <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>📞 {tr('الهاتف', 'Phone')}</span>
                       <div style={{ fontSize: 14, color: '#F5F0E8', marginTop: 4 }} dir="ltr">{order.phone}</div>
                     </div>
-                    <div style={{ background: 'rgba(184,164,114,0.05)', padding: '10px 14px', borderRadius: 2 }}>
-                      <span style={{ fontSize: 11, color: '#B8A472', fontWeight: 600 }}>💬 {tr('طريقة التواصل', 'Contact')}</span>
+                    <div style={{ background: 'rgba(108,99,255,0.05)', padding: '10px 14px', borderRadius: 2 }}>
+                      <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>💬 {tr('طريقة التواصل', 'Contact')}</span>
                       <div style={{ fontSize: 14, color: '#F5F0E8', marginTop: 4 }}>{order.contact}</div>
                     </div>
-                    <div style={{ background: 'rgba(184,164,114,0.05)', padding: '10px 14px', borderRadius: 2 }}>
-                      <span style={{ fontSize: 11, color: '#B8A472', fontWeight: 600 }}>⚙️ {tr('الخدمة', 'Service')}</span>
+                    <div style={{ background: 'rgba(108,99,255,0.05)', padding: '10px 14px', borderRadius: 2 }}>
+                      <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>⚙️ {tr('الخدمة', 'Service')}</span>
                       <div style={{ marginTop: 4 }}><span style={styles.tag}>{serviceLabels[uiLang][order.service] || order.service}</span></div>
                     </div>
                   </div>
 
-                  <div style={{ background: 'rgba(184,164,114,0.05)', padding: '14px', borderRadius: 2, marginBottom: order.extra ? 12 : 0 }}>
-                    <span style={{ fontSize: 11, color: '#B8A472', fontWeight: 600 }}>📝 {tr('تفاصيل الطلب', 'Details')}</span>
+                  <div style={{ background: 'rgba(108,99,255,0.05)', padding: '14px', borderRadius: 10, marginBottom: order.extra ? 12 : 0 }}>
+                    <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>📝 {tr('تفاصيل الطلب', 'Details')}</span>
                     <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.7)', marginTop: 6, lineHeight: 1.8 }}>{order.details}</p>
                   </div>
 
                   {order.extra && (
-                    <div style={{ background: 'rgba(184,164,114,0.03)', padding: '14px', borderRadius: 2, borderLeft: '2px solid rgba(184,164,114,0.2)' }}>
+                    <div style={{ background: 'rgba(184,164,114,0.03)', padding: '14px', borderRadius: 10, borderLeft: '2px solid rgba(108,99,255,0.2)' }}>
                       <span style={{ fontSize: 11, color: 'rgba(245,240,232,0.4)', fontWeight: 600 }}>📎 {tr('معلومات إضافية', 'Extra Info')}</span>
                       <p style={{ fontSize: 13, color: 'rgba(245,240,232,0.5)', marginTop: 4, lineHeight: 1.8 }}>{order.extra}</p>
                     </div>
@@ -695,14 +695,14 @@ export default function AdminPage() {
               messages.map(msg => (
                 <div key={msg._id} style={{
                   ...styles.card,
-                  borderLeft: msg.read ? '3px solid rgba(184,164,114,0.2)' : '3px solid #B8A472',
+                  borderLeft: msg.read ? '3px solid rgba(108,99,255,0.2)' : '3px solid #B8A472',
                   opacity: msg.read ? 0.7 : 1,
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
                         <span style={{ fontSize: 17, fontWeight: 700, color: '#F5F0E8' }}>{msg.name}</span>
-                        {!msg.read && <span style={{ ...styles.tag, background: 'rgba(184,164,114,0.2)', color: '#B8A472' }}>● {tr('جديد', 'New')}</span>}
+                        {!msg.read && <span style={{ ...styles.tag, background: 'rgba(108,99,255,0.2)', color: '#00C2FF' }}>● {tr('جديد', 'New')}</span>}
                       </div>
                       <div style={{ fontSize: 13, color: 'rgba(245,240,232,0.4)' }}>
                         ✉️ {msg.email} · {new Date(msg.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
@@ -719,7 +719,7 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  <div style={{ background: 'rgba(184,164,114,0.05)', padding: '14px', borderRadius: 2 }}>
+                  <div style={{ background: 'rgba(108,99,255,0.05)', padding: '14px', borderRadius: 2 }}>
                     <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.7)', lineHeight: 1.8 }}>{msg.message}</p>
                   </div>
                 </div>
@@ -735,7 +735,7 @@ export default function AdminPage() {
             <p style={styles.subtitle}>{tr('التحكم في الأقسام الظاهرة في الصفحة الرئيسية', 'Control which sections appear on the homepage')}</p>
             <div style={styles.card}>
               {siteConfig.sections.sort((a, b) => a.order - b.order).map(s => (
-                <div key={s.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 0', borderBottom: '1px solid rgba(184,164,114,0.08)' }}>
+                <div key={s.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 0', borderBottom: '1px solid rgba(108,99,255,0.08)' }}>
                   <div>
                     <span style={{ fontSize: 15, fontWeight: 600, color: s.visible ? '#F5F0E8' : 'rgba(245,240,232,0.4)' }}>{s.key.toUpperCase()}</span>
                     <span style={{ fontSize: 12, color: 'rgba(245,240,232,0.3)', marginLeft: 12 }}>{tr('الترتيب', 'Order')}: {s.order}</span>
@@ -756,7 +756,7 @@ export default function AdminPage() {
             <p style={styles.subtitle}>{tr('التحكم في إظهار روابط التنقل', 'Control navigation links visibility')}</p>
             <div style={styles.card}>
               {siteConfig.navLinks.sort((a, b) => a.order - b.order).map(n => (
-                <div key={n.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 0', borderBottom: '1px solid rgba(184,164,114,0.08)' }}>
+                <div key={n.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 0', borderBottom: '1px solid rgba(108,99,255,0.08)' }}>
                   <div>
                     <span style={{ fontSize: 15, fontWeight: 600, color: n.visible ? '#F5F0E8' : 'rgba(245,240,232,0.4)' }}>{n.labelEn}</span>
                     <span style={{ fontSize: 13, color: 'rgba(245,240,232,0.4)', marginRight: 12 }}>{n.labelAr}</span>
@@ -778,7 +778,7 @@ export default function AdminPage() {
             {Object.keys(translations).map(section => (
               <div key={section} style={styles.card}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: '#B8A472', textTransform: 'capitalize' }}>{section}</h3>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: '#00C2FF', textTransform: 'capitalize' }}>{section}</h3>
                   <div style={{ display: 'flex', gap: 8 }}>
                     <button style={styles.btnSmall} onClick={() => setEditingSection(editingSection === section ? null : section)}>
                       {editingSection === section ? 'Cancel' : '✏️ Edit'}
@@ -791,14 +791,14 @@ export default function AdminPage() {
                 {editingSection === section ? (
                   ['ar', 'en'].map(lang => (
                     <div key={lang} style={{ marginBottom: 24 }}>
-                      <h4 style={{ fontSize: 14, fontWeight: 700, color: 'rgba(245,240,232,0.6)', marginBottom: 12, borderBottom: '1px solid rgba(184,164,114,0.08)', paddingBottom: 8 }}>
+                      <h4 style={{ fontSize: 14, fontWeight: 700, color: 'rgba(245,240,232,0.6)', marginBottom: 12, borderBottom: '1px solid rgba(108,99,255,0.08)', paddingBottom: 8 }}>
                         {lang === 'ar' ? '🇸🇦 Arabic' : '🇬🇧 English'}
                       </h4>
                       {translations[section]?.[lang] && Object.entries(translations[section][lang]).map(([field, value]) => {
                         if (Array.isArray(value)) {
                           return value.map((item, idx) => (
-                            <div key={`${field}-${idx}`} style={{ background: 'rgba(184,164,114,0.03)', padding: 12, borderRadius: 2, marginBottom: 12 }}>
-                              <span style={{ fontSize: 11, color: '#B8A472', fontWeight: 600 }}>{field}[{idx}]</span>
+                            <div key={`${field}-${idx}`} style={{ background: 'rgba(184,164,114,0.03)', padding: 12, borderRadius: 10, marginBottom: 12 }}>
+                              <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>{field}[{idx}]</span>
                               {typeof item === 'string' ? (
                                 <input style={styles.input} value={item} onChange={e => updateTxArrayItem(section, lang, field, idx, '', e.target.value)} />
                               ) : (
@@ -834,7 +834,7 @@ export default function AdminPage() {
                       <h4 style={{ fontSize: 13, fontWeight: 700, color: 'rgba(245,240,232,0.4)', marginBottom: 8 }}>🇸🇦 Arabic</h4>
                       {translations[section]?.ar && Object.entries(translations[section].ar).map(([k, v]) => (
                         <div key={k} style={{ marginBottom: 4 }}>
-                          <span style={{ fontSize: 11, color: '#B8A472' }}>{k}:</span>
+                          <span style={{ fontSize: 11, color: '#00C2FF' }}>{k}:</span>
                           <span style={{ fontSize: 13, color: 'rgba(245,240,232,0.6)', marginRight: 8 }}> {Array.isArray(v) ? `[${v.length} items]` : typeof v === 'string' ? v.substring(0, 60) : JSON.stringify(v).substring(0, 60)}</span>
                         </div>
                       ))}
@@ -843,7 +843,7 @@ export default function AdminPage() {
                       <h4 style={{ fontSize: 13, fontWeight: 700, color: 'rgba(245,240,232,0.4)', marginBottom: 8 }}>🇬🇧 English</h4>
                       {translations[section]?.en && Object.entries(translations[section].en).map(([k, v]) => (
                         <div key={k} style={{ marginBottom: 4 }}>
-                          <span style={{ fontSize: 11, color: '#B8A472' }}>{k}:</span>
+                          <span style={{ fontSize: 11, color: '#00C2FF' }}>{k}:</span>
                           <span style={{ fontSize: 13, color: 'rgba(245,240,232,0.6)', marginRight: 8 }}> {Array.isArray(v) ? `[${v.length} items]` : typeof v === 'string' ? v.substring(0, 60) : JSON.stringify(v).substring(0, 60)}</span>
                         </div>
                       ))}
@@ -882,7 +882,7 @@ export default function AdminPage() {
                       <img
                         src={svc.cardImage}
                         alt={svc.titleEn}
-                        style={{ width: 120, height: 72, objectFit: 'cover', borderRadius: 4, marginTop: 10, border: '1px solid rgba(184,164,114,0.25)' }}
+                        style={{ width: 120, height: 72, objectFit: 'cover', borderRadius: 12, marginTop: 10, border: '1px solid rgba(0,194,255,0.25)' }}
                       />
                     )}
                   </div>
@@ -980,7 +980,7 @@ export default function AdminPage() {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 12 }}>
                 {techs.map(t => (
-                  <div key={t._id} style={{ display: 'grid', gap: 8, padding: '12px', background: 'rgba(184,164,114,0.05)', border: '1px solid rgba(184,164,114,0.15)', borderRadius: 2 }}>
+                  <div key={t._id} style={{ display: 'grid', gap: 8, padding: '12px', background: 'rgba(108,99,255,0.05)', border: '1px solid rgba(108,99,255,0.15)', borderRadius: 2 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       {t.icon ? (
                         <img
@@ -1052,7 +1052,7 @@ function ServiceEditor({ svc, onSave, onCancel, uiLang }) {
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <h2 style={{ fontSize: 22, fontWeight: 700, color: '#B8A472' }}>{form._id ? 'Edit Service' : 'New Service'}</h2>
+        <h2 style={{ fontSize: 22, fontWeight: 700, color: '#00C2FF' }}>{form._id ? 'Edit Service' : 'New Service'}</h2>
         <div style={{ display: 'flex', gap: 12 }}>
           <button style={styles.btnSmall} onClick={onCancel}>Cancel</button>
           <button style={styles.btn} onClick={() => onSave(form)}>💾 Save Service</button>
@@ -1090,7 +1090,7 @@ function ServiceEditor({ svc, onSave, onCancel, uiLang }) {
           <img
             src={form.cardImage}
             alt="service card preview"
-            style={{ width: 240, height: 140, objectFit: 'cover', borderRadius: 4, border: '1px solid rgba(184,164,114,0.25)', marginBottom: 14 }}
+            style={{ width: 240, height: 140, objectFit: 'cover', borderRadius: 12, border: '1px solid rgba(0,194,255,0.25)', marginBottom: 14 }}
           />
         )}
         <label style={styles.label}>Order</label><input type="number" style={{ ...styles.input, maxWidth: 100 }} value={form.order} onChange={e => f('order', Number(e.target.value))} />
@@ -1125,7 +1125,7 @@ function FaqEditor({ faq, onSave, onCancel, uiLang }) {
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <h2 style={{ fontSize: 22, fontWeight: 700, color: '#B8A472' }}>{form._id ? 'Edit FAQ' : 'New FAQ'}</h2>
+        <h2 style={{ fontSize: 22, fontWeight: 700, color: '#00C2FF' }}>{form._id ? 'Edit FAQ' : 'New FAQ'}</h2>
         <div style={{ display: 'flex', gap: 12 }}>
           <button style={styles.btnSmall} onClick={onCancel}>Cancel</button>
           <button style={styles.btn} onClick={() => onSave(form)}>💾 Save FAQ</button>

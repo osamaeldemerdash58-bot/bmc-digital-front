@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useData } from '../DataContext';
+import logoImg from '../assets/IMG-20260531-WA0122.jpg-removebg-preview.png';
 
 export default function Navbar({ lang, setLang }) {
   const [scrolled, setScrolled] = useState(false);
@@ -57,7 +58,7 @@ export default function Navbar({ lang, setLang }) {
   const linkStyle = (active) => ({
     fontSize: 13,
     fontWeight: 600,
-    color: active ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)',
+    color: active ? '#00C2FF' : 'rgba(245, 240, 232, 0.7)',
     textDecoration: 'none',
     letterSpacing: 0.5,
     transition: 'color 0.3s',
@@ -81,7 +82,7 @@ export default function Navbar({ lang, setLang }) {
           : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         borderBottom: scrolled
-          ? '1px solid rgba(184, 164, 114, 0.1)'
+          ? '1px solid rgba(108, 99, 255, 0.1)'
           : '1px solid transparent',
         padding: scrolled ? '14px 0' : '22px 0',
       }}
@@ -89,28 +90,18 @@ export default function Navbar({ lang, setLang }) {
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none' }}>
-          <div
-            dir="ltr"
+          <img
+            src={logoImg}
+            alt="BMC Digital Logo"
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-              fontFamily: 'Playfair Display, serif',
-              fontSize: 22,
-              fontWeight: 900,
-              letterSpacing: 2,
+              height: scrolled ? 42 : 52,
+              width: 'auto',
+              objectFit: 'contain',
+              display: 'block',
+              transition: 'height 0.4s ease',
+              filter: 'brightness(1.05)',
             }}
-          >
-            <span style={{ color: 'var(--bmc-gold)' }}>B</span>
-            <span style={{ color: 'var(--bmc-white)' }}>M</span>
-            <span style={{ color: 'var(--bmc-gold)' }}>C</span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
-            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--bmc-white)', letterSpacing: 0.5 }}>
-              {lang === 'ar' ? 'البنية الماسية الرقمية' : 'Al Binyah Al Masiyah Digital'}
-            </span>
-            
-          </div>
+          />
         </Link>
 
         {/* Desktop Links */}
@@ -128,8 +119,8 @@ export default function Navbar({ lang, setLang }) {
               <Link
                 to={l.href}
                 style={linkStyle(isActive(l.href))}
-                onMouseEnter={(e) => (e.target.style.color = 'var(--bmc-gold)')}
-                onMouseLeave={(e) => (e.target.style.color = isActive(l.href) ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)')}
+                onMouseEnter={(e) => (e.target.style.color = '#00C2FF')}
+                onMouseLeave={(e) => (e.target.style.color = isActive(l.href) ? '#00C2FF' : 'rgba(245, 240, 232, 0.7)')}
               >
                 {l.label}
               </Link>
@@ -152,10 +143,10 @@ export default function Navbar({ lang, setLang }) {
                 gap: 6,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--bmc-gold)';
+                e.currentTarget.style.color = '#00C2FF';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = isServicesActive ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)';
+                e.currentTarget.style.color = isServicesActive ? '#00C2FF' : 'rgba(245, 240, 232, 0.7)';
               }}
             >
               {navTranslations.services || 'Services'}
@@ -184,11 +175,11 @@ export default function Navbar({ lang, setLang }) {
                   [lang === 'ar' ? 'right' : 'left']: 0,
                   minWidth: 280,
                   background: 'rgba(11, 15, 21, 0.98)',
-                  border: '1px solid rgba(184, 164, 114, 0.15)',
+                  border: '1px solid rgba(108, 99, 255, 0.15)',
                   backdropFilter: 'blur(20px)',
                   padding: '8px 0',
                   marginTop: 8,
-                  borderRadius: 2,
+                  borderRadius: 50,
                   boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
                 }}
               >
@@ -200,14 +191,15 @@ export default function Navbar({ lang, setLang }) {
                     display: 'flex',
                     alignItems: 'center',
                     padding: '12px 20px',
-                    color: 'var(--bmc-gold)',
+                    color: '#00C2FF',
                     textDecoration: 'none',
                     fontSize: 13,
                     fontWeight: 700,
-                    borderBottom: '1px solid rgba(184,164,114,0.1)',
+                    padding: '13px 22px',
+                    borderBottom: '1px solid rgba(108,99,255,0.12)',
                     transition: 'background 0.2s',
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(184,164,114,0.08)'}
+                  onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(108,99,255,0.1)'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
                   {lang === 'ar' ? 'جميع الخدمات' : 'All Services'}
@@ -221,20 +213,23 @@ export default function Navbar({ lang, setLang }) {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      padding: '10px 20px',
-                      color: isActive(s.href) ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)',
+                      gap: 10,
+                      padding: '13px 22px',
+                      color: isActive(s.href) ? '#00C2FF' : 'rgba(245, 240, 232, 0.75)',
                       textDecoration: 'none',
                       fontSize: 13,
                       fontWeight: 500,
                       transition: 'all 0.2s',
+                      borderRadius: 10,
+                      margin: '2px 6px',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(184,164,114,0.08)';
-                      e.currentTarget.style.color = 'var(--bmc-gold)';
+                      e.currentTarget.style.background = 'rgba(108,99,255,0.1)';
+                      e.currentTarget.style.color = '#00C2FF';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = isActive(s.href) ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)';
+                      e.currentTarget.style.color = isActive(s.href) ? '#00C2FF' : 'rgba(245, 240, 232, 0.75)';
                     }}
                   >
                     {s.label}
@@ -248,8 +243,8 @@ export default function Navbar({ lang, setLang }) {
             <Link
               to="/works"
               style={linkStyle(isActive('/works'))}
-              onMouseEnter={(e) => (e.target.style.color = 'var(--bmc-gold)')}
-              onMouseLeave={(e) => (e.target.style.color = isActive('/works') ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)')}
+              onMouseEnter={(e) => (e.target.style.color = '#00C2FF')}
+              onMouseLeave={(e) => (e.target.style.color = isActive('/works') ? '#00C2FF' : 'rgba(245, 240, 232, 0.7)')}
             >
               {navTranslations.works || 'Works'}
             </Link>
@@ -259,8 +254,8 @@ export default function Navbar({ lang, setLang }) {
             <Link
               to="/contact"
               style={linkStyle(isActive('/contact'))}
-              onMouseEnter={(e) => (e.target.style.color = 'var(--bmc-gold)')}
-              onMouseLeave={(e) => (e.target.style.color = isActive('/contact') ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.7)')}
+              onMouseEnter={(e) => (e.target.style.color = '#00C2FF')}
+              onMouseLeave={(e) => (e.target.style.color = isActive('/contact') ? '#00C2FF' : 'rgba(245, 240, 232, 0.7)')}
             >
               {navTranslations.contact || 'Contact'}
             </Link>
@@ -272,25 +267,28 @@ export default function Navbar({ lang, setLang }) {
           <button
             onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
             style={{
-              background: 'transparent',
-              border: '1px solid rgba(184, 164, 114, 0.4)',
-              color: 'var(--bmc-gold)',
-              padding: '6px 14px',
+              background: 'linear-gradient(135deg, #1A1A4E 0%, #0A3080 100%)',
+              border: 'none',
+              color: '#fff',
+              padding: '7px 16px',
               fontSize: 12,
               fontWeight: 700,
               letterSpacing: 1,
               cursor: 'pointer',
-              borderRadius: 2,
+              borderRadius: 50,
               transition: 'all 0.3s',
               fontFamily: 'Cairo, sans-serif',
+              boxShadow: '0 0 16px rgba(0,194,255,0.4), 0 0 32px rgba(108,99,255,0.2), inset 0 1px 0 rgba(0,194,255,0.2)',
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = 'var(--bmc-gold)';
-              e.target.style.color = 'var(--bmc-dark)';
+              e.target.style.background = 'var(--btn-gradient-hover)';
+              e.target.style.transform = 'translateY(-1px)';
+              e.target.style.boxShadow = '0 6px 20px rgba(108,99,255,0.45)';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = 'transparent';
-              e.target.style.color = 'var(--bmc-gold)';
+              e.target.style.background = 'var(--btn-gradient)';
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 4px 14px rgba(108,99,255,0.3)';
             }}
           >
             {lang === 'ar' ? 'EN' : 'عربي'}
@@ -317,7 +315,7 @@ export default function Navbar({ lang, setLang }) {
                   display: 'block',
                   width: 22,
                   height: 2,
-                  background: 'var(--bmc-gold)',
+                  background: '#00C2FF',
                   transition: 'all 0.3s',
                   transformOrigin: 'center',
                   transform:
@@ -341,7 +339,7 @@ export default function Navbar({ lang, setLang }) {
           style={{
             background: 'rgba(11, 15, 21, 0.98)',
             padding: '20px 24px',
-            borderTop: '1px solid rgba(184, 164, 114, 0.1)',
+            borderTop: '1px solid rgba(108, 99, 255, 0.1)',
           }}
         >
           <Link
@@ -352,9 +350,9 @@ export default function Navbar({ lang, setLang }) {
               padding: '12px 0',
               fontSize: 15,
               fontWeight: 600,
-              color: isActive('/') ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.8)',
+              color: isActive('/') ? '#00C2FF' : 'rgba(245, 240, 232, 0.8)',
               textDecoration: 'none',
-              borderBottom: '1px solid rgba(184, 164, 114, 0.08)',
+              borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
             }}
           >
             {lang === 'ar' ? 'الرئيسية' : 'Home'}
@@ -372,10 +370,10 @@ export default function Navbar({ lang, setLang }) {
                 padding: '12px 0',
                 fontSize: 15,
                 fontWeight: 600,
-                color: isServicesActive ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.8)',
+                color: isServicesActive ? '#00C2FF' : 'rgba(245, 240, 232, 0.8)',
                 background: 'none',
                 border: 'none',
-                borderBottom: '1px solid rgba(184, 164, 114, 0.08)',
+                borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
                 cursor: 'pointer',
                 fontFamily: 'Cairo, sans-serif',
               }}
@@ -406,9 +404,9 @@ export default function Navbar({ lang, setLang }) {
                     padding: '10px 16px',
                     fontSize: 13,
                     fontWeight: 700,
-                    color: 'var(--bmc-gold)',
+                    color: '#00C2FF',
                     textDecoration: 'none',
-                    borderBottom: '1px solid rgba(184, 164, 114, 0.06)',
+                    borderBottom: '1px solid rgba(108, 99, 255, 0.06)',
                   }}
                 >
                   {lang === 'ar' ? 'جميع الخدمات' : 'All Services'}
@@ -422,12 +420,12 @@ export default function Navbar({ lang, setLang }) {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      padding: '10px 16px',
+                      padding: '13px 20px',
                       fontSize: 13,
                       fontWeight: 500,
-                      color: isActive(s.href) ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.6)',
+                      color: isActive(s.href) ? '#00C2FF' : 'rgba(245, 240, 232, 0.7)',
                       textDecoration: 'none',
-                      borderBottom: '1px solid rgba(184, 164, 114, 0.06)',
+                      borderBottom: '1px solid rgba(108,99,255,0.1)',
                     }}
                   >
                     {s.label}
@@ -445,9 +443,9 @@ export default function Navbar({ lang, setLang }) {
               padding: '12px 0',
               fontSize: 15,
               fontWeight: 600,
-              color: isActive('/works') ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.8)',
+              color: isActive('/works') ? '#00C2FF' : 'rgba(245, 240, 232, 0.8)',
               textDecoration: 'none',
-              borderBottom: '1px solid rgba(184, 164, 114, 0.08)',
+              borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
             }}
           >
             {navTranslations.works || 'Works'}
@@ -461,9 +459,9 @@ export default function Navbar({ lang, setLang }) {
               padding: '12px 0',
               fontSize: 15,
               fontWeight: 600,
-              color: isActive('/contact') ? 'var(--bmc-gold)' : 'rgba(245, 240, 232, 0.8)',
+              color: isActive('/contact') ? '#00C2FF' : 'rgba(245, 240, 232, 0.8)',
               textDecoration: 'none',
-              borderBottom: '1px solid rgba(184, 164, 114, 0.08)',
+              borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
             }}
           >
             {navTranslations.contact || 'Contact'}

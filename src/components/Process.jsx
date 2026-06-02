@@ -33,8 +33,8 @@ export default function Process({ lang }) {
     el.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(5px)`;
     el.style.boxShadow = `
       ${-ry * 1.2}px ${rx * 1.2}px 24px rgba(0,0,0,0.45),
-      0 0 32px rgba(184,164,114,0.06),
-      inset 0 1px 0 rgba(184,164,114,0.1)
+      0 0 32px rgba(108,99,255,0.06),
+      inset 0 1px 0 rgba(108,99,255,0.1)
     `;
   };
 
@@ -55,7 +55,7 @@ export default function Process({ lang }) {
       {/* Top border line */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-        background: 'linear-gradient(90deg, transparent, rgba(184,164,114,0.3), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(0,194,255,0.3), transparent)',
       }} />
 
       {/* Ambient blobs */}
@@ -70,7 +70,7 @@ export default function Process({ lang }) {
       <div style={{
         position: 'absolute', bottom: '10%', right: '8%',
         width: 220, height: 220, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(184,164,114,0.12), transparent 68%)',
+        background: 'radial-gradient(circle, rgba(108,99,255,0.12), transparent 68%)',
         filter: 'blur(6px)',
         animation: 'procFloatBlob 9s ease-in-out infinite reverse',
         pointerEvents: 'none',
@@ -156,7 +156,7 @@ export default function Process({ lang }) {
             right: lang === 'ar' ? '50%' : 'auto',
             width: 2,
             transform: 'translateX(-50%)',
-            background: 'linear-gradient(to bottom, transparent, rgba(184,164,114,0.15) 8%, rgba(184,164,114,0.3) 20%, rgba(184,164,114,0.3) 80%, rgba(184,164,114,0.15) 92%, transparent 100%)',
+            background: 'linear-gradient(to bottom, transparent, rgba(108,99,255,0.15) 8%, rgba(0,194,255,0.3) 20%, rgba(0,194,255,0.3) 80%, rgba(108,99,255,0.15) 92%, transparent 100%)',
             overflow: 'hidden',
           }}>
             {/* particle 1 — bright, fast */}
@@ -173,7 +173,7 @@ export default function Process({ lang }) {
               position: 'absolute',
               top: 0, left: '-4px', right: '-4px',
               height: '12%',
-              background: 'linear-gradient(to bottom, transparent 0%, rgba(184,164,114,0.5) 40%, rgba(184,164,114,0.6) 50%, rgba(184,164,114,0.5) 60%, transparent 100%)',
+              background: 'linear-gradient(to bottom, transparent 0%, rgba(0,194,255,0.5) 40%, rgba(0,194,255,0.6) 50%, rgba(0,194,255,0.5) 60%, transparent 100%)',
               animation: 'procParticle2 4s cubic-bezier(0.4,0,0.6,1) infinite',
               animationDelay: '1.1s',
             }} />
@@ -182,7 +182,7 @@ export default function Process({ lang }) {
               position: 'absolute',
               bottom: 0, left: '-3px', right: '-3px',
               height: '10%',
-              background: 'linear-gradient(to top, transparent 0%, rgba(184,164,114,0.3) 40%, rgba(184,164,114,0.4) 50%, rgba(184,164,114,0.3) 60%, transparent 100%)',
+              background: 'linear-gradient(to top, transparent 0%, rgba(0,194,255,0.3) 40%, rgba(0,194,255,0.4) 50%, rgba(0,194,255,0.3) 60%, transparent 100%)',
               animation: 'procParticle3 5s cubic-bezier(0.4,0,0.6,1) infinite',
               animationDelay: '0.6s',
             }} />
@@ -210,7 +210,7 @@ export default function Process({ lang }) {
                   <div
                     style={{
                       background: 'var(--bmc-dark-3)',
-                      border: '1px solid rgba(184,164,114,0.12)',
+                      border: '1px solid rgba(108,99,255,0.12)',
                       padding: '28px 30px',
                       position: 'relative',
                       transition: 'border-color 0.3s, transform 0.45s ease-out, box-shadow 0.45s ease-out',
@@ -219,11 +219,11 @@ export default function Process({ lang }) {
                       transformOrigin: 'center center',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(184,164,114,0.4)';
+                      e.currentTarget.style.borderColor = 'rgba(0,194,255,0.4)';
                     }}
                     onMouseMove={(e) => handleTilt(e, e.currentTarget)}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(184,164,114,0.12)';
+                      e.currentTarget.style.borderColor = 'rgba(108,99,255,0.12)';
                       handleTiltReset(e.currentTarget);
                     }}
                   >
@@ -231,22 +231,22 @@ export default function Process({ lang }) {
                     <div style={{
                       position: 'absolute', top: -1, left: -1,
                       width: 14, height: 14,
-                      borderTop: '2px solid rgba(184,164,114,0.35)',
-                      borderLeft: '2px solid rgba(184,164,114,0.35)',
+                      borderTop: '2px solid rgba(0,194,255,0.35)',
+                      borderLeft: '2px solid rgba(0,194,255,0.35)',
                       transition: 'width 0.3s, height 0.3s, border-color 0.3s',
                     }} className="proc-corner-tl" />
                     <div style={{
                       position: 'absolute', bottom: -1, right: -1,
                       width: 14, height: 14,
-                      borderBottom: '2px solid rgba(184,164,114,0.35)',
-                      borderRight: '2px solid rgba(184,164,114,0.35)',
+                      borderBottom: '2px solid rgba(0,194,255,0.35)',
+                      borderRight: '2px solid rgba(0,194,255,0.35)',
                       transition: 'width 0.3s, height 0.3s, border-color 0.3s',
                     }} className="proc-corner-br" />
 
                     {/* Depth shimmer overlay */}
                     <div style={{
                       position: 'absolute', inset: 0,
-                      background: 'linear-gradient(135deg, rgba(184,164,114,0.04) 0%, transparent 60%)',
+                      background: 'linear-gradient(135deg, rgba(108,99,255,0.04) 0%, transparent 60%)',
                       opacity: 0,
                       transition: 'opacity 0.3s',
                       pointerEvents: 'none',
@@ -257,7 +257,7 @@ export default function Process({ lang }) {
                       fontFamily: 'Playfair Display, Georgia, serif',
                       fontSize: 52,
                       fontWeight: 900,
-                      color: 'rgba(184,164,114,0.08)',
+                      color: 'rgba(108,99,255,0.08)',
                       lineHeight: 1,
                       marginBottom: -10,
                       userSelect: 'none',
@@ -294,8 +294,8 @@ export default function Process({ lang }) {
                       width: 44,
                       height: 1,
                       background: isRight
-                        ? 'linear-gradient(90deg, rgba(184,164,114,0.15), rgba(184,164,114,0.4))'
-                        : 'linear-gradient(270deg, rgba(184,164,114,0.15), rgba(184,164,114,0.4))',
+                        ? 'linear-gradient(90deg, rgba(108,99,255,0.15), rgba(0,194,255,0.4))'
+                        : 'linear-gradient(270deg, rgba(108,99,255,0.15), rgba(0,194,255,0.4))',
                     }} />
                   </div>
                 </div>
@@ -313,7 +313,7 @@ export default function Process({ lang }) {
                     width: 16,
                     height: 16,
                     borderRadius: '50%',
-                    background: 'var(--bmc-gold)',
+                    background: '#00C2FF',
                     border: '3px solid var(--bmc-dark-2)',
                     animation: `procDotPulse 2.5s ease-out infinite ${i * 0.5}s`,
                     position: 'relative',
@@ -322,7 +322,7 @@ export default function Process({ lang }) {
                       position: 'absolute',
                       inset: -5,
                       borderRadius: '50%',
-                      border: '1px solid rgba(184,164,114,0.25)',
+                      border: '1px solid rgba(0,194,255,0.25)',
                       animation: `procRingExpand 2.5s ease-out infinite ${i * 0.5}s`,
                     }} />
                   </div>
@@ -376,7 +376,7 @@ export default function Process({ lang }) {
         #process .proc-row > div > div:hover .proc-corner-br {
           width: 20px !important;
           height: 20px !important;
-          border-color: rgba(184,164,114,0.7) !important;
+          border-color: rgba(0,194,255,0.7) !important;
         }
 
         @media (max-width: 768px) {

@@ -19,9 +19,9 @@ function SphereCanvas() {
 
       // base sphere
       const g = ctx.createRadialGradient(cx - 30, cy - 30, 10, cx, cy, R);
-      g.addColorStop(0, 'rgba(184,164,114,0.45)');
-      g.addColorStop(0.45, 'rgba(140,118,70,0.3)');
-      g.addColorStop(0.8, 'rgba(80,60,20,0.35)');
+      g.addColorStop(0, 'rgba(108,99,255,0.5)');
+      g.addColorStop(0.45, 'rgba(0,194,255,0.3)');
+      g.addColorStop(0.8, 'rgba(60,40,180,0.35)');
       g.addColorStop(1, 'rgba(10,8,3,0.6)');
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
@@ -78,7 +78,7 @@ function SphereCanvas() {
       // edge glow
       const edge = ctx.createRadialGradient(cx, cy, R * 0.75, cx, cy, R);
       edge.addColorStop(0, 'rgba(0,0,0,0)');
-      edge.addColorStop(1, 'rgba(184,164,114,0.2)');
+      edge.addColorStop(1, 'rgba(108,99,255,0.2)');
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.fillStyle = edge;
@@ -118,7 +118,7 @@ export default function About({ lang }) {
       {/* top separator */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-        background: 'linear-gradient(90deg, transparent, rgba(184,164,114,0.3), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(0,194,255,0.3), transparent)',
       }} />
 
       {/* ── floating particles ── */}
@@ -149,23 +149,27 @@ export default function About({ lang }) {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 marginTop: 40, padding: '12px 28px',
-                border: '1px solid rgba(184,164,114,0.4)',
-                color: 'var(--bmc-gold)', fontSize: 13, fontWeight: 700,
-                textDecoration: 'none', letterSpacing: 0.5, borderRadius: 2,
+                background: 'linear-gradient(135deg, #1A1A4E 0%, #0A3080 100%)',
+                border: 'none',
+                color: '#fff', fontSize: 13, fontWeight: 700,
+                textDecoration: 'none', letterSpacing: 0.5, borderRadius: 50,
                 transition: 'all 0.3s', overflow: 'hidden',
+                boxShadow: '0 6px 20px rgba(0,194,255,0.3)',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'rgba(184,164,114,0.1)';
-                e.currentTarget.style.borderColor = 'var(--bmc-gold)';
+                e.currentTarget.style.background = 'linear-gradient(135deg, #2A2A6E 0%, #1A4090 100%)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 0 24px rgba(0,194,255,0.55), 0 0 50px rgba(108,99,255,0.3)';
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.borderColor = 'rgba(184,164,114,0.4)';
+                e.currentTarget.style.background = 'var(--btn-gradient)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,194,255,0.3)';
               }}
             >
               <span className="snake-light" />
               {lang === 'ar' ? 'تواصل معنا' : 'Get in Touch'}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
@@ -181,7 +185,7 @@ export default function About({ lang }) {
                 position: 'absolute',
                 width: 260, height: 260,
                 borderRadius: '50%',
-                border: '1px solid rgba(184,164,114,0.1)',
+                border: '1px solid rgba(108,99,255,0.1)',
                 animation: 'aboutRing1 14s linear infinite',
               }} />
               {/* orbit ring 2 */}
@@ -189,7 +193,7 @@ export default function About({ lang }) {
                 position: 'absolute',
                 width: 300, height: 300,
                 borderRadius: '50%',
-                border: '1px solid rgba(184,164,114,0.06)',
+                border: '1px solid rgba(108,99,255,0.06)',
                 animation: 'aboutRing2 20s linear infinite reverse',
               }} />
 
@@ -207,7 +211,7 @@ export default function About({ lang }) {
                 width: 220, height: 220,
                 borderRadius: '50%',
                 overflow: 'hidden',
-                boxShadow: '0 0 60px rgba(184,164,114,0.2), 0 0 120px rgba(184,164,114,0.08), inset 0 0 40px rgba(0,0,0,0.5)',
+                boxShadow: '0 0 60px rgba(108,99,255,0.2), 0 0 120px rgba(108,99,255,0.08), inset 0 0 40px rgba(0,0,0,0.5)',
                 animation: 'aboutFloat 6s ease-in-out infinite',
                 position: 'relative',
               }}>
@@ -219,7 +223,7 @@ export default function About({ lang }) {
                   transform: 'translate(-50%, -50%)',
                   fontSize: 72, fontWeight: 900,
                   color: '#fff',
-                  textShadow: '0 0 30px rgba(245,235,190,0.6), 0 0 60px rgba(184,164,114,0.4)',
+                  textShadow: '0 0 30px rgba(245,235,190,0.6), 0 0 60px rgba(0,194,255,0.4)',
                   pointerEvents: 'none',
                   animation: 'aboutNumPulse 4s ease-in-out infinite',
                   fontFamily: 'Playfair Display, serif',
@@ -245,7 +249,7 @@ export default function About({ lang }) {
                 <div key={i} style={{ textAlign: 'center' }}>
                   <div style={{
                     fontSize: 28, fontWeight: 900, color: '#fff',
-                    textShadow: '0 0 20px rgba(184,164,114,0.3)',
+                    textShadow: '0 0 20px rgba(0,194,255,0.3)',
                     animation: `aboutStatIn 0.8s ease ${0.2 + i * 0.15}s both`,
                   }}>{s.num}</div>
                   <div style={{ fontSize: 12, color: 'rgba(245,240,232,0.4)', marginTop: 4 }}>{s.label}</div>
@@ -263,8 +267,8 @@ export default function About({ lang }) {
         @keyframes aboutGlow   { 0%,100%{ opacity:.6; transform:scale(1);    } 50%{ opacity:1; transform:scale(1.1); } }
         @keyframes aboutFloat  { 0%,100%{ transform:translateY(0);           } 50%{ transform:translateY(-12px);    } }
         @keyframes aboutNumPulse {
-          0%,100%{ text-shadow:0 0 30px rgba(245,235,190,0.6),0 0 60px rgba(184,164,114,0.4); }
-          50%{ text-shadow:0 0 50px rgba(255,245,200,0.95),0 0 100px rgba(184,164,114,0.7); }
+          0%,100%{ text-shadow:0 0 30px rgba(245,235,190,0.6),0 0 60px rgba(0,194,255,0.4); }
+          50%{ text-shadow:0 0 50px rgba(255,245,200,0.95),0 0 100px rgba(0,194,255,0.7); }
         }
         @keyframes aboutStatIn { from{ opacity:0; transform:translateY(10px) scale(0.8); } to{ opacity:1; transform:translateY(0) scale(1); } }
         @media (max-width: 768px) {
@@ -292,7 +296,7 @@ function Particles() {
           position: 'absolute',
           width: p.size, height: p.size,
           borderRadius: '50%',
-          background: 'rgba(184,164,114,0.5)',
+          background: 'rgba(0,194,255,0.5)',
           left: `${p.left}%`,
           animation: `particleRise ${p.dur}s linear ${p.delay}s infinite`,
         }} />

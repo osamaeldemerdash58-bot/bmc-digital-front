@@ -258,13 +258,13 @@ export default function ServicesPage({ lang }) {
                 color: 'rgba(245,240,232,0.4)', fontSize: 13, fontWeight: 600,
                 padding: '4px 12px', transition: 'color 0.2s',
               }}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--bmc-gold)'}
+              onMouseEnter={e => e.currentTarget.style.color = '#00C2FF'}
               onMouseLeave={e => e.currentTarget.style.color = 'rgba(245,240,232,0.4)'}
             >
               {isAr ? 'الرئيسية' : 'Home'}
             </button>
-            <span style={{ color: 'rgba(184,164,114,0.3)', fontSize: 13 }}>/</span>
-            <span style={{ color: 'var(--bmc-gold)', fontSize: 13, fontWeight: 700 }}>
+            <span style={{ color: 'rgba(0,194,255,0.3)', fontSize: 13 }}>/</span>
+            <span style={{ color: '#00C2FF', fontSize: 13, fontWeight: 700 }}>
               {isAr ? 'خدماتنا' : 'Services'}
             </span>
           </div>
@@ -344,7 +344,7 @@ export default function ServicesPage({ lang }) {
                   display: 'flex',
                   flexDirection: 'column',
                   borderRadius: 20,
-                  border: `1px solid ${isHov ? `${color}55` : 'rgba(184,164,114,0.1)'}`,
+                  border: `1px solid ${isHov ? `${color}55` : 'rgba(108,99,255,0.1)'}`,
                   boxShadow: isHov
                     ? `0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px ${color}22, inset 0 1px 0 rgba(255,255,255,0.06)`
                     : `0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)`,
@@ -360,7 +360,7 @@ export default function ServicesPage({ lang }) {
                   height: 1,
                   background: isHov
                     ? `linear-gradient(90deg, transparent, ${color}99, transparent)`
-                    : `linear-gradient(90deg, transparent, rgba(184,164,114,0.25), transparent)`,
+                    : `linear-gradient(90deg, transparent, rgba(0,194,255,0.25), transparent)`,
                   transition: 'background 0.4s ease',
                   borderRadius: '20px 20px 0 0',
                 }} />
@@ -412,7 +412,7 @@ export default function ServicesPage({ lang }) {
                   <span style={{
                     display: 'block', marginBottom: 20,
                     fontSize: 11, fontWeight: 800, letterSpacing: 2,
-                    color: isHov ? color : 'rgba(184,164,114,0.3)',
+                    color: isHov ? color : 'rgba(0,194,255,0.3)',
                     fontFamily: 'Playfair Display, serif',
                     transition: 'color 0.3s',
                   }}>
@@ -451,7 +451,7 @@ export default function ServicesPage({ lang }) {
                   <div style={{
                     display: 'inline-flex', alignItems: 'center', gap: isHov ? 10 : 6,
                     fontSize: 12, fontWeight: 700, letterSpacing: 1.2,
-                    color: isHov ? color : 'rgba(184,164,114,0.35)',
+                    color: isHov ? color : 'rgba(0,194,255,0.35)',
                     transition: 'color 0.3s, gap 0.3s',
                     textTransform: 'uppercase',
                   }}>
@@ -511,7 +511,7 @@ export default function ServicesPage({ lang }) {
               color: '#F5F0E8',
               fontWeight: 700, fontSize: 15, letterSpacing: 0.3,
               textDecoration: 'none', borderRadius: 50,
-              border: '1px solid rgba(184,164,114,0.25)',
+              border: '1px solid rgba(0,194,255,0.25)',
               boxShadow: '0 8px 32px rgba(107,88,40,0.3), 0 2px 8px rgba(0,0,0,0.5)',
               transition: 'all 0.35s cubic-bezier(0.16,1,0.3,1)',
               position: 'relative', overflow: 'hidden',

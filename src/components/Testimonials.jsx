@@ -42,7 +42,7 @@ function QuoteCanvas({ isAr }) {
       ctx.clearRect(0, 0, W, H);
       const alpha = 0.06 + 0.02 * Math.sin(t);
       ctx.font = `900 160px "Playfair Display", serif`;
-      ctx.fillStyle = `rgba(184,164,114,${alpha})`;
+      ctx.fillStyle = `rgba(108,99,255,${alpha + 0.04})`;
       ctx.textAlign = isAr ? 'right' : 'left';
       ctx.fillText('"', isAr ? W - 10 : 10, 160);
       t += 0.025;
@@ -65,15 +65,15 @@ function AvatarOrb({ initial }) {
       <div style={{
         position: 'absolute', inset: -6,
         borderRadius: '50%',
-        border: '1px solid rgba(184,164,114,0.2)',
+        border: '1px solid rgba(108,99,255,0.2)',
         animation: 'tAvRing 8s linear infinite',
       }} />
       {/* Dot on ring */}
       <div style={{
         position: 'absolute', top: -8, left: '50%',
         width: 6, height: 6, borderRadius: '50%',
-        background: 'var(--bmc-gold)',
-        boxShadow: '0 0 8px rgba(184,164,114,0.7)',
+        background: '#00C2FF',
+        boxShadow: '0 0 8px rgba(0,194,255,0.7)',
         transformOrigin: '0 40px',
         animation: 'tAvDot 8s linear infinite',
       }} />
@@ -81,10 +81,10 @@ function AvatarOrb({ initial }) {
       <div style={{
         width: 52, height: 52,
         borderRadius: '50%',
-        background: 'linear-gradient(135deg, rgba(184,164,114,0.3), rgba(184,164,114,0.1))',
-        border: '1px solid rgba(184,164,114,0.3)',
+        background: 'linear-gradient(135deg, rgba(0,194,255,0.3), rgba(108,99,255,0.1))',
+        border: '1px solid rgba(0,194,255,0.3)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: 20, fontWeight: 700, color: 'var(--bmc-gold)',
+        fontSize: 20, fontWeight: 700, color: '#00C2FF',
         fontFamily: 'Playfair Display, serif',
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%,-50%)',
@@ -110,7 +110,7 @@ function TestiParticles() {
         <div key={p.key} style={{
           position: 'absolute',
           width: p.size, height: p.size, borderRadius: '50%',
-          background: 'rgba(184,164,114,0.4)',
+          background: 'rgba(0,194,255,0.4)',
           left: `${p.left}%`,
           animation: `tParticle ${p.dur}s linear ${p.delay}s infinite`,
         }} />
@@ -143,7 +143,7 @@ export default function Testimonials({ lang }) {
 
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-        background: 'linear-gradient(90deg, transparent, rgba(184,164,114,0.3), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(0,194,255,0.3), transparent)',
       }} />
 
       <TestiParticles />
@@ -164,7 +164,7 @@ export default function Testimonials({ lang }) {
           <div
             style={{
               background: 'var(--bmc-dark-2)',
-              border: '1px solid rgba(184,164,114,0.12)',
+              border: '1px solid rgba(108,99,255,0.2)',
               padding: '52px 56px',
               position: 'relative',
               marginBottom: 40,
@@ -180,7 +180,7 @@ export default function Testimonials({ lang }) {
               left: isAr ? 'auto' : 0,
               right: isAr ? 0 : 'auto',
               width: 4, height: '100%',
-              background: 'linear-gradient(to bottom, var(--bmc-gold), transparent)',
+              background: 'linear-gradient(to bottom, #6C63FF, #00C2FF, transparent)',
             }} />
 
             {/* Top glow — mirrors About sphere radial gradient */}
@@ -188,16 +188,24 @@ export default function Testimonials({ lang }) {
               position: 'absolute', top: -40, left: '50%',
               transform: 'translateX(-50%)',
               width: 300, height: 200, borderRadius: '50%',
-              background: 'radial-gradient(ellipse, rgba(184,164,114,0.06) 0%, transparent 70%)',
+              background: 'radial-gradient(ellipse, rgba(108,99,255,0.12) 0%, rgba(0,194,255,0.06) 50%, transparent 70%)',
               pointerEvents: 'none',
               animation: 'tCardGlow 5s ease-in-out infinite',
             }} />
 
             {/* Stars */}
+            <svg width="0" height="0" style={{position:'absolute'}}>
+              <defs>
+                <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#6C63FF"/>
+                  <stop offset="100%" stopColor="#00C2FF"/>
+                </linearGradient>
+              </defs>
+            </svg>
             <div style={{ display: 'flex', gap: 4, marginBottom: 28 }}>
               {Array.from({ length: current.rating }).map((_, idx) => (
                 <svg key={idx} width="18" height="18" viewBox="0 0 24 24"
-                  fill="var(--bmc-gold)" stroke="none"
+                  fill="#00C2FF" stroke="none"
                   style={{ animation: `tStarIn 0.4s ease ${idx * 0.06}s both` }}>
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                 </svg>
@@ -219,7 +227,7 @@ export default function Testimonials({ lang }) {
                 <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 2 }}>
                   {current.name}
                 </div>
-                <div style={{ fontSize: 13, color: 'var(--bmc-gold)', fontWeight: 600 }}>
+                <div style={{ fontSize: 13, color: '#00C2FF', fontWeight: 600 }}>
                   {current.role}
                 </div>
               </div>
@@ -232,12 +240,12 @@ export default function Testimonials({ lang }) {
               onClick={() => goTo((active - 1 + tx.items.length) % tx.items.length)}
               style={{
                 width: 40, height: 40, borderRadius: '50%',
-                background: 'transparent', border: '1px solid rgba(184,164,114,0.3)',
-                color: 'var(--bmc-gold)', cursor: 'pointer',
+                background: 'transparent', border: '1px solid rgba(0,194,255,0.3)',
+                color: '#00C2FF', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(184,164,114,0.1)'; e.currentTarget.style.borderColor = 'var(--bmc-gold)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(184,164,114,0.3)'; }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(108,99,255,0.1)'; e.currentTarget.style.borderColor = '#00C2FF'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(0,194,255,0.3)'; }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d={isAr ? 'M9 18l6-6-6-6' : 'M15 18l-6-6 6-6'} />
@@ -248,7 +256,7 @@ export default function Testimonials({ lang }) {
               {tx.items.map((_, i) => (
                 <button key={i} onClick={() => goTo(i)} style={{
                   width: i === active ? 24 : 8, height: 8, borderRadius: 4,
-                  background: i === active ? 'var(--bmc-gold)' : 'rgba(184,164,114,0.25)',
+                  background: i === active ? '#00C2FF' : 'rgba(0,194,255,0.25)',
                   border: 'none', cursor: 'pointer', transition: 'all 0.35s ease', padding: 0,
                 }} />
               ))}
@@ -258,12 +266,12 @@ export default function Testimonials({ lang }) {
               onClick={() => goTo((active + 1) % tx.items.length)}
               style={{
                 width: 40, height: 40, borderRadius: '50%',
-                background: 'transparent', border: '1px solid rgba(184,164,114,0.3)',
-                color: 'var(--bmc-gold)', cursor: 'pointer',
+                background: 'transparent', border: '1px solid rgba(0,194,255,0.3)',
+                color: '#00C2FF', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(184,164,114,0.1)'; e.currentTarget.style.borderColor = 'var(--bmc-gold)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(184,164,114,0.3)'; }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(108,99,255,0.1)'; e.currentTarget.style.borderColor = '#00C2FF'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(0,194,255,0.3)'; }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d={isAr ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6'} />

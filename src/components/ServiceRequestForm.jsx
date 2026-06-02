@@ -3,13 +3,13 @@ import { postAPI } from '../api';
 
 const inputStyle = {
   background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(184,164,114,0.2)',
+  border: '1px solid rgba(108,99,255,0.2)',
   padding: '14px 20px',
   color: 'var(--bmc-white)',
   fontSize: 14,
   fontFamily: 'Cairo, sans-serif',
   outline: 'none',
-  borderRadius: 2,
+  borderRadius: 8,
   transition: 'border-color 0.3s',
   width: '100%',
   boxSizing: 'border-box',
@@ -92,34 +92,34 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
 
   const getFieldStyle = (fieldName) => ({
     ...inputStyle,
-    borderColor: focusedField === fieldName ? 'rgba(184,164,114,0.5)' : 'rgba(184,164,114,0.2)',
+    borderColor: focusedField === fieldName ? 'rgba(0,194,255,0.5)' : 'rgba(108,99,255,0.2)',
   });
 
   if (sent) {
     return (
       <div style={{
-        background: 'rgba(184,164,114,0.06)',
-        border: '1px solid rgba(184,164,114,0.25)',
+        background: 'rgba(108,99,255,0.06)',
+        border: '1px solid rgba(0,194,255,0.25)',
         padding: '64px 40px',
         textAlign: 'center',
-        borderRadius: 2,
+        borderRadius: 50,
       }}>
         <div style={{
           width: 72,
           height: 72,
           margin: '0 auto 24px',
           borderRadius: '50%',
-          background: 'rgba(184,164,114,0.1)',
-          border: '1px solid rgba(184,164,114,0.3)',
+          background: 'rgba(108,99,255,0.1)',
+          border: '1px solid rgba(0,194,255,0.3)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--bmc-gold)" strokeWidth="2">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00C2FF" strokeWidth="2">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <h3 style={{ fontSize: 24, fontWeight: 700, color: 'var(--bmc-gold)', marginBottom: 12 }}>
+        <h3 style={{ fontSize: 24, fontWeight: 700, color: '#00C2FF', marginBottom: 12 }}>
           {labels.successTitle}
         </h3>
         <p style={{ color: 'rgba(245,240,232,0.6)', lineHeight: 1.8, maxWidth: 400, margin: '0 auto' }}>
@@ -135,7 +135,7 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
       {/* Contact Method - Required */}
       <div>
         <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
-          {labels.contactMethod} <span style={{ color: 'var(--bmc-gold)', fontSize: 11 }}>{labels.required}</span>
+          {labels.contactMethod} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
         </label>
         <input
           type="text"
@@ -153,7 +153,7 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         <div>
           <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
-            {labels.fullName} <span style={{ color: 'var(--bmc-gold)', fontSize: 11 }}>{labels.required}</span>
+            {labels.fullName} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
           </label>
           <input
             type="text"
@@ -168,7 +168,7 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
         </div>
         <div>
           <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
-            {labels.phone} <span style={{ color: 'var(--bmc-gold)', fontSize: 11 }}>{labels.required}</span>
+            {labels.phone} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
           </label>
           <input
             type="tel"
@@ -187,7 +187,7 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
       {/* Service select */}
       <div>
         <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
-          {labels.service} <span style={{ color: 'var(--bmc-gold)', fontSize: 11 }}>{labels.required}</span>
+          {labels.service} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
         </label>
         <select
           value={form.service}
@@ -214,7 +214,7 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
       {/* Details */}
       <div>
         <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
-          {labels.details} <span style={{ color: 'var(--bmc-gold)', fontSize: 11 }}>{labels.required}</span>
+          {labels.details} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
         </label>
         <textarea
           placeholder={labels.detailsPlaceholder}
@@ -251,8 +251,8 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
         type="submit"
         disabled={sending}
         style={{
-          background: 'var(--bmc-gold)',
-          color: 'var(--bmc-dark)',
+          background: sending ? 'rgba(0,194,255,0.5)' : 'var(--btn-gradient)',
+          color: '#fff',
           border: 'none',
           padding: '16px 32px',
           fontSize: 15,
@@ -260,26 +260,27 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
           fontFamily: 'Cairo, sans-serif',
           cursor: sending ? 'not-allowed' : 'pointer',
           letterSpacing: 0.5,
-          borderRadius: 2,
+          borderRadius: 50,
           transition: 'all 0.3s',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: 10,
           opacity: sending ? 0.7 : 1,
+          boxShadow: '0 6px 20px rgba(0,194,255,0.3)',
         }}
         onMouseEnter={(e) => {
           if (!sending) {
-            e.currentTarget.style.background = '#D4C48F';
+            e.currentTarget.style.background = 'linear-gradient(135deg, #2A2A6E 0%, #1A4090 100%)';
             e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(184,164,114,0.35)';
+            e.currentTarget.style.boxShadow = '0 0 28px rgba(0,194,255,0.6), 0 0 60px rgba(108,99,255,0.35), inset 0 1px 0 rgba(0,194,255,0.25)';
           }
         }}
         onMouseLeave={(e) => {
           if (!sending) {
-            e.currentTarget.style.background = 'var(--bmc-gold)';
+            e.currentTarget.style.background = 'var(--btn-gradient)';
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,194,255,0.3)';
           }
         }}
       >

@@ -84,7 +84,7 @@ export default function WorksPage({ lang, setLang }) {
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
           width: 700, height: 700,
-          background: 'radial-gradient(circle, rgba(184,164,114,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(108,99,255,0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
         <div style={{
@@ -114,8 +114,8 @@ export default function WorksPage({ lang, setLang }) {
             <Link to="/" style={{ color: 'rgba(245,240,232,0.5)', textDecoration: 'none' }}>
               {lang === 'ar' ? 'الرئيسية' : 'Home'}
             </Link>
-            <span style={{ color: 'rgba(184,164,114,0.35)' }}>/</span>
-            <span style={{ color: 'var(--bmc-gold)', fontWeight: 700 }}>{lang === 'ar' ? 'أعمالنا' : 'Works'}</span>
+            <span style={{ color: 'rgba(0,194,255,0.35)' }}>/</span>
+            <span style={{ color: '#00C2FF', fontWeight: 700 }}>{lang === 'ar' ? 'أعمالنا' : 'Works'}</span>
           </div>
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
@@ -177,7 +177,7 @@ export default function WorksPage({ lang, setLang }) {
                   fontFamily: 'Playfair Display, serif',
                   fontSize: 'clamp(48px, 8vw, 80px)',
                   fontWeight: 900,
-                  color: hovered === i ? 'rgba(184,164,114,0.15)' : 'rgba(184,164,114,0.06)',
+                  color: hovered === i ? 'rgba(108,99,255,0.15)' : 'rgba(108,99,255,0.06)',
                   lineHeight: 1,
                   marginBottom: -16,
                   transition: 'color 0.4s',
@@ -196,19 +196,19 @@ export default function WorksPage({ lang, setLang }) {
                   {item.title}
                 </h3>
 
-                <p style={{ fontSize: 12, color: 'var(--bmc-gold)', fontWeight: 600, letterSpacing: 1, marginBottom: 16 }}>
+                <p style={{ fontSize: 12, color: '#00C2FF', fontWeight: 600, letterSpacing: 1, marginBottom: 16 }}>
                   {item.category}
                 </p>
 
                 <div style={{
                   display: 'inline-block',
                   padding: '5px 12px',
-                  background: 'rgba(184,164,114,0.08)',
-                  border: '1px solid rgba(184,164,114,0.15)',
+                  background: 'rgba(108,99,255,0.08)',
+                  border: '1px solid rgba(108,99,255,0.15)',
                   fontSize: 11,
                   color: 'rgba(245,240,232,0.5)',
                   letterSpacing: 0.5,
-                  borderRadius: 2,
+                  borderRadius: 50,
                 }}>
                   {item.tag}
                 </div>
@@ -221,7 +221,7 @@ export default function WorksPage({ lang, setLang }) {
                   opacity: hovered === i ? 1 : 0,
                   transform: hovered === i ? 'translate(0, 0)' : 'translate(8px, 8px)',
                   transition: 'all 0.3s',
-                  color: 'var(--bmc-gold)',
+                  color: '#00C2FF',
                 }}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" />
@@ -232,7 +232,7 @@ export default function WorksPage({ lang, setLang }) {
                   position: 'absolute', bottom: 0, left: 0,
                   width: hovered === i ? '100%' : 0,
                   height: 2,
-                  background: 'var(--bmc-gold)',
+                  background: '#00C2FF',
                   transition: 'width 0.4s ease',
                 }} />
               </div>

@@ -106,7 +106,7 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
           height: 2,
           background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
           transition: 'left 0.5s cubic-bezier(0.23,1,0.32,1), right 0.5s cubic-bezier(0.23,1,0.32,1)',
-          borderRadius: 2,
+          borderRadius: 50,
         }} />
 
         {/* Card image or gradient placeholder */}
@@ -180,9 +180,9 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
           className="snake-btn"
           snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
           style={{
-            fontSize: 12.5, fontWeight: 700, color: 'var(--bmc-gold)',
+            fontSize: 12.5, fontWeight: 700, color: '#00C2FF',
             textDecoration: 'none', padding: '9px 18px',
-            border: '1px solid rgba(184,164,114,0.35)', borderRadius: 3,
+            border: '1px solid rgba(0,194,255,0.35)', borderRadius: 3,
             display: 'inline-flex', alignItems: 'center', gap: 6,
             overflow: 'hidden', position: 'relative',
           }}
@@ -252,8 +252,8 @@ export default function ServicesPage({ lang, setLang }) {
             background: 'rgba(184,164,114,0.07)',
             backdropFilter: 'blur(8px)',
           }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#B8A472', display: 'inline-block', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--bmc-gold)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00C2FF', display: 'inline-block', animation: 'pulse 2s infinite' }} />
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#00C2FF', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
               {tx.badge}
             </span>
           </div>
@@ -289,10 +289,10 @@ export default function ServicesPage({ lang, setLang }) {
       </section>
 
       {/* Ticker */}
-      <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(184,164,114,0.1)', borderBottom: '1px solid rgba(184,164,114,0.1)', overflow: 'hidden' }}>
+      <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(108,99,255,0.1)', borderBottom: '1px solid rgba(108,99,255,0.1)', overflow: 'hidden' }}>
         <div style={{ display: 'flex', width: 'max-content', animation: 'servicesTicker 28s linear infinite' }}>
           {tickerItems.map((svc, i) => {
-            const accent = serviceAccents[svc.slug] || 'var(--bmc-gold)';
+            const accent = serviceAccents[svc.slug] || '#00C2FF';
             return (
               <div key={`${svc.slug}-${i}`} style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -312,7 +312,7 @@ export default function ServicesPage({ lang, setLang }) {
         <div className="container">
           <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
             {servicesList.map((svc, i) => {
-              const accent = serviceAccents[svc.slug] || 'var(--bmc-gold)';
+              const accent = serviceAccents[svc.slug] || '#00C2FF';
               return (
                 <ServiceCard3D
                   key={svc.slug || i}
@@ -329,7 +329,7 @@ export default function ServicesPage({ lang, setLang }) {
 
       {/* Service Request Form */}
       <section style={{ background: 'var(--bmc-dark)', padding: '90px 0', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 800, height: 800, background: 'radial-gradient(circle, rgba(184,164,114,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 800, height: 800, background: 'radial-gradient(circle, rgba(108,99,255,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ maxWidth: 700, margin: '0 auto' }}>
             <ServiceRequestPopup lang={lang} title={tx.formTitle} subtitle={tx.formSubtitle} />

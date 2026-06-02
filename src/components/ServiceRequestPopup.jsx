@@ -65,9 +65,9 @@ export default function ServiceRequestPopup({ lang, title, subtitle, preselected
             width: 36,
             height: 36,
             borderRadius: '50%',
-            border: '1px solid rgba(184,164,114,0.25)',
-            background: 'rgba(184,164,114,0.08)',
-            color: 'var(--bmc-gold)',
+            border: '1px solid rgba(0,194,255,0.25)',
+            background: 'rgba(108,99,255,0.08)',
+            color: '#00C2FF',
             fontSize: 22,
             lineHeight: 1,
             cursor: 'pointer',
@@ -93,7 +93,7 @@ export default function ServiceRequestPopup({ lang, title, subtitle, preselected
       <div
         style={{
           background: 'var(--bmc-dark-3)',
-          border: '1px solid rgba(184,164,114,0.15)',
+          border: '1px solid rgba(108,99,255,0.15)',
           padding: '40px 36px',
           textAlign: 'center',
         }}
@@ -111,8 +111,8 @@ export default function ServiceRequestPopup({ lang, title, subtitle, preselected
           className="snake-btn"
           snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
           style={{
-            background: 'linear-gradient(135deg, #D4C48F 0%, #B8A472 100%)',
-            color: 'var(--bmc-dark)',
+            background: 'linear-gradient(135deg, #1A1A4E 0%, #0A3080 100%)',
+            color: '#fff',
             border: 'none',
             padding: '14px 30px',
             fontSize: 15,
@@ -120,22 +120,23 @@ export default function ServiceRequestPopup({ lang, title, subtitle, preselected
             fontFamily: 'Cairo, sans-serif',
             cursor: 'pointer',
             letterSpacing: 0.4,
-            borderRadius: 4,
+            borderRadius: 50,
             transition: 'all 0.3s',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: 10,
-            boxShadow: '0 10px 24px rgba(184,164,114,0.25)',
-            overflow: 'hidden',
+            boxShadow: '0 10px 24px rgba(0,194,255,0.25)',
           }}
           onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'var(--btn-gradient-hover)';
             e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 14px 28px rgba(184,164,114,0.35)';
+            e.currentTarget.style.boxShadow = '0 14px 28px rgba(0,194,255,0.4)';
           }}
           onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'var(--btn-gradient)';
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 10px 24px rgba(184,164,114,0.25)';
+            e.currentTarget.style.boxShadow = '0 10px 24px rgba(0,194,255,0.25)';
           }}
         >
           {isAr ? 'طلب الخدمة' : 'Request Service'}

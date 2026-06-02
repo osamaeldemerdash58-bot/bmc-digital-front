@@ -17,7 +17,10 @@ export default function Hero({ lang }) {
   const titleSpan = lang === 'ar' ? 'مستقبلك الرقمي' : 'We Build Your Digital Future';
   const titleSpanStyle = lang === 'ar'
     ? {
-        color: 'var(--bmc-gold)',
+        background: 'linear-gradient(135deg, #6C63FF 0%, #00C2FF 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
         fontStyle: 'normal',
         fontFamily: 'Cairo, sans-serif',
       }
@@ -112,7 +115,7 @@ export default function Hero({ lang }) {
         paddingTop: 110,
         paddingBottom: 130,
         overflow: 'hidden',
-        background: 'linear-gradient(135deg, #0D1117 0%, #131A24 50%, #0D1117 100%)',
+        background: 'linear-gradient(135deg, #020414 0%, #04071A 50%, #020414 100%)',
       }}
     >
       <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
@@ -165,7 +168,7 @@ export default function Hero({ lang }) {
         left: lang === 'ar' ? '25%' : '75%',
         transform: 'translate(-50%, -50%)',
         width: 700, height: 700,
-        background: 'radial-gradient(circle, rgba(184,164,114,0.07) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(108,99,255,0.1) 0%, rgba(0,194,255,0.05) 50%, transparent 70%)',
         zIndex: 0, pointerEvents: 'none',
       }} />
 
@@ -176,7 +179,7 @@ export default function Hero({ lang }) {
         right: lang === 'ar' ? 0 : 'auto',
         fontFamily: 'Playfair Display, serif',
         fontSize: 'clamp(80px, 18vw, 220px)', fontWeight: 900,
-        color: 'rgba(184,164,114,0.025)', letterSpacing: 20,
+        color: 'rgba(108,99,255,0.04)', letterSpacing: 20,
         userSelect: 'none', pointerEvents: 'none', whiteSpace: 'nowrap', zIndex: 2,
       }}>
         BMC
@@ -220,14 +223,13 @@ export default function Hero({ lang }) {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
                 padding: '14px 32px',
-                background: btn1Hovered ? 'transparent' : 'var(--bmc-gold)',
-                color: btn1Hovered ? 'var(--bmc-gold)' : 'var(--bmc-dark)',
+                background: btn1Hovered ? 'rgba(108,99,255,0.08)' : 'linear-gradient(135deg, #1A1A4E 0%, #0A3080 100%)',
+                color: '#fff',
                 fontWeight: 700, fontSize: 14, letterSpacing: 0.5,
-                textDecoration: 'none', borderRadius: 2,
-                border: '1px solid var(--bmc-gold)', transition: 'all 0.35s ease',
+                textDecoration: 'none', borderRadius: 50,
+                border: '1px solid rgba(0,194,255,0.4)', transition: 'all 0.35s ease',
                 transform: btn1Hovered ? 'translateY(-3px)' : 'translateY(0)',
-                boxShadow: btn1Hovered ? '0 8px 25px rgba(184,164,114,0.3)' : 'none',
-                overflow: 'hidden',
+                boxShadow: btn1Hovered ? '0 0 28px rgba(0,194,255,0.6), 0 0 60px rgba(108,99,255,0.35), inset 0 1px 0 rgba(0,194,255,0.25)' : '0 0 18px rgba(0,194,255,0.4), 0 0 40px rgba(108,99,255,0.2), inset 0 1px 0 rgba(0,194,255,0.2)',
               }}
             >
               <span className="snake-light" />
@@ -246,15 +248,14 @@ export default function Hero({ lang }) {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
                 padding: '14px 32px',
-                background: btn2Hovered ? 'rgba(184,164,114,0.08)' : 'transparent',
-                color: btn2Hovered ? 'var(--bmc-gold)' : 'var(--bmc-white)',
+                background: btn2Hovered ? 'rgba(108,99,255,0.12)' : 'rgba(108,99,255,0.04)',
+                color: '#fff',
                 fontWeight: 700, fontSize: 14, letterSpacing: 0.5,
                 textDecoration: 'none',
-                border: btn2Hovered ? '1px solid var(--bmc-gold)' : '1px solid rgba(245,240,232,0.2)',
-                borderRadius: 2, transition: 'all 0.35s ease',
+                border: btn2Hovered ? '1px solid rgba(0,194,255,0.5)' : '1px solid rgba(108,99,255,0.3)',
+                borderRadius: 50, transition: 'all 0.35s ease',
                 transform: btn2Hovered ? 'translateY(-3px)' : 'translateY(0)',
-                boxShadow: btn2Hovered ? '0 8px 25px rgba(184,164,114,0.12)' : 'none',
-                overflow: 'hidden',
+                boxShadow: btn2Hovered ? '0 0 20px rgba(0,194,255,0.35), inset 0 1px 0 rgba(0,194,255,0.2)' : '0 0 8px rgba(108,99,255,0.15)',
               }}
             >
               <span className="snake-light" />
@@ -276,7 +277,7 @@ export default function Hero({ lang }) {
       }}>
         <div style={{
           width: 1, height: 48,
-          background: 'linear-gradient(to bottom, var(--bmc-gold), transparent)',
+          background: 'linear-gradient(to bottom, #00C2FF, #6C63FF, transparent)',
           animation: 'scrollLine 2s ease-in-out infinite',
         }} />
       </div>

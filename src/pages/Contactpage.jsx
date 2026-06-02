@@ -90,7 +90,7 @@ export default function ContactPage({ lang, setLang }) {
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
           width: 600, height: 600,
-          background: 'radial-gradient(circle, rgba(184,164,114,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(108,99,255,0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
 
@@ -106,8 +106,8 @@ export default function ContactPage({ lang, setLang }) {
             <Link to="/" style={{ color: 'rgba(245,240,232,0.5)', textDecoration: 'none' }}>
               {lang === 'ar' ? 'الرئيسية' : 'Home'}
             </Link>
-            <span style={{ color: 'rgba(184,164,114,0.35)' }}>/</span>
-            <span style={{ color: 'var(--bmc-gold)', fontWeight: 700 }}>{lang === 'ar' ? 'تواصل معنا' : 'Contact'}</span>
+            <span style={{ color: 'rgba(0,194,255,0.35)' }}>/</span>
+            <span style={{ color: '#00C2FF', fontWeight: 700 }}>{lang === 'ar' ? 'تواصل معنا' : 'Contact'}</span>
           </div>
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
@@ -140,7 +140,7 @@ export default function ContactPage({ lang, setLang }) {
               letterSpacing: 0.6,
               whiteSpace: 'nowrap',
             }}>
-              <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--bmc-gold)' }} />
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#00C2FF' }} />
               {c.label}: {c.value}
             </div>
           ))}
@@ -191,9 +191,9 @@ export default function ContactPage({ lang, setLang }) {
                   >
                     <div style={{
                       width: 44, height: 44,
-                      border: '1px solid rgba(184,164,114,0.2)',
+                      border: '1px solid rgba(108,99,255,0.2)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: 'var(--bmc-gold)', flexShrink: 0, borderRadius: 10,
+                      color: '#00C2FF', flexShrink: 0, borderRadius: 10,
                     }}>
                       {c.icon}
                     </div>

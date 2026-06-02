@@ -54,7 +54,7 @@ export default function FAQ({ lang }) {
     <section id="faq" className="section" style={{ background: 'var(--bmc-dark-2)', position: 'relative', overflow: 'hidden' }}>
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-        background: 'linear-gradient(90deg, transparent, rgba(184,164,114,0.3), transparent)',
+        background: 'linear-gradient(90deg, transparent, rgba(0,194,255,0.3), transparent)',
       }} />
 
       <div className="container">
@@ -71,7 +71,7 @@ export default function FAQ({ lang }) {
               key={i}
               className="faq-item"
               style={{
-                borderBottom: '1px solid rgba(184,164,114,0.1)',
+                borderBottom: '1px solid rgba(108,99,255,0.15)',
                 transitionDelay: `${i * 0.07}s`,
                 /* override base opacity/transform with specific transition */
                 transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.07}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 0.07}s`,
@@ -95,7 +95,7 @@ export default function FAQ({ lang }) {
               >
                 <span style={{
                   fontSize: 16, fontWeight: 600,
-                  color: openIndex === i ? 'var(--bmc-gold)' : 'var(--bmc-white)',
+                  color: openIndex === i ? '#00C2FF' : 'var(--bmc-white)',
                   lineHeight: 1.5, transition: 'color 0.3s', flex: 1,
                 }}>
                   {item.q}
@@ -103,12 +103,12 @@ export default function FAQ({ lang }) {
 
                 <div style={{
                   width: 32, height: 32, borderRadius: '50%',
-                  border: `1px solid ${openIndex === i ? 'var(--bmc-gold)' : 'rgba(184,164,114,0.3)'}`,
+                  border: `1px solid ${openIndex === i ? '#00C2FF' : 'rgba(0,194,255,0.3)'}`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0, transition: 'all 0.3s',
-                  background: openIndex === i ? 'rgba(184,164,114,0.1)' : 'transparent',
+                  background: openIndex === i ? 'rgba(108,99,255,0.1)' : 'transparent',
                 }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--bmc-gold)" strokeWidth="2"
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C2FF" strokeWidth="2"
                     style={{ transform: openIndex === i ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}>
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
