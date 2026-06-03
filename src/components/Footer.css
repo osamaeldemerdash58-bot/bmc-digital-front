@@ -615,9 +615,18 @@
 
 @media (max-width: 600px) {
   .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "brand brand"
+      "quick services"
+      "contact contact";
+    gap: 22px;
   }
+
+  .footer-col--brand { grid-area: brand; }
+  .footer-col--quick { grid-area: quick; }
+  .footer-col--services { grid-area: services; }
+  .footer-col--contact { grid-area: contact; }
 
   .footer-top {
     padding: 48px 0 40px;
@@ -642,7 +651,7 @@
   }
 
   .footer-map-wrap {
-    width: 90%;
+    width: 100%;
   }
 
   .footer-map-link iframe {

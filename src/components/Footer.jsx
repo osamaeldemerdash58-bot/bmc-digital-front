@@ -173,7 +173,7 @@ export default function Footer({ lang }) {
       <div className="footer-top">
         <div className="container">
           <div className="footer-grid">
-            <div className="footer-brand">
+            <div className="footer-brand footer-col--brand">
               <div className="footer-logo-wrap">
                 <img src={logoImg} alt="BMD Digital Logo" className="footer-logo-img" />
               </div>
@@ -206,7 +206,7 @@ export default function Footer({ lang }) {
               </div>
             </div>
 
-            <div className="footer-col">
+            <div className="footer-col footer-col--quick">
               <h4>{lang === 'ar' ? 'روابط سريعة' : 'Quick Links'}</h4>
               <ul>
                 {links.map((l, i) => (
@@ -218,7 +218,7 @@ export default function Footer({ lang }) {
               <SaudiClock lang={lang} />
             </div>
 
-            <div className="footer-col">
+            <div className="footer-col footer-col--services">
               <h4>{lang === 'ar' ? 'أهم الخدمات' : 'Top Services'}</h4>
               <ul>
                 <li><a href="#services">{lang === 'ar' ? 'تطوير المواقع' : 'Website Development'}</a></li>
@@ -244,7 +244,7 @@ export default function Footer({ lang }) {
               </div>
             </div>
 
-            <div className="footer-col">
+            <div className="footer-col footer-col--contact">
               <h4>{lang === 'ar' ? 'تواصل معنا' : 'Contact'}</h4>
               <ul className="footer-contact-list">
                 <li>
