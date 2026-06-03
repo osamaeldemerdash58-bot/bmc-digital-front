@@ -139,7 +139,6 @@ export default function Navbar({ lang, setLang }) {
                 cursor: 'pointer',
                 fontFamily: 'Cairo, sans-serif',
                 height: 44,
-                padding: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -526,8 +525,8 @@ export default function Navbar({ lang, setLang }) {
         }
         @media (max-width: 520px) {
           .nav-link-btn {
-            min-width: 74px;
-            padding: 0 4px;
+            min-width: unset;
+            padding: 0 10px;
           }
           .lang-btn {
             padding: 5px 9px !important;
