@@ -8,6 +8,8 @@ export default function Contact({ lang }) {
   useAnimate();
   const { data } = useData();
   const tx = data?.translations?.contact?.[lang] || {};
+  const contactPhone = '+966 53 516 6370';
+  const contactEmail = 'info@bmc-digital.com';
   const [form, setForm] = useState({ name: '', email: '', msg: '' });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -55,13 +57,14 @@ export default function Contact({ lang }) {
             </p>
 
             {[
-              { icon: '📞', label: tx.phone },
-              { icon: '✉️', label: tx.email },
+              { icon: '📞', label: contactPhone, href: 'tel:+966535166370' },
+              { icon: '✉️', label: contactEmail, href: 'mailto:info@bmc-digital.com' },
             ].map((c, i) => (
-              <div key={i} style={{
+              <a key={i} href={c.href} style={{
                 display: 'flex', alignItems: 'center', gap: 16,
                 padding: '20px 0',
                 borderBottom: '1px solid rgba(0,194,255,0.1)',
+                textDecoration: 'none',
               }}>
                 <div style={{
                   width: 44, height: 44,
@@ -72,7 +75,7 @@ export default function Contact({ lang }) {
                   {c.icon}
                 </div>
                 <span style={{ fontSize: 15, color: 'rgba(245,240,232,0.7)' }} dir="ltr">{c.label}</span>
-              </div>
+              </a>
             ))}
           </div>
 

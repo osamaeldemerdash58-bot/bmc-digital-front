@@ -541,8 +541,9 @@ function TrackedWhyList({ items, accent, isAr }) {
 
 /* ── Scrolling Sub-Types Ticker ── */
 function SubTypesTicker({ types, accent, isAr }) {
-  // Duplicate for infinite scroll
-  const items = [...types, ...types, ...types];
+  const base = Array.from({ length: 8 }, () => types || []).flat();
+  const items = [...base, ...base];
+  const durationSec = Math.max(24, (types?.length || 0) * 7);
   return (
     <section style={{
       background: 'var(--bmc-dark-2)',
@@ -567,7 +568,7 @@ function SubTypesTicker({ types, accent, isAr }) {
       <div style={{
         display: 'flex',
         width: 'max-content',
-        animation: `subTypeTicker ${types.length * 3}s linear infinite`,
+        animation: `subTypeTicker ${durationSec}s linear infinite`,
         direction: 'ltr',
       }}>
         {items.map((item, i) => (
@@ -780,7 +781,8 @@ export default function ServiceDetailPage({ lang, setLang }) {
     desc: sanitizeServiceText(b?.desc),
   }));
   const accent = serviceAccents[service.slug] || '#00C2FF';
-  const tickerFeatures = Array.from({ length: 4 }, () => features || []).flat();
+  const tickerBase = Array.from({ length: 10 }, () => features || []).flat();
+  const tickerFeatures = [...tickerBase, ...tickerBase];
   const heroTitleMain = detailTitle || title;
   const heroTitleSpan = detailTitleSpan || '';
 
@@ -1213,7 +1215,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
         /* Sub-types ticker */
         @keyframes subTypeTicker {
           0%   { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
+          100% { transform: translateX(-50%); }
         }
         .subtype-pill:hover {
           background: rgba(255,255,255,0.03);
@@ -1225,7 +1227,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
         /* Original animations */
         @keyframes featureTicker {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-25%); }
+          100% { transform: translateX(-50%); }
         }
         @keyframes shimmer {
           0% { background-position: 0% center; }

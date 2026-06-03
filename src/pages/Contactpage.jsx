@@ -5,7 +5,6 @@ import Footer from '../components/Footer';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
-import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
 
 const contactData = {
   ar: {
@@ -17,7 +16,7 @@ const contactData = {
     formSubtitle: 'املأ النموذج وسنتواصل معك في أقرب وقت ممكن.',
     directContact: 'تواصل مباشر',
     phone: '+966 53 516 6370',
-    email: 'hello@bmc-digital.com',
+    email: 'info@bmc-digital.com',
     phoneLbl: 'الهاتف',
     emailLbl: 'البريد الإلكتروني',
     whatsappLbl: 'واتساب',
@@ -32,7 +31,7 @@ const contactData = {
     formSubtitle: 'Fill out the form and we will get back to you as soon as possible.',
     directContact: 'Direct Contact',
     phone: '+966 53 516 6370',
-    email: 'hello@bmc-digital.com',
+    email: 'info@bmc-digital.com',
     phoneLbl: 'Phone',
     emailLbl: 'Email',
     whatsappLbl: 'WhatsApp',
@@ -62,84 +61,80 @@ const contactIcons = {
 export default function ContactPage({ lang, setLang }) {
   useReveal();
   const tx = contactData[lang] || contactData.ar;
-
   const contactItems = [
     { icon: contactIcons.phone, label: tx.phoneLbl, value: tx.phone, href: `tel:${tx.phone.replace(/\s/g, '')}` },
     { icon: contactIcons.email, label: tx.emailLbl, value: tx.email, href: `mailto:${tx.email}` },
     { icon: contactIcons.whatsapp, label: tx.whatsappLbl, value: tx.whatsapp, href: `https://wa.me/${tx.whatsapp.replace(/\D/g, '')}` },
   ];
+  const tickerContent = Array.from({ length: 8 }, () => contactItems).flat();
 
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
-
-      {/* Hero */}
+      
+      {/* Hero Section - Professional 3D Animated Background */}
       <section style={{
-        minHeight: '48vh',
-        backgroundImage: `linear-gradient(135deg, rgba(10,14,13,0.9) 0%, rgba(15,21,18,0.92) 100%), url(${servicesBgImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        paddingTop: 100,
-        paddingBottom: 90,
-        position: 'relative',
-        overflow: 'visible',
+        minHeight: '55vh',
+        background: 'linear-gradient(180deg, #0a0e17 0%, #111827 50%, #0f172a 100%)',
+        display: 'flex', alignItems: 'center', paddingTop: 120, paddingBottom: 100,
+        position: 'relative', overflow: 'hidden',
       }}>
-        <div style={{
-          position: 'absolute', top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 600, height: 600,
-          background: 'radial-gradient(circle, rgba(0,194,255,0.06) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+        {/* 1. Ambient Glow */}
+        <div className="ambient-glow" />
+        {/* 2. Floating 3D Rings */}
+        <div className="floating-shape shape-1" />
+        <div className="floating-shape shape-2" />
+        <div className="floating-shape shape-3" />
+        {/* 3. Moving 3D Grid Floor */}
+        <div className="grid-floor" />
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 8,
-            color: 'rgba(245,240,232,0.6)',
-            fontSize: 13,
-            marginBottom: 18,
-          }}>
-            <Link to="/" style={{ color: 'rgba(245,240,232,0.5)', textDecoration: 'none' }}>
-              {lang === 'ar' ? 'الرئيسية' : 'Home'}
-            </Link>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(245,240,232,0.6)', fontSize: 13, marginBottom: 18 }}>
+            <Link to="/" style={{ color: 'rgba(245,240,232,0.5)', textDecoration: 'none' }}>{lang === 'ar' ? 'الرئيسية' : 'Home'}</Link>
             <span style={{ color: 'rgba(0,194,255,0.35)' }}>/</span>
             <span style={{ color: '#00C2FF', fontWeight: 700 }}>{lang === 'ar' ? 'تواصل معنا' : 'Contact'}</span>
           </div>
+          
           <h1 style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(36px, 5vw, 64px)',
-            fontWeight: 900, lineHeight: 1.34, marginBottom: 20, paddingBottom: 6, textWrap: 'balance',
+            fontFamily: 'Playfair Display, serif', fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 900,
+            lineHeight: 1.34, marginBottom: 20, paddingBottom: 6, textWrap: 'balance',
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block' }}>{tx.title}</span>
             <span style={{ color: 'var(--neon-blue)', fontStyle: 'normal' }}>{tx.titleSpan}</span>
           </h1>
-          <p style={{ fontSize: 16, color: 'rgba(245,240,232,0.55)', maxWidth: 520, lineHeight: 1.8 }}>
-            {tx.subtitle}
-          </p>
+          <p style={{ fontSize: 16, color: 'rgba(245,240,232,0.55)', maxWidth: 520, lineHeight: 1.8 }}>{tx.subtitle}</p>
         </div>
       </section>
 
+      {/* Ticker */}
       <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(0,194,255,0.16)', borderBottom: '1px solid rgba(0,194,255,0.16)', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', width: 'max-content', animation: 'contactTicker 28s linear infinite' }}>
-          {Array.from({ length: 4 }, () => contactItems).flat().map((c, i) => (
-            <div key={`${c.label}-${i}`} style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 10,
-              padding: '14px 24px',
-              color: 'rgba(245,240,232,0.75)',
-              fontSize: 13,
-              letterSpacing: 0.6,
-              whiteSpace: 'nowrap',
-            }}>
-              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#00C2FF' }} />
-              {c.label}: {c.value}
-            </div>
-          ))}
+        <div style={{ display: 'flex', overflow: 'hidden', direction: 'ltr' }}>
+          <div style={{ display: 'flex', width: 'max-content', animation: 'contactMarquee1 70s linear infinite' }}>
+            {tickerContent.map((c, i) => (
+              <div key={`${c.label}-a-${i}`} style={{
+                display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 24px',
+                color: 'rgba(245,240,232,0.75)', fontSize: 13, letterSpacing: 0.6, whiteSpace: 'nowrap',
+                direction: lang === 'ar' ? 'rtl' : 'ltr',
+              }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: '#00C2FF' }}>{c.icon}</span>
+                <span>{c.label}: </span>{' '}
+                <span dir="ltr">{c.value}</span>
+              </div>
+            ))}
+          </div>
+          <div aria-hidden="true" style={{ display: 'flex', width: 'max-content', animation: 'contactMarquee2 70s linear infinite' }}>
+            {tickerContent.map((c, i) => (
+              <div key={`${c.label}-b-${i}`} style={{
+                display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 24px',
+                color: 'rgba(245,240,232,0.75)', fontSize: 13, letterSpacing: 0.6, whiteSpace: 'nowrap',
+                direction: lang === 'ar' ? 'rtl' : 'ltr',
+              }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: '#00C2FF' }}>{c.icon}</span>
+                <span>{c.label}: </span>{' '}
+                <span dir="ltr">{c.value}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -147,49 +142,31 @@ export default function ContactPage({ lang, setLang }) {
       <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0' }}>
         <div className="container">
           <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 28, alignItems: 'start' }}>
-
             {/* Left: direct contact */}
             <div className="reveal">
-              <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 8 }}>
-                {tx.directContact}
-              </h2>
-              <div className="gold-line" style={{ marginBottom: 36 }} />
+              <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 8 }}>{tx.directContact}</h2>
+              <div className="gold-line" style={{ width: 60, height: 3, background: 'linear-gradient(90deg, #00C2FF, transparent)', marginBottom: 36, borderRadius: 2 }} />
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 {contactItems.map((c, i) => (
-                  <a
-                    key={i}
-                    href={c.href}
-                    target={c.href.startsWith('http') ? '_blank' : undefined}
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 16,
-                      padding: '20px 24px',
-                      background: 'var(--bmc-dark-2)',
-                      border: '1px solid rgba(184,164,114,0.14)',
-                      textDecoration: 'none',
-                      transition: 'all 0.35s',
-                      borderRadius: 14,
-                      boxShadow: '0 14px 34px rgba(0,0,0,0.22)',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(184,164,114,0.34)';
-                      e.currentTarget.style.background = 'var(--bmc-dark-3)';
-                      e.currentTarget.style.transform = 'translateY(-6px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(184,164,114,0.14)';
-                      e.currentTarget.style.background = 'var(--bmc-dark-2)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                    }}
-                  >
+                  <a key={i} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" style={{
+                    display: 'flex', alignItems: 'center', gap: 16, padding: '20px 24px', background: 'var(--bmc-dark-2)',
+                    border: '1px solid rgba(0,194,255,0.14)', textDecoration: 'none', transition: 'all 0.35s', borderRadius: 14,
+                    boxShadow: '0 14px 34px rgba(0,0,0,0.22)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(0,194,255,0.34)';
+                    e.currentTarget.style.background = 'var(--bmc-dark-3)';
+                    e.currentTarget.style.transform = 'translateY(-6px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(0,194,255,0.14)';
+                    e.currentTarget.style.background = 'var(--bmc-dark-2)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}>
                     <div style={{
-                      width: 44, height: 44,
-                      border: '1px solid rgba(108,99,255,0.2)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#00C2FF', flexShrink: 0, borderRadius: 10,
+                      width: 44, height: 44, border: '1px solid rgba(0,194,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: '#00C2FF', flexShrink: 0, borderRadius: 10, background: 'rgba(0,194,255,0.05)',
                     }}>
                       {c.icon}
                     </div>
@@ -209,17 +186,10 @@ export default function ContactPage({ lang, setLang }) {
             {/* Right: form */}
             <div className="reveal" style={{ transitionDelay: '0.2s' }}>
               <div style={{
-                border: '1px solid rgba(184,164,114,0.14)',
-                borderRadius: 14,
-                padding: 18,
-                background: 'var(--bmc-dark-2)',
+                border: '1px solid rgba(0,194,255,0.14)', borderRadius: 14, padding: 24, background: 'var(--bmc-dark-2)',
                 boxShadow: '0 14px 34px rgba(0,0,0,0.22)',
               }}>
-                <ServiceRequestPopup
-                  lang={lang}
-                  title={tx.formTitle}
-                  subtitle={tx.formSubtitle}
-                />
+                <ServiceRequestPopup lang={lang} title={tx.formTitle} subtitle={tx.formSubtitle} />
               </div>
             </div>
           </div>
@@ -230,22 +200,62 @@ export default function ContactPage({ lang, setLang }) {
       <WhatsAppFloat lang={lang} />
 
       <style>{`
-        @keyframes contactTicker {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-25%); }
+        @keyframes gridMove {
+          0% { transform: rotateX(60deg) translateY(0); }
+          100% { transform: rotateX(60deg) translateY(60px); }
         }
-        @media (max-width: 640px) {
-          section h1 {
-            line-height: 1.4 !important;
-            padding-bottom: 10px !important;
-          }
+        @keyframes float3D {
+          0%, 100% { transform: rotateX(45deg) rotateY(45deg) translateZ(0px) translateY(0px); }
+          25% { transform: rotateX(50deg) rotateY(50deg) translateZ(20px) translateY(-15px); }
+          50% { transform: rotateX(40deg) rotateY(40deg) translateZ(-10px) translateY(-30px); }
+          75% { transform: rotateX(55deg) rotateY(35deg) translateZ(10px) translateY(-15px); }
         }
-        @media (max-width: 900px) {
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-            gap: 22px !important;
-          }
+        @keyframes pulseGlow {
+          0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+          100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
         }
+        @keyframes contactMarquee1 { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        @keyframes contactMarquee2 { 0% { transform: translateX(100%); } 100% { transform: translateX(0); } }
+        
+        .ambient-glow {
+          position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          width: 80vw; height: 80vh;
+          background: radial-gradient(circle, rgba(0, 194, 255, 0.08) 0%, transparent 60%);
+          animation: pulseGlow 6s ease-in-out infinite alternate; pointer-events: none;
+        }
+        .floating-shape {
+          position: absolute; border-radius: 50%; pointer-events: none;
+          animation: float3D 8s ease-in-out infinite;
+        }
+        .shape-1 {
+          width: 300px; height: 300px; top: 10%; right: 10%;
+          border: 1px solid rgba(0, 194, 255, 0.15);
+          box-shadow: 0 0 40px rgba(0, 194, 255, 0.1), inset 0 0 40px rgba(0, 194, 255, 0.05);
+        }
+        .shape-2 {
+          width: 200px; height: 200px; bottom: 20%; left: 10%;
+          border: 1px solid rgba(108, 99, 255, 0.15);
+          box-shadow: 0 0 40px rgba(108, 99, 255, 0.1), inset 0 0 40px rgba(108, 99, 255, 0.05);
+          animation-delay: -2s; animation-duration: 10s;
+        }
+        .shape-3 {
+          width: 150px; height: 150px; top: 40%; left: 50%;
+          border: 1px solid rgba(184, 164, 114, 0.15);
+          box-shadow: 0 0 40px rgba(184, 164, 114, 0.1), inset 0 0 40px rgba(184, 164, 114, 0.05);
+          animation-delay: -4s; animation-duration: 12s;
+        }
+        .grid-floor {
+          position: absolute; bottom: -50%; left: -50%; width: 200%; height: 100%;
+          background-image: linear-gradient(rgba(0, 194, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 194, 255, 0.1) 1px, transparent 1px);
+          background-size: 60px 60px;
+          transform: rotateX(60deg);
+          animation: gridMove 4s linear infinite;
+          mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+          -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+          pointer-events: none;
+        }
+        @media (max-width: 640px) { section h1 { line-height: 1.4 !important; padding-bottom: 10px !important; } }
+        @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr !important; gap: 32px !important; } }
       `}</style>
     </>
   );

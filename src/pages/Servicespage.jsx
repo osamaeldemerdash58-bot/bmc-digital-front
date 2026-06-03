@@ -8,7 +8,6 @@ import SnakeButton from '../components/SnakeButton';
 import { useReveal } from '../hooks/useReveal';
 import { useData } from '../DataContext';
 import { overrideServiceCard } from '../data/digitalMarketingService';
-import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
 
 const servicesData = {
   ar: {
@@ -19,7 +18,7 @@ const servicesData = {
     learnMore: 'اعرف أكثر',
     requestService: 'اطلب الخدمة',
     formTitle: 'هل تحتاج خدمة مخصصة؟',
-    formSubtitle: 'أخبرنا بما تحتاجه وسنتواصل معك في أقرب وقت لمناقشة تفاصيل مشروعك.',
+    formSubtitle: 'أخبرنا بما تحتاجه وسنتواصل معك في أقرب وقت لمناقشة تفاصيل مشروعك.', 
     services: [
       { slug: 'web-development', title: 'تطوير المواقع الإلكترونية', desc: 'نبني مواقع احترافية عالية الأداء تعكس هوية علامتك التجارية وتحقق أهدافك التجارية.', features: ['تصميم متجاوب مع كل الأجهزة', 'سرعة تحميل فائقة', 'تحسين محركات البحث SEO', 'لوحة إدارة سهلة الاستخدام'], icon: '🌐' },
       { slug: 'e-commerce-website-development', title: 'تطوير المتاجر الإلكترونية', desc: 'متاجر إلكترونية متكاملة مع بوابات دفع آمنة وتجربة تسوق استثنائية تزيد مبيعاتك.', features: ['بوابات دفع متعددة', 'إدارة المخزون', 'تقارير المبيعات', 'تجربة مستخدم محسّنة'], icon: '🛒' },
@@ -61,134 +60,79 @@ const serviceAccents = {
 
 function ServiceCard3D({ svc, accent, index, learnMore }) {
   const [hovered, setHovered] = useState(false);
-
   return (
-    <div
-      style={{
-        animationDelay: `${index * 0.08}s`,
-      }}
-      className="card-entry"
-    >
+    <div style={{ animationDelay: `${index * 0.08}s` }} className="card-entry">
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
-          background: hovered
-            ? `linear-gradient(145deg, rgba(20,29,41,0.98) 0%, rgba(16,23,34,1) 100%)`
-            : `linear-gradient(145deg, rgba(16,23,34,0.95) 0%, rgba(11,15,21,1) 100%)`,
+          background: hovered ? `linear-gradient(145deg, rgba(20,29,41,0.98) 0%, rgba(16,23,34,1) 100%)` : `linear-gradient(145deg, rgba(16,23,34,0.95) 0%, rgba(11,15,21,1) 100%)`,
           border: `1px solid ${hovered ? accent + '88' : 'rgba(184,164,114,0.14)'}`,
           borderRadius: 18,
           padding: '26px 24px 32px',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: hovered
-            ? `0 18px 34px rgba(0,0,0,0.38), 0 0 0 1px ${accent}30, inset 0 1px 0 rgba(255,255,255,0.05)`
-            : '0 14px 34px rgba(0,0,0,0.28)',
+          boxShadow: hovered ? `0 18px 34px rgba(0,0,0,0.38), 0 0 0 1px ${accent}30, inset 0 1px 0 rgba(255,255,255,0.05)` : '0 14px 34px rgba(0,0,0,0.28)',
           transform: hovered ? 'translateY(-3px)' : 'translateY(0)',
-          transition: 'background 0.35s, border-color 0.35s, box-shadow 0.35s, transform 0.35s',
+          transition: 'background 0.35s, border-color 0.35s, box-shadow 0.35s, transform 0.35s', 
           cursor: 'default',
         }}
       >
-        {/* Animated corner glow */}
         <div style={{
-          position: 'absolute', top: 0, right: 0,
-          width: 160, height: 160,
+          position: 'absolute', top: 0, right: 0, width: 160, height: 160,
           background: `radial-gradient(circle at top right, ${accent}${hovered ? '22' : '0a'} 0%, transparent 70%)`,
-          transition: 'background 0.5s',
-          pointerEvents: 'none',
-          borderRadius: '0 18px 0 0',
+          transition: 'background 0.5s', pointerEvents: 'none', borderRadius: '0 18px 0 0',
         }} />
-
-        {/* Animated bottom line */}
         <div style={{
-          position: 'absolute', bottom: 0, left: hovered ? 0 : '50%',
-          right: hovered ? 0 : '50%',
-          height: 2,
+          position: 'absolute', bottom: 0, left: hovered ? 0 : '50%', right: hovered ? 0 : '50%', height: 2,
           background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
-          transition: 'left 0.5s cubic-bezier(0.23,1,0.32,1), right 0.5s cubic-bezier(0.23,1,0.32,1)',
-          borderRadius: 50,
+          transition: 'left 0.5s cubic-bezier(0.23,1,0.32,1), right 0.5s cubic-bezier(0.23,1,0.32,1)', borderRadius: 50,
         }} />
 
-        {/* Card image or gradient placeholder */}
         {svc.cardImage ? (
-          <div style={{
-            height: 160,
-            marginBottom: 22,
-            borderRadius: 12,
-            overflow: 'hidden',
-            position: 'relative',
-            border: `1px solid ${accent}44`,
-          }}>
+          <div style={{ height: 160, marginBottom: 22, borderRadius: 12, overflow: 'hidden', position: 'relative', border: `1px solid ${accent}44` }}>
             <img src={svc.cardImage} alt={svc.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${accent}18 0%, rgba(11,15,21,0.2) 45%, rgba(11,15,21,0.82) 100%)` }} />
           </div>
         ) : (
           <div style={{
-            height: 160,
-            marginBottom: 22,
-            borderRadius: 12,
-            border: `1px solid ${accent}${hovered ? '55' : '28'}`,
+            height: 160, marginBottom: 22, borderRadius: 12, border: `1px solid ${accent}${hovered ? '55' : '28'}`,
             background: `linear-gradient(135deg, ${accent}${hovered ? '20' : '0f'} 0%, rgba(16,23,34,0.8) 60%, rgba(11,15,21,0.95) 100%)`,
-            position: 'relative',
-            overflow: 'hidden',
-            transition: 'background 0.4s, border-color 0.4s',
+            position: 'relative', overflow: 'hidden', transition: 'background 0.4s, border-color 0.4s',
           }}>
-            {/* Animated grid lines on placeholder */}
             <div style={{
               position: 'absolute', inset: 0,
               backgroundImage: `linear-gradient(${accent}18 1px, transparent 1px), linear-gradient(90deg, ${accent}18 1px, transparent 1px)`,
-              backgroundSize: '28px 28px',
-              opacity: hovered ? 0.7 : 0.3,
-              transition: 'opacity 0.4s',
+              backgroundSize: '28px 28px', opacity: hovered ? 0.7 : 0.3, transition: 'opacity 0.4s',
             }} />
           </div>
         )}
 
-        <h2 style={{
-          fontSize: 19,
-          fontWeight: 700,
-          color: 'var(--bmc-white)',
-          marginBottom: 14,
-          lineHeight: 1.4,
-        }}>
-          {svc.title}
-        </h2>
-
-        <p style={{ fontSize: 13.5, color: 'rgba(245,240,232,0.55)', lineHeight: 1.9, marginBottom: 20 }}>
-          {svc.desc}
-        </p>
-
+        <h2 style={{ fontSize: 19, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 14, lineHeight: 1.4 }}>{svc.title}</h2>
+        <p style={{ fontSize: 13.5, color: 'rgba(245,240,232,0.55)', lineHeight: 1.9, marginBottom: 20 }}>{svc.desc}</p>
         <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: 7 }}>
           {svc.features.map((f, j) => (
-            <li
-              key={j}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 8,
-                fontSize: 12.5, color: 'rgba(245,240,232,0.62)',
-                transform: hovered ? 'translateX(2px)' : 'translateX(0)',
-                transition: `transform ${0.25 + j * 0.05}s cubic-bezier(0.23,1,0.32,1)`,
-              }}
-            >
+            <li key={j} style={{
+              display: 'flex', alignItems: 'center', gap: 8, fontSize: 12.5, color: 'rgba(245,240,232,0.62)',
+              transform: hovered ? 'translateX(2px)' : 'translateX(0)',
+              transition: `transform ${0.25 + j * 0.05}s cubic-bezier(0.23,1,0.32,1)`,
+            }}>
               <span style={{ color: accent, fontSize: 14, flexShrink: 0 }}>✓</span> {f}
             </li>
           ))}
         </ul>
 
         <SnakeButton
-          as={Link}
-          to={`/service/${svc.slug}`}
-          className="snake-btn"
+          as={Link} to={`/service/${svc.slug}`} className="snake-btn"
           snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
           style={{
-            fontSize: 12.5, fontWeight: 700, color: '#00C2FF',
-            textDecoration: 'none', padding: '9px 18px',
-            border: '1px solid rgba(0,194,255,0.35)', borderRadius: 3,
-            display: 'inline-flex', alignItems: 'center', gap: 6,
+            fontSize: 12.5, fontWeight: 700, color: '#00C2FF', textDecoration: 'none', padding: '9px 18px',
+            border: '1px solid rgba(0,194,255,0.35)', borderRadius: 3, display: 'inline-flex', alignItems: 'center', gap: 6,
             overflow: 'hidden', position: 'relative',
           }}
         >
           {learnMore}
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"> <path d="M5 12h14M12 5l7 7-7 7" /> </svg>
         </SnakeButton>
       </div>
     </div>
@@ -199,6 +143,7 @@ export default function ServicesPage({ lang, setLang }) {
   useReveal();
   const { data } = useData();
   const tx = servicesData[lang] || servicesData.ar;
+  
   const dbServices = (data?.services || [])
     .filter((svc) => svc?.visible !== false && svc?.slug !== 'tech-consulting')
     .sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
@@ -209,95 +154,77 @@ export default function ServicesPage({ lang, setLang }) {
       features: (lang === 'ar' ? svc.featuresAr : svc.featuresEn) || [],
       cardImage: svc.cardImage || '',
     }, lang));
+    
   const servicesList = dbServices.length ? dbServices : tx.services;
-  const tickerItems = Array.from({ length: 4 }, () => servicesList).flat();
+  const tickerContent = Array.from({ length: 8 }, () => servicesList).flat();
 
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
-
-      {/* Hero */}
+      
+      {/* Hero Section - Professional 3D Animated Background */}
       <section style={{
-        minHeight: '52vh',
-        backgroundImage: `linear-gradient(135deg, rgba(8,11,16,0.93) 0%, rgba(16,23,34,0.94) 100%), url(${servicesBgImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        paddingTop: 110,
-        paddingBottom: 100,
-        position: 'relative',
-        overflow: 'hidden',
+        minHeight: '60vh',
+        background: 'linear-gradient(180deg, #0a0e17 0%, #111827 50%, #0f172a 100%)',
+        display: 'flex', alignItems: 'center', paddingTop: 110, paddingBottom: 100,
+        position: 'relative', overflow: 'hidden',
       }}>
-        {/* Animated 3D floating orbs */}
-        <div className="orb orb-1" style={{ position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(184,164,114,0.07) 0%, transparent 70%)', top: '10%', left: '-10%', pointerEvents: 'none' }} />
-        <div className="orb orb-2" style={{ position: 'absolute', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(74,144,217,0.06) 0%, transparent 70%)', bottom: '-10%', right: '-5%', pointerEvents: 'none' }} />
-        <div className="orb orb-3" style={{ position: 'absolute', width: 300, height: 300, borderRadius: '50%', background: 'radial-gradient(circle, rgba(22,160,133,0.05) 0%, transparent 70%)', top: '50%', left: '60%', pointerEvents: 'none' }} />
-
-        {/* Animated mesh grid */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'linear-gradient(rgba(0,194,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,194,255,0.03) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-          animation: 'gridPulse 8s ease-in-out infinite',
-          pointerEvents: 'none',
-        }} />
+        {/* 1. Ambient Glow */}
+        <div className="ambient-glow" />
+        
+        {/* 2. Floating 3D Rings */}
+        <div className="floating-shape shape-1" />
+        <div className="floating-shape shape-2" />
+        <div className="floating-shape shape-3" />
+        
+        {/* 3. Moving 3D Grid Floor */}
+        <div className="grid-floor" />
 
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <div className="hero-badge" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            border: '1px solid rgba(0,194,255,0.28)',
-            padding: '6px 16px', borderRadius: 40,
-            marginBottom: 26,
-            background: 'rgba(0,194,255,0.07)',
-            backdropFilter: 'blur(8px)',
+            display: 'inline-flex', alignItems: 'center', gap: 8, border: '1px solid rgba(0,194,255,0.28)',
+            padding: '6px 16px', borderRadius: 40, marginBottom: 26, background: 'rgba(0,194,255,0.07)', backdropFilter: 'blur(8px)',
           }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00C2FF', display: 'inline-block', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: 12, fontWeight: 700, color: '#00C2FF', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              {tx.badge}
-            </span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#00C2FF', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{tx.badge}</span>
           </div>
 
           <h1 className="hero-title" style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(42px, 6vw, 80px)',
-            fontWeight: 900,
-            marginBottom: 22,
-            lineHeight: 1.2,
-            textWrap: 'balance',
+            fontFamily: 'Playfair Display, serif', fontSize: 'clamp(42px, 6vw, 80px)', fontWeight: 900, marginBottom: 22, lineHeight: 1.2, textWrap: 'balance',
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block' }}>{tx.title}</span>
             <span style={{ color: 'var(--neon-blue)', display: 'inline-block' }}>{tx.titleSpan}</span>
           </h1>
 
-          <p className="hero-sub" style={{
-            maxWidth: 560,
-            margin: '0 auto',
-            fontSize: 16,
-            color: 'rgba(245,240,232,0.6)',
-            lineHeight: 1.9,
-          }}>
-            {tx.subtitle}
-          </p>
+          <p className="hero-sub" style={{ maxWidth: 560, margin: '0 auto', fontSize: 16, color: 'rgba(245,240,232,0.6)', lineHeight: 1.9 }}>{tx.subtitle}</p>
         </div>
       </section>
 
       {/* Ticker */}
       <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(0,194,255,0.1)', borderBottom: '1px solid rgba(0,194,255,0.1)', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', width: 'max-content', animation: 'servicesTicker 28s linear infinite' }}>
-          {tickerItems.map((svc, i) => {
-            const accent = serviceAccents[svc.slug] || '#00C2FF';
-            return (
-              <div key={`${svc.slug}-${i}`} style={{
-                display: 'inline-flex', alignItems: 'center', gap: 10,
-                padding: '13px 24px', fontSize: 12.5, whiteSpace: 'nowrap',
-                color: 'rgba(245,240,232,0.7)',
-              }}>
-                <span style={{ width: 7, height: 7, borderRadius: '50%', background: accent, boxShadow: `0 0 6px ${accent}88`, flexShrink: 0 }} />
-                {svc.title}
-              </div>
-            );
-          })}
+        <div style={{ display: 'flex', overflow: 'hidden', direction: 'ltr' }}>
+          <div style={{ display: 'flex', width: 'max-content', animation: 'servicesMarquee1 70s linear infinite' }}>
+            {tickerContent.map((svc, i) => {
+              const accent = serviceAccents[svc.slug] || '#00C2FF';
+              return (
+                <div key={`${svc.slug}-a-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '13px 24px', fontSize: 12.5, whiteSpace: 'nowrap', color: 'rgba(245,240,232,0.7)' }}>
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: accent, boxShadow: `0 0 6px ${accent}88`, flexShrink: 0 }} />
+                  {svc.title}
+                </div>
+              );
+            })}
+          </div>
+          <div aria-hidden="true" style={{ display: 'flex', width: 'max-content', animation: 'servicesMarquee2 70s linear infinite' }}>
+            {tickerContent.map((svc, i) => {
+              const accent = serviceAccents[svc.slug] || '#00C2FF';
+              return (
+                <div key={`${svc.slug}-b-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '13px 24px', fontSize: 12.5, whiteSpace: 'nowrap', color: 'rgba(245,240,232,0.7)' }}>
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: accent, boxShadow: `0 0 6px ${accent}88`, flexShrink: 0 }} />
+                  {svc.title}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -307,15 +234,7 @@ export default function ServicesPage({ lang, setLang }) {
           <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}>
             {servicesList.map((svc, i) => {
               const accent = serviceAccents[svc.slug] || '#00C2FF';
-              return (
-                <ServiceCard3D
-                  key={svc.slug || i}
-                  svc={svc}
-                  accent={accent}
-                  index={i}
-                  learnMore={tx.learnMore}
-                />
-              );
+              return <ServiceCard3D key={svc.slug || i} svc={svc} accent={accent} index={i} learnMore={tx.learnMore} />;
             })}
           </div>
         </div>
@@ -335,43 +254,66 @@ export default function ServicesPage({ lang, setLang }) {
       <WhatsAppFloat lang={lang} />
 
       <style>{`
-        @keyframes floatBlob {
-          0%, 100% { transform: translateY(0px) scale(1); }
-          50% { transform: translateY(-22px) scale(1.04); }
+        @keyframes gridMove {
+          0% { transform: rotateX(60deg) translateY(0); }
+          100% { transform: rotateX(60deg) translateY(60px); }
         }
-        @keyframes servicesTicker {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-25%); }
+        @keyframes float3D {
+          0%, 100% { transform: rotateX(45deg) rotateY(45deg) translateZ(0px) translateY(0px); }
+          25% { transform: rotateX(50deg) rotateY(50deg) translateZ(20px) translateY(-15px); }
+          50% { transform: rotateX(40deg) rotateY(40deg) translateZ(-10px) translateY(-30px); }
+          75% { transform: rotateX(55deg) rotateY(35deg) translateZ(10px) translateY(-15px); }
         }
-        @keyframes shimmer {
-          0% { background-position: 0% center; }
-          100% { background-position: 200% center; }
+        @keyframes pulseGlow {
+          0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+          100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
         }
-        @keyframes gridPulse {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 1; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+        @keyframes cardEntry { from { opacity: 0; transform: perspective(900px) rotateX(18deg) translateY(40px); } to { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); } }
+        
+        .ambient-glow {
+          position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          width: 80vw; height: 80vh;
+          background: radial-gradient(circle, rgba(0, 194, 255, 0.08) 0%, transparent 60%);
+          animation: pulseGlow 6s ease-in-out infinite alternate; pointer-events: none;
         }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(0.8); }
+        .floating-shape {
+          position: absolute; border-radius: 50%; pointer-events: none;
+          animation: float3D 8s ease-in-out infinite;
         }
-        @keyframes cardEntry {
-          from { opacity: 0; transform: perspective(900px) rotateX(18deg) translateY(40px); }
-          to   { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
+        .shape-1 {
+          width: 300px; height: 300px; top: 10%; right: 10%;
+          border: 1px solid rgba(0, 194, 255, 0.15);
+          box-shadow: 0 0 40px rgba(0, 194, 255, 0.1), inset 0 0 40px rgba(0, 194, 255, 0.05);
         }
-        .orb-1 { animation: floatBlob 9s ease-in-out infinite; }
-        .orb-2 { animation: floatBlob 12s ease-in-out infinite 2s; }
-        .orb-3 { animation: floatBlob 7s ease-in-out infinite 1s; }
+        .shape-2 {
+          width: 200px; height: 200px; bottom: 20%; left: 10%;
+          border: 1px solid rgba(108, 99, 255, 0.15);
+          box-shadow: 0 0 40px rgba(108, 99, 255, 0.1), inset 0 0 40px rgba(108, 99, 255, 0.05);
+          animation-delay: -2s; animation-duration: 10s;
+        }
+        .shape-3 {
+          width: 150px; height: 150px; top: 40%; left: 50%;
+          border: 1px solid rgba(184, 164, 114, 0.15);
+          box-shadow: 0 0 40px rgba(184, 164, 114, 0.1), inset 0 0 40px rgba(184, 164, 114, 0.05);
+          animation-delay: -4s; animation-duration: 12s;
+        }
+        .grid-floor {
+          position: absolute; bottom: -50%; left: -50%; width: 200%; height: 100%;
+          background-image: linear-gradient(rgba(0, 194, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 194, 255, 0.1) 1px, transparent 1px);
+          background-size: 60px 60px;
+          transform: rotateX(60deg);
+          animation: gridMove 4s linear infinite;
+          mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+          -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+          pointer-events: none;
+        }
         .hero-badge { animation: cardEntry 0.7s cubic-bezier(0.23,1,0.32,1) both; }
         .hero-title { animation: cardEntry 0.8s cubic-bezier(0.23,1,0.32,1) 0.1s both; }
-        .hero-sub   { animation: cardEntry 0.8s cubic-bezier(0.23,1,0.32,1) 0.2s both; }
+        .hero-sub { animation: cardEntry 0.8s cubic-bezier(0.23,1,0.32,1) 0.2s both; }
         .card-entry { animation: cardEntry 0.75s cubic-bezier(0.23,1,0.32,1) both; }
-        @media (max-width: 1080px) {
-          .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-        @media (max-width: 700px) {
-          .services-grid { grid-template-columns: 1fr !important; }
-        }
+        @media (max-width: 1080px) { .services-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 700px) { .services-grid { grid-template-columns: 1fr !important; } }
       `}</style>
     </>
   );

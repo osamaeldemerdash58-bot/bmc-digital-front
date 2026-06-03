@@ -19,7 +19,7 @@ function SphereCanvas() {
 
       // base sphere
       const g = ctx.createRadialGradient(cx - 30, cy - 30, 10, cx, cy, R);
-      g.addColorStop(0, 'rgba(108,99,255,0.5)');
+      g.addColorStop(0, 'rgba(108,99,255,0.5)'); 
       g.addColorStop(0.45, 'rgba(0,194,255,0.3)');
       g.addColorStop(0.8, 'rgba(60,40,180,0.35)');
       g.addColorStop(1, 'rgba(10,8,3,0.6)');
@@ -63,7 +63,7 @@ function SphereCanvas() {
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.fillStyle = sh;
       ctx.fill();
-
+     
       // rotating bright dot
       const bx = cx + R * 0.65 * Math.cos(t * 1.2);
       const by = cy + R * 0.45 * Math.sin(t * 0.9);
@@ -108,6 +108,16 @@ export default function About({ lang }) {
   const tx = data?.translations?.about?.[lang] || {};
   const aboutLabel = lang === 'ar' ? 'البنية الماسية الرقمية' : (tx.label || 'About Us');
   const whatsappUrl = 'https://wa.me/966535166370';
+  
+  const normalizeBrandAr = (text) => {
+    if (lang !== 'ar' || typeof text !== 'string') return text;
+    return text.replace(/Digital/gi, 'الرقمية');
+  };
+  
+  const title = normalizeBrandAr(tx.title);
+  const titleSpan = normalizeBrandAr(tx.titleSpan);
+  const desc1 = normalizeBrandAr(tx.desc1);
+  const desc2 = normalizeBrandAr(tx.desc2);
 
   return (
     <section
@@ -131,15 +141,14 @@ export default function About({ lang }) {
           gap: 80,
           alignItems: 'center',
         }}>
-
           {/* ── Left: Text ── */}
           <div className="about-text">
             <p className="section-label">{aboutLabel}</p>
-            <h2 className="section-title" style={{ marginBottom: 8 }}>{tx.title}</h2>
-            <h2 className="section-title" style={{ marginBottom: 32 }}><span>{tx.titleSpan}</span></h2>
+            <h2 className="section-title" style={{ marginBottom: 8 }}>{title}</h2>
+            <h2 className="section-title" style={{ marginBottom: 32 }}><span>{titleSpan}</span></h2>
             <div className="gold-line gold-line-animate" style={{ marginBottom: 32 }} />
-            <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2, marginBottom: 20 }}>{tx.desc1}</p>
-            <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2 }}>{tx.desc2}</p>
+            <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2, marginBottom: 20 }}>{desc1}</p>
+            <p style={{ fontSize: 15, color: 'rgba(245,240,232,0.65)', lineHeight: 2 }}>{desc2}</p>
 
             <a
               href={whatsappUrl}
@@ -175,11 +184,10 @@ export default function About({ lang }) {
             </a>
           </div>
 
-          {/* ── Right: 3D Sphere ── */}
+          {/* ── Right: 3D Sphere & Number ── */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
             {/* rings */}
             <div style={{ position: 'relative', width: 280, height: 280, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-
               {/* orbit ring 1 */}
               <div style={{
                 position: 'absolute',
@@ -217,18 +225,40 @@ export default function About({ lang }) {
               }}>
                 <SphereCanvas />
 
-                {/* number overlay */}
+                {/* Premium 3D Number Overlay */}
                 <div style={{
                   position: 'absolute', top: '50%', left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  fontSize: 72, fontWeight: 900,
-                  color: '#fff',
-                  textShadow: '0 0 30px rgba(0,194,255,0.45), 0 0 60px rgba(0,194,255,0.25)',
                   pointerEvents: 'none',
-                  animation: 'aboutNumPulse 4s ease-in-out infinite',
-                  fontFamily: 'Playfair Display, serif',
+                  perspective: '1000px',
+                  zIndex: 10,
                 }}>
-                  15
+                  {/* Pulsing glow behind the number */}
+                  <div style={{
+                    position: 'absolute', top: '50%', left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 140, height: 140,
+                    background: 'radial-gradient(circle, rgba(0,194,255,0.4) 0%, transparent 70%)',
+                    filter: 'blur(24px)',
+                    animation: 'numPulseGlow 4s ease-in-out infinite alternate',
+                    zIndex: -1,
+                  }} />
+                  
+                  <span style={{
+                    display: 'inline-block',
+                    fontSize: 86,
+                    fontWeight: 900,
+                    fontFamily: 'Playfair Display, serif',
+                    background: 'linear-gradient(105deg, rgba(245,240,232,0.5) 0%, rgba(255,255,255,1) 30%, rgba(0,194,255,1) 50%, rgba(184,164,114,1) 70%, rgba(245,240,232,0.5) 100%)',
+                    backgroundSize: '200% 100%',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.6)) drop-shadow(0 0 30px rgba(0,194,255,0.5))',
+                    animation: 'numFloat3D 6s ease-in-out infinite, numShimmer 5s linear infinite',
+                    transformStyle: 'preserve-3d',
+                  }}>
+                    15
+                  </span>
                 </div>
               </div>
             </div>
@@ -257,20 +287,33 @@ export default function About({ lang }) {
               ))}
             </div>
           </div>
-
         </div>
       </div>
 
       <style>{`
-        @keyframes aboutRing1  { from { transform: rotate(0deg) scaleX(1.5); } to { transform: rotate(360deg) scaleX(1.5); } }
-        @keyframes aboutRing2  { from { transform: rotate(0deg) scaleX(1.6); } to { transform: rotate(360deg) scaleX(1.6); } }
-        @keyframes aboutGlow   { 0%,100%{ opacity:.6; transform:scale(1);    } 50%{ opacity:1; transform:scale(1.1); } }
-        @keyframes aboutFloat  { 0%,100%{ transform:translateY(0);           } 50%{ transform:translateY(-12px);    } }
-        @keyframes aboutNumPulse {
-          0%,100%{ text-shadow:0 0 30px rgba(0,194,255,0.45),0 0 60px rgba(0,194,255,0.25); }
-          50%{ text-shadow:0 0 50px rgba(0,194,255,0.7),0 0 100px rgba(0,194,255,0.45); }
+        @keyframes aboutRing1 { from { transform: rotate(0deg) scaleX(1.5); } to { transform: rotate(360deg) scaleX(1.5); } }
+        @keyframes aboutRing2 { from { transform: rotate(0deg) scaleX(1.6); } to { transform: rotate(360deg) scaleX(1.6); } }
+        @keyframes aboutGlow  { 0%,100%{ opacity:.6; transform:scale(1); } 50%{ opacity:1; transform:scale(1.1); } }
+        @keyframes aboutFloat { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-12px); } }
+        
+        /* New Premium 3D Animations for the Number 15 */
+        @keyframes numFloat3D {
+          0%, 100% { transform: perspective(800px) rotateX(6deg) rotateY(-6deg) translateY(0px); }
+          25% { transform: perspective(800px) rotateX(-4deg) rotateY(6deg) translateY(-10px); }
+          50% { transform: perspective(800px) rotateX(6deg) rotateY(6deg) translateY(-5px); }
+          75% { transform: perspective(800px) rotateX(-6deg) rotateY(-4deg) translateY(-12px); }
         }
+        @keyframes numShimmer {
+          0% { background-position: 200% 50%; }
+          100% { background-position: -200% 50%; }
+        }
+        @keyframes numPulseGlow {
+          0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.9); }
+          100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.15); }
+        }
+
         @keyframes aboutStatIn { from{ opacity:0; transform:translateY(10px) scale(0.8); } to{ opacity:1; transform:translateY(0) scale(1); } }
+        
         @media (max-width: 768px) {
           #about .container > div { grid-template-columns: 1fr !important; gap: 48px !important; }
           .about-text { transform: translateX(0) translateY(40px) !important; }
@@ -289,6 +332,7 @@ function Particles() {
     delay: -Math.random() * 20,
     key: i,
   }));
+
   return (
     <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
       {items.map(p => (
@@ -301,14 +345,7 @@ function Particles() {
           animation: `particleRise ${p.dur}s linear ${p.delay}s infinite`,
         }} />
       ))}
-      <style>{`
-        @keyframes particleRise {
-          0%   { transform:translateY(110%); opacity:0; }
-          10%  { opacity:1; }
-          90%  { opacity:1; }
-          100% { transform:translateY(-10%); opacity:0; }
-        }
-      `}</style>
+      <style>{`@keyframes particleRise { 0% { transform:translateY(110%); opacity:0; } 10% { opacity:1; } 90% { opacity:1; } 100% { transform:translateY(-10%); opacity:0; } }`}</style>
     </div>
   );
 }

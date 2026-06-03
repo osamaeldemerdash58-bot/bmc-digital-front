@@ -162,7 +162,7 @@ export default function Hero({ lang }) {
       }} />
 
       {/* Big bg text */}
-      <div style={{
+      {/* <div style={{
         position: 'absolute', bottom: -20,
         left: lang === 'ar' ? 'auto' : 0,
         right: lang === 'ar' ? 0 : 'auto',
@@ -171,8 +171,8 @@ export default function Hero({ lang }) {
         color: 'rgba(0,194,255,0.04)', letterSpacing: 20,
         userSelect: 'none', pointerEvents: 'none', whiteSpace: 'nowrap', zIndex: 2,
       }}>
-        BMC
-      </div>
+        BMD
+      </div> */}
 
       <div className="container hero-content-wrap" style={{ position: 'relative', zIndex: 4, width: '100%' }}>
         <div style={{ maxWidth: 680 }}>

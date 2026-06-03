@@ -182,13 +182,13 @@ export default function Footer({ lang }) {
                 {lang === 'ar' ? 'شركة البنية الماسية الرقمية' : 'Al Binyah Al Masiyah Digital'}
               </p>
               <p className="footer-tagline">
-                {lang === 'ar'
-                  ? 'نبني حلول رقمية متقدمة تجمع بين التصميم المميز، الأداء العالي، وتجربة مستخدم احترافية.'
-                  : 'We build advanced digital solutions that combine elegant design, high performance, and professional UX.'}
+               {lang === 'ar'
+  ? 'نحن شريكك التقني في بناء الحلول الرقمية الحديثة، حيث نطور مواقع الويب، تطبيقات الهاتف، الأنظمة الإدارية، ومنصات الأعمال المتكاملة باستخدام أحدث التقنيات. نجمع بين التصميم الإبداعي، الأداء العالي، وتجربة المستخدم الاحترافية لنقدم منتجات رقمية موثوقة وقابلة للتوسع تلبي احتياجات أعمالك وتدعم نموها.'
+  : 'We are your technology partner in building modern digital solutions, developing websites, mobile applications, business platforms, and enterprise systems using the latest technologies. By combining creative design, high performance, and exceptional user experience, we deliver reliable and scalable digital products tailored to your business needs and growth.'}
               </p>
 
                    <div className="footer-logo-mark" dir="ltr">
-                <span>B</span><span className="footer-logo-mid">M</span><span>D</span>
+                {/* <span>B</span><span className="footer-logo-mid">M</span><span>D</span> */}
               </div>
 
               {/* ── Payment Methods 4×2 grid ── */}
@@ -249,11 +249,11 @@ export default function Footer({ lang }) {
               <ul className="footer-contact-list">
                 <li>
                   <span className="fc-icon"><PhoneIcon /></span>
-                  <span dir="ltr">+966 50 000 0000</span>
+                  <a className="footer-contact-link" href="tel:+966535166370" dir="ltr">+966 53 516 6370</a>
                 </li>
                 <li>
                   <span className="fc-icon"><MailIcon /></span>
-                  <span>hello@bmc-digital.sa</span>
+                  <a className="footer-contact-link" href="mailto:info@bmc-digital.com">info@bmc-digital.com</a>
                 </li>
                 <li>
                   <span className="fc-icon"><PinIcon /></span>

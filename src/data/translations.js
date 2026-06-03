@@ -105,7 +105,7 @@ export const t = {
       msgPlaceholder: 'أخبرنا عن مشروعك...',
       btn: 'أرسل رسالتك',
       phone: '+966 53 516 6370',
-      email: 'hello@bmc-digital.sa',
+      email: 'info@bmc-digital.sa',
     },
   },
   en: {
@@ -193,7 +193,7 @@ export const t = {
       msgPlaceholder: 'Tell us about your project...',
       btn: 'Send Message',
       phone: '+966 53 516 6370',
-      email: 'hello@bmc-digital.sa',
+      email: 'info@bmc-digital.sa',
     },
   },
 };
