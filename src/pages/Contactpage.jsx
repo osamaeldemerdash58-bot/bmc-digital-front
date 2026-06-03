@@ -214,8 +214,8 @@ export default function ContactPage({ lang, setLang }) {
           0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
           100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
         }
-        @keyframes contactMarquee1 { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        @keyframes contactMarquee2 { 0% { transform: translateX(100%); } 100% { transform: translateX(0); } }
+        @keyframes contactMarquee1 { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }
+        @keyframes contactMarquee2 { 0% { transform: translate3d(100%,0,0); } 100% { transform: translate3d(0,0,0); } }
         
         .ambient-glow {
           position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);

@@ -254,6 +254,8 @@ export default function ServicesPage({ lang, setLang }) {
       <WhatsAppFloat lang={lang} />
 
       <style>{`
+        @keyframes servicesMarquee1 { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }
+        @keyframes servicesMarquee2 { 0% { transform: translate3d(100%,0,0); } 100% { transform: translate3d(0,0,0); } }
         @keyframes gridMove {
           0% { transform: rotateX(60deg) translateY(0); }
           100% { transform: rotateX(60deg) translateY(60px); }

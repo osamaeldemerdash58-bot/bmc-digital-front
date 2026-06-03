@@ -541,8 +541,7 @@ function TrackedWhyList({ items, accent, isAr }) {
 
 /* ── Scrolling Sub-Types Ticker ── */
 function SubTypesTicker({ types, accent, isAr }) {
-  const base = Array.from({ length: 8 }, () => types || []).flat();
-  const items = [...base, ...base];
+  const items = Array.from({ length: 8 }, () => types || []).flat();
   const durationSec = Math.max(24, (types?.length || 0) * 7);
   return (
     <section style={{
@@ -565,43 +564,80 @@ function SubTypesTicker({ types, accent, isAr }) {
         pointerEvents: 'none',
       }} />
 
-      <div style={{
-        display: 'flex',
-        width: 'max-content',
-        animation: `subTypeTicker ${durationSec}s linear infinite`,
-        direction: 'ltr',
-      }}>
-        {items.map((item, i) => (
-          <div
-            key={i}
-            className="subtype-pill"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 10,
-              padding: '16px 28px',
-              whiteSpace: 'nowrap',
-              cursor: 'default',
-              borderRight: `1px solid ${accent}22`,
-            }}
-          >
-            <span style={{
-              width: 8, height: 8, borderRadius: '50%',
-              background: accent,
-              boxShadow: `0 0 8px ${accent}`,
-              flexShrink: 0,
-              display: 'inline-block',
-            }} />
-            <span style={{
-              fontSize: 14,
-              fontWeight: 700,
-              color: 'rgba(245,240,232,0.85)',
-              letterSpacing: '0.02em',
-            }}>
-              {isAr ? item.ar : item.en}
-            </span>
-          </div>
-        ))}
+      <div style={{ display: 'flex', overflow: 'hidden', direction: 'ltr' }}>
+        <div style={{ display: 'flex', width: 'max-content', animation: `serviceSubTypeMarquee1 ${durationSec}s linear infinite` }}>
+          {items.map((item, i) => (
+            <div
+              key={`a-${i}`}
+              className="subtype-pill"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '16px 28px',
+                whiteSpace: 'nowrap',
+                cursor: 'default',
+                borderRight: `1px solid ${accent}22`,
+                direction: isAr ? 'rtl' : 'ltr',
+              }}
+            >
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: accent }}>
+                <span style={{
+                  width: 8, height: 8, borderRadius: '50%',
+                  background: accent,
+                  boxShadow: `0 0 8px ${accent}`,
+                  flexShrink: 0,
+                  display: 'inline-block',
+                }} />
+              </span>
+              <span style={{
+                fontSize: 14,
+                fontWeight: 700,
+                color: 'rgba(245,240,232,0.85)',
+                letterSpacing: '0.02em',
+              }}>
+                {isAr ? item.ar : item.en}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div aria-hidden="true" style={{ display: 'flex', width: 'max-content', animation: `serviceSubTypeMarquee2 ${durationSec}s linear infinite` }}>
+          {items.map((item, i) => (
+            <div
+              key={`b-${i}`}
+              className="subtype-pill"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '16px 28px',
+                whiteSpace: 'nowrap',
+                cursor: 'default',
+                borderRight: `1px solid ${accent}22`,
+                direction: isAr ? 'rtl' : 'ltr',
+              }}
+            >
+              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: accent }}>
+                <span style={{
+                  width: 8, height: 8, borderRadius: '50%',
+                  background: accent,
+                  boxShadow: `0 0 8px ${accent}`,
+                  flexShrink: 0,
+                  display: 'inline-block',
+                }} />
+              </span>
+              <span style={{
+                fontSize: 14,
+                fontWeight: 700,
+                color: 'rgba(245,240,232,0.85)',
+                letterSpacing: '0.02em',
+              }}>
+                {isAr ? item.ar : item.en}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -902,13 +938,52 @@ export default function ServiceDetailPage({ lang, setLang }) {
 
       {/* ── Features ticker (original) ── */}
       <section style={{ background: 'rgba(8,11,16,0.98)', borderBottom: `1px solid ${accent}22`, overflow: 'hidden' }}>
-        <div style={{ display: 'flex', width: 'max-content', animation: 'featureTicker 22s linear infinite' }}>
-          {tickerFeatures.map((item, i) => (
-            <div key={`${item}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 22px', fontSize: 12, whiteSpace: 'nowrap', color: 'rgba(245,240,232,0.5)' }}>
-              <span style={{ width: 5, height: 5, borderRadius: '50%', background: accent + '88', flexShrink: 0 }} />
-              {item}
-            </div>
-          ))}
+        <div style={{ display: 'flex', overflow: 'hidden', direction: 'ltr' }}>
+          <div style={{ display: 'flex', width: 'max-content', animation: 'serviceFeatureMarquee1 70s linear infinite' }}>
+            {tickerFeatures.map((item, i) => (
+              <div
+                key={`a-${item}-${i}`}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '12px 22px',
+                  fontSize: 12,
+                  whiteSpace: 'nowrap',
+                  color: 'rgba(245,240,232,0.5)',
+                  direction: isAr ? 'rtl' : 'ltr',
+                }}
+              >
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: accent }}>
+                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: accent + '88', flexShrink: 0 }} />
+                </span>
+                {item}
+              </div>
+            ))}
+          </div>
+
+          <div aria-hidden="true" style={{ display: 'flex', width: 'max-content', animation: 'serviceFeatureMarquee2 70s linear infinite' }}>
+            {tickerFeatures.map((item, i) => (
+              <div
+                key={`b-${item}-${i}`}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  padding: '12px 22px',
+                  fontSize: 12,
+                  whiteSpace: 'nowrap',
+                  color: 'rgba(245,240,232,0.5)',
+                  direction: isAr ? 'rtl' : 'ltr',
+                }}
+              >
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: accent }}>
+                  <span style={{ width: 5, height: 5, borderRadius: '50%', background: accent + '88', flexShrink: 0 }} />
+                </span>
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1213,9 +1288,15 @@ export default function ServiceDetailPage({ lang, setLang }) {
 
       <style>{`
         /* Sub-types ticker */
+        @keyframes serviceSubTypeMarquee1 { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }
+        @keyframes serviceSubTypeMarquee2 { 0% { transform: translate3d(100%,0,0); } 100% { transform: translate3d(0,0,0); } }
+
+        @keyframes serviceFeatureMarquee1 { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }
+        @keyframes serviceFeatureMarquee2 { 0% { transform: translate3d(100%,0,0); } 100% { transform: translate3d(0,0,0); } }
+
         @keyframes subTypeTicker {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          0%   { transform: translate3d(0,0,0); }
+          100% { transform: translate3d(-50%,0,0); }
         }
         .subtype-pill:hover {
           background: rgba(255,255,255,0.03);
@@ -1226,8 +1307,8 @@ export default function ServiceDetailPage({ lang, setLang }) {
 
         /* Original animations */
         @keyframes featureTicker {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          0% { transform: translate3d(0,0,0); }
+          100% { transform: translate3d(-50%,0,0); }
         }
         @keyframes shimmer {
           0% { background-position: 0% center; }
