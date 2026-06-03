@@ -90,7 +90,7 @@ export default function ContactPage({ lang, setLang }) {
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
           width: 600, height: 600,
-          background: 'radial-gradient(circle, rgba(108,99,255,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0,194,255,0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
 
@@ -115,11 +115,7 @@ export default function ContactPage({ lang, setLang }) {
             fontWeight: 900, lineHeight: 1.34, marginBottom: 20, paddingBottom: 6, textWrap: 'balance',
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block' }}>{tx.title}</span>
-            <span style={{
-              background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              fontStyle: 'normal',
-            }}>{tx.titleSpan}</span>
+            <span style={{ color: 'var(--neon-blue)', fontStyle: 'normal' }}>{tx.titleSpan}</span>
           </h1>
           <p style={{ fontSize: 16, color: 'rgba(245,240,232,0.55)', maxWidth: 520, lineHeight: 1.8 }}>
             {tx.subtitle}
@@ -127,7 +123,7 @@ export default function ContactPage({ lang, setLang }) {
         </div>
       </section>
 
-      <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(184,164,114,0.16)', borderBottom: '1px solid rgba(184,164,114,0.16)', overflow: 'hidden' }}>
+      <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(0,194,255,0.16)', borderBottom: '1px solid rgba(0,194,255,0.16)', overflow: 'hidden' }}>
         <div style={{ display: 'flex', width: 'max-content', animation: 'contactTicker 28s linear infinite' }}>
           {Array.from({ length: 4 }, () => contactItems).flat().map((c, i) => (
             <div key={`${c.label}-${i}`} style={{

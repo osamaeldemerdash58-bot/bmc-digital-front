@@ -16,10 +16,7 @@ export default function Hero({ lang }) {
   // Avoid duplicate "نبني" in Arabic by keeping it in the first line only.
   const titleSpan = lang === 'ar' ? 'مستقبلك الرقمي' : (tx.titleSpan || 'Digital Future');
   const titleSpanStyle = {
-    background: 'linear-gradient(135deg, #6C63FF 0%, #00C2FF 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
+    color: 'var(--neon-blue)',
     fontStyle: 'normal',
     fontFamily: lang === 'ar' ? 'Cairo, sans-serif' : 'Playfair Display, serif',
   };
@@ -71,7 +68,7 @@ export default function Hero({ lang }) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(108, 99, 255, ${0.06 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(0, 194, 255, ${0.06 * (1 - dist / 120)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -117,7 +114,7 @@ export default function Hero({ lang }) {
         style={{
           position: 'absolute', top: 0, left: 0,
           width: 600, height: 600, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,194,255,0.09) 0%, rgba(108,99,255,0.04) 45%, transparent 72%)',
+          background: 'radial-gradient(circle, rgba(0,194,255,0.09) 0%, rgba(0,194,255,0.04) 45%, transparent 72%)',
           pointerEvents: 'none', zIndex: 2,
           transition: 'transform 0.15s ease-out', willChange: 'transform',
         }}
@@ -160,7 +157,7 @@ export default function Hero({ lang }) {
         left: lang === 'ar' ? '25%' : '75%',
         transform: 'translate(-50%, -50%)',
         width: 700, height: 700,
-        background: 'radial-gradient(circle, rgba(108,99,255,0.1) 0%, rgba(0,194,255,0.05) 50%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(0,194,255,0.1) 0%, rgba(0,194,255,0.05) 50%, transparent 70%)',
         zIndex: 0, pointerEvents: 'none',
       }} />
 
@@ -171,7 +168,7 @@ export default function Hero({ lang }) {
         right: lang === 'ar' ? 0 : 'auto',
         fontFamily: 'Playfair Display, serif',
         fontSize: 'clamp(80px, 18vw, 220px)', fontWeight: 900,
-        color: 'rgba(108,99,255,0.04)', letterSpacing: 20,
+        color: 'rgba(0,194,255,0.04)', letterSpacing: 20,
         userSelect: 'none', pointerEvents: 'none', whiteSpace: 'nowrap', zIndex: 2,
       }}>
         BMC
@@ -215,13 +212,13 @@ export default function Hero({ lang }) {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
                 padding: '14px 32px',
-                background: btn1Hovered ? 'rgba(108,99,255,0.08)' : 'linear-gradient(135deg, #1A1A4E 0%, #0A3080 100%)',
+                background: btn1Hovered ? 'rgba(0,194,255,0.08)' : 'linear-gradient(135deg, #1A1A4E 0%, #0A3080 100%)',
                 color: '#fff',
                 fontWeight: 700, fontSize: 14, letterSpacing: 0.5,
                 textDecoration: 'none', borderRadius: 50,
                 border: '1px solid rgba(0,194,255,0.4)', transition: 'all 0.35s ease',
                 transform: btn1Hovered ? 'translateY(-3px)' : 'translateY(0)',
-                boxShadow: btn1Hovered ? '0 0 28px rgba(0,194,255,0.6), 0 0 60px rgba(108,99,255,0.35), inset 0 1px 0 rgba(0,194,255,0.25)' : '0 0 18px rgba(0,194,255,0.4), 0 0 40px rgba(108,99,255,0.2), inset 0 1px 0 rgba(0,194,255,0.2)',
+                boxShadow: btn1Hovered ? '0 0 28px rgba(0,194,255,0.6), 0 0 60px rgba(0,194,255,0.35), inset 0 1px 0 rgba(0,194,255,0.25)' : '0 0 18px rgba(0,194,255,0.4), 0 0 40px rgba(0,194,255,0.2), inset 0 1px 0 rgba(0,194,255,0.2)',
               }}
             >
               <span className="snake-light" />

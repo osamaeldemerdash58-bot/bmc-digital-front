@@ -84,7 +84,7 @@ export default function WorksPage({ lang, setLang }) {
           position: 'absolute', top: '50%', left: '50%',
           transform: 'translate(-50%, -50%)',
           width: 700, height: 700,
-          background: 'radial-gradient(circle, rgba(108,99,255,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0,194,255,0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
         <div style={{
@@ -94,7 +94,7 @@ export default function WorksPage({ lang, setLang }) {
           fontFamily: 'Playfair Display, serif',
           fontSize: 'clamp(60px, 12vw, 160px)',
           fontWeight: 900,
-          color: 'rgba(184,164,114,0.025)',
+          color: 'rgba(0,194,255,0.025)',
           letterSpacing: 12,
           userSelect: 'none', pointerEvents: 'none',
           whiteSpace: 'nowrap', zIndex: 0,
@@ -123,11 +123,7 @@ export default function WorksPage({ lang, setLang }) {
             fontWeight: 900, lineHeight: 1.34, marginBottom: 24, maxWidth: 700, paddingBottom: 6, textWrap: 'balance',
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block' }}>{tx.title}</span>
-            <span style={{
-              background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              fontStyle: 'normal',
-            }}>{tx.titleSpan}</span>
+            <span style={{ color: 'var(--neon-blue)', fontStyle: 'normal' }}>{tx.titleSpan}</span>
           </h1>
 
           <p style={{ fontSize: 17, color: 'rgba(245,240,232,0.6)', maxWidth: 600, lineHeight: 1.9 }}>
@@ -157,19 +153,19 @@ export default function WorksPage({ lang, setLang }) {
                   transitionDelay: `${i * 0.1}s`,
                   transition: 'background 0.5s ease, transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease',
                   borderRadius: 14,
-                  border: '1px solid rgba(184,164,114,0.14)',
+                  border: '1px solid rgba(0,194,255,0.14)',
                   boxShadow: '0 14px 34px rgba(0,0,0,0.22)',
                 }}
                 onMouseEnter={(e) => {
                   setHovered(i);
                   e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.borderColor = 'rgba(184,164,114,0.34)';
+                  e.currentTarget.style.borderColor = 'rgba(0,194,255,0.34)';
                   e.currentTarget.style.boxShadow = '0 20px 42px rgba(0,0,0,0.3)';
                 }}
                 onMouseLeave={(e) => {
                   setHovered(null);
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'rgba(184,164,114,0.14)';
+                  e.currentTarget.style.borderColor = 'rgba(0,194,255,0.14)';
                   e.currentTarget.style.boxShadow = '0 14px 34px rgba(0,0,0,0.22)';
                 }}
               >
@@ -177,7 +173,7 @@ export default function WorksPage({ lang, setLang }) {
                   fontFamily: 'Playfair Display, serif',
                   fontSize: 'clamp(48px, 8vw, 80px)',
                   fontWeight: 900,
-                  color: hovered === i ? 'rgba(108,99,255,0.15)' : 'rgba(108,99,255,0.06)',
+                  color: hovered === i ? 'rgba(0,194,255,0.15)' : 'rgba(0,194,255,0.06)',
                   lineHeight: 1,
                   marginBottom: -16,
                   transition: 'color 0.4s',
@@ -203,8 +199,8 @@ export default function WorksPage({ lang, setLang }) {
                 <div style={{
                   display: 'inline-block',
                   padding: '5px 12px',
-                  background: 'rgba(108,99,255,0.08)',
-                  border: '1px solid rgba(108,99,255,0.15)',
+                  background: 'rgba(0,194,255,0.08)',
+                  border: '1px solid rgba(0,194,255,0.15)',
                   fontSize: 11,
                   color: 'rgba(245,240,232,0.5)',
                   letterSpacing: 0.5,

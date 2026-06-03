@@ -228,7 +228,7 @@ function TechCard({ tech, cellSize }) {
               style={{
                 width: iconSize, height: iconSize,
                 objectFit: 'contain', display: 'block',
-                filter: 'drop-shadow(0 0 4px rgba(184,164,114,0.28))',
+                filter: 'drop-shadow(0 0 4px rgba(0,194,255,0.28))',
               }}
               onError={e => {
                 e.currentTarget.style.display = 'none';
@@ -283,7 +283,7 @@ function MobileTechCard({ tech, cardSize }) {
     } else {
       el.style.transition   = `background ${GLOW_FADE_MS}ms cubic-bezier(0.4,0,0.2,1), border-color ${GLOW_FADE_MS}ms cubic-bezier(0.4,0,0.2,1), box-shadow ${GLOW_FADE_MS}ms cubic-bezier(0.4,0,0.2,1)`;
       el.style.background   = 'var(--bmc-dark-2, #131a24)';
-      el.style.borderColor  = 'rgba(108,99,255,0.08)';
+      el.style.borderColor  = 'rgba(0,194,255,0.08)';
       el.style.boxShadow    = 'none';
     }
   }, [tech.color]);
@@ -317,7 +317,7 @@ function MobileTechCard({ tech, cardSize }) {
         style={{
           width: cardSize, height: cardSize,
           background: 'var(--bmc-dark-2, #131a24)',
-          border: '1px solid rgba(108,99,255,0.08)',
+          border: '1px solid rgba(0,194,255,0.08)',
           borderRadius: 14,
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center',

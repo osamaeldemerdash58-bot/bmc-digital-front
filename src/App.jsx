@@ -26,6 +26,7 @@ import AdminPage from './pages/AdminPage';
 
 import './index.css';
 import './mobile-responsive.css';
+import logoImg from './assets/IMG-20260531-WA0122.jpg-removebg-preview.png';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -47,25 +48,26 @@ function LoadingScreen() {
       flexDirection: 'column',
       gap: 16,
     }}>
-      <div style={{
-        fontFamily: 'Playfair Display, serif',
-        fontSize: 32,
-        fontWeight: 900,
-        letterSpacing: 2,
-      }}>
-        <span style={{ color: 'var(--neon-blue)' }}>B</span>
-        <span style={{ color: '#f5f0e8' }}>M</span>
-        <span style={{ color: 'var(--neon-blue)' }}>C</span>
+      <div style={{ display: 'grid', placeItems: 'center', animation: 'logoBounce 1.05s ease-in-out infinite' }}>
+        <img
+          src={logoImg}
+          alt="BMD Logo"
+          style={{
+            width: 160,
+            height: 'auto',
+            objectFit: 'contain',
+            display: 'block',
+            filter: 'brightness(1.05)',
+            transformOrigin: '50% 50%',
+          }}
+        />
       </div>
-      <div style={{
-        width: 40,
-        height: 40,
-        border: '3px solid rgba(0,194,255,0.22)',
-        borderTopColor: 'var(--neon-blue)',
-        borderRadius: '50%',
-        animation: 'spin 1s linear infinite',
-      }} />
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      <style>{`
+        @keyframes logoBounce {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-16px) scale(1.02); }
+        }
+      `}</style>
     </div>
   );
 }

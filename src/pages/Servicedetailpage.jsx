@@ -10,13 +10,13 @@ import { overrideServiceCard, overrideServiceDetail } from '../data/digitalMarke
 import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
 
 const serviceAccents = {
-  'web-development': '#4A90D9',
-  'e-commerce-website-development': '#27AE60',
-  'mobile-app-development': '#E74C3C',
-  'erp-systems': '#8E44AD',
-  'ui-ux-design': '#F39C12',
-  'ai-solutions': '#16A085',
-  'tech-consulting': '#2C3E50',
+  'web-development': '#00C2FF',
+  'e-commerce-website-development': '#00C2FF',
+  'mobile-app-development': '#00C2FF',
+  'erp-systems': '#00C2FF',
+  'ui-ux-design': '#00C2FF',
+  'ai-solutions': '#00C2FF',
+  'tech-consulting': '#00C2FF',
 };
 
 /* ── Service sub-types per slug ── */
@@ -608,11 +608,11 @@ function SubTypesTicker({ types, accent, isAr }) {
 
 function RelatedServiceCard({ item, isAr, index = 0 }) {
   const [hovered, setHovered] = useState(false);
-  const accent = serviceAccents[item.slug] || 'var(--bmc-gold)';
+  const accent = serviceAccents[item.slug] || '#00C2FF';
 
   return (
     <Link
-      to={`/services/${item.slug}`}
+      to={`/service/${item.slug}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -779,7 +779,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
     title: sanitizeServiceText(b?.title),
     desc: sanitizeServiceText(b?.desc),
   }));
-  const accent = serviceAccents[service.slug] || 'var(--bmc-gold)';
+  const accent = serviceAccents[service.slug] || '#00C2FF';
   const tickerFeatures = Array.from({ length: 4 }, () => features || []).flat();
   const heroTitleMain = detailTitle || title;
   const heroTitleSpan = detailTitleSpan || '';
@@ -841,12 +841,12 @@ export default function ServiceDetailPage({ lang, setLang }) {
             <Link to="/" style={{ color: 'rgba(245,240,232,0.45)', textDecoration: 'none', transition: 'color 0.2s' }}>
               {isAr ? 'الرئيسية' : 'Home'}
             </Link>
-            <span style={{ color: 'rgba(184,164,114,0.3)' }}>/</span>
+            <span style={{ color: 'rgba(0,194,255,0.35)' }}>/</span>
             <Link to="/services" style={{ color: 'rgba(245,240,232,0.45)', textDecoration: 'none' }}>
               {isAr ? 'الخدمات' : 'Services'}
             </Link>
-            <span style={{ color: 'rgba(184,164,114,0.3)' }}>/</span>
-            <span style={{ color: 'var(--bmc-gold)', fontWeight: 700 }}>{title}</span>
+            <span style={{ color: 'rgba(0,194,255,0.35)' }}>/</span>
+            <span style={{ color: accent, fontWeight: 700 }}>{title}</span>
           </div>
 
           <h1 className="hero-title-detail" style={{
@@ -860,13 +860,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
           }}>
             <span style={{ color: 'var(--bmc-white)' }}>{heroTitleMain} </span>
             {heroTitleSpan && (
-              <span style={{
-                background: 'linear-gradient(135deg, #D4C48F 0%, #B8A472 40%, #E8D5A3 70%, #B8A472 100%)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                backgroundSize: '200% auto',
-                animation: 'shimmer 4s linear infinite',
-                display: 'inline-block',
-              }}>{heroTitleSpan}</span>
+              <span style={{ color: accent, display: 'inline-block' }}>{heroTitleSpan}</span>
             )}
           </h1>
 
@@ -1054,9 +1048,9 @@ export default function ServiceDetailPage({ lang, setLang }) {
                 marginBottom: 24,
               }}>
                 {isAr ? (
-                  <>لماذا<br />تختارنا<br /><span style={{ background: `linear-gradient(135deg, #D4C48F 0%, ${accent} 50%, #B8A472 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>لمشروعك؟</span></>
+                  <>لماذا<br />تختارنا<br /><span style={{ color: accent }}>لمشروعك؟</span></>
                 ) : (
-                  <>Why<br />Choose<br /><span style={{ background: `linear-gradient(135deg, #D4C48F 0%, ${accent} 50%, #B8A472 100%)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Us?</span></>
+                  <>Why<br />Choose<br /><span style={{ color: accent }}>Us?</span></>
                 )}
               </h2>
               <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.45)', lineHeight: 1.8, marginBottom: 32 }}>

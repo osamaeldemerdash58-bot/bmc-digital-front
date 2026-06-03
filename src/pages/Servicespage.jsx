@@ -50,13 +50,13 @@ const servicesData = {
 };
 
 const serviceAccents = {
-  'web-development': '#4A90D9',
-  'e-commerce-website-development': '#27AE60',
-  'mobile-app-development': '#E74C3C',
-  'erp-systems': '#8E44AD',
-  'ui-ux-design': '#F39C12',
-  'ai-solutions': '#16A085',
-  'tech-consulting': '#2C3E50',
+  'web-development': '#00C2FF',
+  'e-commerce-website-development': '#00C2FF',
+  'mobile-app-development': '#00C2FF',
+  'erp-systems': '#00C2FF',
+  'ui-ux-design': '#00C2FF',
+  'ai-solutions': '#00C2FF',
+  'tech-consulting': '#00C2FF',
 };
 
 function ServiceCard3D({ svc, accent, index, learnMore }) {
@@ -237,7 +237,7 @@ export default function ServicesPage({ lang, setLang }) {
         {/* Animated mesh grid */}
         <div style={{
           position: 'absolute', inset: 0,
-          backgroundImage: 'linear-gradient(rgba(184,164,114,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(184,164,114,0.03) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(0,194,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,194,255,0.03) 1px, transparent 1px)',
           backgroundSize: '60px 60px',
           animation: 'gridPulse 8s ease-in-out infinite',
           pointerEvents: 'none',
@@ -246,10 +246,10 @@ export default function ServicesPage({ lang, setLang }) {
         <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <div className="hero-badge" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            border: '1px solid rgba(184,164,114,0.28)',
+            border: '1px solid rgba(0,194,255,0.28)',
             padding: '6px 16px', borderRadius: 40,
             marginBottom: 26,
-            background: 'rgba(184,164,114,0.07)',
+            background: 'rgba(0,194,255,0.07)',
             backdropFilter: 'blur(8px)',
           }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00C2FF', display: 'inline-block', animation: 'pulse 2s infinite' }} />
@@ -267,13 +267,7 @@ export default function ServicesPage({ lang, setLang }) {
             textWrap: 'balance',
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block' }}>{tx.title}</span>
-            <span style={{
-              background: 'linear-gradient(135deg, #D4C48F 0%, #B8A472 40%, #E8D5A3 70%, #B8A472 100%)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              backgroundSize: '200% auto',
-              animation: 'shimmer 4s linear infinite',
-              display: 'inline-block',
-            }}>{tx.titleSpan}</span>
+            <span style={{ color: 'var(--neon-blue)', display: 'inline-block' }}>{tx.titleSpan}</span>
           </h1>
 
           <p className="hero-sub" style={{
@@ -289,7 +283,7 @@ export default function ServicesPage({ lang, setLang }) {
       </section>
 
       {/* Ticker */}
-      <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(108,99,255,0.1)', borderBottom: '1px solid rgba(108,99,255,0.1)', overflow: 'hidden' }}>
+      <section style={{ background: 'var(--bmc-dark-2)', borderTop: '1px solid rgba(0,194,255,0.1)', borderBottom: '1px solid rgba(0,194,255,0.1)', overflow: 'hidden' }}>
         <div style={{ display: 'flex', width: 'max-content', animation: 'servicesTicker 28s linear infinite' }}>
           {tickerItems.map((svc, i) => {
             const accent = serviceAccents[svc.slug] || '#00C2FF';

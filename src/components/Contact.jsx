@@ -37,7 +37,7 @@ export default function Contact({ lang }) {
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%, -50%)',
         width: 800, height: 800,
-        background: 'radial-gradient(circle, rgba(108,99,255,0.04) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(0,194,255,0.04) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
@@ -61,11 +61,11 @@ export default function Contact({ lang }) {
               <div key={i} style={{
                 display: 'flex', alignItems: 'center', gap: 16,
                 padding: '20px 0',
-                borderBottom: '1px solid rgba(108,99,255,0.1)',
+                borderBottom: '1px solid rgba(0,194,255,0.1)',
               }}>
                 <div style={{
                   width: 44, height: 44,
-                  border: '1px solid rgba(108,99,255,0.2)',
+                  border: '1px solid rgba(0,194,255,0.2)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 18, flexShrink: 0,
                 }}>
@@ -80,7 +80,7 @@ export default function Contact({ lang }) {
           <div className="contact-form">
             {sent ? (
               <div style={{
-                background: 'rgba(108,99,255,0.08)',
+                background: 'rgba(0,194,255,0.08)',
                 border: '1px solid rgba(0,194,255,0.3)',
                 padding: '60px 40px',
                 textAlign: 'center',
@@ -108,7 +108,7 @@ export default function Contact({ lang }) {
                     required
                     style={{
                       background: 'rgba(255,255,255,0.03)',
-                      border: '1px solid rgba(108,99,255,0.2)',
+                      border: '1px solid rgba(0,194,255,0.2)',
                       padding: '14px 20px',
                       color: 'var(--bmc-white)',
                       fontSize: 14,
@@ -119,7 +119,7 @@ export default function Contact({ lang }) {
                       width: '100%',
                     }}
                     onFocus={(e) => (e.target.style.borderColor = 'rgba(0,194,255,0.5)')}
-                    onBlur={(e) => (e.target.style.borderColor = 'rgba(108,99,255,0.2)')}
+                    onBlur={(e) => (e.target.style.borderColor = 'rgba(0,194,255,0.2)')}
                   />
                 ))}
                 <textarea
@@ -130,7 +130,7 @@ export default function Contact({ lang }) {
                   rows={5}
                   style={{
                     background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(108,99,255,0.2)',
+                    border: '1px solid rgba(0,194,255,0.2)',
                     padding: '14px 20px',
                     color: 'var(--bmc-white)',
                     fontSize: 14,
@@ -141,7 +141,7 @@ export default function Contact({ lang }) {
                     transition: 'border-color 0.3s',
                   }}
                   onFocus={(e) => (e.target.style.borderColor = 'rgba(0,194,255,0.5)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(108,99,255,0.2)')}
+                  onBlur={(e) => (e.target.style.borderColor = 'rgba(0,194,255,0.2)')}
                 />
                 {error && <p style={{ color: '#e74c3c', fontSize: 13, textAlign: 'center' }}>{error}</p>}
                 <button
@@ -160,7 +160,7 @@ export default function Contact({ lang }) {
                     gap: 8, opacity: sending ? 0.7 : 1,
                     boxShadow: '0 6px 20px rgba(0,194,255,0.3)',
                   }}
-                  onMouseEnter={(e) => { if (!sending) { e.currentTarget.style.background = 'var(--btn-gradient-hover)'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 28px rgba(184,164,114,0.45)'; } }}
+                  onMouseEnter={(e) => { if (!sending) { e.currentTarget.style.background = 'var(--btn-gradient-hover)'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 28px rgba(0,194,255,0.45)'; } }}
                   onMouseLeave={(e) => { if (!sending) { e.currentTarget.style.background = 'var(--btn-gradient)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,194,255,0.3)'; } }}
                 >
                   {sending ? (lang === 'ar' ? 'جاري الإرسال...' : 'Sending...') : tx.btn}

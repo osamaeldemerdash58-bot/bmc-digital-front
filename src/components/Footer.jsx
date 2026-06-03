@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Footer.css';
 import logoImg from '../assets/IMG-20260531-WA0122.jpg-removebg-preview.png';
 import vatImg from '../assets/vat-QVSDUwyA.png';
@@ -66,6 +66,99 @@ const paymentMethods = [
   { name: 'Apple Pay', icon: ApplePayIcon, type: 'svg' },
 ];
 
+function SaudiClock({ lang }) {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const id = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const saudiTime = new Date(time.toLocaleString('en-US', { timeZone: 'Asia/Riyadh' }));
+  const hours   = saudiTime.getHours();
+  const minutes = saudiTime.getMinutes();
+  const seconds = saudiTime.getSeconds();
+
+  const secDeg  = seconds  * 6;
+  const minDeg  = minutes  * 6  + seconds * 0.1;
+  const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+
+  const pad = (n) => String(n).padStart(2, '0');
+  const isPM = hours >= 12;
+  const displayH = hours % 12 || 12;
+  const ampm = isPM ? (lang === 'ar' ? 'م' : 'PM') : (lang === 'ar' ? 'ص' : 'AM');
+
+  const dayNames = lang === 'ar'
+    ? ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت']
+    : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const monthNames = lang === 'ar'
+    ? ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر']
+    : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  const dayName   = dayNames[saudiTime.getDay()];
+  const dayNum    = saudiTime.getDate();
+  const monthName = monthNames[saudiTime.getMonth()];
+  const fullYear  = saudiTime.getFullYear();
+
+  return (
+    <div className="saudi-clock-wrap">
+      {/* <span className="saudi-clock-label">
+        {lang === 'ar' ? 'توقيت الرياض' : 'Riyadh Time'}
+      </span> */}
+      <div className="saudi-clock-inner">
+
+        {/* Analog clock */}
+        <svg className="clock-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="37" fill="none" stroke="rgba(108,99,255,0.25)" strokeWidth="1"/>
+          <circle cx="40" cy="40" r="35" fill="rgba(0,0,0,0.35)" />
+          {[...Array(12)].map((_, i) => {
+            const a = (i * 30 - 90) * (Math.PI / 180);
+            const x1 = 40 + 30 * Math.cos(a), y1 = 40 + 30 * Math.sin(a);
+            const x2 = 40 + 33 * Math.cos(a), y2 = 40 + 33 * Math.sin(a);
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round"/>;
+          })}
+          {[...Array(60)].map((_, i) => {
+            if (i % 5 === 0) return null;
+            const a = (i * 6 - 90) * (Math.PI / 180);
+            const x1 = 40 + 31.5 * Math.cos(a), y1 = 40 + 31.5 * Math.sin(a);
+            const x2 = 40 + 33  * Math.cos(a),  y2 = 40 + 33  * Math.sin(a);
+            return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(255,255,255,0.08)" strokeWidth="0.8"/>;
+          })}
+          <line x1="40" y1="40"
+            x2={40 + 20 * Math.cos((hourDeg - 90) * Math.PI / 180)}
+            y2={40 + 20 * Math.sin((hourDeg - 90) * Math.PI / 180)}
+            stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+          <line x1="40" y1="40"
+            x2={40 + 27 * Math.cos((minDeg - 90) * Math.PI / 180)}
+            y2={40 + 27 * Math.sin((minDeg - 90) * Math.PI / 180)}
+            stroke="#00C2FF" strokeWidth="1.5" strokeLinecap="round"/>
+          <line x1="40" y1="40"
+            x2={40 + 29 * Math.cos((secDeg - 90) * Math.PI / 180)}
+            y2={40 + 29 * Math.sin((secDeg - 90) * Math.PI / 180)}
+            stroke="rgba(108,99,255,0.9)" strokeWidth="0.9" strokeLinecap="round"/>
+          <circle cx="40" cy="40" r="2.5" fill="#00C2FF"/>
+        </svg>
+
+        {/* Right panel: digital + date */}
+        <div className="clock-right">
+          <div className="clock-digital">
+            <span className="clock-digits">{pad(displayH)}:{pad(minutes)}:{pad(seconds)}</span>
+            <span className="clock-ampm">{ampm}</span>
+          </div>
+          <div className="clock-date">
+            <span className="clock-day-name">{dayName}</span>
+            <span className="clock-date-num">{dayNum} {monthName} {fullYear}</span>
+          </div>
+          <div className="clock-hijri-label">
+            {lang === 'ar' ? '🇸🇦 المملكة العربية السعودية' : '🇸🇦 Saudi Arabia'}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
 export default function Footer({ lang }) {
   const year = new Date().getFullYear();
 
@@ -81,9 +174,10 @@ export default function Footer({ lang }) {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand">
-              <div className="footer-logo-mark" dir="ltr">
-                <span>B</span><span className="footer-logo-mid">M</span><span>C</span>
+              <div className="footer-logo-wrap">
+                <img src={logoImg} alt="BMD Digital Logo" className="footer-logo-img" />
               </div>
+         
               <p className="footer-brand-name">
                 {lang === 'ar' ? 'شركة البنية الماسية الرقمية' : 'Al Binyah Al Masiyah Digital'}
               </p>
@@ -92,8 +186,23 @@ export default function Footer({ lang }) {
                   ? 'نبني حلول رقمية متقدمة تجمع بين التصميم المميز، الأداء العالي، وتجربة مستخدم احترافية.'
                   : 'We build advanced digital solutions that combine elegant design, high performance, and professional UX.'}
               </p>
-              <div className="footer-logo-wrap">
-                <img src={logoImg} alt="BMC Digital Logo" className="footer-logo-img" />
+
+                   <div className="footer-logo-mark" dir="ltr">
+                <span>B</span><span className="footer-logo-mid">M</span><span>D</span>
+              </div>
+
+              {/* ── Payment Methods 4×2 grid ── */}
+              <div className="footer-brand-payments">
+                <span className="footer-payments-label footer-payments-label--inline">
+                  {lang === 'ar' ? 'وسائل الدفع المقبولة' : 'Accepted Payments'}
+                </span>
+                <div className="footer-payments-grid">
+                  {paymentMethods.map(({ name, src, icon: Icon, type }) => (
+                    <span key={name} className="payment-badge" title={name}>
+                      {type === 'svg' && Icon ? <Icon /> : <img src={src} alt={name} className="payment-badge-img" />}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -106,6 +215,7 @@ export default function Footer({ lang }) {
                   </li>
                 ))}
               </ul>
+              <SaudiClock lang={lang} />
             </div>
 
             <div className="footer-col">
@@ -117,6 +227,21 @@ export default function Footer({ lang }) {
                 <li><a href="#services">{lang === 'ar' ? 'تصميم UI/UX' : 'UI/UX Design'}</a></li>
                 <li><a href="#services">{lang === 'ar' ? 'التسويق الرقمي' : 'Digital Marketing'}</a></li>
               </ul>
+
+              {/* ── Achievement Stats ── */}
+              <div className="footer-stats">
+                {[
+                  { num: '120+', label: lang === 'ar' ? 'مشروع منجز' : 'Projects Done' },
+                  { num: '80+',  label: lang === 'ar' ? 'عميل راضٍ'   : 'Happy Clients' },
+                  { num: '6+',   label: lang === 'ar' ? 'سنوات خبرة'  : 'Years of Exp.' },
+                  { num: '15+',  label: lang === 'ar' ? 'خدمة متاحة'  : 'Services' },
+                ].map(({ num, label }) => (
+                  <div key={label} className="footer-stat-card">
+                    <span className="footer-stat-num">{num}</span>
+                    <span className="footer-stat-label">{label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="footer-col">
@@ -124,11 +249,11 @@ export default function Footer({ lang }) {
               <ul className="footer-contact-list">
                 <li>
                   <span className="fc-icon"><PhoneIcon /></span>
-                  <span>+966 53 516 6370</span>
+                  <span dir="ltr">+966 50 000 0000</span>
                 </li>
                 <li>
                   <span className="fc-icon"><MailIcon /></span>
-                  <span>info@ufuq-digital.com</span>
+                  <span>hello@bmc-digital.sa</span>
                 </li>
                 <li>
                   <span className="fc-icon"><PinIcon /></span>
@@ -164,33 +289,14 @@ export default function Footer({ lang }) {
         </div>
       </div>
 
-      {/* ── Payment Methods Bar ── */}
-      <div className="footer-payments">
-        <div className="container">
-          <div className="footer-payments-inner">
-            <span className="footer-payments-label">
-              {lang === 'ar' ? 'وسائل الدفع المقبولة' : 'Accepted Payments'}
-            </span>
-           <div className="footer-payments-icons">
-  {paymentMethods.map(({ name, src, icon: Icon, type }) => (
-    <span key={name} className="payment-badge" title={name}>
-      {type === 'svg' && Icon ? (
-        <Icon />
-      ) : (
-        <img src={src} alt={name} className="payment-badge-img" />
-      )}
-    </span>
-  ))}
-</div>
-          </div>
-        </div>
-      </div>
+      {/* ── Divider ── */}
+      <div className="footer-divider" />
 
       {/* ── Footer Bottom ── */}
       <div className="footer-bottom">
         <div className="container">
           <div className="footer-bottom-row">
-            <p>© {year} BMC Digital. {lang === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}</p>
+            <p>© {year} {lang === 'ar' ? 'BMD الرقمية' : 'BMD Digital'}. {lang === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}</p>
 
             {/* ── Registration Info ── */}
             <div className="footer-reg-info">

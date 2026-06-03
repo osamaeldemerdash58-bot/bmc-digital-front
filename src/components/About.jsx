@@ -159,7 +159,7 @@ export default function About({ lang }) {
               onMouseEnter={e => {
                 e.currentTarget.style.background = 'linear-gradient(135deg, #2A2A6E 0%, #1A4090 100%)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 0 24px rgba(0,194,255,0.55), 0 0 50px rgba(108,99,255,0.3)';
+                e.currentTarget.style.boxShadow = '0 0 24px rgba(0,194,255,0.55), 0 0 50px rgba(0,194,255,0.3)';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = 'var(--btn-gradient)';
@@ -185,7 +185,7 @@ export default function About({ lang }) {
                 position: 'absolute',
                 width: 260, height: 260,
                 borderRadius: '50%',
-                border: '1px solid rgba(108,99,255,0.1)',
+                border: '1px solid rgba(0,194,255,0.1)',
                 animation: 'aboutRing1 14s linear infinite',
               }} />
               {/* orbit ring 2 */}
@@ -193,7 +193,7 @@ export default function About({ lang }) {
                 position: 'absolute',
                 width: 300, height: 300,
                 borderRadius: '50%',
-                border: '1px solid rgba(108,99,255,0.06)',
+                border: '1px solid rgba(0,194,255,0.06)',
                 animation: 'aboutRing2 20s linear infinite reverse',
               }} />
 
@@ -202,7 +202,7 @@ export default function About({ lang }) {
                 position: 'absolute',
                 width: 240, height: 240,
                 borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(184,164,114,0.07) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(0,194,255,0.07) 0%, transparent 70%)',
                 animation: 'aboutGlow 5s ease-in-out infinite',
               }} />
 
@@ -211,7 +211,7 @@ export default function About({ lang }) {
                 width: 220, height: 220,
                 borderRadius: '50%',
                 overflow: 'hidden',
-                boxShadow: '0 0 60px rgba(108,99,255,0.2), 0 0 120px rgba(108,99,255,0.08), inset 0 0 40px rgba(0,0,0,0.5)',
+                boxShadow: '0 0 60px rgba(0,194,255,0.2), 0 0 120px rgba(0,194,255,0.08), inset 0 0 40px rgba(0,0,0,0.5)',
                 animation: 'aboutFloat 6s ease-in-out infinite',
                 position: 'relative',
               }}>
@@ -223,7 +223,7 @@ export default function About({ lang }) {
                   transform: 'translate(-50%, -50%)',
                   fontSize: 72, fontWeight: 900,
                   color: '#fff',
-                  textShadow: '0 0 30px rgba(245,235,190,0.6), 0 0 60px rgba(0,194,255,0.4)',
+                  textShadow: '0 0 30px rgba(0,194,255,0.45), 0 0 60px rgba(0,194,255,0.25)',
                   pointerEvents: 'none',
                   animation: 'aboutNumPulse 4s ease-in-out infinite',
                   fontFamily: 'Playfair Display, serif',
@@ -267,8 +267,8 @@ export default function About({ lang }) {
         @keyframes aboutGlow   { 0%,100%{ opacity:.6; transform:scale(1);    } 50%{ opacity:1; transform:scale(1.1); } }
         @keyframes aboutFloat  { 0%,100%{ transform:translateY(0);           } 50%{ transform:translateY(-12px);    } }
         @keyframes aboutNumPulse {
-          0%,100%{ text-shadow:0 0 30px rgba(245,235,190,0.6),0 0 60px rgba(0,194,255,0.4); }
-          50%{ text-shadow:0 0 50px rgba(255,245,200,0.95),0 0 100px rgba(0,194,255,0.7); }
+          0%,100%{ text-shadow:0 0 30px rgba(0,194,255,0.45),0 0 60px rgba(0,194,255,0.25); }
+          50%{ text-shadow:0 0 50px rgba(0,194,255,0.7),0 0 100px rgba(0,194,255,0.45); }
         }
         @keyframes aboutStatIn { from{ opacity:0; transform:translateY(10px) scale(0.8); } to{ opacity:1; transform:translateY(0) scale(1); } }
         @media (max-width: 768px) {

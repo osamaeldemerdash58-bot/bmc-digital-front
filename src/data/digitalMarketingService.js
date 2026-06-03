@@ -196,7 +196,7 @@ export function overrideServiceCard(service, lang = 'ar') {
 
   const withImage = {
     ...service,
-    cardImage: findLocalServiceImage(service) || service.cardImage || '',
+    cardImage: service.cardImage || findLocalServiceImage(service) || '',
   };
 
   if (service.slug !== DIGITAL_MARKETING_SLUG) return withImage;
@@ -215,7 +215,7 @@ export function overrideServiceDetail(service) {
 
   const withImage = {
     ...service,
-    cardImage: findLocalServiceImage(service) || service.cardImage || '',
+    cardImage: service.cardImage || findLocalServiceImage(service) || '',
   };
 
   if (service.slug !== DIGITAL_MARKETING_SLUG) return withImage;

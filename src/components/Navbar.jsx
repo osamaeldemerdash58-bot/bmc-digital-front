@@ -138,10 +138,16 @@ export default function Navbar({ lang, setLang }) {
                 border: 'none',
                 cursor: 'pointer',
                 fontFamily: 'Cairo, sans-serif',
-                padding: '10px 6px',
-                display: 'inline-flex',
+                height: 44,
+                padding: 0,
+                display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 gap: 6,
+                lineHeight: 1,
+                whiteSpace: 'nowrap',
+                minWidth: 85,
+                textAlign: 'center',
               }}
             >
               {navTranslations.services || 'Services'}
@@ -155,6 +161,7 @@ export default function Navbar({ lang, setLang }) {
                 style={{
                   transition: 'transform 0.3s',
                   transform: servicesOpen ? 'rotate(180deg)' : 'rotate(0)',
+                  display: 'block',
                 }}
               >
                 <path d="M6 9l6 6 6-6" />
@@ -272,17 +279,17 @@ export default function Navbar({ lang, setLang }) {
               borderRadius: 50,
               transition: 'all 0.3s',
               fontFamily: 'Cairo, sans-serif',
-              boxShadow: '0 0 16px rgba(0,194,255,0.35), 0 0 32px rgba(108,99,255,0.22), inset 0 1px 0 rgba(0,194,255,0.18)',
+              boxShadow: '0 0 16px rgba(0,194,255,0.35), 0 0 32px rgba(0,194,255,0.22), inset 0 1px 0 rgba(0,194,255,0.18)',
             }}
             onMouseEnter={(e) => {
               e.target.style.background = 'var(--btn-gradient-hover)';
               e.target.style.transform = 'translateY(-1px)';
-              e.target.style.boxShadow = '0 10px 26px rgba(0,194,255,0.35), 0 10px 40px rgba(108,99,255,0.2)';
+              e.target.style.boxShadow = '0 10px 26px rgba(0,194,255,0.35), 0 10px 40px rgba(0,194,255,0.2)';
             }}
             onMouseLeave={(e) => {
               e.target.style.background = 'var(--btn-gradient)';
               e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 0 16px rgba(0,194,255,0.28), 0 0 32px rgba(108,99,255,0.18)';
+              e.target.style.boxShadow = '0 0 16px rgba(0,194,255,0.28), 0 0 32px rgba(0,194,255,0.18)';
             }}
           >
             {lang === 'ar' ? 'EN' : 'عربي'}
@@ -505,12 +512,23 @@ export default function Navbar({ lang, setLang }) {
         }
         .nav-link-btn {
           line-height: 1;
+          height: 44px;
+          padding: 0 6px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 85px;
+          text-align: center;
         }
         @media (max-width: 768px) {
           .nav-links-desktop { display: none !important; }
           .burger-btn { display: flex !important; }
         }
         @media (max-width: 520px) {
+          .nav-link-btn {
+            min-width: 74px;
+            padding: 0 4px;
+          }
           .lang-btn {
             padding: 5px 9px !important;
             font-size: 10px !important;

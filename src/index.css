@@ -8,15 +8,13 @@
    BMC DIGITAL — DESIGN TOKENS
 ════════════════════════════════════════════════ */
 :root {
-  /* Legacy gold (kept for gradual transition) */
-  --bmc-gold:       #6C63FF;
+  --bmc-gold:       #00C2FF;
   --bmc-gold-light: #00C2FF;
-  --bmc-gold-dark:  #4A44CC;
+  --bmc-gold-dark:  #00C2FF;
 
-  /* Brand neon palette */
-  --neon-purple:    #6C63FF;
+  --neon-purple:    #00C2FF;
   --neon-blue:      #00C2FF;
-  --neon-mid:       #3B8DFF;
+  --neon-mid:       #00C2FF;
 
   /* Backgrounds */
   --bmc-dark:   #020414;
@@ -29,14 +27,13 @@
   /* ── Button — Glassmorphism Neon Blue Pill ── */
   --btn-gradient:       linear-gradient(135deg, #1A1A4E 0%, #0D2060 60%, #0A3080 100%);
   --btn-gradient-hover: linear-gradient(135deg, #2A2A6E 0%, #1D3080 60%, #1A4090 100%);
-  --btn-glow:           0 0 18px rgba(0, 194, 255, 0.45), 0 0 40px rgba(108, 99, 255, 0.25);
-  --btn-glow-hover:     0 0 28px rgba(0, 194, 255, 0.65), 0 0 60px rgba(108, 99, 255, 0.4);
-  --btn-inner-glow:     inset 0 1px 0 rgba(0, 194, 255, 0.25), inset 0 -1px 0 rgba(108, 99, 255, 0.1);
+  --btn-glow:           0 0 18px rgba(0, 194, 255, 0.45), 0 0 40px rgba(0, 194, 255, 0.25);
+  --btn-glow-hover:     0 0 28px rgba(0, 194, 255, 0.65), 0 0 60px rgba(0, 194, 255, 0.4);
+  --btn-inner-glow:     inset 0 1px 0 rgba(0, 194, 255, 0.25), inset 0 -1px 0 rgba(0, 194, 255, 0.1);
   --btn-radius:         50px;
   --btn-border:         1px solid rgba(0, 194, 255, 0.35);
 
-  /* ── Text gradient ── */
-  --text-gradient: linear-gradient(135deg, #6C63FF 0%, #00C2FF 100%);
+  --text-gradient: linear-gradient(135deg, #00C2FF 0%, #00C2FF 100%);
 }
 
 /* ════════════════════════════════════════════════
@@ -62,7 +59,7 @@ body.ltr { direction: ltr; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bmc-dark); }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #6C63FF, #00C2FF);
+  background: #00C2FF;
   border-radius: 2px;
 }
 
@@ -75,9 +72,7 @@ body.ltr { direction: ltr; }
 .section-label {
   font-size: 11px; font-weight: 700; letter-spacing: 3px;
   text-transform: uppercase;
-  background: var(--text-gradient);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--neon-blue);
   margin-bottom: 16px; text-align: center; width: 100%;
 }
 
@@ -88,25 +83,21 @@ body.ltr { direction: ltr; }
   text-align: center; width: 100%;
 }
 .section-title span {
-  background: var(--text-gradient);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--neon-blue);
   font-style: normal;
 }
 
 /* Accent line — replaces gold line */
 .gold-line {
   width: 60px; height: 2px;
-  background: linear-gradient(90deg, transparent, #6C63FF, #00C2FF, transparent);
+  background: linear-gradient(90deg, transparent, #00C2FF, transparent);
 }
 
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 .text-gradient {
-  background: var(--text-gradient);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--neon-blue);
 }
 
 /* ════════════════════════════════════════════════
@@ -144,13 +135,13 @@ a.btn-primary:hover {
 /* Outline / ghost variant */
 button.btn-outline,
 a.btn-outline {
-  background:    rgba(108, 99, 255, 0.05) !important;
-  border:        1px solid rgba(108, 99, 255, 0.4) !important;
-  box-shadow:    0 0 12px rgba(108, 99, 255, 0.2), var(--btn-inner-glow) !important;
+  background:    rgba(0, 194, 255, 0.05) !important;
+  border:        1px solid rgba(0, 194, 255, 0.4) !important;
+  box-shadow:    0 0 12px rgba(0, 194, 255, 0.2), var(--btn-inner-glow) !important;
 }
 button.btn-outline:hover,
 a.btn-outline:hover {
-  background:  rgba(108, 99, 255, 0.12) !important;
+  background:  rgba(0, 194, 255, 0.12) !important;
   border-color: rgba(0, 194, 255, 0.6) !important;
   box-shadow:  0 0 24px rgba(0, 194, 255, 0.4), var(--btn-inner-glow) !important;
 }
@@ -200,9 +191,9 @@ a.snake-edge::before, button.snake-edge::before {
   border-radius: inherit;
   background: conic-gradient(
     transparent 0deg, transparent 312deg,
-    rgba(108,99,255,0.85) 326deg, rgba(0,194,255,1) 338deg,
-    rgba(180,240,255,1) 346deg, rgba(0,194,255,1) 354deg,
-    rgba(108,99,255,0.85) 358deg, transparent 360deg
+    rgba(0,194,255,1) 326deg, rgba(0,194,255,1) 338deg,
+    rgba(0,194,255,1) 346deg, rgba(0,194,255,1) 354deg,
+    rgba(0,194,255,1) 358deg, transparent 360deg
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;

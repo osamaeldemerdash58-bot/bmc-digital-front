@@ -74,7 +74,7 @@ export default function TechPage({ lang, setLang }) {
           fontFamily: 'Playfair Display, serif',
           fontSize: 'clamp(60px, 12vw, 160px)',
           fontWeight: 900,
-          color: 'rgba(184,164,114,0.025)',
+          color: 'rgba(0,194,255,0.025)',
           letterSpacing: 12,
           userSelect: 'none', pointerEvents: 'none',
           whiteSpace: 'nowrap', zIndex: 0,
@@ -85,7 +85,7 @@ export default function TechPage({ lang, setLang }) {
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(184,164,114,0.1)', border: '1px solid rgba(184,164,114,0.25)',
+            background: 'rgba(0,194,255,0.1)', border: '1px solid rgba(0,194,255,0.25)',
             padding: '6px 16px', borderRadius: 20, marginBottom: 28,
           }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--bmc-gold)', display: 'inline-block' }} />
@@ -98,11 +98,7 @@ export default function TechPage({ lang, setLang }) {
             fontWeight: 900, lineHeight: 1.1, marginBottom: 24, maxWidth: 700,
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block' }}>{tx.title}</span>
-            <span style={{
-              background: 'linear-gradient(135deg, #D4C48F, #B8A472)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              fontStyle: 'normal',
-            }}>{tx.titleSpan}</span>
+            <span style={{ color: 'var(--neon-blue)', fontStyle: 'normal' }}>{tx.titleSpan}</span>
           </h1>
 
           <p style={{ fontSize: 17, color: 'rgba(245,240,232,0.6)', maxWidth: 600, lineHeight: 1.9 }}>
@@ -122,7 +118,7 @@ export default function TechPage({ lang, setLang }) {
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, 1fr)',
                 gap: 1,
-                background: 'rgba(184,164,114,0.08)',
+                background: 'rgba(0,194,255,0.08)',
               }}>
                 {techs.map((tech, i) => (
                   <div
