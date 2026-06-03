@@ -539,10 +539,43 @@ function TrackedWhyList({ items, accent, isAr }) {
   );
 }
 
+function useMarqueeDuration(trackRef, { pxPerSec = 26, minSec = 90, maxSec = 240 } = {}) {
+  const [sec, setSec] = useState(minSec);
+
+  useEffect(() => {
+    const compute = () => {
+      const el = trackRef.current;
+      if (!el) return;
+      const w = el.scrollWidth || 0;
+      if (!w) return;
+      const next = Math.min(maxSec, Math.max(minSec, Math.round(w / pxPerSec)));
+      setSec(next);
+    };
+
+    compute();
+    const onResize = () => compute();
+    window.addEventListener('resize', onResize);
+
+    let ro = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(() => compute());
+      if (trackRef.current) ro.observe(trackRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+      if (ro) ro.disconnect();
+    };
+  }, [trackRef, pxPerSec, minSec, maxSec]);
+
+  return sec;
+}
+
 /* ── Scrolling Sub-Types Ticker ── */
 function SubTypesTicker({ types, accent, isAr }) {
   const items = Array.from({ length: 8 }, () => types || []).flat();
-  const durationSec = Math.max(24, (types?.length || 0) * 7);
+  const trackRef = useRef(null);
+  const durationSec = useMarqueeDuration(trackRef, { pxPerSec: 22, minSec: 120, maxSec: 360 });
   return (
     <section style={{
       background: 'var(--bmc-dark-2)',
@@ -565,7 +598,7 @@ function SubTypesTicker({ types, accent, isAr }) {
       }} />
 
       <div style={{ display: 'flex', overflow: 'hidden', direction: 'ltr' }}>
-        <div style={{ display: 'flex', width: 'max-content', animation: `serviceSubTypeMarquee1 ${durationSec}s linear infinite` }}>
+        <div ref={trackRef} style={{ display: 'flex', width: 'max-content', animation: `serviceSubTypeMarquee1 ${durationSec}s linear infinite`, willChange: 'transform' }}>
           {items.map((item, i) => (
             <div
               key={`a-${i}`}
@@ -602,7 +635,7 @@ function SubTypesTicker({ types, accent, isAr }) {
           ))}
         </div>
 
-        <div aria-hidden="true" style={{ display: 'flex', width: 'max-content', animation: `serviceSubTypeMarquee2 ${durationSec}s linear infinite` }}>
+        <div aria-hidden="true" style={{ display: 'flex', width: 'max-content', animation: `serviceSubTypeMarquee2 ${durationSec}s linear infinite`, willChange: 'transform' }}>
           {items.map((item, i) => (
             <div
               key={`b-${i}`}
@@ -819,6 +852,8 @@ export default function ServiceDetailPage({ lang, setLang }) {
   const accent = serviceAccents[service.slug] || '#00C2FF';
   const tickerBase = Array.from({ length: 10 }, () => features || []).flat();
   const tickerFeatures = [...tickerBase, ...tickerBase];
+  const featureTrackRef = useRef(null);
+  const featureDurationSec = useMarqueeDuration(featureTrackRef, { pxPerSec: 22, minSec: 120, maxSec: 360 });
   const heroTitleMain = detailTitle || title;
   const heroTitleSpan = detailTitleSpan || '';
 
@@ -939,7 +974,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
       {/* ── Features ticker (original) ── */}
       <section style={{ background: 'rgba(8,11,16,0.98)', borderBottom: `1px solid ${accent}22`, overflow: 'hidden' }}>
         <div style={{ display: 'flex', overflow: 'hidden', direction: 'ltr' }}>
-          <div style={{ display: 'flex', width: 'max-content', animation: 'serviceFeatureMarquee1 70s linear infinite' }}>
+          <div ref={featureTrackRef} style={{ display: 'flex', width: 'max-content', animation: `serviceFeatureMarquee1 ${featureDurationSec}s linear infinite`, willChange: 'transform' }}>
             {tickerFeatures.map((item, i) => (
               <div
                 key={`a-${item}-${i}`}
@@ -962,7 +997,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
             ))}
           </div>
 
-          <div aria-hidden="true" style={{ display: 'flex', width: 'max-content', animation: 'serviceFeatureMarquee2 70s linear infinite' }}>
+          <div aria-hidden="true" style={{ display: 'flex', width: 'max-content', animation: `serviceFeatureMarquee2 ${featureDurationSec}s linear infinite`, willChange: 'transform' }}>
             {tickerFeatures.map((item, i) => (
               <div
                 key={`b-${item}-${i}`}
