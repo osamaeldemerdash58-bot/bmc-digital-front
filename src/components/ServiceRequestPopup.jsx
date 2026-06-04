@@ -65,7 +65,7 @@ export default function ServiceRequestPopup({
           border: '1px solid rgba(0,194,255,0.18)',
           borderRadius: 18,
           boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
-          padding: '34px 30px 30px',
+          padding: '64px 30px 30px',
           position: 'relative',
           scrollbarColor: 'rgba(0,194,255,0.55) rgba(255,255,255,0.06)',
           scrollbarWidth: 'thin',
@@ -77,7 +77,7 @@ export default function ServiceRequestPopup({
           onClick={() => setOpen(false)}
           style={{
             position: 'absolute',
-            top: 14,
+            top: 12,
             [isAr ? 'left' : 'right']: 14,
             width: 36,
             height: 36,
@@ -133,6 +133,12 @@ export default function ServiceRequestPopup({
           .service-request-modal::-webkit-scrollbar-track { background: rgba(255,255,255,0.06); border-radius: 999px; }
           .service-request-modal::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
           .service-request-modal::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
+
+          @media (max-width: 520px) {
+            .service-request-modal { padding: 72px 18px 22px !important; }
+            .service-request-modal button[aria-label="Close"],
+            .service-request-modal button[aria-label="إغلاق"] { top: 10px !important; }
+          }
         `}</style>
       </div>
     </div>
