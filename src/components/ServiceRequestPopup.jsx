@@ -77,7 +77,7 @@ export default function ServiceRequestPopup({
           onClick={() => setOpen(false)}
           style={{
             position: 'absolute',
-            top: 12,
+            top: 6,
             [isAr ? 'left' : 'right']: 14,
             width: 36,
             height: 36,
@@ -137,7 +137,7 @@ export default function ServiceRequestPopup({
           @media (max-width: 520px) {
             .service-request-modal { padding: 72px 18px 22px !important; }
             .service-request-modal button[aria-label="Close"],
-            .service-request-modal button[aria-label="إغلاق"] { top: 10px !important; }
+            .service-request-modal button[aria-label="إغلاق"] { top: 6px !important; }
           }
         `}</style>
       </div>
