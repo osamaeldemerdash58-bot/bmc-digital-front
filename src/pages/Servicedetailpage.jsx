@@ -811,6 +811,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
   const { slug } = useParams();
   const { data } = useData();
   const service = overrideServiceDetail(data?.services?.find(s => s.slug === slug));
+  const [requestOpen, setRequestOpen] = useState(false);
 
   const sanitizeServiceText = (text) => String(text || '')
     .replace(/استشارات تقنية متخصصة/g, 'استشارات تقنية')
@@ -860,6 +861,16 @@ export default function ServiceDetailPage({ lang, setLang }) {
   // Sub-types for this service
   const subTypes = serviceSubTypes[service.slug] || [];
   const whyCards = isAr ? whyChooseUs.ar : whyChooseUs.en;
+  const preselectedService = (() => {
+    const slugValue = service?.slug || '';
+    if (slugValue === 'web-development') return 'web';
+    if (slugValue === 'e-commerce-website-development') return 'ecommerce';
+    if (slugValue === 'mobile-app-development') return 'mobile';
+    if (slugValue === 'erp-systems') return 'erp';
+    if (slugValue === 'ui-ux-design') return 'uiux';
+    if (slugValue === 'ai-solutions') return 'ai';
+    return 'other';
+  })();
   const orderedServices = (data?.services || [])
     .filter((item) => item?.visible !== false && item?.slug)
     .sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
@@ -881,6 +892,15 @@ export default function ServiceDetailPage({ lang, setLang }) {
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
+      <ServiceRequestPopup
+        lang={lang}
+        title={isAr ? `هل تريد ${title}؟` : `Need ${title}?`}
+        subtitle={isAr ? 'أخبرنا بما تحتاجه وسنتواصل معك في أقرب وقت.' : "Tell us what you need and we'll get back to you shortly."}
+        preselectedService={preselectedService}
+        open={requestOpen}
+        onOpenChange={setRequestOpen}
+        hideLauncher
+      />
 
       {/* ── Hero ── */}
       <section style={{
@@ -938,10 +958,9 @@ export default function ServiceDetailPage({ lang, setLang }) {
           </h1>
 
           {/* CTA button */}
-          <a
-            href="https://wa.me/201000000000"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => setRequestOpen(true)}
             className="hero-cta-btn"
             style={{
               display: 'inline-flex',
@@ -958,11 +977,13 @@ export default function ServiceDetailPage({ lang, setLang }) {
               boxShadow: `0 8px 32px ${accent}44`,
               transition: 'transform 0.25s, box-shadow 0.25s',
               animation: 'cardEntry 0.9s cubic-bezier(0.23,1,0.32,1) 0.3s both',
+              border: 'none',
+              cursor: 'pointer',
             }}
           >
             <span>💬</span>
             {isAr ? 'اطلب الخدمة الآن' : 'Request This Service'}
-          </a>
+          </button>
         </div>
       </section>
 
@@ -1313,6 +1334,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
               lang={lang}
               title={isAr ? `هل تريد ${title}؟` : `Need ${title}?`}
               subtitle={isAr ? 'أخبرنا بما تحتاجه وسنتواصل معك في أقرب وقت.' : "Tell us what you need and we'll get back to you shortly."}
+              preselectedService={preselectedService}
             />
           </div>
         </div>
