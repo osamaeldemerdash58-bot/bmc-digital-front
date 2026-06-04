@@ -273,7 +273,7 @@ export default function About({ lang }) {
             {/* stats row */}
             <div style={{ display: 'flex', gap: 40, marginTop: 28 }}>
               {[
-                { num: '+60', label: lang === 'ar' ? 'عميل' : 'Clients' },
+                { num: '+30', label: lang === 'ar' ? 'عميل' : 'Clients' },
                 { num: '+25', label: lang === 'ar' ? 'مشروع منجز' : 'Projects Done' },
               ].map((s, i) => (
                 <div key={i} style={{ textAlign: 'center' }}>
