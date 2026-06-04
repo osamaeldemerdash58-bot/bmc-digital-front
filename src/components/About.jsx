@@ -257,7 +257,7 @@ export default function About({ lang }) {
                     animation: 'numFloat3D 6s ease-in-out infinite, numShimmer 5s linear infinite',
                     transformStyle: 'preserve-3d',
                   }}>
-                    15
+                    3
                   </span>
                 </div>
               </div>
@@ -267,14 +267,14 @@ export default function About({ lang }) {
               fontSize: 13, color: 'rgba(245,240,232,0.5)',
               letterSpacing: 1, marginTop: -8,
             }}>
-              {lang === 'ar' ? 'عام من الخبرة' : 'Years of Experience'}
+              {lang === 'ar' ? 'أعوام من الخبرة' : 'Years of Experience'}
             </p>
 
             {/* stats row */}
             <div style={{ display: 'flex', gap: 40, marginTop: 28 }}>
               {[
-                { num: '+2000', label: lang === 'ar' ? 'عميل راضٍ' : 'Happy Clients' },
-                { num: '+50',   label: lang === 'ar' ? 'مشروع منجز' : 'Projects Done' },
+                { num: '+60', label: lang === 'ar' ? 'عميل' : 'Clients' },
+                { num: '+25', label: lang === 'ar' ? 'مشروع منجز' : 'Projects Done' },
               ].map((s, i) => (
                 <div key={i} style={{ textAlign: 'center' }}>
                   <div style={{
