@@ -55,6 +55,7 @@ export default function ServiceRequestPopup({
       }}
     >
       <div
+        className="service-request-modal"
         onClick={(e) => e.stopPropagation()}
         style={{
           width: 'min(980px, 100%)',
@@ -66,6 +67,8 @@ export default function ServiceRequestPopup({
           boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
           padding: '34px 30px 30px',
           position: 'relative',
+          scrollbarColor: 'rgba(0,194,255,0.55) rgba(255,255,255,0.06)',
+          scrollbarWidth: 'thin',
         }}
       >
         <button
@@ -85,15 +88,34 @@ export default function ServiceRequestPopup({
             fontSize: 22,
             lineHeight: 1,
             cursor: 'pointer',
+            zIndex: 2,
           }}
         >
           ×
         </button>
 
-        <h3 style={{ fontSize: 24, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 10 }}>
+        <h3
+          style={{
+            fontSize: 24,
+            fontWeight: 700,
+            color: 'var(--bmc-white)',
+            marginBottom: 10,
+            paddingLeft: isAr ? 52 : 0,
+            paddingRight: isAr ? 0 : 52,
+          }}
+        >
           {title}
         </h3>
-        <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.6)', marginBottom: 26, lineHeight: 1.8 }}>
+        <p
+          style={{
+            fontSize: 14,
+            color: 'rgba(245,240,232,0.6)',
+            marginBottom: 26,
+            lineHeight: 1.8,
+            paddingLeft: isAr ? 52 : 0,
+            paddingRight: isAr ? 0 : 52,
+          }}
+        >
           {subtitle}
         </p>
         <div
@@ -106,6 +128,12 @@ export default function ServiceRequestPopup({
           }}
         />
         <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
+        <style>{`
+          .service-request-modal::-webkit-scrollbar { width: 10px; }
+          .service-request-modal::-webkit-scrollbar-track { background: rgba(255,255,255,0.06); border-radius: 999px; }
+          .service-request-modal::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
+          .service-request-modal::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
+        `}</style>
       </div>
     </div>
   ) : null;
