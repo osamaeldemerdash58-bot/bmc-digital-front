@@ -60,9 +60,10 @@ export default function ServiceRequestPopup({
           width: 'min(980px, 100%)',
           maxHeight: '92vh',
           overflowY: 'auto',
-          background: 'linear-gradient(180deg, #111614 0%, #0C1110 100%)',
-          border: '1px solid rgba(184,164,114,0.24)',
-          boxShadow: '0 30px 70px rgba(0,0,0,0.5)',
+          background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
+          border: '1px solid rgba(0,194,255,0.18)',
+          borderRadius: 18,
+          boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
           padding: '34px 30px 30px',
           position: 'relative',
         }}
@@ -95,7 +96,15 @@ export default function ServiceRequestPopup({
         <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.6)', marginBottom: 26, lineHeight: 1.8 }}>
           {subtitle}
         </p>
-        <div className="gold-line" style={{ marginBottom: 28 }} />
+        <div
+          style={{
+            width: 76,
+            height: 3,
+            borderRadius: 999,
+            background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
+            marginBottom: 28,
+          }}
+        />
         <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
       </div>
     </div>

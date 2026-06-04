@@ -1194,7 +1194,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
               {/* CTA buttons stacked */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <a
-                  href="https://wa.me/201000000000"
+                  href="https://wa.me/996535166370"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
