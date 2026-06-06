@@ -161,7 +161,7 @@ export default function ServiceRequestPopup({
           style={{
             position: 'absolute',
             top: 12,
-            [isAr ? 'left' : 'right']: 12,
+            [isAr ? 'left' : 'right']: -12,
             width: 34,
             height: 34,
             flexShrink: 0,
