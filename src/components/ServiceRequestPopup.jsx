@@ -19,17 +19,6 @@ export default function ServiceRequestPopup({
     else setUncontrolledOpen(next);
   };
   const isAr = lang === 'ar';
-  const preventBackgroundScroll = (e) => {
-    e.preventDefault();
-  };
-  const handleModalWheel = (e) => {
-    const scrollEl = e.currentTarget.querySelector('.service-request-modal-scroll');
-    if (!scrollEl) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-    scrollEl.scrollTop += e.deltaY;
-  };
 
   useEffect(() => {
     if (!open) return undefined;
@@ -40,11 +29,6 @@ export default function ServiceRequestPopup({
       }
     };
 
-    const originalOverflow = document.body.style.overflow;
-    const originalHtmlOverflow = document.documentElement.style.overflow;
-    const originalBodyPosition = document.body.style.position;
-    const originalBodyWidth = document.body.style.width;
-    const originalBodyTop = document.body.style.top;
     const scrollY = window.scrollY;
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
@@ -54,11 +38,11 @@ export default function ServiceRequestPopup({
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = originalOverflow;
-      document.documentElement.style.overflow = originalHtmlOverflow;
-      document.body.style.position = originalBodyPosition;
-      document.body.style.width = originalBodyWidth;
-      document.body.style.top = originalBodyTop;
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
       window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -67,130 +51,127 @@ export default function ServiceRequestPopup({
   const modal = open ? (
     <div
       onClick={() => setOpen(false)}
-      onWheel={preventBackgroundScroll}
-      onTouchMove={preventBackgroundScroll}
       style={{
         position: 'fixed',
         inset: 0,
         background: 'rgba(5,8,7,0.78)',
         backdropFilter: 'blur(3px)',
         zIndex: 99999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        WebkitOverflowScrolling: 'touch',
         padding: '30px 16px',
       }}
     >
+      {/* هذا الـ wrapper الداخلي بيخلي الـ modal يتمركز حتى لو الـ content أطول من الشاشة */}
       <div
-        className="service-request-modal"
-        onClick={(e) => e.stopPropagation()}
-        onWheel={handleModalWheel}
-        onTouchMove={(e) => e.stopPropagation()}
         style={{
-          width: 'min(980px, 100%)',
-          maxHeight: '92vh',
-          overflow: 'hidden',
-          background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
-          border: '1px solid rgba(0,194,255,0.18)',
-          borderRadius: 18,
-          boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
-          padding: 0,
-          position: 'relative',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          minHeight: '100%',
         }}
       >
-        <button
-          type="button"
-          aria-label={isAr ? 'إغلاق' : 'Close'}
-          onClick={() => setOpen(false)}
-          style={{
-            position: 'absolute',
-            top: 0,
-            [isAr ? 'left' : 'right']: 0,
-            width: 40,
-            height: 40,
-            borderRadius: '0 0 14px 14px',
-            border: '1px solid rgba(0,194,255,0.25)',
-            background: 'linear-gradient(145deg, rgba(13,17,23,0.98), rgba(20,29,41,0.98))',
-            color: '#00C2FF',
-            fontSize: 22,
-            lineHeight: 1,
-            cursor: 'pointer',
-            zIndex: 3,
-            boxShadow: '0 12px 28px rgba(0,0,0,0.45), 0 0 18px rgba(0,194,255,0.18)',
-            transform: isAr ? 'translate(-100%, 0)' : 'translate(100%, 0)',
-          }}
-        >
-          ×
-        </button>
-
         <div
-          className="service-request-modal-scroll"
+          className="service-request-modal"
+          onClick={(e) => e.stopPropagation()}
           style={{
-            maxHeight: '92vh',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            WebkitOverflowScrolling: 'touch',
-            overscrollBehavior: 'contain',
-            touchAction: 'pan-y',
-            padding: '72px 30px 30px',
-            scrollbarColor: 'rgba(0,194,255,0.55) rgba(255,255,255,0.06)',
-            scrollbarWidth: 'thin',
+            width: 'min(980px, 100%)',
+            background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
+            border: '1px solid rgba(0,194,255,0.18)',
+            borderRadius: 18,
+            boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
+            position: 'relative',
+            margin: 'auto 0',
           }}
         >
-          <h3
+          {/* زرار X - داخل الـ modal بشكل صح في كل الوضعيات */}
+          <button
+            type="button"
+            aria-label={isAr ? 'إغلاق' : 'Close'}
+            onClick={() => setOpen(false)}
             style={{
-              fontSize: 24,
-              fontWeight: 700,
-              color: 'var(--bmc-white)',
-              marginBottom: 10,
-              paddingLeft: isAr ? 52 : 0,
-              paddingRight: isAr ? 0 : 52,
+              position: 'absolute',
+              top: 12,
+              [isAr ? 'left' : 'right']: 12,
+              width: 36,
+              height: 36,
+              borderRadius: '50%',
+              border: '1px solid rgba(0,194,255,0.3)',
+              background: 'rgba(13,17,23,0.95)',
+              color: '#00C2FF',
+              fontSize: 20,
+              lineHeight: 1,
+              cursor: 'pointer',
+              zIndex: 3,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.4), 0 0 12px rgba(0,194,255,0.15)',
+              transition: 'background 0.2s, box-shadow 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(0,194,255,0.15)';
+              e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.4), 0 0 18px rgba(0,194,255,0.35)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(13,17,23,0.95)';
+              e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.4), 0 0 12px rgba(0,194,255,0.15)';
             }}
           >
-            {title}
-          </h3>
-          <p
-            style={{
-              fontSize: 14,
-              color: 'rgba(245,240,232,0.6)',
-              marginBottom: 26,
-              lineHeight: 1.8,
-              paddingLeft: isAr ? 52 : 0,
-              paddingRight: isAr ? 0 : 52,
-            }}
-          >
-            {subtitle}
-          </p>
-          <div
-            style={{
-              width: 76,
-              height: 3,
-              borderRadius: 999,
-              background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
-              marginBottom: 28,
-            }}
-          />
-          <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
-        </div>
-        <style>{`
-          .service-request-modal-scroll::-webkit-scrollbar { width: 10px; }
-          .service-request-modal-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.06); border-radius: 999px; }
-          .service-request-modal-scroll::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
-          .service-request-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
+            ×
+          </button>
 
-          @media (max-width: 520px) {
-            .service-request-modal { max-height: 94vh !important; border-radius: 16px !important; }
-            .service-request-modal-scroll { max-height: 94vh !important; padding: 80px 16px 22px !important; }
-            .service-request-modal button[aria-label="Close"],
-            .service-request-modal button[aria-label="إغلاق"] {
-              top: 0 !important;
-              width: 32px !important;
-              height: 32px !important;
-              font-size: 18px !important;
-              border-radius: 0 0 10px 10px !important;
+          {/* الـ content بدون scroll - الـ overlay هو اللي بيعمل scroll */}
+          <div
+            className="service-request-modal-scroll"
+            style={{
+              padding: '60px 30px 30px',
+            }}
+          >
+            <h3
+              style={{
+                fontSize: 24,
+                fontWeight: 700,
+                color: 'var(--bmc-white)',
+                marginBottom: 10,
+              }}
+            >
+              {title}
+            </h3>
+            <p
+              style={{
+                fontSize: 14,
+                color: 'rgba(245,240,232,0.6)',
+                marginBottom: 26,
+                lineHeight: 1.8,
+              }}
+            >
+              {subtitle}
+            </p>
+            <div
+              style={{
+                width: 76,
+                height: 3,
+                borderRadius: 999,
+                background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
+                marginBottom: 28,
+              }}
+            />
+            <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
+          </div>
+
+          <style>{`
+            @media (max-width: 520px) {
+              .service-request-modal {
+                border-radius: 14px !important;
+              }
+              .service-request-modal-scroll {
+                padding: 56px 16px 24px !important;
+              }
             }
-          }
-        `}</style>
+          `}</style>
+        </div>
       </div>
     </div>
   ) : null;
