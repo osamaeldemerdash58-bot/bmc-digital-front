@@ -202,6 +202,7 @@ export default function ServiceRequestPopup({
               max-height: calc(100vh - 24px) !important;
               border-radius: 14px !important;
                   margin-top: 8px !important;
+                  margin-bottom: 8px !important;
 
             }
             .service-request-modal-scroll {
