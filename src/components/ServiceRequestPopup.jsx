@@ -79,7 +79,7 @@ export default function ServiceRequestPopup({
         backdropFilter: 'blur(3px)',
         zIndex: 99999,
         display: 'flex',
-        alignItems: 'flex-start', 
+        alignItems: 'flex-start',
         justifyContent: 'center',
         padding: '20px 16px 48px',
         overflow: 'hidden',
@@ -200,13 +200,14 @@ export default function ServiceRequestPopup({
 
           @media (max-width: 520px) {
             .service-request-modal-overlay {
-              padding: 26px 10px 36px !important;
+              padding: 0 10px 0 !important;
               align-items: flex-start !important;
             }
             .service-request-modal {
-              max-height: calc(100vh - 46px) !important;
+              max-height: calc(100dvh - 52px) !important;
               border-radius: 14px !important;
-              margin-top: 0 !important;
+              margin-top: 26px !important;
+              margin-bottom: 26px !important;
             }
             .service-request-modal-scroll {
               padding: 20px 16px 20px !important;
@@ -222,8 +223,8 @@ export default function ServiceRequestPopup({
               margin-bottom: 16px !important;
             }
             .service-request-modal .close-btn {
-              top: -30px !important;
-              right: -25px !important;
+              top: -17px !important;
+              right: 10px !important;
               left: auto !important;
             }
           }
