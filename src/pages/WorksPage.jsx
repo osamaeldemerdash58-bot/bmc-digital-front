@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
+import worksHeroImg from '../assets/heroimagedesktop.png';
 
 const colors = [
   'linear-gradient(135deg, #1a2220 0%, #0f1512 100%)',
@@ -67,10 +68,43 @@ export default function WorksPage({ lang, setLang }) {
       {/* Hero Section - Professional 3D Animated Background */}
       <section className="page-hero page-hero-works" style={{
         minHeight: '55vh',
-        background: 'linear-gradient(180deg, #121016 0%, #201620 48%, #0f1017 100%)',
+        background: 'linear-gradient(180deg, #07121c 0%, #0b1a2a 48%, #080d15 100%)',
         display: 'flex', alignItems: 'center', paddingTop: 120, paddingBottom: 100,
         position: 'relative', overflow: 'hidden',
       }}>
+        <div
+          className="works-hero-image"
+          style={{
+            position: 'absolute',
+            top: '12%',
+            bottom: '8%',
+            right: lang === 'ar' ? 'auto' : '5%',
+            left: lang === 'ar' ? '5%' : 'auto',
+            width: 'min(42vw, 520px)',
+            borderRadius: 22,
+            overflow: 'hidden',
+            opacity: 0.24,
+            border: '1px solid rgba(0,194,255,0.22)',
+            boxShadow: '0 28px 70px rgba(0,0,0,0.42), 0 0 42px rgba(0,194,255,0.18)',
+            transform: 'rotate(-3deg)',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        >
+          <img
+            src={worksHeroImg}
+            alt=""
+            aria-hidden="true"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(90deg, rgba(7,18,28,0.92) 0%, rgba(7,18,28,0.45) 45%, rgba(0,194,255,0.12) 100%)',
+            }}
+          />
+        </div>
         {/* 1. Ambient Glow */}
         <div className="ambient-glow ambient-glow-works" />
         {/* 2. Floating 3D Rings */}

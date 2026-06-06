@@ -259,7 +259,7 @@
 }
 
 .page-hero-works .ambient-glow-works {
-  background: radial-gradient(circle, rgba(108,99,255,0.24) 0%, rgba(255,122,89,0.11) 35%, transparent 72%);
+  background: radial-gradient(circle, rgba(0,194,255,0.28) 0%, rgba(0,194,255,0.12) 35%, transparent 72%);
 }
 
 .page-hero-services .ambient-glow-services {
@@ -293,17 +293,17 @@
 
 .page-hero-works .works-shape-1 {
   width: 200px; height: 200px; top: 14%; left: 8%;
-  background: linear-gradient(135deg, rgba(108,99,255,0.18), rgba(255,122,89,0.02));
+  background: linear-gradient(135deg, rgba(0,194,255,0.18), rgba(0,194,255,0.02));
   animation: worksOrbitA 12s linear infinite;
 }
 .page-hero-works .works-shape-2 {
   width: 130px; height: 130px; top: 18%; right: 18%;
-  background: linear-gradient(135deg, rgba(255,122,89,0.14), rgba(108,99,255,0.02));
+  background: linear-gradient(135deg, rgba(0,194,255,0.14), rgba(0,194,255,0.02));
   animation: worksOrbitB 9s linear infinite reverse;
 }
 .page-hero-works .works-shape-3 {
   width: 90px; height: 90px; bottom: 16%; right: 12%;
-  background: rgba(255,122,89,0.12);
+  background: rgba(0,194,255,0.12);
   animation: worksBlink 5s ease-in-out infinite;
 }
 
@@ -374,6 +374,18 @@
   50% { transform: scale(1.18); opacity: 0.72; }
 }
 
+@media (max-width: 768px) {
+  .works-hero-image {
+    width: 74vw !important;
+    left: 50% !important;
+    right: auto !important;
+    top: 18% !important;
+    bottom: 12% !important;
+    opacity: 0.16 !important;
+    transform: translateX(-50%) rotate(-2deg) !important;
+  }
+}
+
 /* ── Tech card ── */
 .tech-card {
   opacity: 0;
@@ -397,7 +409,8 @@
   .section-header-anim,
   .works-card, .tech-card,
   .hero-badge, .hero-title-1, .hero-title-2,
-  .hero-subtitle, .hero-ctas, .hero-image-wrap, .hero-scroll {
+  .hero-subtitle, .hero-ctas, .hero-image-wrap, .hero-scroll,
+  .page-hero .ambient-glow, .page-hero .floating-shape, .page-hero .grid-floor {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;

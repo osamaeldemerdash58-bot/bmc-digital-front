@@ -19,6 +19,13 @@ export default function ServiceRequestPopup({
     else setUncontrolledOpen(next);
   };
   const isAr = lang === 'ar';
+  const handleModalWheel = (e) => {
+    const scrollEl = e.currentTarget.querySelector('.service-request-modal-scroll');
+    if (!scrollEl) return;
+
+    e.preventDefault();
+    scrollEl.scrollTop += e.deltaY;
+  };
 
   useEffect(() => {
     if (!open) return undefined;
@@ -57,6 +64,7 @@ export default function ServiceRequestPopup({
       <div
         className="service-request-modal"
         onClick={(e) => e.stopPropagation()}
+        onWheel={handleModalWheel}
         style={{
           width: 'min(980px, 100%)',
           maxHeight: '92vh',
@@ -75,18 +83,19 @@ export default function ServiceRequestPopup({
           onClick={() => setOpen(false)}
           style={{
             position: 'absolute',
-            top: 16,
-            [isAr ? 'left' : 'right']: 16,
-            width: 36,
-            height: 36,
+            top: -18,
+            [isAr ? 'left' : 'right']: -18,
+            width: 42,
+            height: 42,
             borderRadius: '50%',
             border: '1px solid rgba(0,194,255,0.25)',
-            background: 'rgba(108,99,255,0.08)',
+            background: 'linear-gradient(145deg, rgba(13,17,23,0.98), rgba(20,29,41,0.98))',
             color: '#00C2FF',
             fontSize: 22,
             lineHeight: 1,
             cursor: 'pointer',
             zIndex: 3,
+            boxShadow: '0 12px 28px rgba(0,0,0,0.45), 0 0 18px rgba(0,194,255,0.18)',
           }}
         >
           ×
@@ -151,7 +160,11 @@ export default function ServiceRequestPopup({
             .service-request-modal { max-height: 94vh !important; border-radius: 16px !important; }
             .service-request-modal-scroll { max-height: 94vh !important; padding: 80px 16px 22px !important; }
             .service-request-modal button[aria-label="Close"],
-            .service-request-modal button[aria-label="إغلاق"] { top: 14px !important; }
+            .service-request-modal button[aria-label="إغلاق"] {
+              top: -16px !important;
+              left: 10px !important;
+              right: auto !important;
+            }
           }
         `}</style>
       </div>
