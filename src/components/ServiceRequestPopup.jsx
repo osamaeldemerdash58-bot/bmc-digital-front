@@ -222,8 +222,8 @@ export default function ServiceRequestPopup({
               margin-bottom: 16px !important;
             }
             .service-request-modal .close-btn {
-              top: -25px !important;
-              right: -10px !important;
+              top: -30px !important;
+              right: -25px !important;
               left: auto !important;
             }
           }
