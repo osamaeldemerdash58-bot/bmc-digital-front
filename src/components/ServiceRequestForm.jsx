@@ -228,21 +228,7 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
         />
       </div>
 
-      {/* Extra - Optional */}
-      <div>
-        <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
-          {labels.extra} <span style={{ color: 'rgba(245,240,232,0.35)', fontSize: 11 }}>{labels.optional}</span>
-        </label>
-        <textarea
-          placeholder={labels.extraPlaceholder}
-          value={form.extra}
-          rows={3}
-          onChange={(e) => setForm({ ...form, extra: e.target.value })}
-          onFocus={() => setFocusedField('extra')}
-          onBlur={() => setFocusedField(null)}
-          style={{ ...getFieldStyle('extra'), resize: 'vertical' }}
-        />
-      </div>
+      {/* Extra - Optional (hidden) */}
 
       {error && <p style={{ color: '#e74c3c', fontSize: 13, textAlign: 'center' }}>{error}</p>}
 
