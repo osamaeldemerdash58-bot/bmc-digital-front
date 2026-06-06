@@ -163,19 +163,19 @@ export default function ServicesPage({ lang, setLang }) {
       <Navbar lang={lang} setLang={setLang} />
       
       {/* Hero Section - Professional 3D Animated Background */}
-      <section style={{
+      <section className="page-hero page-hero-services" style={{
         minHeight: '60vh',
-        background: 'linear-gradient(180deg, #0a0e17 0%, #111827 50%, #0f172a 100%)',
+        background: 'linear-gradient(180deg, #111318 0%, #13201d 48%, #090b10 100%)',
         display: 'flex', alignItems: 'center', paddingTop: 110, paddingBottom: 100,
         position: 'relative', overflow: 'hidden',
       }}>
         {/* 1. Ambient Glow */}
-        <div className="ambient-glow" />
+        <div className="ambient-glow ambient-glow-services" />
         
         {/* 2. Floating 3D Rings */}
-        <div className="floating-shape shape-1" />
-        <div className="floating-shape shape-2" />
-        <div className="floating-shape shape-3" />
+        <div className="floating-shape shape-1 services-shape-1" />
+        <div className="floating-shape shape-2 services-shape-2" />
+        <div className="floating-shape shape-3 services-shape-3" />
         
         {/* 3. Moving 3D Grid Floor */}
         <div className="grid-floor" />

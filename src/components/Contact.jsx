@@ -9,7 +9,7 @@ export default function Contact({ lang }) {
   const { data } = useData();
   const tx = data?.translations?.contact?.[lang] || {};
   const contactPhone = '+966 53 516 6370';
-  const contactEmail = 'info@bmc-digital.com';
+  const contactEmail = 'info@bmd-digital.com';
   const [form, setForm] = useState({ name: '', email: '', msg: '' });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -58,7 +58,7 @@ export default function Contact({ lang }) {
 
             {[
               { icon: '📞', label: contactPhone, href: 'tel:+966535166370' },
-              { icon: '✉️', label: contactEmail, href: 'mailto:info@bmc-digital.com' },
+              { icon: '✉️', label: contactEmail, href: 'mailto:info@bmd-digital.com' },
             ].map((c, i) => (
               <a key={i} href={c.href} style={{
                 display: 'flex', alignItems: 'center', gap: 16,

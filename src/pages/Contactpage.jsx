@@ -16,7 +16,7 @@ const contactData = {
     formSubtitle: 'املأ النموذج وسنتواصل معك في أقرب وقت ممكن.',
     directContact: 'تواصل مباشر',
     phone: '+966 53 516 6370',
-    email: 'info@bmc-digital.com',
+    email: 'info@bmd-digital.com',
     phoneLbl: 'الهاتف',
     emailLbl: 'البريد الإلكتروني',
     whatsappLbl: 'واتساب',
@@ -31,7 +31,7 @@ const contactData = {
     formSubtitle: 'Fill out the form and we will get back to you as soon as possible.',
     directContact: 'Direct Contact',
     phone: '+966 53 516 6370',
-    email: 'info@bmc-digital.com',
+    email: 'info@bmd-digital.com',
     phoneLbl: 'Phone',
     emailLbl: 'Email',
     whatsappLbl: 'WhatsApp',
@@ -73,18 +73,18 @@ export default function ContactPage({ lang, setLang }) {
       <Navbar lang={lang} setLang={setLang} />
       
       {/* Hero Section - Professional 3D Animated Background */}
-      <section style={{
+      <section className="page-hero page-hero-contact" style={{
         minHeight: '55vh',
-        background: 'linear-gradient(180deg, #0a0e17 0%, #111827 50%, #0f172a 100%)',
+        background: 'linear-gradient(180deg, #08131f 0%, #0c1e2f 45%, #08111b 100%)',
         display: 'flex', alignItems: 'center', paddingTop: 120, paddingBottom: 100,
         position: 'relative', overflow: 'hidden',
       }}>
         {/* 1. Ambient Glow */}
-        <div className="ambient-glow" />
+        <div className="ambient-glow ambient-glow-contact" />
         {/* 2. Floating 3D Rings */}
-        <div className="floating-shape shape-1" />
-        <div className="floating-shape shape-2" />
-        <div className="floating-shape shape-3" />
+        <div className="floating-shape shape-1 contact-shape-1" />
+        <div className="floating-shape shape-2 contact-shape-2" />
+        <div className="floating-shape shape-3 contact-shape-3" />
         {/* 3. Moving 3D Grid Floor */}
         <div className="grid-floor" />
 

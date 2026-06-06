@@ -231,10 +231,9 @@ export default function Footer({ lang }) {
               {/* ── Achievement Stats ── */}
               <div className="footer-stats">
                 {[
-                  { num: '120+', label: lang === 'ar' ? 'مشروع منجز' : 'Projects Done' },
-                  { num: '80+',  label: lang === 'ar' ? 'عميل راضٍ'   : 'Happy Clients' },
-                  { num: '6+',   label: lang === 'ar' ? 'سنوات خبرة'  : 'Years of Exp.' },
-                  { num: '15+',  label: lang === 'ar' ? 'خدمة متاحة'  : 'Services' },
+                  { num: '3',    label: lang === 'ar' ? 'أعوام من الخبرة' : 'Years of Experience' },
+                  { num: '+30',  label: lang === 'ar' ? 'عميل'            : 'Clients' },
+                  { num: '+25',  label: lang === 'ar' ? 'مشروع منجز'      : 'Projects Done' },
                 ].map(({ num, label }) => (
                   <div key={label} className="footer-stat-card">
                     <span className="footer-stat-num">{num}</span>
@@ -253,7 +252,7 @@ export default function Footer({ lang }) {
                 </li>
                 <li>
                   <span className="fc-icon"><MailIcon /></span>
-                  <a className="footer-contact-link" href="mailto:info@bmc-digital.com">info@bmc-digital.com</a>
+                  <a className="footer-contact-link" href="mailto:info@bmd-digital.com">info@bmd-digital.com</a>
                 </li>
                 <li>
                   <span className="fc-icon"><PinIcon /></span>
