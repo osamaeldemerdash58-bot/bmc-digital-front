@@ -29,8 +29,11 @@ export default function ServiceRequestPopup({
     };
 
     const setVvh = () => {
-      const h = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
-      document.documentElement.style.setProperty('--sr-vvh', `${Math.round(h)}px`);
+      const vvNow = window.visualViewport;
+      const height = vvNow && vvNow.height ? vvNow.height : window.innerHeight;
+      const offsetTop = vvNow && typeof vvNow.offsetTop === 'number' ? vvNow.offsetTop : 0;
+      document.documentElement.style.setProperty('--sr-vv-height', `${Math.round(height)}px`);
+      document.documentElement.style.setProperty('--sr-vv-top', `${Math.round(offsetTop)}px`);
     };
 
     setVvh();
@@ -42,6 +45,8 @@ export default function ServiceRequestPopup({
       window.addEventListener('resize', setVvh);
     }
 
+    const initialScrollY = window.scrollY;
+    if (initialScrollY === 0) window.scrollTo(0, 1);
     const scrollY = window.scrollY;
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
@@ -56,9 +61,10 @@ export default function ServiceRequestPopup({
       document.body.style.position = '';
       document.body.style.width = '';
       document.body.style.top = '';
-      window.scrollTo(0, scrollY);
+      window.scrollTo(0, initialScrollY);
       window.removeEventListener('keydown', handleKeyDown);
-      document.documentElement.style.removeProperty('--sr-vvh');
+      document.documentElement.style.removeProperty('--sr-vv-height');
+      document.documentElement.style.removeProperty('--sr-vv-top');
       if (vv) {
         vv.removeEventListener('resize', setVvh);
         vv.removeEventListener('scroll', setVvh);
@@ -139,7 +145,10 @@ export default function ServiceRequestPopup({
       onClick={() => setOpen(false)}
       style={{
         position: 'fixed',
-        inset: 0,
+        left: 0,
+        right: 0,
+        top: 'var(--sr-vv-top, 0px)',
+        height: 'var(--sr-vv-height, 100vh)',
         background: 'rgba(5,8,7,0.78)',
         backdropFilter: 'blur(3px)',
         zIndex: 99999,
@@ -147,7 +156,9 @@ export default function ServiceRequestPopup({
         alignItems: 'flex-start', 
         justifyContent: 'center',
         padding: '20px 16px 48px',
-        overflow: 'hidden',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        WebkitOverflowScrolling: 'touch',
         overscrollBehavior: 'contain',
       }}
     >
@@ -156,7 +167,7 @@ export default function ServiceRequestPopup({
         onClick={(e) => e.stopPropagation()}
         style={{
           width: 'min(980px, 100%)',
-          maxHeight: 'calc(var(--sr-vvh, 100vh) - 68px)',
+          maxHeight: 'calc(var(--sr-vv-height, 100vh) - 68px)',
           display: 'flex',
           flexDirection: 'column',
           background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
@@ -272,7 +283,7 @@ export default function ServiceRequestPopup({
           .service-request-modal {
             max-height: calc(100vh - 68px) !important;
             max-height: calc(100dvh - 68px) !important;
-            max-height: calc(var(--sr-vvh, 100dvh) - 68px) !important;
+            max-height: calc(var(--sr-vv-height, 100dvh) - 68px) !important;
           }
 
           @media (max-width: 520px) {
@@ -284,7 +295,7 @@ export default function ServiceRequestPopup({
             .service-request-modal {
               max-height: calc(100vh - 46px) !important;
               max-height: calc(100dvh - 46px) !important;
-              max-height: calc(var(--sr-vvh, 100dvh) - 46px) !important;
+              max-height: calc(var(--sr-vv-height, 100dvh) - 46px) !important;
               border-radius: 14px !important;
               margin-top: 0 !important;
             }
