@@ -208,7 +208,7 @@ export default function ServiceRequestPopup({
               margin-top: 8px !important;
             }
             .service-request-modal-scroll {
-              padding: 28px 16px 24px !important;
+              padding: 14px 16px 14px !important;
             }
             .service-request-modal .close-btn {
               top: -35px !important;    /* ← غيّر الرقم ده - موبايل */
