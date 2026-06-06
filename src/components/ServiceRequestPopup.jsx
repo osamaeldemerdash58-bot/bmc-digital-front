@@ -70,6 +70,7 @@ export default function ServiceRequestPopup({
 
   const modal = open ? (
     <div
+      className="service-request-modal-overlay"
       onClick={() => setOpen(false)}
       style={{
         position: 'fixed',
@@ -80,7 +81,7 @@ export default function ServiceRequestPopup({
         display: 'flex',
         alignItems: 'flex-start', 
         justifyContent: 'center',
-        padding: '20px 16px',
+        padding: '20px 16px 48px',
         overflow: 'hidden',
       }}
     >
@@ -89,7 +90,7 @@ export default function ServiceRequestPopup({
         onClick={(e) => e.stopPropagation()}
         style={{
           width: 'min(980px, 100%)',
-          maxHeight: 'calc(100vh - 40px)',
+          maxHeight: 'calc(100vh - 68px)',
           display: 'flex',
           flexDirection: 'column',
           background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
@@ -198,11 +199,13 @@ export default function ServiceRequestPopup({
           .service-request-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
 
           @media (max-width: 520px) {
+            .service-request-modal-overlay {
+              padding-bottom: 48px !important;
+            }
             .service-request-modal {
-              max-height: calc(100vh - 24px) !important;
+              max-height: calc(100vh - 72px) !important;
               border-radius: 14px !important;
-                  margin-top: 8px !important;
-
+              margin-top: 8px !important;
             }
             .service-request-modal-scroll {
               padding: 54px 16px 24px !important;
