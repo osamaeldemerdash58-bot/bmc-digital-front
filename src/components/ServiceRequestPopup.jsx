@@ -200,19 +200,30 @@ export default function ServiceRequestPopup({
 
           @media (max-width: 520px) {
             .service-request-modal-overlay {
-              padding-bottom: 48px !important;
+              padding: 12px 12px 40px !important;
+              align-items: flex-start !important;
             }
             .service-request-modal {
-              max-height: calc(100vh - 72px) !important;
+              max-height: calc(100vh - 52px) !important;
               border-radius: 14px !important;
-              margin-top: 8px !important;
+              margin-top: 0 !important;
             }
             .service-request-modal-scroll {
-              padding: 14px 16px 14px !important;
+              padding: 14px 16px 20px !important;
+            }
+            .service-request-modal-scroll h3 {
+              font-size: 18px !important;
+              margin-bottom: 6px !important;
+            }
+            .service-request-modal-scroll p {
+              margin-bottom: 12px !important;
+            }
+            .service-request-modal-scroll > div:nth-child(3) {
+              margin-bottom: 16px !important;
             }
             .service-request-modal .close-btn {
-              top: -35px !important;    /* ← غيّر الرقم ده - موبايل */
-              right: -25px !important;   /* ← أو الرقم ده - موبايل */
+              top: -35px !important;
+              right: -25px !important;
             }
           }
         `}</style>
