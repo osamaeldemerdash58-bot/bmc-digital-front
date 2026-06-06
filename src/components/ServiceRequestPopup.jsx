@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ServiceRequestForm from './ServiceRequestForm';
 import SnakeButton from './SnakeButton';
@@ -19,7 +19,6 @@ export default function ServiceRequestPopup({
     else setUncontrolledOpen(next);
   };
   const isAr = lang === 'ar';
-  const scrollRef = useRef(null);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -29,41 +28,23 @@ export default function ServiceRequestPopup({
     };
 
     const scrollY = window.scrollY;
+    // بنحفظ الـ scrollY في data attribute عشان نرجعله بعدين
+    document.body.dataset.scrollY = scrollY;
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.top = '';
-      window.scrollTo(0, scrollY);
+      const savedY = parseInt(document.body.dataset.scrollY || '0', 10);
+      delete document.body.dataset.scrollY;
+      window.scrollTo(0, savedY);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return undefined;
-    const el = scrollRef.current;
-    if (!el) return undefined;
 
-    const onWheel = (e) => {
-      const { scrollTop, scrollHeight, clientHeight } = el;
-      const atTop = scrollTop === 0 && e.deltaY < 0;
-      const atBottom = scrollTop + clientHeight >= scrollHeight && e.deltaY > 0;
-      if (!atTop && !atBottom) e.stopPropagation();
-      e.preventDefault();
-      el.scrollTop += e.deltaY;
-    };
-
-    el.addEventListener('wheel', onWheel, { passive: false });
-    return () => el.removeEventListener('wheel', onWheel);
-  }, [open]);
 
   const modal = open ? (
     <div
@@ -74,10 +55,10 @@ export default function ServiceRequestPopup({
         background: 'rgba(5,8,7,0.78)',
         backdropFilter: 'blur(3px)',
         zIndex: 99999,
-        /* الـ overlay نفسه يعمل scroll - ده بيحل مشكلة فوق وتحت */
         overflowY: 'auto',
         overflowX: 'hidden',
-        /* padding متساوي فوق وتحت عشان يبقى في المنتص */
+        // مهم جداً على iOS عشان الـ scroll يشتغل داخل الـ overlay
+        WebkitOverflowScrolling: 'touch',
         padding: '40px 16px',
       }}
     >
@@ -149,7 +130,6 @@ export default function ServiceRequestPopup({
 
           {/* محتوى الـ modal - بدون scroll هنا، الـ overlay هو اللي بيعمل scroll */}
           <div
-            ref={scrollRef}
             className="service-request-modal-scroll"
             style={{
               padding: '58px 30px 30px',
