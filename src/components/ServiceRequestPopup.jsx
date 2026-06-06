@@ -82,7 +82,8 @@ export default function ServiceRequestPopup({
         alignItems: 'flex-start', 
         justifyContent: 'center',
         padding: '20px 16px 48px',
-        overflow: 'hidden',
+        overflowX: 'hidden',
+        overflowY: 'auto',
       }}
     >
       <div
