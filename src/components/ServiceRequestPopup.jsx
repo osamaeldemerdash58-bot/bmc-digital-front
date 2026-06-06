@@ -78,7 +78,7 @@ export default function ServiceRequestPopup({
         backdropFilter: 'blur(3px)',
         zIndex: 99999,
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start', 
         justifyContent: 'center',
         padding: '20px 16px',
         overflow: 'hidden',
@@ -201,6 +201,8 @@ export default function ServiceRequestPopup({
             .service-request-modal {
               max-height: calc(100vh - 24px) !important;
               border-radius: 14px !important;
+                  margin-top: 8px !important;
+
             }
             .service-request-modal-scroll {
               padding: 54px 16px 24px !important;
