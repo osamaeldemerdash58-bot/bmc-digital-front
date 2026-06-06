@@ -255,6 +255,7 @@ export default function ServiceRequestPopup({
 
           @media (max-width: 520px) {
             .service-request-modal-overlay {
+              padding: 26px 10px 36px !important;
               padding: calc(26px + env(safe-area-inset-top)) 10px calc(36px + env(safe-area-inset-bottom)) !important;
               align-items: flex-start !important;
             }
