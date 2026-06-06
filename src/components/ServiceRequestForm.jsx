@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { postAPI } from '../api';
 
-const inputBase = {
+const inputStyle = {
   background: 'rgba(255,255,255,0.03)',
   border: '1px solid rgba(108,99,255,0.2)',
   padding: '14px 20px',
@@ -13,21 +13,16 @@ const inputBase = {
   transition: 'border-color 0.3s',
   width: '100%',
   boxSizing: 'border-box',
-  display: 'block',
-};
-
-const labelStyle = {
-  display: 'block',
-  fontSize: 13,
-  color: 'rgba(245,240,232,0.6)',
-  marginBottom: 8,
-  fontWeight: 600,
 };
 
 export default function ServiceRequestForm({ lang, preselectedService }) {
   const isAr = lang === 'ar';
 
   const labels = {
+    sectionTitle: isAr ? 'طلب خدمة' : 'Request a Service',
+    sectionSubtitle: isAr
+      ? 'أخبرنا بما تحتاجه وسنتواصل معك في أقرب وقت'
+      : 'Tell us what you need and we will get back to you shortly',
     contactMethod: isAr ? 'التواصل' : 'Contact Method',
     contactMethodPlaceholder: isAr ? 'واتساب / إيميل / تيليجرام...' : 'WhatsApp / Email / Telegram...',
     fullName: isAr ? 'الاسم الكامل' : 'Full Name',
@@ -37,19 +32,19 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
     service: isAr ? 'ما الذي تريده؟' : 'What do you need?',
     servicePlaceholder: isAr ? 'اختر الخدمة المطلوبة' : 'Select the desired service',
     serviceOptions: [
-      { value: 'web',       label: isAr ? 'تطوير موقع إلكتروني'  : 'Website Development'    },
-      { value: 'ecommerce', label: isAr ? 'تطوير متجر إلكتروني'  : 'E-Commerce Development'  },
-      { value: 'mobile',    label: isAr ? 'تطوير تطبيق موبايل'   : 'Mobile App Development'  },
-      { value: 'erp',       label: isAr ? 'نظام ERP / إدارة'     : 'ERP / Management System' },
-      { value: 'uiux',      label: isAr ? 'تصميم UI/UX'          : 'UI/UX Design'            },
-      { value: 'ai',        label: isAr ? 'التسويق الرقمي'        : 'Digital Marketing'       },
-      { value: 'other',     label: isAr ? 'أخرى'                  : 'Other'                   },
+      { value: 'web', label: isAr ? 'تطوير موقع إلكتروني' : 'Website Development' },
+      { value: 'ecommerce', label: isAr ? 'تطوير متجر إلكتروني' : 'E-Commerce Development' },
+      { value: 'mobile', label: isAr ? 'تطوير تطبيق موبايل' : 'Mobile App Development' },
+      { value: 'erp', label: isAr ? 'نظام ERP / إدارة' : 'ERP / Management System' },
+      { value: 'uiux', label: isAr ? 'تصميم UI/UX' : 'UI/UX Design' },
+      { value: 'ai', label: isAr ? 'التسويق الرقمي' : 'Digital Marketing' },
+      { value: 'other', label: isAr ? 'أخرى' : 'Other' },
     ],
     details: isAr ? 'اكتب طلبك بالتفصيل' : 'Describe your request in detail',
     detailsPlaceholder: isAr
       ? 'صف مشروعك أو ما تحتاجه بأكبر قدر من التفاصيل...'
       : 'Describe your project or needs in as much detail as possible...',
-    extra: isAr ? 'معلومات إضافية' : 'Additional Information',
+    extra: isAr ? 'معلومات إضافية (اختياري)' : 'Additional Information (Optional)',
     extraPlaceholder: isAr
       ? 'ميزانيتك التقريبية، الوقت المتوقع، أي تفاصيل أخرى...'
       : 'Your approximate budget, expected timeline, any other details...',
@@ -73,9 +68,10 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
-  const [focused, setFocused] = useState(null);
+  const [focusedField, setFocusedField] = useState(null);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setSending(true);
     setError('');
     try {
@@ -88,20 +84,15 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
         extra: form.extra,
       });
       setSent(true);
-    } catch {
+    } catch (err) {
       setError(isAr ? 'حدث خطأ، حاول مرة أخرى' : 'Error occurred, please try again');
     }
     setSending(false);
   };
 
-  const fs = (name) => ({
-    ...inputBase,
-    borderColor: focused === name ? 'rgba(0,194,255,0.5)' : 'rgba(108,99,255,0.2)',
-  });
-
-  const events = (name) => ({
-    onFocus: () => setFocused(name),
-    onBlur:  () => setFocused(null),
+  const getFieldStyle = (fieldName) => ({
+    ...inputStyle,
+    borderColor: focusedField === fieldName ? 'rgba(0,194,255,0.5)' : 'rgba(108,99,255,0.2)',
   });
 
   if (sent) {
@@ -114,11 +105,15 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
         borderRadius: 50,
       }}>
         <div style={{
-          width: 72, height: 72, margin: '0 auto 24px',
+          width: 72,
+          height: 72,
+          margin: '0 auto 24px',
           borderRadius: '50%',
           background: 'rgba(108,99,255,0.1)',
           border: '1px solid rgba(0,194,255,0.3)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}>
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00C2FF" strokeWidth="2">
             <polyline points="20 6 9 17 4 12" />
@@ -135,173 +130,171 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
   }
 
   return (
-    <>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
 
-        {/* Contact */}
+      {/* Contact Method - Required */}
+      <div>
+        <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
+          {labels.contactMethod} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
+        </label>
+        <input
+          type="text"
+          placeholder={labels.contactMethodPlaceholder}
+          value={form.contact}
+          required
+          onChange={(e) => setForm({ ...form, contact: e.target.value })}
+          onFocus={() => setFocusedField('contact')}
+          onBlur={() => setFocusedField(null)}
+          style={getFieldStyle('contact')}
+        />
+      </div>
+
+      {/* Name + Phone row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         <div>
-          <label style={labelStyle}>
-            {labels.contactMethod} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
+          <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
+            {labels.fullName} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
           </label>
           <input
             type="text"
-            placeholder={labels.contactMethodPlaceholder}
-            value={form.contact}
-            onChange={(e) => setForm({ ...form, contact: e.target.value })}
-            style={fs('contact')}
-            {...events('contact')}
+            placeholder={labels.fullNamePlaceholder}
+            value={form.name}
+            required
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            onFocus={() => setFocusedField('name')}
+            onBlur={() => setFocusedField(null)}
+            style={getFieldStyle('name')}
           />
         </div>
-
-        {/* Name + Phone */}
-        <div className="sr-two-col">
-          <div>
-            <label style={labelStyle}>
-              {labels.fullName} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
-            </label>
-            <input
-              type="text"
-              placeholder={labels.fullNamePlaceholder}
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              style={fs('name')}
-              {...events('name')}
-            />
-          </div>
-          <div>
-            <label style={labelStyle}>
-              {labels.phone} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
-            </label>
-            <input
-              type="tel"
-              placeholder={labels.phonePlaceholder}
-              value={form.phone}
-              dir="ltr"
-              onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              style={{ ...fs('phone'), textAlign: isAr ? 'right' : 'left' }}
-              {...events('phone')}
-            />
-          </div>
-        </div>
-
-        {/* Service */}
         <div>
-          <label style={labelStyle}>
-            {labels.service} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
+          <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
+            {labels.phone} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
           </label>
-          <select
-            value={form.service}
-            onChange={(e) => setForm({ ...form, service: e.target.value })}
-            style={{
-              ...fs('service'),
-              cursor: 'pointer',
-              appearance: 'none',
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8A472' strokeWidth='1.5' fill='none' strokeLinecap='round'/%3E%3C/svg%3E")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: isAr ? 'left 16px center' : 'right 16px center',
-            }}
-            {...events('service')}
-          >
-            <option value="" disabled style={{ background: '#0D1117' }}>{labels.servicePlaceholder}</option>
-            {labels.serviceOptions.map((opt) => (
-              <option key={opt.value} value={opt.value} style={{ background: '#0D1117' }}>{opt.label}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* Details */}
-        <div>
-          <label style={labelStyle}>
-            {labels.details} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
-          </label>
-          <textarea
-            placeholder={labels.detailsPlaceholder}
-            value={form.details}
-            rows={5}
-            onChange={(e) => setForm({ ...form, details: e.target.value })}
-            style={{ ...fs('details'), resize: 'vertical' }}
-            {...events('details')}
+          <input
+            type="tel"
+            placeholder={labels.phonePlaceholder}
+            value={form.phone}
+            required
+            dir="ltr"
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            onFocus={() => setFocusedField('phone')}
+            onBlur={() => setFocusedField(null)}
+            style={{ ...getFieldStyle('phone'), textAlign: isAr ? 'right' : 'left' }}
           />
         </div>
-
-        {/* Extra */}
-        <div>
-          <label style={labelStyle}>
-            {labels.extra} <span style={{ color: 'rgba(245,240,232,0.35)', fontSize: 11 }}>{labels.optional}</span>
-          </label>
-          <textarea
-            placeholder={labels.extraPlaceholder}
-            value={form.extra}
-            rows={3}
-            onChange={(e) => setForm({ ...form, extra: e.target.value })}
-            style={{ ...fs('extra'), resize: 'vertical' }}
-            {...events('extra')}
-          />
-        </div>
-
-        {error && (
-          <p style={{ color: '#e74c3c', fontSize: 13, textAlign: 'center', margin: 0 }}>{error}</p>
-        )}
-
-        {/* Submit */}
-        <button
-          type="button"
-          disabled={sending}
-          onClick={handleSubmit}
-          style={{
-            background: sending ? 'rgba(0,194,255,0.5)' : 'var(--btn-gradient)',
-            color: '#fff',
-            border: 'none',
-            padding: '16px 32px',
-            fontSize: 15,
-            fontWeight: 700,
-            fontFamily: 'Cairo, sans-serif',
-            cursor: sending ? 'not-allowed' : 'pointer',
-            letterSpacing: 0.5,
-            borderRadius: 50,
-            transition: 'all 0.3s',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 10,
-            opacity: sending ? 0.7 : 1,
-            boxShadow: '0 6px 20px rgba(0,194,255,0.3)',
-            width: '100%',
-          }}
-          onMouseEnter={(e) => {
-            if (!sending) {
-              e.currentTarget.style.background = 'linear-gradient(135deg, #2A2A6E 0%, #1A4090 100%)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 0 28px rgba(0,194,255,0.6), 0 0 60px rgba(108,99,255,0.35)';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (!sending) {
-              e.currentTarget.style.background = 'var(--btn-gradient)';
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,194,255,0.3)';
-            }
-          }}
-        >
-          {sending ? (isAr ? 'جاري الإرسال...' : 'Sending...') : labels.submit}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </button>
       </div>
 
-      <style>{`
-        .sr-two-col {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 16px;
-        }
-        @media (max-width: 560px) {
-          .sr-two-col {
-            grid-template-columns: 1fr;
+      {/* Service select */}
+      <div>
+        <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
+          {labels.service} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
+        </label>
+        <select
+          value={form.service}
+          required
+          onChange={(e) => setForm({ ...form, service: e.target.value })}
+          onFocus={() => setFocusedField('service')}
+          onBlur={() => setFocusedField(null)}
+          style={{
+            ...getFieldStyle('service'),
+            cursor: 'pointer',
+            appearance: 'none',
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8A472' strokeWidth='1.5' fill='none' strokeLinecap='round'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: isAr ? 'left 16px center' : 'right 16px center',
+          }}
+        >
+          <option value="" disabled style={{ background: '#0D1117' }}>{labels.servicePlaceholder}</option>
+          {labels.serviceOptions.map((opt) => (
+            <option key={opt.value} value={opt.value} style={{ background: '#0D1117' }}>{opt.label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Details */}
+      <div>
+        <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
+          {labels.details} <span style={{ color: '#00C2FF', fontSize: 11 }}>{labels.required}</span>
+        </label>
+        <textarea
+          placeholder={labels.detailsPlaceholder}
+          value={form.details}
+          required
+          rows={5}
+          onChange={(e) => setForm({ ...form, details: e.target.value })}
+          onFocus={() => setFocusedField('details')}
+          onBlur={() => setFocusedField(null)}
+          style={{ ...getFieldStyle('details'), resize: 'vertical' }}
+        />
+      </div>
+
+      {/* Extra - Optional */}
+      <div>
+        <label style={{ display: 'block', fontSize: 13, color: 'rgba(245,240,232,0.6)', marginBottom: 8, fontWeight: 600 }}>
+          {labels.extra} <span style={{ color: 'rgba(245,240,232,0.35)', fontSize: 11 }}>{labels.optional}</span>
+        </label>
+        <textarea
+          placeholder={labels.extraPlaceholder}
+          value={form.extra}
+          rows={3}
+          onChange={(e) => setForm({ ...form, extra: e.target.value })}
+          onFocus={() => setFocusedField('extra')}
+          onBlur={() => setFocusedField(null)}
+          style={{ ...getFieldStyle('extra'), resize: 'vertical' }}
+        />
+      </div>
+
+      {error && <p style={{ color: '#e74c3c', fontSize: 13, textAlign: 'center' }}>{error}</p>}
+
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={sending}
+        style={{
+          background: sending ? 'rgba(0,194,255,0.5)' : 'var(--btn-gradient)',
+          color: '#fff',
+          border: 'none',
+          padding: '16px 32px',
+          fontSize: 15,
+          fontWeight: 700,
+          fontFamily: 'Cairo, sans-serif',
+          cursor: sending ? 'not-allowed' : 'pointer',
+          letterSpacing: 0.5,
+          borderRadius: 50,
+          transition: 'all 0.3s',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 10,
+          opacity: sending ? 0.7 : 1,
+          boxShadow: '0 6px 20px rgba(0,194,255,0.3)',
+        }}
+        onMouseEnter={(e) => {
+          if (!sending) {
+            e.currentTarget.style.background = 'linear-gradient(135deg, #2A2A6E 0%, #1A4090 100%)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 0 28px rgba(0,194,255,0.6), 0 0 60px rgba(108,99,255,0.35), inset 0 1px 0 rgba(0,194,255,0.25)';
           }
+        }}
+        onMouseLeave={(e) => {
+          if (!sending) {
+            e.currentTarget.style.background = 'var(--btn-gradient)';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,194,255,0.3)';
+          }
+        }}
+      >
+        {sending ? (isAr ? 'جاري الإرسال...' : 'Sending...') : labels.submit}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <style>{`
+        @media (max-width: 600px) {
+          form > div:nth-child(2) { grid-template-columns: 1fr !important; }
         }
       `}</style>
-    </>
+    </form>
   );
 }
