@@ -47,7 +47,6 @@ export default function ServiceRequestPopup({
     };
   }, [open]);
 
-  /* الـ fix الحقيقي للـ scroll - نربط الـ wheel event مباشرة على الـ DOM element */
   useEffect(() => {
     if (!open) return undefined;
     const el = scrollRef.current;
@@ -57,9 +56,7 @@ export default function ServiceRequestPopup({
       const { scrollTop, scrollHeight, clientHeight } = el;
       const atTop = scrollTop === 0 && e.deltaY < 0;
       const atBottom = scrollTop + clientHeight >= scrollHeight && e.deltaY > 0;
-      if (!atTop && !atBottom) {
-        e.stopPropagation();
-      }
+      if (!atTop && !atBottom) e.stopPropagation();
       e.preventDefault();
       el.scrollTop += e.deltaY;
     };
@@ -77,143 +74,134 @@ export default function ServiceRequestPopup({
         background: 'rgba(5,8,7,0.78)',
         backdropFilter: 'blur(3px)',
         zIndex: 99999,
-        display: 'flex',
-        alignItems: 'flex-start', 
-        justifyContent: 'center',
-        padding: '20px 16px',
-        overflow: 'hidden',
+        /* الـ overlay نفسه يعمل scroll - ده بيحل مشكلة فوق وتحت */
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        /* padding متساوي فوق وتحت عشان يبقى في المنتص */
+        padding: '40px 16px',
       }}
     >
+      {/* wrapper داخلي بـ minHeight عشان الـ flex centering يشتغل حتى لو الـ content أطول */}
       <div
-        className="service-request-modal"
-        onClick={(e) => e.stopPropagation()}
         style={{
-          width: 'min(980px, 100%)',
-          maxHeight: 'calc(100vh - 40px)',
+          minHeight: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
-          border: '1px solid rgba(0,194,255,0.18)',
-          borderRadius: 18,
-          boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
-          position: 'relative',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        {/* ==============================
-            زرار X
-            top: -10   ← المسافة من فوق
-            right: 5   ← المسافة من اليمين (أو left لو isAr)
-            للموبايل غيّر في @media أسفل
-        ============================== */}
-        <button
-          type="button"
-          className="close-btn"
-          aria-label={isAr ? 'إغلاق' : 'Close'}
-          onClick={() => setOpen(false)}
-          style={{
-            position: 'absolute',
-            top: -10,                         /* ← غيّر الرقم ده - ديسك توب */
-            [isAr ? 'left' : 'right']: 5,    /* ← أو الرقم ده - ديسك توب */
-            width: 34,
-            height: 34,
-             flexShrink: 0,        // ← ضيف ده
-            borderRadius: '50%',
-            border: '1px solid rgba(0,194,255,0.3)',
-            background: 'rgba(13,17,23,0.95)',
-            color: '#00C2FF',
-            fontSize: 20,
-            cursor: 'pointer',
-            zIndex: 4,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-            transition: 'background 0.2s, border-color 0.2s',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(0,194,255,0.18)';
-            e.currentTarget.style.borderColor = 'rgba(0,194,255,0.6)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(13,17,23,0.95)';
-            e.currentTarget.style.borderColor = 'rgba(0,194,255,0.3)';
-          }}
-        >
-          ×
-        </button>
-
-        {/* ==============================
-            منطقة الـ Scroll
-        ============================== */}
         <div
-          ref={scrollRef}
-          className="service-request-modal-scroll"
+          className="service-request-modal"
+          onClick={(e) => e.stopPropagation()}
           style={{
-            flex: 1,
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            WebkitOverflowScrolling: 'touch',
-            touchAction: 'pan-y',
-            padding: '58px 30px 30px',
-            scrollbarColor: 'rgba(0,194,255,0.45) rgba(255,255,255,0.05)',
-            scrollbarWidth: 'thin',
+            width: 'min(980px, 100%)',
+            display: 'flex',
+            flexDirection: 'column',
+            background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
+            border: '1px solid rgba(0,194,255,0.18)',
+            borderRadius: 18,
+            boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
+            position: 'relative',
           }}
         >
-          <h3
+          {/* ==============================
+              زرار X - داخل الـ modal تماماً
+              top: 12   ← المسافة من فوق     (ديسك توب)
+              right: 12 ← المسافة من اليمين  (ديسك توب)
+              للموبايل غيّر في @media أسفل
+          ============================== */}
+          <button
+            type="button"
+            className="close-btn"
+            aria-label={isAr ? 'إغلاق' : 'Close'}
+            onClick={() => setOpen(false)}
             style={{
-              fontSize: 24,
-              fontWeight: 700,
-              color: 'var(--bmc-white)',
-              marginBottom: 10,
+              position: 'absolute',
+              top: 12,                          /* ← غيّر الرقم ده - ديسك توب */
+              [isAr ? 'left' : 'right']: 12,   /* ← أو الرقم ده - ديسك توب */
+              width: 34,
+              height: 34,
+              flexShrink: 0,
+              borderRadius: '50%',
+              border: '1px solid rgba(0,194,255,0.3)',
+              background: 'rgba(13,17,23,0.95)',
+              color: '#00C2FF',
+              fontSize: 20,
+              cursor: 'pointer',
+              zIndex: 4,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+              transition: 'background 0.2s, border-color 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(0,194,255,0.18)';
+              e.currentTarget.style.borderColor = 'rgba(0,194,255,0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(13,17,23,0.95)';
+              e.currentTarget.style.borderColor = 'rgba(0,194,255,0.3)';
             }}
           >
-            {title}
-          </h3>
-          <p
-            style={{
-              fontSize: 14,
-              color: 'rgba(245,240,232,0.6)',
-              marginBottom: 26,
-              lineHeight: 1.8,
-            }}
-          >
-            {subtitle}
-          </p>
+            ×
+          </button>
+
+          {/* محتوى الـ modal - بدون scroll هنا، الـ overlay هو اللي بيعمل scroll */}
           <div
+            ref={scrollRef}
+            className="service-request-modal-scroll"
             style={{
-              width: 76,
-              height: 3,
-              borderRadius: 999,
-              background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
-              marginBottom: 28,
+              padding: '58px 30px 30px',
             }}
-          />
-          <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
+          >
+            <h3
+              style={{
+                fontSize: 24,
+                fontWeight: 700,
+                color: 'var(--bmc-white)',
+                marginBottom: 10,
+              }}
+            >
+              {title}
+            </h3>
+            <p
+              style={{
+                fontSize: 14,
+                color: 'rgba(245,240,232,0.6)',
+                marginBottom: 26,
+                lineHeight: 1.8,
+              }}
+            >
+              {subtitle}
+            </p>
+            <div
+              style={{
+                width: 76,
+                height: 3,
+                borderRadius: 999,
+                background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
+                marginBottom: 28,
+              }}
+            />
+            <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
+          </div>
+
+          <style>{`
+            @media (max-width: 520px) {
+              .service-request-modal {
+                border-radius: 14px !important;
+              }
+              .service-request-modal-scroll {
+                padding: 54px 16px 24px !important;
+              }
+              .service-request-modal .close-btn {
+                top: 12px !important;    /* ← غيّر الرقم ده - موبايل */
+                right: 12px !important;  /* ← أو الرقم ده - موبايل */
+              }
+            }
+          `}</style>
         </div>
-
-        <style>{`
-          .service-request-modal-scroll::-webkit-scrollbar { width: 6px; }
-          .service-request-modal-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 999px; }
-          .service-request-modal-scroll::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
-          .service-request-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
-
-          @media (max-width: 520px) {
-            .service-request-modal {
-              max-height: calc(100vh - 24px) !important;
-              border-radius: 14px !important;
-                  margin-top: 8px !important;
-                  margin-bottom: 8px !important;
-
-            }
-            .service-request-modal-scroll {
-              padding: 54px 16px 24px !important;
-            }
-            .service-request-modal .close-btn {
-              top: -35px !important;    /* ← غيّر الرقم ده - موبايل */
-              right: -25px !important;   /* ← أو الرقم ده - موبايل */
-            }
-          }
-        `}</style>
       </div>
     </div>
   ) : null;
