@@ -22,27 +22,9 @@ export default function ServiceRequestPopup({
 
   useEffect(() => {
     if (!open) return undefined;
-
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') setOpen(false);
-    };
-
-    // بس نخبي الـ body scroll - مش html عشان الـ overlay يشتغل
-    const scrollY = window.scrollY;
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
+    const handleKeyDown = (e) => { if (e.key === 'Escape') setOpen(false); };
     window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      window.scrollTo(0, scrollY);
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [open]);
 
   const modal = open ? (
@@ -51,96 +33,84 @@ export default function ServiceRequestPopup({
       style={{
         position: 'fixed',
         inset: 0,
+        zIndex: 99999,
         background: 'rgba(5,8,7,0.78)',
         backdropFilter: 'blur(3px)',
-        zIndex: 99999,
         overflowY: 'auto',
         overflowX: 'hidden',
         WebkitOverflowScrolling: 'touch',
+        padding: '60px 16px 40px',
+        boxSizing: 'border-box',
       }}
     >
-      <div
+      {/* زرار X - fixed على الـ viewport دايماً */}
+      <button
+        type="button"
+        aria-label={isAr ? 'إغلاق' : 'Close'}
+        onClick={(e) => { e.stopPropagation(); setOpen(false); }}
         style={{
-          minHeight: '100%',
+          position: 'fixed',
+          top: 16,
+          [isAr ? 'left' : 'right']: 16,
+          width: 38,
+          height: 38,
+          borderRadius: '50%',
+          border: '1px solid rgba(0,194,255,0.3)',
+          background: 'rgba(13,17,23,0.95)',
+          color: '#00C2FF',
+          fontSize: 22,
+          cursor: 'pointer',
+          zIndex: 100000,
           display: 'flex',
-          alignItems: 'flex-start',
+          alignItems: 'center',
           justifyContent: 'center',
-          padding: '40px 16px',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+          transition: 'background 0.2s, border-color 0.2s',
+          lineHeight: 1,
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'rgba(0,194,255,0.18)';
+          e.currentTarget.style.borderColor = 'rgba(0,194,255,0.6)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'rgba(13,17,23,0.95)';
+          e.currentTarget.style.borderColor = 'rgba(0,194,255,0.3)';
+        }}
+      >
+        ×
+      </button>
+
+      {/* الـ modal card */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: 'min(980px, 100%)',
+          margin: '0 auto',
+          background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
+          border: '1px solid rgba(0,194,255,0.18)',
+          borderRadius: 18,
+          boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
+          padding: '36px 30px 30px',
           boxSizing: 'border-box',
         }}
       >
-        <div
-          className="service-request-modal"
-          onClick={(e) => e.stopPropagation()}
-          style={{
-            width: 'min(980px, 100%)',
-            background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
-            border: '1px solid rgba(0,194,255,0.18)',
-            borderRadius: 18,
-            boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
-            position: 'relative',
-            padding: '58px 30px 30px',
-            boxSizing: 'border-box',
-          }}
-        >
-          <button
-            type="button"
-            aria-label={isAr ? 'إغلاق' : 'Close'}
-            onClick={() => setOpen(false)}
-            style={{
-              position: 'absolute',
-              top: 12,
-              [isAr ? 'left' : 'right']: 12,
-              width: 34,
-              height: 34,
-              borderRadius: '50%',
-              border: '1px solid rgba(0,194,255,0.3)',
-              background: 'rgba(13,17,23,0.95)',
-              color: '#00C2FF',
-              fontSize: 20,
-              cursor: 'pointer',
-              zIndex: 4,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-              transition: 'background 0.2s, border-color 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(0,194,255,0.18)';
-              e.currentTarget.style.borderColor = 'rgba(0,194,255,0.6)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(13,17,23,0.95)';
-              e.currentTarget.style.borderColor = 'rgba(0,194,255,0.3)';
-            }}
-          >
-            ×
-          </button>
-
-          <h3 style={{ fontSize: 24, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 10 }}>
-            {title}
-          </h3>
-          <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.6)', marginBottom: 26, lineHeight: 1.8 }}>
-            {subtitle}
-          </p>
-          <div
-            style={{
-              width: 76, height: 3, borderRadius: 999,
-              background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
-              marginBottom: 28,
-            }}
-          />
-          <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
-        </div>
+        <h3 style={{ fontSize: 24, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 10, marginTop: 0 }}>
+          {title}
+        </h3>
+        <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.6)', marginBottom: 26, lineHeight: 1.8 }}>
+          {subtitle}
+        </p>
+        <div style={{
+          width: 76, height: 3, borderRadius: 999,
+          background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
+          marginBottom: 28,
+        }} />
+        <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
       </div>
 
       <style>{`
         @media (max-width: 520px) {
-          .service-request-modal {
-            border-radius: 14px !important;
-            padding: 52px 16px 24px !important;
-          }
+          .sr-modal-card { border-radius: 14px !important; padding: 28px 16px 24px !important; }
         }
       `}</style>
     </div>
@@ -149,14 +119,12 @@ export default function ServiceRequestPopup({
   return (
     <>
       {!hideLauncher && (
-        <div
-          style={{
-            background: 'var(--bmc-dark-3)',
-            border: '1px solid rgba(108,99,255,0.15)',
-            padding: '40px 36px',
-            textAlign: 'center',
-          }}
-        >
+        <div style={{
+          background: 'var(--bmc-dark-3)',
+          border: '1px solid rgba(108,99,255,0.15)',
+          padding: '40px 36px',
+          textAlign: 'center',
+        }}>
           <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 10 }}>
             {title}
           </h3>
@@ -205,7 +173,6 @@ export default function ServiceRequestPopup({
           </SnakeButton>
         </div>
       )}
-
       {modal ? createPortal(modal, document.body) : null}
     </>
   );

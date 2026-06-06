@@ -37,19 +37,19 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
     service: isAr ? 'ما الذي تريده؟' : 'What do you need?',
     servicePlaceholder: isAr ? 'اختر الخدمة المطلوبة' : 'Select the desired service',
     serviceOptions: [
-      { value: 'web', label: isAr ? 'تطوير موقع إلكتروني' : 'Website Development' },
-      { value: 'ecommerce', label: isAr ? 'تطوير متجر إلكتروني' : 'E-Commerce Development' },
-      { value: 'mobile', label: isAr ? 'تطوير تطبيق موبايل' : 'Mobile App Development' },
-      { value: 'erp', label: isAr ? 'نظام ERP / إدارة' : 'ERP / Management System' },
-      { value: 'uiux', label: isAr ? 'تصميم UI/UX' : 'UI/UX Design' },
-      { value: 'ai', label: isAr ? 'التسويق الرقمي' : 'Digital Marketing' },
-      { value: 'other', label: isAr ? 'أخرى' : 'Other' },
+      { value: 'web',       label: isAr ? 'تطوير موقع إلكتروني'  : 'Website Development'    },
+      { value: 'ecommerce', label: isAr ? 'تطوير متجر إلكتروني'  : 'E-Commerce Development'  },
+      { value: 'mobile',    label: isAr ? 'تطوير تطبيق موبايل'   : 'Mobile App Development'  },
+      { value: 'erp',       label: isAr ? 'نظام ERP / إدارة'     : 'ERP / Management System' },
+      { value: 'uiux',      label: isAr ? 'تصميم UI/UX'          : 'UI/UX Design'            },
+      { value: 'ai',        label: isAr ? 'التسويق الرقمي'        : 'Digital Marketing'       },
+      { value: 'other',     label: isAr ? 'أخرى'                  : 'Other'                   },
     ],
     details: isAr ? 'اكتب طلبك بالتفصيل' : 'Describe your request in detail',
     detailsPlaceholder: isAr
       ? 'صف مشروعك أو ما تحتاجه بأكبر قدر من التفاصيل...'
       : 'Describe your project or needs in as much detail as possible...',
-    extra: isAr ? 'معلومات إضافية (اختياري)' : 'Additional Information (Optional)',
+    extra: isAr ? 'معلومات إضافية' : 'Additional Information',
     extraPlaceholder: isAr
       ? 'ميزانيتك التقريبية، الوقت المتوقع، أي تفاصيل أخرى...'
       : 'Your approximate budget, expected timeline, any other details...',
@@ -73,10 +73,9 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
-  const [focusedField, setFocusedField] = useState(null);
+  const [focused, setFocused] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setSending(true);
     setError('');
     try {
@@ -95,14 +94,14 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
     setSending(false);
   };
 
-  const fieldStyle = (name) => ({
+  const fs = (name) => ({
     ...inputBase,
-    borderColor: focusedField === name ? 'rgba(0,194,255,0.5)' : 'rgba(108,99,255,0.2)',
+    borderColor: focused === name ? 'rgba(0,194,255,0.5)' : 'rgba(108,99,255,0.2)',
   });
 
-  const fp = (name) => ({
-    onFocus: () => setFocusedField(name),
-    onBlur: () => setFocusedField(null),
+  const events = (name) => ({
+    onFocus: () => setFocused(name),
+    onBlur:  () => setFocused(null),
   });
 
   if (sent) {
@@ -148,14 +147,13 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
             type="text"
             placeholder={labels.contactMethodPlaceholder}
             value={form.contact}
-            required
             onChange={(e) => setForm({ ...form, contact: e.target.value })}
-            style={fieldStyle('contact')}
-            {...fp('contact')}
+            style={fs('contact')}
+            {...events('contact')}
           />
         </div>
 
-        {/* Name + Phone - stack on mobile */}
+        {/* Name + Phone */}
         <div className="sr-two-col">
           <div>
             <label style={labelStyle}>
@@ -165,10 +163,9 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
               type="text"
               placeholder={labels.fullNamePlaceholder}
               value={form.name}
-              required
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              style={fieldStyle('name')}
-              {...fp('name')}
+              style={fs('name')}
+              {...events('name')}
             />
           </div>
           <div>
@@ -179,11 +176,10 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
               type="tel"
               placeholder={labels.phonePlaceholder}
               value={form.phone}
-              required
               dir="ltr"
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              style={{ ...fieldStyle('phone'), textAlign: isAr ? 'right' : 'left' }}
-              {...fp('phone')}
+              style={{ ...fs('phone'), textAlign: isAr ? 'right' : 'left' }}
+              {...events('phone')}
             />
           </div>
         </div>
@@ -195,17 +191,16 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
           </label>
           <select
             value={form.service}
-            required
             onChange={(e) => setForm({ ...form, service: e.target.value })}
             style={{
-              ...fieldStyle('service'),
+              ...fs('service'),
               cursor: 'pointer',
               appearance: 'none',
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B8A472' strokeWidth='1.5' fill='none' strokeLinecap='round'/%3E%3C/svg%3E")`,
               backgroundRepeat: 'no-repeat',
               backgroundPosition: isAr ? 'left 16px center' : 'right 16px center',
             }}
-            {...fp('service')}
+            {...events('service')}
           >
             <option value="" disabled style={{ background: '#0D1117' }}>{labels.servicePlaceholder}</option>
             {labels.serviceOptions.map((opt) => (
@@ -222,11 +217,10 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
           <textarea
             placeholder={labels.detailsPlaceholder}
             value={form.details}
-            required
             rows={5}
             onChange={(e) => setForm({ ...form, details: e.target.value })}
-            style={{ ...fieldStyle('details'), resize: 'vertical' }}
-            {...fp('details')}
+            style={{ ...fs('details'), resize: 'vertical' }}
+            {...events('details')}
           />
         </div>
 
@@ -240,12 +234,14 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
             value={form.extra}
             rows={3}
             onChange={(e) => setForm({ ...form, extra: e.target.value })}
-            style={{ ...fieldStyle('extra'), resize: 'vertical' }}
-            {...fp('extra')}
+            style={{ ...fs('extra'), resize: 'vertical' }}
+            {...events('extra')}
           />
         </div>
 
-        {error && <p style={{ color: '#e74c3c', fontSize: 13, textAlign: 'center', margin: 0 }}>{error}</p>}
+        {error && (
+          <p style={{ color: '#e74c3c', fontSize: 13, textAlign: 'center', margin: 0 }}>{error}</p>
+        )}
 
         {/* Submit */}
         <button
@@ -302,7 +298,7 @@ export default function ServiceRequestForm({ lang, preselectedService }) {
         }
         @media (max-width: 560px) {
           .sr-two-col {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: 1fr;
           }
         }
       `}</style>
