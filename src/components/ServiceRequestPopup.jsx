@@ -31,9 +31,8 @@ export default function ServiceRequestPopup({
     const setVvh = () => {
       const vvNow = window.visualViewport;
       const height = vvNow && vvNow.height ? vvNow.height : window.innerHeight;
-      const offsetTop = vvNow && typeof vvNow.offsetTop === 'number' ? vvNow.offsetTop : 0;
+      // على موبايل نتجاهل offsetTop تماماً - الـ overlay هيكون inset:0 ثابت
       document.documentElement.style.setProperty('--sr-vv-height', `${Math.round(height)}px`);
-      document.documentElement.style.setProperty('--sr-vv-top', `${Math.round(offsetTop)}px`);
     };
 
     setVvh();
@@ -45,26 +44,38 @@ export default function ServiceRequestPopup({
       window.addEventListener('resize', setVvh);
     }
 
-    const initialScrollY = window.scrollY;
-    if (initialScrollY === 0) window.scrollTo(0, 1);
-    const scrollY = window.scrollY;
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
+    // *** الـ fix الصح: بدل position:fixed على الـ body اللي بيعمل jump،
+    //     نحفظ الـ scrollY ونضيف class بس - من غير ما نغير الـ top ***
+    const scrollY = window.scrollY || window.pageYOffset;
+    const styleId = 'sr-body-lock';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        .sr-body-locked {
+          overflow: hidden !important;
+          position: fixed !important;
+          width: 100% !important;
+          top: var(--sr-lock-top, 0px) !important;
+        }
+        html.sr-html-locked { overflow: hidden !important; }
+      `;
+      document.head.appendChild(style);
+    }
+
+    document.documentElement.style.setProperty('--sr-lock-top', `-${scrollY}px`);
+    document.documentElement.classList.add('sr-html-locked');
+    document.body.classList.add('sr-body-locked');
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.top = '';
-      window.scrollTo(0, initialScrollY);
+      document.documentElement.classList.remove('sr-html-locked');
+      document.body.classList.remove('sr-body-locked');
+      document.documentElement.style.removeProperty('--sr-lock-top');
+      // نرجع الـ scroll للمكان الصح
+      window.scrollTo({ top: scrollY, behavior: 'instant' });
       window.removeEventListener('keydown', handleKeyDown);
       document.documentElement.style.removeProperty('--sr-vv-height');
-      document.documentElement.style.removeProperty('--sr-vv-top');
       if (vv) {
         vv.removeEventListener('resize', setVvh);
         vv.removeEventListener('scroll', setVvh);
@@ -145,15 +156,12 @@ export default function ServiceRequestPopup({
       onClick={() => setOpen(false)}
       style={{
         position: 'fixed',
-        left: 0,
-        right: 0,
-        top: 'var(--sr-vv-top, 0px)',
-        height: 'var(--sr-vv-height, 100vh)',
+        inset: 0,
         background: 'rgba(5,8,7,0.78)',
         backdropFilter: 'blur(3px)',
         zIndex: 99999,
         display: 'flex',
-        alignItems: 'flex-start', 
+        alignItems: 'flex-start',
         justifyContent: 'center',
         padding: '20px 16px 48px',
         overflowY: 'auto',
@@ -167,7 +175,7 @@ export default function ServiceRequestPopup({
         onClick={(e) => e.stopPropagation()}
         style={{
           width: 'min(980px, 100%)',
-          maxHeight: 'calc(var(--sr-vv-height, 100vh) - 68px)',
+          maxHeight: 'calc(100dvh - 68px)',
           display: 'flex',
           flexDirection: 'column',
           background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
@@ -276,26 +284,23 @@ export default function ServiceRequestPopup({
           .service-request-modal-scroll::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
           .service-request-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
 
+          /* safe-area padding للـ overlay */
           .service-request-modal-overlay {
             padding: calc(20px + env(safe-area-inset-top)) 16px calc(48px + env(safe-area-inset-bottom)) !important;
           }
 
+          /* الـ modal يشغل كل الـ viewport بدون vv hacks */
           .service-request-modal {
-            max-height: calc(100vh - 68px) !important;
             max-height: calc(100dvh - 68px) !important;
-            max-height: calc(var(--sr-vv-height, 100dvh) - 68px) !important;
           }
 
           @media (max-width: 520px) {
             .service-request-modal-overlay {
-              padding: 26px 10px 36px !important;
               padding: calc(26px + env(safe-area-inset-top)) 10px calc(36px + env(safe-area-inset-bottom)) !important;
               align-items: flex-start !important;
             }
             .service-request-modal {
-              max-height: calc(100vh - 46px) !important;
               max-height: calc(100dvh - 46px) !important;
-              max-height: calc(var(--sr-vv-height, 100dvh) - 46px) !important;
               border-radius: 14px !important;
               margin-top: 0 !important;
             }
