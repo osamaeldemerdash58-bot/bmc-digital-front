@@ -155,7 +155,7 @@ export default function ServiceRequestPopup({
             overflowX: 'hidden',
             WebkitOverflowScrolling: 'touch',
             touchAction: 'pan-y',
-            padding: '58px 30px 30px',
+            padding: '28px 30px 30px',
             scrollbarColor: 'rgba(0,194,255,0.45) rgba(255,255,255,0.05)',
             scrollbarWidth: 'thin',
           }}
@@ -208,7 +208,7 @@ export default function ServiceRequestPopup({
               margin-top: 8px !important;
             }
             .service-request-modal-scroll {
-              padding: 54px 16px 24px !important;
+              padding: 28px 16px 24px !important;
             }
             .service-request-modal .close-btn {
               top: -35px !important;    /* ← غيّر الرقم ده - موبايل */
