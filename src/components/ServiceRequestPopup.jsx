@@ -200,16 +200,16 @@ export default function ServiceRequestPopup({
 
           @media (max-width: 520px) {
             .service-request-modal-overlay {
-              padding: 12px 12px 40px !important;
+              padding: 26px 10px 36px !important;
               align-items: flex-start !important;
             }
             .service-request-modal {
-              max-height: calc(100vh - 52px) !important;
+              max-height: calc(100vh - 46px) !important;
               border-radius: 14px !important;
               margin-top: 0 !important;
             }
             .service-request-modal-scroll {
-              padding: 14px 16px 20px !important;
+              padding: 20px 16px 20px !important;
             }
             .service-request-modal-scroll h3 {
               font-size: 18px !important;
@@ -222,8 +222,9 @@ export default function ServiceRequestPopup({
               margin-bottom: 16px !important;
             }
             .service-request-modal .close-btn {
-              top: -35px !important;
-              right: -25px !important;
+              top: -17px !important;
+              right: 10px !important;
+              left: auto !important;
             }
           }
         `}</style>
