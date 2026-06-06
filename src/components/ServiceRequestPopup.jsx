@@ -28,6 +28,20 @@ export default function ServiceRequestPopup({
       if (e.key === 'Escape') setOpen(false);
     };
 
+    const setVvh = () => {
+      const h = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
+      document.documentElement.style.setProperty('--sr-vvh', `${Math.round(h)}px`);
+    };
+
+    setVvh();
+    const vv = window.visualViewport;
+    if (vv) {
+      vv.addEventListener('resize', setVvh);
+      vv.addEventListener('scroll', setVvh);
+    } else {
+      window.addEventListener('resize', setVvh);
+    }
+
     const scrollY = window.scrollY;
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
@@ -44,6 +58,13 @@ export default function ServiceRequestPopup({
       document.body.style.top = '';
       window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', handleKeyDown);
+      document.documentElement.style.removeProperty('--sr-vvh');
+      if (vv) {
+        vv.removeEventListener('resize', setVvh);
+        vv.removeEventListener('scroll', setVvh);
+      } else {
+        window.removeEventListener('resize', setVvh);
+      }
     };
   }, [open]);
 
@@ -135,7 +156,7 @@ export default function ServiceRequestPopup({
         onClick={(e) => e.stopPropagation()}
         style={{
           width: 'min(980px, 100%)',
-          maxHeight: 'calc(100vh - 68px)',
+          maxHeight: 'calc(var(--sr-vvh, 100vh) - 68px)',
           display: 'flex',
           flexDirection: 'column',
           background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
@@ -251,6 +272,7 @@ export default function ServiceRequestPopup({
           .service-request-modal {
             max-height: calc(100vh - 68px) !important;
             max-height: calc(100dvh - 68px) !important;
+            max-height: calc(var(--sr-vvh, 100dvh) - 68px) !important;
           }
 
           @media (max-width: 520px) {
@@ -262,6 +284,7 @@ export default function ServiceRequestPopup({
             .service-request-modal {
               max-height: calc(100vh - 46px) !important;
               max-height: calc(100dvh - 46px) !important;
+              max-height: calc(var(--sr-vvh, 100dvh) - 46px) !important;
               border-radius: 14px !important;
               margin-top: 0 !important;
             }
