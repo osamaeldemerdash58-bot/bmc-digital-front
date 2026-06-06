@@ -27,24 +27,23 @@ export default function ServiceRequestPopup({
       if (e.key === 'Escape') setOpen(false);
     };
 
+    // بس نخبي الـ body scroll - مش html عشان الـ overlay يشتغل
     const scrollY = window.scrollY;
-    // بنحفظ الـ scrollY في data attribute عشان نرجعله بعدين
-    document.body.dataset.scrollY = scrollY;
     document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      const savedY = parseInt(document.body.dataset.scrollY || '0', 10);
-      delete document.body.dataset.scrollY;
-      window.scrollTo(0, savedY);
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [open]);
-
-
 
   const modal = open ? (
     <div
@@ -57,18 +56,17 @@ export default function ServiceRequestPopup({
         zIndex: 99999,
         overflowY: 'auto',
         overflowX: 'hidden',
-        // مهم جداً على iOS عشان الـ scroll يشتغل داخل الـ overlay
         WebkitOverflowScrolling: 'touch',
-        padding: '40px 16px',
       }}
     >
-      {/* wrapper داخلي بـ minHeight عشان الـ flex centering يشتغل حتى لو الـ content أطول */}
       <div
         style={{
           minHeight: '100%',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           justifyContent: 'center',
+          padding: '40px 16px',
+          boxSizing: 'border-box',
         }}
       >
         <div
@@ -76,33 +74,25 @@ export default function ServiceRequestPopup({
           onClick={(e) => e.stopPropagation()}
           style={{
             width: 'min(980px, 100%)',
-            display: 'flex',
-            flexDirection: 'column',
             background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
             border: '1px solid rgba(0,194,255,0.18)',
             borderRadius: 18,
             boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
             position: 'relative',
+            padding: '58px 30px 30px',
+            boxSizing: 'border-box',
           }}
         >
-          {/* ==============================
-              زرار X - داخل الـ modal تماماً
-              top: 12   ← المسافة من فوق     (ديسك توب)
-              right: 12 ← المسافة من اليمين  (ديسك توب)
-              للموبايل غيّر في @media أسفل
-          ============================== */}
           <button
             type="button"
-            className="close-btn"
             aria-label={isAr ? 'إغلاق' : 'Close'}
             onClick={() => setOpen(false)}
             style={{
               position: 'absolute',
-              top: 12,                          /* ← غيّر الرقم ده - ديسك توب */
-              [isAr ? 'left' : 'right']: 12,   /* ← أو الرقم ده - ديسك توب */
+              top: 12,
+              [isAr ? 'left' : 'right']: 12,
               width: 34,
               height: 34,
-              flexShrink: 0,
               borderRadius: '50%',
               border: '1px solid rgba(0,194,255,0.3)',
               background: 'rgba(13,17,23,0.95)',
@@ -128,61 +118,31 @@ export default function ServiceRequestPopup({
             ×
           </button>
 
-          {/* محتوى الـ modal - بدون scroll هنا، الـ overlay هو اللي بيعمل scroll */}
+          <h3 style={{ fontSize: 24, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 10 }}>
+            {title}
+          </h3>
+          <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.6)', marginBottom: 26, lineHeight: 1.8 }}>
+            {subtitle}
+          </p>
           <div
-            className="service-request-modal-scroll"
             style={{
-              padding: '58px 30px 30px',
+              width: 76, height: 3, borderRadius: 999,
+              background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
+              marginBottom: 28,
             }}
-          >
-            <h3
-              style={{
-                fontSize: 24,
-                fontWeight: 700,
-                color: 'var(--bmc-white)',
-                marginBottom: 10,
-              }}
-            >
-              {title}
-            </h3>
-            <p
-              style={{
-                fontSize: 14,
-                color: 'rgba(245,240,232,0.6)',
-                marginBottom: 26,
-                lineHeight: 1.8,
-              }}
-            >
-              {subtitle}
-            </p>
-            <div
-              style={{
-                width: 76,
-                height: 3,
-                borderRadius: 999,
-                background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
-                marginBottom: 28,
-              }}
-            />
-            <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
-          </div>
-
-          <style>{`
-            @media (max-width: 520px) {
-              .service-request-modal {
-                border-radius: 14px !important;
-              }
-              .service-request-modal-scroll {
-                padding: 54px 16px 24px !important;
-              }
-              .service-request-modal .close-btn {
-                top: 12px !important;    /* ← غيّر الرقم ده - موبايل */
-                right: 12px !important;  /* ← أو الرقم ده - موبايل */
-              }
-            }
-          `}</style>
+          />
+          <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 520px) {
+          .service-request-modal {
+            border-radius: 14px !important;
+            padding: 52px 16px 24px !important;
+          }
+        }
+      `}</style>
     </div>
   ) : null;
 
