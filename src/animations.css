@@ -263,7 +263,7 @@
 }
 
 .page-hero-services .ambient-glow-services {
-  background: radial-gradient(circle, rgba(0,194,255,0.20) 0%, rgba(46,213,115,0.10) 34%, transparent 72%);
+  background: radial-gradient(circle, rgba(0,194,255,0.26) 0%, rgba(0,194,255,0.10) 34%, transparent 72%);
 }
 
 .page-hero .floating-shape {
@@ -278,40 +278,100 @@
 .page-hero-contact .contact-shape-1 {
   width: 180px; height: 180px; top: 12%; right: 10%;
   background: linear-gradient(135deg, rgba(0,194,255,0.18), rgba(0,194,255,0.03));
+  animation: contactFloatA 8s ease-in-out infinite;
 }
 .page-hero-contact .contact-shape-2 {
   width: 120px; height: 120px; bottom: 12%; left: 12%;
   background: linear-gradient(135deg, rgba(0,194,255,0.12), rgba(108,99,255,0.02));
+  animation: contactFloatB 10s ease-in-out infinite;
 }
 .page-hero-contact .contact-shape-3 {
   width: 72px; height: 72px; top: 24%; left: 26%;
   background: rgba(0,194,255,0.15);
+  animation: contactPulse 4.5s ease-in-out infinite;
 }
 
 .page-hero-works .works-shape-1 {
   width: 200px; height: 200px; top: 14%; left: 8%;
   background: linear-gradient(135deg, rgba(108,99,255,0.18), rgba(255,122,89,0.02));
+  animation: worksOrbitA 12s linear infinite;
 }
 .page-hero-works .works-shape-2 {
   width: 130px; height: 130px; top: 18%; right: 18%;
   background: linear-gradient(135deg, rgba(255,122,89,0.14), rgba(108,99,255,0.02));
+  animation: worksOrbitB 9s linear infinite reverse;
 }
 .page-hero-works .works-shape-3 {
   width: 90px; height: 90px; bottom: 16%; right: 12%;
   background: rgba(255,122,89,0.12);
+  animation: worksBlink 5s ease-in-out infinite;
 }
 
 .page-hero-services .services-shape-1 {
   width: 190px; height: 190px; top: 10%; right: 12%;
-  background: linear-gradient(135deg, rgba(0,194,255,0.16), rgba(46,213,115,0.03));
+  background: linear-gradient(135deg, rgba(0,194,255,0.18), rgba(0,194,255,0.03));
+  animation: servicesSweepA 7s ease-in-out infinite;
 }
 .page-hero-services .services-shape-2 {
   width: 140px; height: 140px; bottom: 16%; left: 10%;
-  background: linear-gradient(135deg, rgba(46,213,115,0.14), rgba(0,194,255,0.02));
+  background: linear-gradient(135deg, rgba(0,194,255,0.12), rgba(0,194,255,0.02));
+  animation: servicesSweepB 9s ease-in-out infinite;
 }
 .page-hero-services .services-shape-3 {
   width: 84px; height: 84px; top: 28%; left: 24%;
-  background: rgba(46,213,115,0.12);
+  background: rgba(0,194,255,0.12);
+  animation: servicesScale 5.5s ease-in-out infinite;
+}
+
+.page-hero-contact .grid-floor {
+  animation-duration: 18s;
+}
+
+.page-hero-works .grid-floor {
+  animation-duration: 11s;
+  transform: perspective(520px) rotateX(62deg) translateY(18%);
+}
+
+.page-hero-services .grid-floor {
+  animation-duration: 24s;
+  opacity: 0.62;
+}
+
+@keyframes contactFloatA {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-18px, 16px, 0); }
+}
+@keyframes contactFloatB {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(22px, -14px, 0); }
+}
+@keyframes contactPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.96); }
+  50% { opacity: 0.8; transform: scale(1.08); }
+}
+@keyframes worksOrbitA {
+  from { transform: rotate(0deg) translateX(12px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(12px) rotate(-360deg); }
+}
+@keyframes worksOrbitB {
+  from { transform: rotate(0deg) translateY(10px) rotate(0deg); }
+  to { transform: rotate(360deg) translateY(10px) rotate(-360deg); }
+}
+@keyframes worksBlink {
+  0%, 100% { opacity: 0.28; transform: rotate(0deg) scale(0.92); }
+  50% { opacity: 0.78; transform: rotate(18deg) scale(1.08); }
+}
+@keyframes servicesSweepA {
+  0%, 100% { transform: translateX(0) skewX(0deg); }
+  50% { transform: translateX(-26px) skewX(-8deg); }
+}
+@keyframes servicesSweepB {
+  0%, 100% { transform: translateY(0) skewY(0deg); }
+  50% { transform: translateY(-22px) skewY(7deg); }
+}
+@keyframes servicesScale {
+  0%, 100% { transform: scale(1); opacity: 0.35; }
+  50% { transform: scale(1.18); opacity: 0.72; }
 }
 
 /* ── Tech card ── */

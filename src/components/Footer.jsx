@@ -234,6 +234,7 @@ export default function Footer({ lang }) {
                   { num: '3',    label: lang === 'ar' ? 'أعوام من الخبرة' : 'Years of Experience' },
                   { num: '+30',  label: lang === 'ar' ? 'عميل'            : 'Clients' },
                   { num: '+25',  label: lang === 'ar' ? 'مشروع منجز'      : 'Projects Done' },
+                  { num: '15+',  label: lang === 'ar' ? 'خدمة متاحة'      : 'Services' },
                 ].map(({ num, label }) => (
                   <div key={label} className="footer-stat-card">
                     <span className="footer-stat-num">{num}</span>

@@ -165,7 +165,7 @@ export default function ServicesPage({ lang, setLang }) {
       {/* Hero Section - Professional 3D Animated Background */}
       <section className="page-hero page-hero-services" style={{
         minHeight: '60vh',
-        background: 'linear-gradient(180deg, #111318 0%, #13201d 48%, #090b10 100%)',
+        background: 'linear-gradient(180deg, #07121c 0%, #0c1b2b 48%, #080d15 100%)',
         display: 'flex', alignItems: 'center', paddingTop: 110, paddingBottom: 100,
         position: 'relative', overflow: 'hidden',
       }}>

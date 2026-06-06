@@ -60,19 +60,13 @@ export default function ServiceRequestPopup({
         style={{
           width: 'min(980px, 100%)',
           maxHeight: '92vh',
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          WebkitOverflowScrolling: 'touch',
-          overscrollBehavior: 'contain',
-          touchAction: 'pan-y',
+          overflow: 'hidden',
           background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
           border: '1px solid rgba(0,194,255,0.18)',
           borderRadius: 18,
           boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
-          padding: '72px 30px 30px',
+          padding: 0,
           position: 'relative',
-          scrollbarColor: 'rgba(0,194,255,0.55) rgba(255,255,255,0.06)',
-          scrollbarWidth: 'thin',
         }}
       >
         <button
@@ -81,8 +75,8 @@ export default function ServiceRequestPopup({
           onClick={() => setOpen(false)}
           style={{
             position: 'absolute',
-            top: 18,
-            [isAr ? 'left' : 'right']: 14,
+            top: 16,
+            [isAr ? 'left' : 'right']: 16,
             width: 36,
             height: 36,
             borderRadius: '50%',
@@ -92,54 +86,70 @@ export default function ServiceRequestPopup({
             fontSize: 22,
             lineHeight: 1,
             cursor: 'pointer',
-            zIndex: 2,
+            zIndex: 3,
           }}
         >
           ×
         </button>
 
-        <h3
-          style={{
-            fontSize: 24,
-            fontWeight: 700,
-            color: 'var(--bmc-white)',
-            marginBottom: 10,
-            paddingLeft: isAr ? 52 : 0,
-            paddingRight: isAr ? 0 : 52,
-          }}
-        >
-          {title}
-        </h3>
-        <p
-          style={{
-            fontSize: 14,
-            color: 'rgba(245,240,232,0.6)',
-            marginBottom: 26,
-            lineHeight: 1.8,
-            paddingLeft: isAr ? 52 : 0,
-            paddingRight: isAr ? 0 : 52,
-          }}
-        >
-          {subtitle}
-        </p>
         <div
+          className="service-request-modal-scroll"
           style={{
-            width: 76,
-            height: 3,
-            borderRadius: 999,
-            background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
-            marginBottom: 28,
+            maxHeight: '92vh',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            WebkitOverflowScrolling: 'touch',
+            overscrollBehavior: 'contain',
+            touchAction: 'pan-y',
+            padding: '72px 30px 30px',
+            scrollbarColor: 'rgba(0,194,255,0.55) rgba(255,255,255,0.06)',
+            scrollbarWidth: 'thin',
           }}
-        />
-        <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
+        >
+          <h3
+            style={{
+              fontSize: 24,
+              fontWeight: 700,
+              color: 'var(--bmc-white)',
+              marginBottom: 10,
+              paddingLeft: isAr ? 52 : 0,
+              paddingRight: isAr ? 0 : 52,
+            }}
+          >
+            {title}
+          </h3>
+          <p
+            style={{
+              fontSize: 14,
+              color: 'rgba(245,240,232,0.6)',
+              marginBottom: 26,
+              lineHeight: 1.8,
+              paddingLeft: isAr ? 52 : 0,
+              paddingRight: isAr ? 0 : 52,
+            }}
+          >
+            {subtitle}
+          </p>
+          <div
+            style={{
+              width: 76,
+              height: 3,
+              borderRadius: 999,
+              background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
+              marginBottom: 28,
+            }}
+          />
+          <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
+        </div>
         <style>{`
-          .service-request-modal::-webkit-scrollbar { width: 10px; }
-          .service-request-modal::-webkit-scrollbar-track { background: rgba(255,255,255,0.06); border-radius: 999px; }
-          .service-request-modal::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
-          .service-request-modal::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
+          .service-request-modal-scroll::-webkit-scrollbar { width: 10px; }
+          .service-request-modal-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.06); border-radius: 999px; }
+          .service-request-modal-scroll::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
+          .service-request-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
 
           @media (max-width: 520px) {
-            .service-request-modal { padding: 80px 16px 22px !important; max-height: 94vh !important; border-radius: 16px !important; }
+            .service-request-modal { max-height: 94vh !important; border-radius: 16px !important; }
+            .service-request-modal-scroll { max-height: 94vh !important; padding: 80px 16px 22px !important; }
             .service-request-modal button[aria-label="Close"],
             .service-request-modal button[aria-label="إغلاق"] { top: 14px !important; }
           }

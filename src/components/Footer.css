@@ -189,7 +189,7 @@
   padding-top: 18px;
   border-top: 1px solid rgba(0,194,255,0.12);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
 
@@ -627,9 +627,6 @@
     gap: 10px;
   }
 
-  .footer-stats {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 600px) {
@@ -693,7 +690,4 @@
     height: 1px;
   }
 
-  .footer-stats {
-    grid-template-columns: 1fr;
-  }
 }
