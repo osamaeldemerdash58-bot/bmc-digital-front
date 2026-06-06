@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ServiceRequestForm from './ServiceRequestForm';
 import SnakeButton from './SnakeButton';
@@ -19,6 +19,7 @@ export default function ServiceRequestPopup({
     else setUncontrolledOpen(next);
   };
   const isAr = lang === 'ar';
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -46,6 +47,27 @@ export default function ServiceRequestPopup({
     };
   }, [open]);
 
+  /* الـ fix الحقيقي للـ scroll - نربط الـ wheel event مباشرة على الـ DOM element */
+  useEffect(() => {
+    if (!open) return undefined;
+    const el = scrollRef.current;
+    if (!el) return undefined;
+
+    const onWheel = (e) => {
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      const atTop = scrollTop === 0 && e.deltaY < 0;
+      const atBottom = scrollTop + clientHeight >= scrollHeight && e.deltaY > 0;
+      if (!atTop && !atBottom) {
+        e.stopPropagation();
+      }
+      e.preventDefault();
+      el.scrollTop += e.deltaY;
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [open]);
+
   const modal = open ? (
     <div
       onClick={() => setOpen(false)}
@@ -59,6 +81,7 @@ export default function ServiceRequestPopup({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '20px 16px',
+        overflow: 'hidden',
       }}
     >
       <div
@@ -66,7 +89,6 @@ export default function ServiceRequestPopup({
         onClick={(e) => e.stopPropagation()}
         style={{
           width: 'min(980px, 100%)',
-          /* الـ modal نفسه بيحدد الـ height ويعمل scroll جواه */
           maxHeight: 'calc(100vh - 40px)',
           display: 'flex',
           flexDirection: 'column',
@@ -77,29 +99,34 @@ export default function ServiceRequestPopup({
           position: 'relative',
         }}
       >
-        {/* زرار X - جوا الـ modal تمامًا، مش على الحافة */}
+        {/* ==============================
+            زرار X
+            top: -10   ← المسافة من فوق
+            right: 5   ← المسافة من اليمين (أو left لو isAr)
+            للموبايل غيّر في @media أسفل
+        ============================== */}
         <button
           type="button"
+          className="close-btn"
           aria-label={isAr ? 'إغلاق' : 'Close'}
           onClick={() => setOpen(false)}
           style={{
             position: 'absolute',
-            top: 14,
-            [isAr ? 'left' : 'right']: 14,
+            top: -10,                         /* ← غيّر الرقم ده - ديسك توب */
+            [isAr ? 'left' : 'right']: 5,    /* ← أو الرقم ده - ديسك توب */
             width: 34,
             height: 34,
+             flexShrink: 0,        // ← ضيف ده
             borderRadius: '50%',
             border: '1px solid rgba(0,194,255,0.3)',
             background: 'rgba(13,17,23,0.95)',
             color: '#00C2FF',
             fontSize: 20,
-            lineHeight: '34px',
             cursor: 'pointer',
             zIndex: 4,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0,
             boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
             transition: 'background 0.2s, border-color 0.2s',
           }}
@@ -115,15 +142,18 @@ export default function ServiceRequestPopup({
           ×
         </button>
 
-        {/* الـ scroll جوا الـ modal - flex: 1 يخليه يملا المساحة المتبقية */}
+        {/* ==============================
+            منطقة الـ Scroll
+        ============================== */}
         <div
+          ref={scrollRef}
           className="service-request-modal-scroll"
           style={{
             flex: 1,
             overflowY: 'auto',
             overflowX: 'hidden',
             WebkitOverflowScrolling: 'touch',
-            overscrollBehavior: 'contain',
+            touchAction: 'pan-y',
             padding: '58px 30px 30px',
             scrollbarColor: 'rgba(0,194,255,0.45) rgba(255,255,255,0.05)',
             scrollbarWidth: 'thin',
@@ -169,11 +199,15 @@ export default function ServiceRequestPopup({
 
           @media (max-width: 520px) {
             .service-request-modal {
-              max-height: calc(100vh - 32px) !important;
+              max-height: calc(100vh - 24px) !important;
               border-radius: 14px !important;
             }
             .service-request-modal-scroll {
               padding: 54px 16px 24px !important;
+            }
+            .service-request-modal .close-btn {
+              top: -35px !important;    /* ← غيّر الرقم ده - موبايل */
+              right: -25px !important;   /* ← أو الرقم ده - موبايل */
             }
           }
         `}</style>
