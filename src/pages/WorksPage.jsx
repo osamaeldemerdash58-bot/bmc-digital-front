@@ -111,6 +111,44 @@ export default function WorksPage({ lang, setLang }) {
         <div className="floating-shape shape-1 works-shape-1" />
         <div className="floating-shape shape-2 works-shape-2" />
         <div className="floating-shape shape-3 works-shape-3" />
+        <svg
+          className="works-hero-svg"
+          viewBox="0 0 540 360"
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: lang === 'ar' ? 'auto' : '3%',
+            left: lang === 'ar' ? '3%' : 'auto',
+            top: '13%',
+            width: 'min(42vw, 520px)',
+            opacity: 0.5,
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}
+        >
+          <defs>
+            <linearGradient id="worksSvgStroke" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stopColor="#00C2FF" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#6C63FF" stopOpacity="0.16" />
+            </linearGradient>
+          </defs>
+          <g className="works-board works-board-a">
+            <rect x="54" y="70" width="154" height="104" rx="14" fill="rgba(0,194,255,0.08)" stroke="url(#worksSvgStroke)" strokeWidth="2" />
+            <path d="M80 104 H174 M80 128 H142" stroke="#00C2FF" strokeOpacity="0.45" strokeWidth="2" strokeLinecap="round" />
+          </g>
+          <g className="works-board works-board-b">
+            <rect x="236" y="122" width="190" height="126" rx="16" fill="rgba(0,194,255,0.07)" stroke="#00C2FF" strokeOpacity="0.35" strokeWidth="2" />
+            <path d="M268 164 H390 M268 192 H348 M268 218 H374" stroke="#00C2FF" strokeOpacity="0.4" strokeWidth="2" strokeLinecap="round" />
+          </g>
+          <g className="works-board works-board-c">
+            <rect x="134" y="226" width="132" height="78" rx="14" fill="rgba(0,194,255,0.06)" stroke="#00C2FF" strokeOpacity="0.26" strokeWidth="2" />
+            <path d="M160 260 H238 M160 280 H210" stroke="#00C2FF" strokeOpacity="0.36" strokeWidth="2" strokeLinecap="round" />
+          </g>
+          <path className="works-connector" d="M208 122 C264 72 324 88 372 122" fill="none" stroke="#00C2FF" strokeOpacity="0.45" strokeWidth="2" strokeDasharray="8 10" />
+          <path className="works-connector works-connector--two" d="M250 248 C214 272 190 254 164 226" fill="none" stroke="#00C2FF" strokeOpacity="0.34" strokeWidth="2" strokeDasharray="7 9" />
+          <circle className="works-spark works-spark-a" cx="424" cy="92" r="7" fill="#00C2FF" />
+          <circle className="works-spark works-spark-b" cx="96" cy="222" r="5" fill="#00C2FF" />
+        </svg>
         {/* 3. Moving 3D Grid Floor */}
         <div className="grid-floor" />
 

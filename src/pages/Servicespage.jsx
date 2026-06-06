@@ -176,6 +176,38 @@ export default function ServicesPage({ lang, setLang }) {
         <div className="floating-shape shape-1 services-shape-1" />
         <div className="floating-shape shape-2 services-shape-2" />
         <div className="floating-shape shape-3 services-shape-3" />
+        <svg
+          className="services-hero-svg"
+          viewBox="0 0 520 360"
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: lang === 'ar' ? 'auto' : '4%',
+            left: lang === 'ar' ? '4%' : 'auto',
+            top: '14%',
+            width: 'min(40vw, 500px)',
+            opacity: 0.42,
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}
+        >
+          <defs>
+            <linearGradient id="servicesSvgStroke" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stopColor="#00C2FF" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#6C63FF" stopOpacity="0.18" />
+            </linearGradient>
+          </defs>
+          <path className="services-flow-line" d="M76 238 C132 126 221 276 276 166 S398 78 444 190" fill="none" stroke="url(#servicesSvgStroke)" strokeWidth="2" strokeLinecap="round" />
+          <path className="services-flow-line services-flow-line--slow" d="M96 118 C168 210 224 86 304 134 S382 260 462 112" fill="none" stroke="#00C2FF" strokeOpacity="0.34" strokeWidth="1.5" strokeLinecap="round" />
+          {[80, 164, 260, 344, 442].map((x, index) => (
+            <g key={x} className={`services-node services-node-${index + 1}`}>
+              <circle cx={x} cy={index % 2 ? 126 : 214} r="28" fill="rgba(0,194,255,0.08)" stroke="#00C2FF" strokeOpacity="0.45" />
+              <circle cx={x} cy={index % 2 ? 126 : 214} r="7" fill="#00C2FF" />
+            </g>
+          ))}
+          <rect className="services-panel-a" x="178" y="58" width="120" height="54" rx="12" fill="rgba(0,194,255,0.07)" stroke="#00C2FF" strokeOpacity="0.32" />
+          <rect className="services-panel-b" x="286" y="232" width="138" height="58" rx="12" fill="rgba(0,194,255,0.06)" stroke="#00C2FF" strokeOpacity="0.28" />
+        </svg>
         
         {/* 3. Moving 3D Grid Floor */}
         <div className="grid-floor" />

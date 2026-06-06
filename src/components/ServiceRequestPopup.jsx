@@ -19,11 +19,15 @@ export default function ServiceRequestPopup({
     else setUncontrolledOpen(next);
   };
   const isAr = lang === 'ar';
+  const preventBackgroundScroll = (e) => {
+    e.preventDefault();
+  };
   const handleModalWheel = (e) => {
     const scrollEl = e.currentTarget.querySelector('.service-request-modal-scroll');
     if (!scrollEl) return;
 
     e.preventDefault();
+    e.stopPropagation();
     scrollEl.scrollTop += e.deltaY;
   };
 
@@ -37,11 +41,25 @@ export default function ServiceRequestPopup({
     };
 
     const originalOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalBodyPosition = document.body.style.position;
+    const originalBodyWidth = document.body.style.width;
+    const originalBodyTop = document.body.style.top;
+    const scrollY = window.scrollY;
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = originalOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      document.body.style.position = originalBodyPosition;
+      document.body.style.width = originalBodyWidth;
+      document.body.style.top = originalBodyTop;
+      window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [open]);
@@ -49,6 +67,8 @@ export default function ServiceRequestPopup({
   const modal = open ? (
     <div
       onClick={() => setOpen(false)}
+      onWheel={preventBackgroundScroll}
+      onTouchMove={preventBackgroundScroll}
       style={{
         position: 'fixed',
         inset: 0,
@@ -65,6 +85,7 @@ export default function ServiceRequestPopup({
         className="service-request-modal"
         onClick={(e) => e.stopPropagation()}
         onWheel={handleModalWheel}
+        onTouchMove={(e) => e.stopPropagation()}
         style={{
           width: 'min(980px, 100%)',
           maxHeight: '92vh',
@@ -83,11 +104,11 @@ export default function ServiceRequestPopup({
           onClick={() => setOpen(false)}
           style={{
             position: 'absolute',
-            top: -18,
-            [isAr ? 'left' : 'right']: -18,
-            width: 42,
-            height: 42,
-            borderRadius: '50%',
+            top: 0,
+            [isAr ? 'left' : 'right']: 0,
+            width: 40,
+            height: 40,
+            borderRadius: '0 0 14px 14px',
             border: '1px solid rgba(0,194,255,0.25)',
             background: 'linear-gradient(145deg, rgba(13,17,23,0.98), rgba(20,29,41,0.98))',
             color: '#00C2FF',
@@ -96,6 +117,7 @@ export default function ServiceRequestPopup({
             cursor: 'pointer',
             zIndex: 3,
             boxShadow: '0 12px 28px rgba(0,0,0,0.45), 0 0 18px rgba(0,194,255,0.18)',
+            transform: isAr ? 'translate(-100%, 0)' : 'translate(100%, 0)',
           }}
         >
           ×
@@ -161,9 +183,11 @@ export default function ServiceRequestPopup({
             .service-request-modal-scroll { max-height: 94vh !important; padding: 80px 16px 22px !important; }
             .service-request-modal button[aria-label="Close"],
             .service-request-modal button[aria-label="إغلاق"] {
-              top: -16px !important;
-              left: 10px !important;
-              right: auto !important;
+              top: 0 !important;
+              width: 32px !important;
+              height: 32px !important;
+              font-size: 18px !important;
+              border-radius: 0 0 10px 10px !important;
             }
           }
         `}</style>
