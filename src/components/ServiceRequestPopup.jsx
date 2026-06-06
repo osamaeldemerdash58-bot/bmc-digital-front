@@ -68,6 +68,50 @@ export default function ServiceRequestPopup({
     return () => el.removeEventListener('wheel', onWheel);
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return undefined;
+    const el = scrollRef.current;
+    if (!el) return undefined;
+
+    let startY = 0;
+
+    const onTouchStart = (e) => {
+      if (!e.touches || e.touches.length !== 1) return;
+      startY = e.touches[0].clientY;
+    };
+
+    const onTouchMove = (e) => {
+      if (!e.touches || e.touches.length !== 1) return;
+      const currentY = e.touches[0].clientY;
+      const deltaY = currentY - startY;
+
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      const atTop = scrollTop <= 0 && deltaY > 0;
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 1 && deltaY < 0;
+
+      if (atTop || atBottom) e.preventDefault();
+    };
+
+    const onDocumentTouchMove = (e) => {
+      const target = e.target;
+      if (!(target instanceof Node)) {
+        e.preventDefault();
+        return;
+      }
+      if (!el.contains(target)) e.preventDefault();
+    };
+
+    el.addEventListener('touchstart', onTouchStart, { passive: true });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchmove', onDocumentTouchMove, { passive: false });
+
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      document.removeEventListener('touchmove', onDocumentTouchMove);
+    };
+  }, [open]);
+
   const modal = open ? (
     <div
       className="service-request-modal-overlay"
@@ -79,10 +123,11 @@ export default function ServiceRequestPopup({
         backdropFilter: 'blur(3px)',
         zIndex: 99999,
         display: 'flex',
-        alignItems: 'flex-start',
+        alignItems: 'flex-start', 
         justifyContent: 'center',
         padding: '20px 16px 48px',
         overflow: 'hidden',
+        overscrollBehavior: 'contain',
       }}
     >
       <div
@@ -155,6 +200,7 @@ export default function ServiceRequestPopup({
             overflowX: 'hidden',
             WebkitOverflowScrolling: 'touch',
             touchAction: 'pan-y',
+            overscrollBehavior: 'contain',
             padding: '28px 30px 30px',
             scrollbarColor: 'rgba(0,194,255,0.45) rgba(255,255,255,0.05)',
             scrollbarWidth: 'thin',
@@ -198,16 +244,25 @@ export default function ServiceRequestPopup({
           .service-request-modal-scroll::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
           .service-request-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
 
+          .service-request-modal-overlay {
+            padding: calc(20px + env(safe-area-inset-top)) 16px calc(48px + env(safe-area-inset-bottom)) !important;
+          }
+
+          .service-request-modal {
+            max-height: calc(100vh - 68px) !important;
+            max-height: calc(100dvh - 68px) !important;
+          }
+
           @media (max-width: 520px) {
             .service-request-modal-overlay {
-              padding: 0 10px 0 !important;
+              padding: calc(26px + env(safe-area-inset-top)) 10px calc(36px + env(safe-area-inset-bottom)) !important;
               align-items: flex-start !important;
             }
             .service-request-modal {
-              max-height: calc(100dvh - 52px) !important;
+              max-height: calc(100vh - 46px) !important;
+              max-height: calc(100dvh - 46px) !important;
               border-radius: 14px !important;
-              margin-top: 26px !important;
-              margin-bottom: 26px !important;
+              margin-top: 0 !important;
             }
             .service-request-modal-scroll {
               padding: 20px 16px 20px !important;
@@ -223,8 +278,8 @@ export default function ServiceRequestPopup({
               margin-bottom: 16px !important;
             }
             .service-request-modal .close-btn {
-              top: -17px !important;
-              right: 10px !important;
+              top: -30px !important;
+              right: -25px !important;
               left: auto !important;
             }
           }
