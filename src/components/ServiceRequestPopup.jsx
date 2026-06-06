@@ -21,84 +21,60 @@ export default function ServiceRequestPopup({
   const isAr = lang === 'ar';
   const scrollRef = useRef(null);
 
+  // ── 1. body lock ────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!open) return undefined;
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') setOpen(false);
     };
-
-    const setVvh = () => {
-      const vvNow = window.visualViewport;
-      const height = vvNow && vvNow.height ? vvNow.height : window.innerHeight;
-      // على موبايل نتجاهل offsetTop تماماً - الـ overlay هيكون inset:0 ثابت
-      document.documentElement.style.setProperty('--sr-vv-height', `${Math.round(height)}px`);
-    };
-
-    setVvh();
-    const vv = window.visualViewport;
-    if (vv) {
-      vv.addEventListener('resize', setVvh);
-      vv.addEventListener('scroll', setVvh);
-    } else {
-      window.addEventListener('resize', setVvh);
-    }
-
-    // *** الـ fix الصح: بدل position:fixed على الـ body اللي بيعمل jump،
-    //     نحفظ الـ scrollY ونضيف class بس - من غير ما نغير الـ top ***
-    const scrollY = window.scrollY || window.pageYOffset;
-    const styleId = 'sr-body-lock';
-    if (!document.getElementById(styleId)) {
-      const style = document.createElement('style');
-      style.id = styleId;
-      style.textContent = `
-        .sr-body-locked {
-          overflow: hidden !important;
-          position: fixed !important;
-          width: 100% !important;
-          top: var(--sr-lock-top, 0px) !important;
-        }
-        html.sr-html-locked { overflow: hidden !important; }
-      `;
-      document.head.appendChild(style);
-    }
-
-    document.documentElement.style.setProperty('--sr-lock-top', `-${scrollY}px`);
-    document.documentElement.classList.add('sr-html-locked');
-    document.body.classList.add('sr-body-locked');
     window.addEventListener('keydown', handleKeyDown);
 
+    // حفظ الـ scrollY قبل أي حاجة
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // inject style مرة واحدة بس
+    const styleId = 'sr-body-lock-style';
+    if (!document.getElementById(styleId)) {
+      const s = document.createElement('style');
+      s.id = styleId;
+      s.textContent = `
+        .sr-locked { overflow: hidden !important; }
+        .sr-body-locked {
+          position: fixed !important;
+          width: 100% !important;
+          top: var(--sr-scroll-y) !important;
+          left: 0 !important;
+        }
+      `;
+      document.head.appendChild(s);
+    }
+
+    document.documentElement.style.setProperty('--sr-scroll-y', `-${scrollY}px`);
+    document.documentElement.classList.add('sr-locked');
+    document.body.classList.add('sr-locked', 'sr-body-locked');
+
     return () => {
-      document.documentElement.classList.remove('sr-html-locked');
-      document.body.classList.remove('sr-body-locked');
-      document.documentElement.style.removeProperty('--sr-lock-top');
-      // نرجع الـ scroll للمكان الصح
+      document.documentElement.classList.remove('sr-locked');
+      document.body.classList.remove('sr-locked', 'sr-body-locked');
+      document.documentElement.style.removeProperty('--sr-scroll-y');
       window.scrollTo({ top: scrollY, behavior: 'instant' });
       window.removeEventListener('keydown', handleKeyDown);
-      document.documentElement.style.removeProperty('--sr-vv-height');
-      if (vv) {
-        vv.removeEventListener('resize', setVvh);
-        vv.removeEventListener('scroll', setVvh);
-      } else {
-        window.removeEventListener('resize', setVvh);
-      }
     };
   }, [open]);
 
-  /* الـ fix الحقيقي للـ scroll - نربط الـ wheel event مباشرة على الـ DOM element */
+  // ── 2. منع scroll الصفحة من جوا الـ modal (desktop wheel) ──────────────────
   useEffect(() => {
     if (!open) return undefined;
     const el = scrollRef.current;
     if (!el) return undefined;
 
     const onWheel = (e) => {
+      e.stopPropagation();
       const { scrollTop, scrollHeight, clientHeight } = el;
-      const atTop = scrollTop === 0 && e.deltaY < 0;
-      const atBottom = scrollTop + clientHeight >= scrollHeight && e.deltaY > 0;
-      if (!atTop && !atBottom) {
-        e.stopPropagation();
-      }
-      e.preventDefault();
+      const atTop    = scrollTop <= 0 && e.deltaY < 0;
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 1 && e.deltaY > 0;
+      if (!atTop && !atBottom) e.preventDefault();
       el.scrollTop += e.deltaY;
     };
 
@@ -106,6 +82,7 @@ export default function ServiceRequestPopup({
     return () => el.removeEventListener('wheel', onWheel);
   }, [open]);
 
+  // ── 3. منع scroll الصفحة من جوا الـ modal (touch) ──────────────────────────
   useEffect(() => {
     if (!open) return undefined;
     const el = scrollRef.current;
@@ -114,95 +91,80 @@ export default function ServiceRequestPopup({
     let startY = 0;
 
     const onTouchStart = (e) => {
-      if (!e.touches || e.touches.length !== 1) return;
-      startY = e.touches[0].clientY;
+      startY = e.touches[0]?.clientY ?? 0;
     };
 
     const onTouchMove = (e) => {
-      if (!e.touches || e.touches.length !== 1) return;
-      const currentY = e.touches[0].clientY;
-      const deltaY = currentY - startY;
-
+      const deltaY = (e.touches[0]?.clientY ?? 0) - startY;
       const { scrollTop, scrollHeight, clientHeight } = el;
-      const atTop = scrollTop <= 0 && deltaY > 0;
+      const atTop    = scrollTop <= 0 && deltaY > 0;
       const atBottom = scrollTop + clientHeight >= scrollHeight - 1 && deltaY < 0;
-
       if (atTop || atBottom) e.preventDefault();
     };
 
-    const onDocumentTouchMove = (e) => {
-      const target = e.target;
-      if (!(target instanceof Node)) {
-        e.preventDefault();
-        return;
-      }
-      if (!el.contains(target)) e.preventDefault();
+    // أي touch برا الـ scrollRef → امنعه
+    const onDocTouch = (e) => {
+      if (!el.contains(e.target)) e.preventDefault();
     };
 
-    el.addEventListener('touchstart', onTouchStart, { passive: true });
-    el.addEventListener('touchmove', onTouchMove, { passive: false });
-    document.addEventListener('touchmove', onDocumentTouchMove, { passive: false });
+    el.addEventListener('touchstart',  onTouchStart,  { passive: true });
+    el.addEventListener('touchmove',   onTouchMove,   { passive: false });
+    document.addEventListener('touchmove', onDocTouch, { passive: false });
 
     return () => {
-      el.removeEventListener('touchstart', onTouchStart);
-      el.removeEventListener('touchmove', onTouchMove);
-      document.removeEventListener('touchmove', onDocumentTouchMove);
+      el.removeEventListener('touchstart',  onTouchStart);
+      el.removeEventListener('touchmove',   onTouchMove);
+      document.removeEventListener('touchmove', onDocTouch);
     };
   }, [open]);
 
   const modal = open ? (
     <div
-      className="service-request-modal-overlay"
+      className="sr-overlay"
       onClick={() => setOpen(false)}
       style={{
+        // الـ overlay مش بيعمل scroll — هو بس backdrop
         position: 'fixed',
         inset: 0,
+        zIndex: 99999,
         background: 'rgba(5,8,7,0.78)',
         backdropFilter: 'blur(3px)',
-        zIndex: 99999,
         display: 'flex',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'center',
-        padding: '20px 16px 48px',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        WebkitOverflowScrolling: 'touch',
-        overscrollBehavior: 'contain',
+        padding: '20px 16px',
       }}
     >
       <div
-        className="service-request-modal"
+        className="sr-modal"
         onClick={(e) => e.stopPropagation()}
         style={{
+          position: 'relative',
           width: 'min(980px, 100%)',
-          maxHeight: 'calc(100dvh - 68px)',
+          // الـ modal نفسه بـ height ثابتة — 90% من الـ viewport
+          height: '90dvh',
+          maxHeight: '90dvh',
           display: 'flex',
           flexDirection: 'column',
           background: 'linear-gradient(180deg, rgba(14,20,30,0.98) 0%, rgba(8,11,16,0.98) 100%)',
           border: '1px solid rgba(0,194,255,0.18)',
           borderRadius: 18,
           boxShadow: '0 30px 70px rgba(0,0,0,0.55), 0 0 48px rgba(0,194,255,0.12)',
-          position: 'relative',
+          overflow: 'hidden', // الـ modal نفسه مش بيعمل scroll
         }}
       >
-        {/* ==============================
-            زرار X
-            top: -10   ← المسافة من فوق
-            right: 5   ← المسافة من اليمين (أو left لو isAr)
-            للموبايل غيّر في @media أسفل
-        ============================== */}
+        {/* زرار X */}
         <button
           type="button"
-          className="close-btn"
           aria-label={isAr ? 'إغلاق' : 'Close'}
           onClick={() => setOpen(false)}
           style={{
             position: 'absolute',
-            top: -10,                         /* ← غيّر الرقم ده - ديسك توب */
-            [isAr ? 'left' : 'right']: 5,    /* ← أو الرقم ده - ديسك توب */
+            top: 12,
+            [isAr ? 'left' : 'right']: 12,
             width: 34,
             height: 34,
-             flexShrink: 0,        // ← ضيف ده
+            flexShrink: 0,
             borderRadius: '50%',
             border: '1px solid rgba(0,194,255,0.3)',
             background: 'rgba(13,17,23,0.95)',
@@ -228,100 +190,50 @@ export default function ServiceRequestPopup({
           ×
         </button>
 
-        {/* ==============================
-            منطقة الـ Scroll
-        ============================== */}
+        {/* منطقة الـ Scroll الوحيدة */}
         <div
           ref={scrollRef}
-          className="service-request-modal-scroll"
           style={{
             flex: 1,
             overflowY: 'auto',
             overflowX: 'hidden',
             WebkitOverflowScrolling: 'touch',
-            touchAction: 'pan-y',
             overscrollBehavior: 'contain',
             padding: '28px 30px 30px',
             scrollbarColor: 'rgba(0,194,255,0.45) rgba(255,255,255,0.05)',
             scrollbarWidth: 'thin',
           }}
         >
-          <h3
-            style={{
-              fontSize: 24,
-              fontWeight: 700,
-              color: 'var(--bmc-white)',
-              marginBottom: 10,
-            }}
-          >
+          <h3 style={{ fontSize: 24, fontWeight: 700, color: 'var(--bmc-white)', marginBottom: 10, paddingInlineEnd: 40 }}>
             {title}
           </h3>
-          <p
-            style={{
-              fontSize: 14,
-              color: 'rgba(245,240,232,0.6)',
-              marginBottom: 26,
-              lineHeight: 1.8,
-            }}
-          >
+          <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.6)', marginBottom: 26, lineHeight: 1.8 }}>
             {subtitle}
           </p>
-          <div
-            style={{
-              width: 76,
-              height: 3,
-              borderRadius: 999,
-              background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
-              marginBottom: 28,
-            }}
-          />
+          <div style={{
+            width: 76, height: 3, borderRadius: 999,
+            background: 'linear-gradient(90deg, #00C2FF 0%, rgba(108,99,255,0.55) 55%, transparent 100%)',
+            marginBottom: 28,
+          }} />
           <ServiceRequestForm lang={lang} preselectedService={preselectedService} />
         </div>
 
         <style>{`
-          .service-request-modal-scroll::-webkit-scrollbar { width: 6px; }
-          .service-request-modal-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 999px; }
-          .service-request-modal-scroll::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
-          .service-request-modal-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
-
-          /* safe-area padding للـ overlay */
-          .service-request-modal-overlay {
-            padding: calc(20px + env(safe-area-inset-top)) 16px calc(48px + env(safe-area-inset-bottom)) !important;
-          }
-
-          /* الـ modal يشغل كل الـ viewport بدون vv hacks */
-          .service-request-modal {
-            max-height: calc(100dvh - 68px) !important;
-          }
+          .sr-modal > div::-webkit-scrollbar { width: 6px; }
+          .sr-modal > div::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 999px; }
+          .sr-modal > div::-webkit-scrollbar-thumb { background: rgba(0,194,255,0.35); border-radius: 999px; }
+          .sr-modal > div::-webkit-scrollbar-thumb:hover { background: rgba(0,194,255,0.55); }
 
           @media (max-width: 520px) {
-            .service-request-modal-overlay {
-              padding: calc(26px + env(safe-area-inset-top)) 10px calc(36px + env(safe-area-inset-bottom)) !important;
-              align-items: flex-start !important;
-            }
-            .service-request-modal {
-              max-height: calc(100dvh - 46px) !important;
+            .sr-overlay { padding: calc(12px + env(safe-area-inset-top)) 8px calc(12px + env(safe-area-inset-bottom)) !important; }
+            .sr-modal {
+              height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+              max-height: none !important;
               border-radius: 14px !important;
-              margin-top: 0 !important;
             }
-            .service-request-modal-scroll {
-              padding: 20px 16px 20px !important;
-            }
-            .service-request-modal-scroll h3 {
-              font-size: 18px !important;
-              margin-bottom: 6px !important;
-            }
-            .service-request-modal-scroll p {
-              margin-bottom: 12px !important;
-            }
-            .service-request-modal-scroll > div:nth-child(3) {
-              margin-bottom: 16px !important;
-            }
-            .service-request-modal .close-btn {
-              top: -30px !important;
-              right: -25px !important;
-              left: auto !important;
-            }
+            .sr-modal > div { padding: 20px 16px 24px !important; }
+            .sr-modal > div h3 { font-size: 18px !important; margin-bottom: 6px !important; }
+            .sr-modal > div p  { margin-bottom: 12px !important; }
           }
         `}</style>
       </div>
