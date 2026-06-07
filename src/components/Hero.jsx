@@ -15,10 +15,7 @@ export default function Hero({ lang }) {
 
   const titleSpan = tx.titleSpan || (lang === 'ar' ? 'مستقبلك الرقمي' : 'Digital Future');
   const titleSpanStyle = {
-    color: 'transparent',
-    background: 'linear-gradient(90deg, #00C2FF 0%, #6C63FF 48%, #B8A472 100%)',
-    WebkitBackgroundClip: 'text',
-    backgroundClip: 'text',
+    color: 'var(--bmc-white)',
     fontStyle: 'normal',
     fontFamily: lang === 'ar' ? 'Cairo, sans-serif' : 'Playfair Display, serif',
   };
