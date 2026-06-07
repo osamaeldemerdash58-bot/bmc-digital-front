@@ -319,21 +319,26 @@ export default function Hero({ lang }) {
           .hero-content-wrap { transform: translateY(24px); }
           #hero { padding-bottom: 112px !important; }
         }
-        @media (max-width: 768px) {
-          #hero { min-height: 100svh !important; padding-top: 88px !important; padding-bottom: 96px !important; }
-          #hero .hero-content-wrap > div {
-            max-width: none !important;
-            text-align: center !important;
-          }
-          #hero .hero-cta-row {
-            justify-content: center !important;
-            width: 100%;
-          }
-          #hero .hero-cta {
-            min-width: min(240px, 100%) !important;
-            padding-inline: 22px !important;
-          }
-        }
+     @media (max-width: 768px) {
+  #hero { min-height: 100svh !important; padding-top: 88px !important; padding-bottom: 96px !important; }
+  #hero .hero-content-wrap > div {
+    max-width: none !important;
+    text-align: center !important;
+  }
+  #hero .hero-cta-row {
+    justify-content: center !important;
+    width: 100%;
+    flex-wrap: nowrap !important;   /* ← منع الـ wrap */
+    gap: 10px !important;           /* ← تضييق الـ gap */
+  }
+  #hero .hero-cta {
+    min-width: 0 !important;        /* ← إلغاء الـ 240px */
+    flex: 1 1 0 !important;         /* ← كل زرار ياخد نص المساحة */
+    max-width: 200px !important;    /* ← سقف معقول */
+    padding-inline: 14px !important;
+    font-size: 13px !important;
+  }
+}
       `}</style>
     </section>
   );
