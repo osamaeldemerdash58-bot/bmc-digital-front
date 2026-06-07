@@ -13,8 +13,7 @@ export default function Hero({ lang }) {
   const [btn1Hovered, setBtn1Hovered] = useState(false);
   const [btn2Hovered, setBtn2Hovered] = useState(false);
 
-  // Avoid duplicate "نبني" in Arabic by keeping it in the first line only.
-  const titleSpan = lang === 'ar' ? 'مستقبلك الرقمي' : (tx.titleSpan || 'Digital Future');
+  const titleSpan = tx.titleSpan || (lang === 'ar' ? 'مستقبلك الرقمي' : 'Digital Future');
   const titleSpanStyle = {
     color: 'var(--neon-blue)',
     fontStyle: 'normal',
@@ -205,20 +204,21 @@ export default function Hero({ lang }) {
             <SnakeButton
               as="a"
               href="#contact"
-              className="snake-btn"
+              className="snake-btn hero-cta hero-cta-primary"
               snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
               onMouseEnter={() => setBtn1Hovered(true)}
               onMouseLeave={() => setBtn1Hovered(false)}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
-                padding: '14px 32px',
-                background: btn1Hovered ? 'rgba(0,194,255,0.08)' : 'linear-gradient(135deg, #1A1A4E 0%, #0A3080 100%)',
+                minWidth: 178,
+                padding: '16px 34px',
+                background: btn1Hovered ? 'linear-gradient(135deg, #00C2FF 0%, #1769FF 100%)' : 'linear-gradient(135deg, #00C2FF 0%, #0A3080 100%)',
                 color: '#fff',
-                fontWeight: 700, fontSize: 14, letterSpacing: 0.5,
-                textDecoration: 'none', borderRadius: 50,
-                border: '1px solid rgba(0,194,255,0.4)', transition: 'all 0.35s ease',
+                fontWeight: 800, fontSize: 15, letterSpacing: 0,
+                textDecoration: 'none', borderRadius: 12,
+                border: '1px solid rgba(255,255,255,0.22)', transition: 'all 0.35s ease',
                 transform: btn1Hovered ? 'translateY(-3px)' : 'translateY(0)',
-                boxShadow: btn1Hovered ? '0 0 28px rgba(0,194,255,0.6), 0 0 60px rgba(0,194,255,0.35), inset 0 1px 0 rgba(0,194,255,0.25)' : '0 0 18px rgba(0,194,255,0.4), 0 0 40px rgba(0,194,255,0.2), inset 0 1px 0 rgba(0,194,255,0.2)',
+                boxShadow: btn1Hovered ? '0 18px 40px rgba(0,194,255,0.35)' : '0 12px 28px rgba(0,194,255,0.24)',
               }}
             >
               <span className="snake-light" />
@@ -230,21 +230,22 @@ export default function Hero({ lang }) {
             </SnakeButton>
 
             <a
-              href="#works"
-              className="snake-btn"
+              href="#services"
+              className="snake-btn hero-cta hero-cta-secondary"
               onMouseEnter={() => setBtn2Hovered(true)}
               onMouseLeave={() => setBtn2Hovered(false)}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
-                padding: '14px 32px',
-                background: btn2Hovered ? 'rgba(108,99,255,0.12)' : 'rgba(108,99,255,0.04)',
+                minWidth: 178,
+                padding: '16px 34px',
+                background: btn2Hovered ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)',
                 color: '#fff',
-                fontWeight: 700, fontSize: 14, letterSpacing: 0.5,
+                fontWeight: 800, fontSize: 15, letterSpacing: 0,
                 textDecoration: 'none',
-                border: btn2Hovered ? '1px solid rgba(0,194,255,0.5)' : '1px solid rgba(108,99,255,0.3)',
-                borderRadius: 50, transition: 'all 0.35s ease',
+                border: btn2Hovered ? '1px solid rgba(255,255,255,0.78)' : '1px solid rgba(255,255,255,0.34)',
+                borderRadius: 12, transition: 'all 0.35s ease',
                 transform: btn2Hovered ? 'translateY(-3px)' : 'translateY(0)',
-                boxShadow: btn2Hovered ? '0 0 20px rgba(0,194,255,0.35), inset 0 1px 0 rgba(0,194,255,0.2)' : '0 0 8px rgba(108,99,255,0.15)',
+                boxShadow: btn2Hovered ? '0 16px 34px rgba(0,0,0,0.25)' : 'none',
               }}
             >
               <span className="snake-light" />
@@ -290,6 +291,15 @@ export default function Hero({ lang }) {
         }
         @media (max-width: 1024px) {
           #hero { padding-top: 96px !important; padding-bottom: 110px !important; }
+        }
+        #hero .hero-cta {
+          border-radius: 12px !important;
+          letter-spacing: 0 !important;
+          overflow: hidden !important;
+        }
+        #hero .hero-cta-secondary {
+          background: rgba(255,255,255,0.04) !important;
+          box-shadow: none !important;
         }
         @media (min-width: 1025px) {
           .hero-content-wrap { transform: translateY(24px); }

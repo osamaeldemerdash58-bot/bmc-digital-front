@@ -869,6 +869,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
     if (slugValue === 'erp-systems') return 'erp';
     if (slugValue === 'ui-ux-design') return 'uiux';
     if (slugValue === 'ai-solutions') return 'ai';
+    if (slugValue === 'tech-consulting') return 'consulting';
     return 'other';
   })();
   const orderedServices = (data?.services || [])

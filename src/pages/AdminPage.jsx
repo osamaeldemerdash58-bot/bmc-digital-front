@@ -97,6 +97,7 @@ const serviceLabels = {
     erp: 'نظام ERP',
     uiux: 'تصميم UI/UX',
     ai: 'التسويق الرقمي',
+    consulting: 'استشارات تقنية ودعم',
     other: 'أخرى',
   },
   en: {
@@ -106,7 +107,89 @@ const serviceLabels = {
     erp: 'ERP System',
     uiux: 'UI/UX Design',
     ai: 'Digital Marketing',
+    consulting: 'Tech Consulting & Support',
     other: 'Other',
+  },
+};
+
+const fieldLabels = {
+  ar: {
+    websiteType: 'نوع الموقع',
+    documentType: 'نوع الوثيقة',
+    storeType: 'نوع المتجر الإلكتروني',
+    designType: 'نوع التصميم',
+    marketingServiceType: 'نوع خدمة التسويق',
+    consultingType: 'نوع الاستشارة',
+    pagesCount: 'عدد الصفحات',
+    hasBrand: 'هل لديه هوية/شعار؟',
+    referenceLinks: 'روابط مرجعية',
+    platform: 'منصة المتجر',
+    productsCount: 'عدد المنتجات',
+    paymentGateways: 'بوابات الدفع',
+    shipping: 'الشحن والتوصيل',
+    platforms: 'المنصات',
+    appType: 'نوع التطبيق',
+    auth: 'تسجيل الدخول',
+    publish: 'النشر على المتاجر',
+    industry: 'مجال النشاط',
+    usersCount: 'عدد المستخدمين',
+    modules: 'الموديولات المطلوبة',
+    integrations: 'التكاملات',
+    deliverables: 'المخرجات المطلوبة',
+    screensCount: 'عدد الشاشات',
+    brandGuidelines: 'دليل الهوية',
+    designTool: 'أداة التصميم',
+    goal: 'الهدف الأساسي',
+    marketingGoal: 'الهدف التسويقي',
+    channels: 'القنوات المطلوبة',
+    marketingChannels: 'القنوات التسويقية',
+    currentAccounts: 'الحسابات الحالية',
+    monthlyBudget: 'الميزانية الشهرية',
+    websiteUrl: 'رابط الموقع',
+    challengeType: 'نوع التحدي',
+    currentStack: 'الأنظمة أو التقنيات الحالية',
+    teamSize: 'حجم الفريق التقني',
+    preferredSupport: 'نوع الدعم المطلوب',
+    whatDoYouNeed: 'الخدمة المطلوبة',
+  },
+  en: {
+    websiteType: 'Website Type',
+    documentType: 'Document Type',
+    storeType: 'Online Store Type',
+    designType: 'Design Type',
+    marketingServiceType: 'Marketing Service Type',
+    consultingType: 'Consulting Type',
+    pagesCount: 'Estimated Pages',
+    hasBrand: 'Branding / Logo',
+    referenceLinks: 'Reference Links',
+    platform: 'Store Platform',
+    productsCount: 'Estimated Products',
+    paymentGateways: 'Payment Gateways',
+    shipping: 'Shipping & Delivery',
+    platforms: 'Platforms',
+    appType: 'App Type',
+    auth: 'Authentication',
+    publish: 'App Store Publishing',
+    industry: 'Industry',
+    usersCount: 'Estimated Users',
+    modules: 'Required Modules',
+    integrations: 'Integrations',
+    deliverables: 'Deliverables',
+    screensCount: 'Estimated Screens',
+    brandGuidelines: 'Brand Guidelines',
+    designTool: 'Design Tool',
+    goal: 'Primary Goal',
+    marketingGoal: 'Marketing Goal',
+    channels: 'Channels',
+    marketingChannels: 'Marketing Channels',
+    currentAccounts: 'Current Accounts',
+    monthlyBudget: 'Monthly Budget',
+    websiteUrl: 'Website URL',
+    challengeType: 'Challenge Type',
+    currentStack: 'Current Systems or Stack',
+    teamSize: 'Tech Team Size',
+    preferredSupport: 'Preferred Support',
+    whatDoYouNeed: 'Requested Service',
   },
 };
 
@@ -221,6 +304,16 @@ export default function AdminPage() {
   const [selectedNewTechPreset, setSelectedNewTechPreset] = useState('');
 
   const tr = (ar, en) => (uiLang === 'ar' ? ar : en);
+  const formatFieldKey = (key) => {
+    const raw = String(key || '').trim();
+    if (!raw) return '';
+    if (fieldLabels[uiLang]?.[raw]) return fieldLabels[uiLang][raw];
+    return raw
+      .replace(/[_-]+/g, ' ')
+      .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
   const tabsLabels = {
     orders: tr('الطلبات', 'Orders'),
     messages: tr('رسائل التواصل', 'Contact Us'),
@@ -641,7 +734,7 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 16 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 12, marginBottom: 16 }}>
                     <div style={{ background: 'rgba(108,99,255,0.05)', padding: '10px 14px', borderRadius: 2 }}>
                       <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>📞 {tr('الهاتف', 'Phone')}</span>
                       <div style={{ fontSize: 14, color: '#F5F0E8', marginTop: 4 }} dir="ltr">{order.phone}</div>
@@ -654,12 +747,38 @@ export default function AdminPage() {
                       <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>⚙️ {tr('الخدمة', 'Service')}</span>
                       <div style={{ marginTop: 4 }}><span style={styles.tag}>{serviceLabels[uiLang][order.service] || order.service}</span></div>
                     </div>
+                    <div style={{ background: 'rgba(108,99,255,0.05)', padding: '10px 14px', borderRadius: 2 }}>
+                      <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>🧾 {tr('نوع الفورم', 'Form Type')}</span>
+                      <div style={{ marginTop: 4 }}>
+                        <span style={styles.tag}>{serviceLabels[uiLang][order.formType] || order.formType || serviceLabels[uiLang][order.service] || order.service}</span>
+                      </div>
+                    </div>
                   </div>
 
                   <div style={{ background: 'rgba(108,99,255,0.05)', padding: '14px', borderRadius: 10, marginBottom: order.extra ? 12 : 0 }}>
                     <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>📝 {tr('تفاصيل الطلب', 'Details')}</span>
                     <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.7)', marginTop: 6, lineHeight: 1.8 }}>{order.details}</p>
                   </div>
+
+                  {order.fields && typeof order.fields === 'object' && Object.keys(order.fields).length > 0 && (
+                    <div style={{ background: 'rgba(108,99,255,0.03)', padding: '14px', borderRadius: 10, marginBottom: order.extra ? 12 : 0, border: '1px solid rgba(0,194,255,0.12)' }}>
+                      <span style={{ fontSize: 11, color: '#00C2FF', fontWeight: 600 }}>🧾 {tr('بيانات الفورم', 'Form Fields')}</span>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 10 }}>
+                        {Object.entries(order.fields)
+                          .filter(([, v]) => v !== null && v !== undefined && String(v).trim() !== '')
+                          .map(([k, v]) => (
+                            <div key={k} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', padding: '10px 12px', borderRadius: 2 }}>
+                              <div style={{ fontSize: 11, color: 'rgba(245,240,232,0.55)', fontWeight: 700, marginBottom: 6 }}>
+                                {formatFieldKey(k)}
+                              </div>
+                              <div style={{ fontSize: 13, color: 'rgba(245,240,232,0.78)', lineHeight: 1.6, wordBreak: 'break-word' }}>
+                                {String(v)}
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  )}
 
                   {order.extra && (
                     <div style={{ background: 'rgba(184,164,114,0.03)', padding: '14px', borderRadius: 10, borderLeft: '2px solid rgba(108,99,255,0.2)' }}>

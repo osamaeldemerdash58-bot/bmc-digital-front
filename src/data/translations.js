@@ -13,13 +13,13 @@ export const t = {
       title: 'نبني',
       titleSpan: 'مستقبلك الرقمي',
       subtitle: 'حلول برمجية متكاملة — مواقع، تطبيقات، أنظمة ERP، وتجارة إلكترونية مصممة لتنمية أعمالك.',
-      cta: 'ابدأ مشروعك',
-      ctaSecondary: 'أعمالنا',
+      cta: 'اطلب عرض سعر',
+      ctaSecondary: 'استكشف خدماتنا',
     },
     about: {
       label: 'من نحن',
-      title: 'شركة برمجيات',
-      titleSpan: 'بطموح لا حدود له',
+      title: 'شريكك',
+      titleSpan: 'في التحول الرقمي',
       desc1: 'BMC الرقمية شركة سعودية متخصصة في تطوير البرمجيات وتحويل الأعمال رقمياً. نجمع بين الإبداع التقني والفهم العميق لاحتياجات السوق المحلية والعالمية.',
       desc2: 'فريقنا من المطورين والمصممين المحترفين يعمل على بناء حلول رقمية تدوم وتنمو مع أعمالك.',
       stats: [
@@ -31,8 +31,8 @@ export const t = {
     },
     services: {
       label: 'خدماتنا',
-      title: 'كل ما تحتاجه',
-      titleSpan: 'تحت سقف واحد',
+      title: 'حلول رقمية',
+      titleSpan: 'مصممة لنمو أعمالك',
       items: [
         {
           title: 'تطوير المواقع',
@@ -66,8 +66,8 @@ export const t = {
     },
     works: {
       label: 'أعمالنا',
-      title: 'مشاريع',
-      titleSpan: 'نفخر بها',
+      title: 'نتائج واقعية',
+      titleSpan: 'من أفكار تحولت إلى منتجات',
       items: [
         { title: 'منصة تجارة إلكترونية', category: 'متجر إلكتروني', tag: 'React · Node.js · MongoDB' },
         { title: 'نظام ERP متكامل', category: 'برمجيات مؤسسية', tag: 'React · PostgreSQL · Docker' },
@@ -79,8 +79,8 @@ export const t = {
     },
     process: {
       label: 'منهجيتنا',
-      title: 'كيف نعمل',
-      titleSpan: 'معك؟',
+      title: 'رحلة واضحة',
+      titleSpan: 'من الفكرة إلى الإطلاق',
       steps: [
         { num: '01', title: 'الاستماع والتحليل', desc: 'نبدأ بفهم عميق لأهدافك وتحدياتك وجمهورك المستهدف.' },
         { num: '02', title: 'التخطيط والتصميم', desc: 'نضع خطة واضحة ونصمم النماذج الأولية للحصول على موافقتك.' },
@@ -92,13 +92,13 @@ export const t = {
     },
     tech: {
       label: 'تقنياتنا',
-      title: 'نعمل بـ',
-      titleSpan: 'أفضل الأدوات',
+      title: 'تقنيات موثوقة',
+      titleSpan: 'لبناء منتجات قابلة للنمو',
     },
     contact: {
       label: 'تواصل معنا',
-      title: 'ابدأ',
-      titleSpan: 'مشروعك اليوم',
+      title: 'جاهز',
+      titleSpan: 'لإطلاق مشروعك؟',
       subtitle: 'أخبرنا عن مشروعك وسنتواصل معك خلال 24 ساعة',
       namePlaceholder: 'اسمك الكريم',
       emailPlaceholder: 'بريدك الإلكتروني',
@@ -122,13 +122,13 @@ export const t = {
       title: 'We Build Your',
       titleSpan: 'Digital Future',
       subtitle: 'Full-stack software solutions — websites, mobile apps, ERP systems, and e-commerce designed to grow your business.',
-      cta: 'Start Your Project',
-      ctaSecondary: 'Our Work',
+      cta: 'Request a Quote',
+      ctaSecondary: 'Explore Services',
     },
     about: {
       label: 'About Us',
-      title: 'A Software Company',
-      titleSpan: 'With Limitless Ambition',
+      title: 'Your Partner',
+      titleSpan: 'In Digital Transformation',
       desc1: 'BMC Digital is a Saudi software company specializing in digital transformation. We combine technical creativity with a deep understanding of local and global market needs.',
       desc2: 'Our team of professional developers and designers builds digital solutions that last and grow with your business.',
       stats: [
@@ -140,8 +140,8 @@ export const t = {
     },
     services: {
       label: 'Our Services',
-      title: 'Everything You Need',
-      titleSpan: 'Under One Roof',
+      title: 'Digital Solutions',
+      titleSpan: 'Designed to Grow Your Business',
       items: [
         { title: 'Web Development', desc: 'Professional, fast websites built with React and Next.js with SEO optimization and exceptional UX.' },
         { title: 'Mobile Apps', desc: 'High-performance iOS and Android apps with smooth UX using React Native and Flutter.' },
@@ -154,8 +154,8 @@ export const t = {
     },
     works: {
       label: 'Our Work',
-      title: 'Projects We',
-      titleSpan: 'Are Proud Of',
+      title: 'Real Outcomes',
+      titleSpan: 'From Ideas Turned Into Products',
       items: [
         { title: 'E-Commerce Platform', category: 'Online Store', tag: 'React · Node.js · MongoDB' },
         { title: 'Integrated ERP System', category: 'Enterprise Software', tag: 'React · PostgreSQL · Docker' },
@@ -167,8 +167,8 @@ export const t = {
     },
     process: {
       label: 'Our Process',
-      title: 'How We',
-      titleSpan: 'Work With You',
+      title: 'A Clear Journey',
+      titleSpan: 'From Idea to Launch',
       steps: [
         { num: '01', title: 'Listen & Analyze', desc: 'We start with a deep understanding of your goals, challenges, and target audience.' },
         { num: '02', title: 'Plan & Design', desc: 'We create a clear plan and design prototypes for your approval.' },
@@ -180,13 +180,13 @@ export const t = {
     },
     tech: {
       label: 'Our Tech Stack',
-      title: 'We Work With',
-      titleSpan: 'The Best Tools',
+      title: 'Trusted Technologies',
+      titleSpan: 'For Scalable Products',
     },
     contact: {
       label: 'Contact Us',
-      title: 'Start Your',
-      titleSpan: 'Project Today',
+      title: 'Ready to',
+      titleSpan: 'Launch Your Project?',
       subtitle: "Tell us about your project and we'll reach out within 24 hours",
       namePlaceholder: 'Your Name',
       emailPlaceholder: 'Your Email',
