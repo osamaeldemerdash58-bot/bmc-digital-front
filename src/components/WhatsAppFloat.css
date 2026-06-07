@@ -11,11 +11,11 @@
   justify-content: center;
   width: 60px;
   height: 60px;
-  background: var(--bmc-gold);
+  background: #25d366;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(184, 164, 114, 0.4),
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35),
               0 8px 40px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   outline: none;
@@ -49,7 +49,8 @@
 /* Hover effects */
 .whatsapp-float:hover {
   transform: scale(1.1) translateY(-5px);
-  box-shadow: 0 8px 30px rgba(184, 164, 114, 0.5),
+  background: #1ebe5d;
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.45),
               0 12px 50px rgba(0, 0, 0, 0.4);
 }
 
@@ -110,7 +111,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 2px solid var(--bmc-gold);
+  border: 2px solid #25d366;
   opacity: 0;
   animation: whatsapp-ripple 2s ease-out infinite;
 }
@@ -132,7 +133,7 @@
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(184, 164, 114, 0.2), transparent 70%);
+  background: radial-gradient(circle, rgba(37, 211, 102, 0.22), transparent 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }

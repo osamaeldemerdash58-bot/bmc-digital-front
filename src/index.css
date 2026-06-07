@@ -271,7 +271,7 @@ button.dot-indicator {
 
 /* ── WhatsApp float — keep its own style ── */
 .whatsapp-float {
-  background: linear-gradient(135deg, #6C63FF, #00C2FF) !important;
+  background: #25d366 !important;
   border: none !important;
-  box-shadow: 0 4px 20px rgba(108,99,255,0.4), 0 8px 40px rgba(0,0,0,0.3) !important;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35), 0 8px 40px rgba(0,0,0,0.3) !important;
 }
