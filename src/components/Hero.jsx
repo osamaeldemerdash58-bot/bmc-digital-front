@@ -15,7 +15,10 @@ export default function Hero({ lang }) {
 
   const titleSpan = tx.titleSpan || (lang === 'ar' ? 'مستقبلك الرقمي' : 'Digital Future');
   const titleSpanStyle = {
-    color: 'var(--neon-blue)',
+    color: 'transparent',
+    background: 'linear-gradient(90deg, #00C2FF 0%, #6C63FF 48%, #B8A472 100%)',
+    WebkitBackgroundClip: 'text',
+    backgroundClip: 'text',
     fontStyle: 'normal',
     fontFamily: lang === 'ar' ? 'Cairo, sans-serif' : 'Playfair Display, serif',
   };
@@ -200,7 +203,7 @@ export default function Hero({ lang }) {
           </h1>
 
           {/* CTAs */}
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 18 }}>
+          <div className="hero-cta-row" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 18 }}>
             <SnakeButton
               as="a"
               href="#contact"
@@ -209,7 +212,7 @@ export default function Hero({ lang }) {
               onMouseEnter={() => setBtn1Hovered(true)}
               onMouseLeave={() => setBtn1Hovered(false)}
               style={{
-                display: 'inline-flex', alignItems: 'center', gap: 10,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 10,
                 minWidth: 178,
                 padding: '16px 34px',
                 background: btn1Hovered ? 'linear-gradient(135deg, #00C2FF 0%, #1769FF 100%)' : 'linear-gradient(135deg, #00C2FF 0%, #0A3080 100%)',
@@ -235,7 +238,7 @@ export default function Hero({ lang }) {
               onMouseEnter={() => setBtn2Hovered(true)}
               onMouseLeave={() => setBtn2Hovered(false)}
               style={{
-                display: 'inline-flex', alignItems: 'center', gap: 10,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 10,
                 minWidth: 178,
                 padding: '16px 34px',
                 background: btn2Hovered ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)',
@@ -296,10 +299,21 @@ export default function Hero({ lang }) {
           border-radius: 12px !important;
           letter-spacing: 0 !important;
           overflow: hidden !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          text-align: center !important;
+          gap: 10px !important;
+        }
+        #hero .hero-cta-primary {
+          background: linear-gradient(135deg, #00C2FF 0%, #0A3080 100%) !important;
         }
         #hero .hero-cta-secondary {
           background: rgba(255,255,255,0.04) !important;
           box-shadow: none !important;
+        }
+        #hero .hero-cta svg {
+          flex: 0 0 auto;
         }
         @media (min-width: 1025px) {
           .hero-content-wrap { transform: translateY(24px); }
@@ -307,6 +321,18 @@ export default function Hero({ lang }) {
         }
         @media (max-width: 768px) {
           #hero { min-height: 100svh !important; padding-top: 88px !important; padding-bottom: 96px !important; }
+          #hero .hero-content-wrap > div {
+            max-width: none !important;
+            text-align: center !important;
+          }
+          #hero .hero-cta-row {
+            justify-content: center !important;
+            width: 100%;
+          }
+          #hero .hero-cta {
+            min-width: min(240px, 100%) !important;
+            padding-inline: 22px !important;
+          }
         }
       `}</style>
     </section>
