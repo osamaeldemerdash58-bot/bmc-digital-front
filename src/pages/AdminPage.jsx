@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAPI, putAPI, postAPI, deleteAPI } from '../api';
+import { getCanonicalServiceImage, overrideServiceDetail } from '../data/digitalMarketingService';
 
 const API_BASE = 'https://bmc-digital-server.vercel.app/api';
 
@@ -391,7 +392,7 @@ export default function AdminPage() {
       ]);
       setSiteConfig(config);
       setTranslations(trans);
-      setServices(svc);
+      setServices((svc || []).map(overrideServiceDetail));
       setFaqs(faqItems);
       setTechs(tech);
       setOrders(ords);
@@ -997,9 +998,9 @@ export default function AdminPage() {
                       <span style={styles.tag}>{svc.slug}</span>
                       <span style={styles.tag}>{svc.visible ? tr('✅ ظاهر', '✅ Visible') : tr('❌ مخفي', '❌ Hidden')}</span>
                     </div>
-                    {svc.cardImage && (
+                    {getCanonicalServiceImage(svc) && (
                       <img
-                        src={svc.cardImage}
+                        src={getCanonicalServiceImage(svc)}
                         alt={svc.titleEn}
                         style={{ width: 120, height: 72, objectFit: 'cover', borderRadius: 12, marginTop: 10, border: '1px solid rgba(0,194,255,0.25)' }}
                       />

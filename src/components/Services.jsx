@@ -1,45 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../DataContext';
-import { overrideServiceCard } from '../data/digitalMarketingService';
-
-const fallbackServiceImagesBySlug = {
-  'mobile-app-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492386/ChatGPT_Image_Jun_3_2026_04_08_20_PM_gmfa5h.png?v=1780492386',
-  'e-commerce-website-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490773/ChatGPT_Image_Jun_3_2026_03_32_23_PM_uxzmme.png',
-  'erp-systems': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492458/ChatGPT_Image_Jun_3_2026_04_14_01_PM_itewvs.png?v=1780492458',
-  'ai-solutions': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490772/ChatGPT_Image_Jun_3_2026_03_40_21_PM_o6oijd.png',
-  'web-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490766/ChatGPT_Image_Jun_3_2026_03_30_44_PM_mabpls.png',
-  'ui-ux-design': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492387/ChatGPT_Image_Jun_3_2026_04_07_08_PM_fig092.png?v=1780492387',
-};
-
-const forcedServiceImagesBySlug = {
-  'mobile-app-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492386/ChatGPT_Image_Jun_3_2026_04_08_20_PM_gmfa5h.png?v=1780492386',
-  'ai-solutions': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490772/ChatGPT_Image_Jun_3_2026_03_40_21_PM_o6oijd.png',
-  'ui-ux-design': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492387/ChatGPT_Image_Jun_3_2026_04_07_08_PM_fig092.png?v=1780492387',
-  'erp-systems': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492458/ChatGPT_Image_Jun_3_2026_04_14_01_PM_itewvs.png?v=1780492458',
-};
-
-function resolveServiceImage(item) {
-  if (!item) return '';
-  if (forcedServiceImagesBySlug[item.slug]) return forcedServiceImagesBySlug[item.slug];
-
-  const title = String(item.title || '');
-  if (/تطوير\s*التطبيقات|mobile\s*app/i.test(title)) {
-    return forcedServiceImagesBySlug['mobile-app-development'];
-  }
-  if (/erp/i.test(title)) {
-    return forcedServiceImagesBySlug['erp-systems'];
-  }
-  if (/ui\s*\/?\s*ux/i.test(title)) {
-    return forcedServiceImagesBySlug['ui-ux-design'];
-  }
-  if (/التسويق\s*الرقمي|digital\s*marketing/i.test(title)) {
-    return forcedServiceImagesBySlug['ai-solutions'];
-  }
-
-  return item.cardImage || fallbackServiceImagesBySlug[item.slug] || '';
-}
-
+import { getCanonicalServiceImage, overrideServiceCard } from '../data/digitalMarketingService';
 
 const serviceDetailSlugs = [
   'web-development','mobile-app-development','e-commerce-website-development',
@@ -322,7 +284,7 @@ export default function ServicesPage({ lang }) {
             const isHov = hovered === i;
             const color = serviceColors[i % serviceColors.length];
             const icon = SERVICE_ICONS[i % SERVICE_ICONS.length];
-            const imageSrc = resolveServiceImage(item);
+            const imageSrc = getCanonicalServiceImage(item);
 
             return (
               <div

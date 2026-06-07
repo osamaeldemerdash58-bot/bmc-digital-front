@@ -2,6 +2,15 @@ import uiUxImage from '../assets/services/ui ux.png';
 
 export const DIGITAL_MARKETING_SLUG = 'ai-solutions';
 
+export const canonicalServiceImagesBySlug = {
+  'web-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490766/ChatGPT_Image_Jun_3_2026_03_30_44_PM_mabpls.png',
+  'e-commerce-website-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490773/ChatGPT_Image_Jun_3_2026_03_32_23_PM_uxzmme.png',
+  'mobile-app-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492386/ChatGPT_Image_Jun_3_2026_04_08_20_PM_gmfa5h.png?v=1780492386',
+  'erp-systems': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492458/ChatGPT_Image_Jun_3_2026_04_14_01_PM_itewvs.png?v=1780492458',
+  'ui-ux-design': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492387/ChatGPT_Image_Jun_3_2026_04_07_08_PM_fig092.png?v=1780492387',
+  'ai-solutions': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490772/ChatGPT_Image_Jun_3_2026_03_40_21_PM_o6oijd.png',
+};
+
 const serviceImages = import.meta.glob('../assets/services/*.{png,jpg,jpeg,webp,svg}', {
   eager: true,
   import: 'default',
@@ -114,6 +123,23 @@ function findLocalServiceImage(service) {
   return partial?.src || '';
 }
 
+function resolveCanonicalSlug(service) {
+  const text = `${service?.slug || ''} ${service?.title || ''} ${service?.titleAr || ''} ${service?.titleEn || ''}`.toLowerCase();
+  if (/web|موقع|المواقع/.test(text)) return 'web-development';
+  if (/commerce|store|متجر|المتاجر/.test(text)) return 'e-commerce-website-development';
+  if (/mobile|app|تطبيق/.test(text)) return 'mobile-app-development';
+  if (/erp/.test(text)) return 'erp-systems';
+  if (/ui|ux|design|تصميم|واجهات/.test(text)) return 'ui-ux-design';
+  if (/ai|marketing|تسويق|الذكاء|اصطناعي/.test(text)) return DIGITAL_MARKETING_SLUG;
+  return service?.slug || '';
+}
+
+export function getCanonicalServiceImage(service) {
+  if (!service) return '';
+  const slug = resolveCanonicalSlug(service);
+  return canonicalServiceImagesBySlug[slug] || service.cardImage || findLocalServiceImage(service) || '';
+}
+
 const copy = {
   ar: {
     title: 'التسويق الرقمي',
@@ -196,7 +222,7 @@ export function overrideServiceCard(service, lang = 'ar') {
 
   const withImage = {
     ...service,
-    cardImage: service.cardImage || findLocalServiceImage(service) || '',
+    cardImage: getCanonicalServiceImage(service),
   };
 
   if (service.slug !== DIGITAL_MARKETING_SLUG) return withImage;
@@ -215,7 +241,7 @@ export function overrideServiceDetail(service) {
 
   const withImage = {
     ...service,
-    cardImage: service.cardImage || findLocalServiceImage(service) || '',
+    cardImage: getCanonicalServiceImage(service),
   };
 
   if (service.slug !== DIGITAL_MARKETING_SLUG) return withImage;
