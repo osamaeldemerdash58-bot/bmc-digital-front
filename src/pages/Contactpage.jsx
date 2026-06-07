@@ -62,9 +62,9 @@ export default function ContactPage({ lang, setLang }) {
   useReveal();
   const tx = contactData[lang] || contactData.ar;
   const contactItems = [
-    { icon: contactIcons.phone, label: tx.phoneLbl, value: tx.phone, href: `tel:${tx.phone.replace(/\s/g, '')}` },
-    { icon: contactIcons.email, label: tx.emailLbl, value: tx.email, href: `mailto:${tx.email}` },
-    { icon: contactIcons.whatsapp, label: tx.whatsappLbl, value: tx.whatsapp, href: `https://wa.me/${tx.whatsapp.replace(/\D/g, '')}` },
+    { icon: contactIcons.phone, label: tx.phoneLbl, value: tx.phone, href: `tel:${tx.phone.replace(/\s/g, '')}`, color: '#00C2FF' },
+    { icon: contactIcons.email, label: tx.emailLbl, value: tx.email, href: `mailto:${tx.email}`, color: '#00C2FF' },
+    { icon: contactIcons.whatsapp, label: tx.whatsappLbl, value: tx.whatsapp, href: `https://wa.me/${tx.whatsapp.replace(/\D/g, '')}`, color: '#25d366' },
   ];
   const tickerContent = Array.from({ length: 8 }, () => contactItems).flat();
 
@@ -116,7 +116,7 @@ export default function ContactPage({ lang, setLang }) {
                 color: 'rgba(245,240,232,0.75)', fontSize: 13, letterSpacing: 0.6, whiteSpace: 'nowrap',
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
               }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: '#00C2FF' }}>{c.icon}</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: c.color }}>{c.icon}</span>
                 <span>{c.label}: </span>{' '}
                 <span dir="ltr">{c.value}</span>
               </div>
@@ -129,7 +129,7 @@ export default function ContactPage({ lang, setLang }) {
                 color: 'rgba(245,240,232,0.75)', fontSize: 13, letterSpacing: 0.6, whiteSpace: 'nowrap',
                 direction: lang === 'ar' ? 'rtl' : 'ltr',
               }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: '#00C2FF' }}>{c.icon}</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: c.color }}>{c.icon}</span>
                 <span>{c.label}: </span>{' '}
                 <span dir="ltr">{c.value}</span>
               </div>
@@ -166,7 +166,7 @@ export default function ContactPage({ lang, setLang }) {
                   }}>
                     <div style={{
                       width: 44, height: 44, border: '1px solid rgba(0,194,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#00C2FF', flexShrink: 0, borderRadius: 10, background: 'rgba(0,194,255,0.05)',
+                      color: c.color, flexShrink: 0, borderRadius: 10, background: c.color === '#25d366' ? 'rgba(37,211,102,0.08)' : 'rgba(0,194,255,0.05)',
                     }}>
                       {c.icon}
                     </div>
