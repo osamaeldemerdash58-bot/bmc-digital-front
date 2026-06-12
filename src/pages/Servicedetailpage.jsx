@@ -3,11 +3,59 @@ import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import WhatsAppFloat from '../components/WhatsAppFloat';
-import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
 import { useData } from '../DataContext';
 import { overrideServiceCard, overrideServiceDetail } from '../data/digitalMarketingService';
 import servicesBgImage from '../assets/ChatGPT Image May 8, 2026, 06_46_13 PM.png';
+
+const WHATSAPP_NUMBER = '966535166370';
+
+function IconBase({ children, size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {children}
+    </svg>
+  );
+}
+
+function MessageIcon({ size = 20 }) {
+  return <IconBase size={size}><path d="M21 12a8.5 8.5 0 0 1-8.5 8.5 9.3 9.3 0 0 1-3.45-.67L3 21l1.28-4.72A8.47 8.47 0 0 1 4 12a8.5 8.5 0 0 1 17 0Z" /><path d="M8.5 11h7" /><path d="M8.5 14h4.5" /></IconBase>;
+}
+
+function SendIcon({ size = 20 }) {
+  return <IconBase size={size}><path d="m22 2-7 20-4-9-9-4 20-7Z" /><path d="M22 2 11 13" /></IconBase>;
+}
+
+function CalendarIcon({ size = 20 }) {
+  return <IconBase size={size}><path d="M8 2v4" /><path d="M16 2v4" /><rect x="3" y="5" width="18" height="16" rx="3" /><path d="M3 10h18" /><path d="m9 15 2 2 4-4" /></IconBase>;
+}
+
+function PhoneArrowIcon({ size = 20 }) {
+  return <IconBase size={size}><path d="M22 16.92v2.1a2.1 2.1 0 0 1-2.29 2.1 20.8 20.8 0 0 1-9.08-3.23 20.5 20.5 0 0 1-6.52-6.52A20.8 20.8 0 0 1 .88 2.25 2.1 2.1 0 0 1 2.97 0h2.1a2.1 2.1 0 0 1 2.1 1.81c.13 1.01.37 2 .72 2.95a2.1 2.1 0 0 1-.47 2.21L6.53 7.86a16.8 16.8 0 0 0 6.61 6.61l.89-.89a2.1 2.1 0 0 1 2.21-.47c.95.35 1.94.59 2.95.72A2.1 2.1 0 0 1 22 16.92Z" /><path d="M14 4h6v6" /><path d="m20 4-7 7" /></IconBase>;
+}
+
+function CheckIcon({ size = 18 }) {
+  return <IconBase size={size}><path d="M20 6 9 17l-5-5" /></IconBase>;
+}
+
+function BenefitTextIcon({ size = 18 }) {
+  return <IconBase size={size}><path d="M5 5h14" /><path d="M5 10h14" /><path d="M5 15h9" /><path d="M5 20h6" /></IconBase>;
+}
+
+function WhatsAppIcon({ size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35ZM12.04 2C6.52 2 2.04 6.48 2.04 12c0 1.76.46 3.48 1.34 5L2 22l5.12-1.34A9.96 9.96 0 0 0 12.04 22c5.52 0 10-4.48 10-10s-4.48-10-10-10Z" />
+    </svg>
+  );
+}
+
+function buildWhatsAppHref(serviceTitle, isAr) {
+  const message = isAr
+    ? `السلام عليكم ورحمة الله وبركاته اريد ان اسال عن "${serviceTitle}"`
+    : `Hello, I would like to ask about "${serviceTitle}"`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
 
 const serviceAccents = {
   'web-development': '#00C2FF',
@@ -160,16 +208,21 @@ function FeatureRow({ text, index, accent }) {
         minHeight: 58,
       }}
     >
-      {/* Dot */}
       <div style={{
-        width: hovered ? 7 : 5,
-        height: hovered ? 7 : 5,
+        width: 34,
+        height: 34,
         borderRadius: '50%',
-        background: hovered ? accent : `${accent}55`,
+        display: 'grid',
+        placeItems: 'center',
+        color: hovered ? '#fff' : accent,
+        background: hovered ? accent : `${accent}12`,
+        border: `1px solid ${accent}33`,
         flexShrink: 0,
-        boxShadow: hovered ? `0 0 10px ${accent}88` : 'none',
+        boxShadow: hovered ? `0 0 18px ${accent}66` : 'none',
         transition: 'all 0.25s ease',
-      }} />
+      }}>
+        <CheckIcon />
+      </div>
       <span style={{
         fontSize: 14,
         fontWeight: 600,
@@ -199,17 +252,22 @@ function BenefitItem({ title, desc, accent, index }) {
         background: hovered ? `linear-gradient(90deg, ${accent}06 0%, transparent 60%)` : 'transparent',
       }}
     >
-      {/* Dot */}
       <div style={{
         flexShrink: 0,
-        width: 5,
-        height: 5,
-        borderRadius: '50%',
-        background: hovered ? accent : `${accent}55`,
-        marginTop: 6,
-        boxShadow: hovered ? `0 0 8px ${accent}` : 'none',
+        width: 38,
+        height: 38,
+        borderRadius: 12,
+        display: 'grid',
+        placeItems: 'center',
+        color: accent,
+        background: `${accent}0f`,
+        border: `1px solid ${accent}24`,
+        marginTop: 2,
+        boxShadow: hovered ? `0 0 14px ${accent}33` : 'none',
         transition: 'all 0.3s ease',
-      }} />
+      }}>
+        <BenefitTextIcon />
+      </div>
       <div style={{ flex: 1 }}>
         <h4 style={{
           fontSize: 14.5,
@@ -811,7 +869,6 @@ export default function ServiceDetailPage({ lang, setLang }) {
   const { slug } = useParams();
   const { data } = useData();
   const service = overrideServiceDetail(data?.services?.find(s => s.slug === slug));
-  const [requestOpen, setRequestOpen] = useState(false);
 
   const sanitizeServiceText = (text) => String(text || '')
     .replace(/استشارات تقنية متخصصة/g, 'استشارات تقنية')
@@ -857,21 +914,11 @@ export default function ServiceDetailPage({ lang, setLang }) {
   const featureDurationSec = useMarqueeDuration(featureTrackRef, { pxPerSec: 22, minSec: 120, maxSec: 360 });
   const heroTitleMain = detailTitle || title;
   const heroTitleSpan = detailTitleSpan || '';
+  const serviceWhatsAppHref = buildWhatsAppHref(title, isAr);
 
   // Sub-types for this service
   const subTypes = serviceSubTypes[service.slug] || [];
   const whyCards = isAr ? whyChooseUs.ar : whyChooseUs.en;
-  const preselectedService = (() => {
-    const slugValue = service?.slug || '';
-    if (slugValue === 'web-development') return 'web';
-    if (slugValue === 'e-commerce-website-development') return 'ecommerce';
-    if (slugValue === 'mobile-app-development') return 'mobile';
-    if (slugValue === 'erp-systems') return 'erp';
-    if (slugValue === 'ui-ux-design') return 'uiux';
-    if (slugValue === 'ai-solutions') return 'ai';
-    if (slugValue === 'tech-consulting') return 'consulting';
-    return 'other';
-  })();
   const orderedServices = (data?.services || [])
     .filter((item) => item?.visible !== false && item?.slug)
     .sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
@@ -893,16 +940,6 @@ export default function ServiceDetailPage({ lang, setLang }) {
   return (
     <>
       <Navbar lang={lang} setLang={setLang} />
-      <ServiceRequestPopup
-        lang={lang}
-        title={isAr ? `هل تريد ${title}؟` : `Need ${title}?`}
-        subtitle={isAr ? 'أخبرنا بما تحتاجه وسنتواصل معك في أقرب وقت.' : "Tell us what you need and we'll get back to you shortly."}
-        preselectedService={preselectedService}
-        open={requestOpen}
-        onOpenChange={setRequestOpen}
-        hideLauncher
-      />
-
       {/* ── Hero ── */}
       <section style={{
         minHeight: '52vh',
@@ -959,9 +996,10 @@ export default function ServiceDetailPage({ lang, setLang }) {
           </h1>
 
           {/* CTA button */}
-          <button
-            type="button"
-            onClick={() => setRequestOpen(true)}
+          <a
+            href={serviceWhatsAppHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hero-cta-btn"
             style={{
               display: 'inline-flex',
@@ -979,12 +1017,11 @@ export default function ServiceDetailPage({ lang, setLang }) {
               transition: 'transform 0.25s, box-shadow 0.25s',
               animation: 'cardEntry 0.9s cubic-bezier(0.23,1,0.32,1) 0.3s both',
               border: 'none',
-              cursor: 'pointer',
             }}
           >
-            <span>💬</span>
+            <SendIcon />
             {isAr ? 'اطلب الخدمة الآن' : 'Request This Service'}
-          </button>
+          </a>
         </div>
       </section>
 
@@ -1142,7 +1179,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
 
       {/* ── Why Choose Us ── */}
       <section style={{
-        background: 'linear-gradient(180deg, rgba(8,11,16,1) 0%, rgba(12,17,25,1) 100%)',
+        background: 'linear-gradient(135deg, rgba(8, 19, 31, 0.98) 0%, rgba(12, 30, 47, 0.96) 52%, rgba(8, 17, 27, 0.98) 100%)',
         padding: '90px 0 100px',
         position: 'relative',
         overflow: 'hidden',
@@ -1195,7 +1232,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
               {/* CTA buttons stacked */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <a
-                  href="https://wa.me/996535166370"
+                  href={serviceWhatsAppHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -1204,30 +1241,33 @@ export default function ServiceDetailPage({ lang, setLang }) {
                     background: `linear-gradient(135deg, ${accent} 0%, ${accent}cc 100%)`,
                     color: '#fff',
                     fontWeight: 800, fontSize: 14,
-                    borderRadius: 8,
+                    borderRadius: 999,
                     textDecoration: 'none',
-                    boxShadow: `0 6px 24px ${accent}44`,
+                    boxShadow: `0 8px 26px ${accent}33`,
                     transition: 'transform 0.25s, box-shadow 0.25s',
                   }}
                 >
-                  💬 {isAr ? 'احجز استشارة مجانية' : 'Book Free Consultation'}
+                  <CalendarIcon /> {isAr ? 'احجز استشارة مجانية' : 'Book Free Consultation'}
                 </a>
-                <Link
-                  to="/contact"
+                <a
+                  href={serviceWhatsAppHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     padding: '13px 28px',
-                    background: 'transparent',
-                    color: 'rgba(245,240,232,0.7)',
-                    fontWeight: 600, fontSize: 14,
-                    borderRadius: 8,
+                    background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                    color: '#fff',
+                    fontWeight: 800, fontSize: 14,
+                    borderRadius: 999,
                     textDecoration: 'none',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    boxShadow: '0 8px 26px rgba(37,211,102,0.24)',
                     transition: 'all 0.25s',
                   }}
                 >
-                  {isAr ? 'تواصل معنا الآن' : 'Contact Us Now'} →
-                </Link>
+                  <PhoneArrowIcon /> {isAr ? 'تواصل معنا الآن' : 'Contact Us Now'}
+                </a>
               </div>
             </div>
 
@@ -1325,21 +1365,6 @@ export default function ServiceDetailPage({ lang, setLang }) {
           </div>
         </section>
       )}
-
-      {/* ── Service Request Form ── */}
-      <section style={{ background: 'var(--bmc-dark-2)', padding: '80px 0', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 800, height: 800, background: 'radial-gradient(circle, rgba(184,164,114,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ maxWidth: 700, margin: '0 auto' }}>
-            <ServiceRequestPopup
-              lang={lang}
-              title={isAr ? `هل تريد ${title}؟` : `Need ${title}?`}
-              subtitle={isAr ? 'أخبرنا بما تحتاجه وسنتواصل معك في أقرب وقت.' : "Tell us what you need and we'll get back to you shortly."}
-              preselectedService={preselectedService}
-            />
-          </div>
-        </div>
-      </section>
 
       <Footer lang={lang} />
       <WhatsAppFloat lang={lang} />

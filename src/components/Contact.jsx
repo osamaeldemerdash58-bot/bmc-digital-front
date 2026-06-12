@@ -4,6 +4,22 @@ import { useAnimate } from '../hooks/useAnimate';
 import { postAPI } from '../api';
 import '../animations.css';
 
+const contactIconStyle = { width: 21, height: 21, display: 'block' };
+
+const contactIcons = {
+  phone: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" style={contactIconStyle}>
+      <path d="M22 16.92v2.1a2.1 2.1 0 0 1-2.29 2.1 20.8 20.8 0 0 1-9.08-3.23 20.5 20.5 0 0 1-6.52-6.52A20.8 20.8 0 0 1 .88 2.25 2.1 2.1 0 0 1 2.97 0h2.1a2.1 2.1 0 0 1 2.1 1.81c.13 1.01.37 2 .72 2.95a2.1 2.1 0 0 1-.47 2.21L6.53 7.86a16.8 16.8 0 0 0 6.61 6.61l.89-.89a2.1 2.1 0 0 1 2.21-.47c.95.35 1.94.59 2.95.72A2.1 2.1 0 0 1 22 16.92Z" />
+    </svg>
+  ),
+  email: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" style={contactIconStyle}>
+      <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      <path d="m4 7 8 6 8-6" />
+    </svg>
+  ),
+};
+
 export default function Contact({ lang }) {
   useAnimate();
   const { data } = useData();
@@ -57,8 +73,8 @@ export default function Contact({ lang }) {
             </p>
 
             {[
-              { icon: '📞', label: contactPhone, href: 'tel:+966535166370' },
-              { icon: '✉️', label: contactEmail, href: 'mailto:info@bmd-digital.com' },
+              { icon: contactIcons.phone, label: contactPhone, href: 'tel:+966535166370' },
+              { icon: contactIcons.email, label: contactEmail, href: 'mailto:info@bmd-digital.com' },
             ].map((c, i) => (
               <a key={i} href={c.href} style={{
                 display: 'flex', alignItems: 'center', gap: 16,
@@ -69,6 +85,10 @@ export default function Contact({ lang }) {
                 <div style={{
                   width: 44, height: 44,
                   border: '1px solid rgba(0,194,255,0.2)',
+                  borderRadius: 14,
+                  color: 'var(--neon-blue)',
+                  background: 'linear-gradient(135deg, rgba(0,194,255,0.12), rgba(0,194,255,0.03))',
+                  boxShadow: '0 10px 26px rgba(0,194,255,0.12)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 18, flexShrink: 0,
                 }}>
