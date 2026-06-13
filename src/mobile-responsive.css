@@ -339,9 +339,9 @@ body {
   }
   .footer-reg-info { flex-wrap: wrap !important; gap: 10px !important; width: 100% !important; }
   .footer-reg-divider { width: 100% !important; height: 1px !important; }
-  .payment-badge { min-width: 64px !important; height: 42px !important; padding: 6px 10px !important; }
-  .payment-badge-img { height: 24px !important; }
-  .footer-payments-icons { gap: 8px !important; }
+  .partner-badge { min-width: 64px !important; height: 42px !important; padding: 6px 10px !important; }
+  .partner-badge-img { height: 24px !important; }
+  .footer-partners-grid { gap: 8px !important; }
 }
 
 /* ═══════════════════════════════════════════

@@ -61,21 +61,21 @@
   opacity: 0.9;
 }
 
-/* ── Brand Column Payments 4×2 ── */
-.footer-brand-payments {
+/* ── Brand Column Partners ── */
+.footer-brand-partners {
   margin-top: 20px;
   width: 100%;
 }
 
-.footer-payments-label--inline {
+.footer-partners-label--inline {
   display: block;
   margin-bottom: 10px;
   text-align: start;
 }
 
-.footer-payments-grid {
+.footer-partners-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -430,15 +430,15 @@
   width: 22px;
 }
 
-/* ── Payment Badge - clean & professional ── */
-.footer-payments-label {
+/* ── Partner Badge - clean & professional ── */
+.footer-partners-label {
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(0,194,255,0.5);
 }
 
-.payment-badge {
+.partner-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -451,9 +451,14 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: visible;
+  text-decoration: none;
 }
 
-.payment-badge::after {
+.partner-badge::before {
+  content: none;
+}
+
+.partner-badge::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -461,30 +466,25 @@
   pointer-events: none;
 }
 
-.payment-badge:hover {
+.partner-badge:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(0,194,255,0.4);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-.payment-badge svg {
+.partner-badge-img {
   display: block;
-  border-radius: 3px;
-}
-
-.payment-badge-img {
-  display: block;
-  height: 28px;
+  height: 26px;
   width: auto;
-  max-width: 72px;
+  max-width: 92px;
   object-fit: contain;
   opacity: 0.7;
   transition: opacity 0.3s ease;
   filter: brightness(1.1);
 }
 
-.payment-badge:hover .payment-badge-img {
+.partner-badge:hover .partner-badge-img {
   opacity: 1;
 }
 
@@ -559,18 +559,6 @@
   font-family: 'Courier New', monospace;
   letter-spacing: 0.5px;
   line-height: 1.4;
-}
-
-.payment-badge-svg {
-  display: block;
-  width: 28px;
-  height: 28px;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-  filter: brightness(1.1);
-}
-.payment-badge:hover .payment-badge-svg {
-  opacity: 1;
 }
 
 .footer-reg-divider {
@@ -674,8 +662,8 @@
     height: 150px;
   }
 
-  .footer-payments-grid {
-    grid-template-columns: repeat(4, 1fr);
+  .footer-partners-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .footer-reg-info {

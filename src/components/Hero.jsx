@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useData } from '../DataContext';
 import heroImage from '../assets/heroimage.png';
 import heroImageDesktop from '../assets/heroimagedesktop.png';
+import heroImageDesktopEn from '../assets/heroimagedesktop_en.png';
 import SnakeButton from './SnakeButton';
 import '../animations.css';
 
@@ -12,6 +13,7 @@ export default function Hero({ lang }) {
   const tx = data?.translations?.hero?.[lang] || {};
   const [btn1Hovered, setBtn1Hovered] = useState(false);
   const [btn2Hovered, setBtn2Hovered] = useState(false);
+  const desktopHeroImage = lang === 'ar' ? heroImageDesktop : heroImageDesktopEn;
 
   const titleSpan = tx.titleSpan || (lang === 'ar' ? 'مستقبلك الرقمي' : 'Digital Future');
   const titleSpanStyle = {
@@ -123,9 +125,9 @@ export default function Hero({ lang }) {
       <div className="hero-image-wrap" style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', overflow: 'hidden' }}>
         <picture style={{ width: '100%', height: '100%', display: 'block' }}>
           <source media="(max-width: 768px)" srcSet={heroImage} />
-          <source media="(min-width: 769px)" srcSet={heroImageDesktop} />
+          <source media="(min-width: 769px)" srcSet={desktopHeroImage} />
           <img
-            src={heroImageDesktop}
+            src={desktopHeroImage}
             alt="BMC Digital Hero"
             style={{
               width: '100%', height: '100%', objectFit: 'cover',
