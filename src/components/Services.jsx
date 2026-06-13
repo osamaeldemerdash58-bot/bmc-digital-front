@@ -350,8 +350,10 @@ export default function ServicesPage({ lang }) {
                       loading="lazy"
                       style={{
                         width: '100%', height: '100%', objectFit: 'cover',
+                        objectPosition: 'center center',
+                        background: 'linear-gradient(145deg, rgba(2,4,20,0.96), rgba(7,11,32,0.92))',
                         transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
-                        transform: isHov ? 'scale(1.06)' : 'scale(1)',
+                        transform: 'scale(1)',
                         display: 'block',
                       }}
                     />
@@ -523,8 +525,7 @@ export default function ServicesPage({ lang }) {
           50%     { opacity: 1;  transform: translate(-50%,-50%) scale(1.2); }
         }
 
-        /* card image hover zoom needs the img directly */
-        .svc-card:hover img { transform: scale(1.06) !important; }
+        .svc-card:hover img { transform: scale(1) !important; }
 
         @media (max-width: 900px) {
           #services .services-grid { grid-template-columns: repeat(2,1fr) !important; }

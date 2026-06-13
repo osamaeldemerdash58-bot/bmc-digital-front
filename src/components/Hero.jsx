@@ -174,7 +174,7 @@ export default function Hero({ lang }) {
       </div> */}
 
       <div className="container hero-content-wrap" style={{ position: 'relative', zIndex: 4, width: '100%' }}>
-        <div style={{ maxWidth: 680 }}>
+        <div className="hero-text-block" style={{ maxWidth: 680 }}>
 
           {/* Title */}
           <h1 style={{
@@ -313,8 +313,26 @@ export default function Hero({ lang }) {
           flex: 0 0 auto;
         }
         @media (min-width: 1025px) {
-          .hero-content-wrap { transform: translateY(24px); }
-          #hero { padding-bottom: 112px !important; }
+          #hero {
+            align-items: flex-start !important;
+            padding-top: 165px !important;
+            padding-bottom: 40px !important;
+          }
+          .hero-content-wrap {
+            transform: none !important;
+          }
+          #hero .hero-text-block {
+            margin-right: 0 !important;
+            margin-left: auto !important;
+            transform: translateY(-10px);
+          }
+          html[dir="ltr"] #hero .hero-text-block {
+            margin-right: auto !important;
+            margin-left: 0 !important;
+          }
+          #hero .hero-image-wrap img {
+            object-position: 61% 44% !important;
+          }
         }
      @media (max-width: 768px) {
   #hero { min-height: 100svh !important; padding-top: 88px !important; padding-bottom: 96px !important; }

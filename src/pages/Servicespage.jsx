@@ -7,7 +7,7 @@ import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import SnakeButton from '../components/SnakeButton';
 import { useReveal } from '../hooks/useReveal';
 import { useData } from '../DataContext';
-import { overrideServiceCard } from '../data/digitalMarketingService';
+import { canonicalServiceImagesBySlug, overrideServiceCard } from '../data/digitalMarketingService';
 
 const servicesData = {
   ar: {
@@ -20,12 +20,12 @@ const servicesData = {
     formTitle: 'هل تحتاج خدمة مخصصة؟',
     formSubtitle: 'أخبرنا بما تحتاجه وسنتواصل معك في أقرب وقت لمناقشة تفاصيل مشروعك.', 
     services: [
-      { slug: 'web-development', title: 'تطوير المواقع الإلكترونية', desc: 'نبني مواقع احترافية عالية الأداء تعكس هوية علامتك التجارية وتحقق أهدافك التجارية.', features: ['تصميم متجاوب مع كل الأجهزة', 'سرعة تحميل فائقة', 'تحسين محركات البحث SEO', 'لوحة إدارة سهلة الاستخدام'], icon: '🌐' },
-      { slug: 'e-commerce-website-development', title: 'تطوير المتاجر الإلكترونية', desc: 'متاجر إلكترونية متكاملة مع بوابات دفع آمنة وتجربة تسوق استثنائية تزيد مبيعاتك.', features: ['بوابات دفع متعددة', 'إدارة المخزون', 'تقارير المبيعات', 'تجربة مستخدم محسّنة'], icon: '🛒' },
-      { slug: 'mobile-app-development', title: 'تطوير التطبيقات', desc: 'تطبيقات جوال احترافية لنظامي iOS و Android تمنح مستخدميك تجربة استثنائية.', features: ['iOS و Android', 'أداء عالي', 'واجهة مستخدم جذابة', 'تكامل مع الخدمات الخارجية'], icon: '📱' },
-      { slug: 'erp-systems', title: 'أنظمة ERP', desc: 'أنظمة تخطيط موارد المؤسسة المخصصة لإدارة العمليات والحسابات والموارد البشرية بكفاءة عالية.', features: ['إدارة الموارد البشرية', 'المحاسبة والمالية', 'إدارة المخزون', 'تقارير ولوحات تحكم'], icon: '⚙️' },
-      { slug: 'ui-ux-design', title: 'تصميم UI/UX', desc: 'تصاميم جذابة وواجهات مستخدم بديهية تعكس هوية علامتك التجارية وتحقق أهدافك.', features: ['بحث المستخدمين', 'نماذج Wireframes', 'تصميم واجهات UI', 'تجربة المستخدم UX'], icon: '🎨' },
-      { slug: 'ai-solutions', title: 'التسويق الرقمي', desc: 'في البنية الماسية الرقمية نقدّم حلول تسويق إلكتروني متكاملة تساعدك على جذب العملاء، زيادة المبيعات، ورفع حضور علامتك التجارية على جميع المنصات الرقمية.', features: ['إدارة الحملات الإعلانية', 'إعداد الاستراتيجيات التسويقية', 'تحليل الأداء وتحسين النتائج', 'إدارة السوشيال ميديا'], icon: '📣' },
+      { slug: 'web-development', title: 'تطوير المواقع الإلكترونية', desc: 'نبني مواقع احترافية عالية الأداء تعكس هوية علامتك التجارية وتحقق أهدافك التجارية.', features: ['تصميم متجاوب مع كل الأجهزة', 'سرعة تحميل فائقة', 'تحسين محركات البحث SEO', 'لوحة إدارة سهلة الاستخدام'], icon: '🌐', cardImage: canonicalServiceImagesBySlug['web-development'] },
+      { slug: 'e-commerce-website-development', title: 'تطوير المتاجر الإلكترونية', desc: 'متاجر إلكترونية متكاملة مع بوابات دفع آمنة وتجربة تسوق استثنائية تزيد مبيعاتك.', features: ['بوابات دفع متعددة', 'إدارة المخزون', 'تقارير المبيعات', 'تجربة مستخدم محسّنة'], icon: '🛒', cardImage: canonicalServiceImagesBySlug['e-commerce-website-development'] },
+      { slug: 'mobile-app-development', title: 'تطوير التطبيقات', desc: 'تطبيقات جوال احترافية لنظامي iOS و Android تمنح مستخدميك تجربة استثنائية.', features: ['iOS و Android', 'أداء عالي', 'واجهة مستخدم جذابة', 'تكامل مع الخدمات الخارجية'], icon: '📱', cardImage: canonicalServiceImagesBySlug['mobile-app-development'] },
+      { slug: 'erp-systems', title: 'أنظمة ERP', desc: 'أنظمة تخطيط موارد المؤسسة المخصصة لإدارة العمليات والحسابات والموارد البشرية بكفاءة عالية.', features: ['إدارة الموارد البشرية', 'المحاسبة والمالية', 'إدارة المخزون', 'تقارير ولوحات تحكم'], icon: '⚙️', cardImage: canonicalServiceImagesBySlug['erp-systems'] },
+      { slug: 'ui-ux-design', title: 'تصميم UI/UX', desc: 'تصاميم جذابة وواجهات مستخدم بديهية تعكس هوية علامتك التجارية وتحقق أهدافك.', features: ['بحث المستخدمين', 'نماذج Wireframes', 'تصميم واجهات UI', 'تجربة المستخدم UX'], icon: '🎨', cardImage: canonicalServiceImagesBySlug['ui-ux-design'] },
+      { slug: 'ai-solutions', title: 'التسويق الرقمي', desc: 'في البنية الماسية الرقمية نقدّم حلول تسويق إلكتروني متكاملة تساعدك على جذب العملاء، زيادة المبيعات، ورفع حضور علامتك التجارية على جميع المنصات الرقمية.', features: ['إدارة الحملات الإعلانية', 'إعداد الاستراتيجيات التسويقية', 'تحليل الأداء وتحسين النتائج', 'إدارة السوشيال ميديا'], icon: '📣', cardImage: canonicalServiceImagesBySlug['ai-solutions'] },
     ],
   },
   en: {
@@ -38,12 +38,12 @@ const servicesData = {
     formTitle: 'Need a custom service?',
     formSubtitle: "Tell us what you need and we'll get back to you shortly to discuss your project details.",
     services: [
-      { slug: 'web-development', title: 'Website Development', desc: 'We build professional, high-performance websites that reflect your brand identity and achieve your business goals.', features: ['Responsive on all devices', 'Lightning fast loading', 'SEO optimization', 'Easy-to-use admin panel'], icon: '🌐' },
-      { slug: 'e-commerce-website-development', title: 'E-Commerce Development', desc: 'Full e-commerce solutions with secure payment gateways and exceptional shopping experiences that boost your sales.', features: ['Multiple payment gateways', 'Inventory management', 'Sales reports', 'Optimized UX'], icon: '🛒' },
-      { slug: 'mobile-app-development', title: 'Mobile App Development', desc: 'Professional mobile apps for iOS and Android that give your users an exceptional experience.', features: ['iOS & Android', 'High performance', 'Attractive UI', 'Third-party integration'], icon: '📱' },
-      { slug: 'erp-systems', title: 'ERP Systems', desc: 'Custom enterprise resource planning systems for efficient operations, accounting, and HR management.', features: ['HR Management', 'Accounting & Finance', 'Inventory Management', 'Reports & Dashboards'], icon: '⚙️' },
-      { slug: 'ui-ux-design', title: 'UI/UX Design', desc: 'Attractive designs and intuitive interfaces that reflect your brand identity and achieve your goals.', features: ['User Research', 'Wireframes', 'UI Interface Design', 'UX Optimization'], icon: '🎨' },
-      { slug: 'ai-solutions', title: 'Digital Marketing', desc: 'We deliver integrated digital marketing solutions that help you attract customers, increase sales, and strengthen your brand presence across digital platforms.', features: ['Ad campaign management', 'Marketing strategies', 'Performance analysis', 'Social media management'], icon: '📣' },
+      { slug: 'web-development', title: 'Website Development', desc: 'We build professional, high-performance websites that reflect your brand identity and achieve your business goals.', features: ['Responsive on all devices', 'Lightning fast loading', 'SEO optimization', 'Easy-to-use admin panel'], icon: '🌐', cardImage: canonicalServiceImagesBySlug['web-development'] },
+      { slug: 'e-commerce-website-development', title: 'E-Commerce Development', desc: 'Full e-commerce solutions with secure payment gateways and exceptional shopping experiences that boost your sales.', features: ['Multiple payment gateways', 'Inventory management', 'Sales reports', 'Optimized UX'], icon: '🛒', cardImage: canonicalServiceImagesBySlug['e-commerce-website-development'] },
+      { slug: 'mobile-app-development', title: 'Mobile App Development', desc: 'Professional mobile apps for iOS and Android that give your users an exceptional experience.', features: ['iOS & Android', 'High performance', 'Attractive UI', 'Third-party integration'], icon: '📱', cardImage: canonicalServiceImagesBySlug['mobile-app-development'] },
+      { slug: 'erp-systems', title: 'ERP Systems', desc: 'Custom enterprise resource planning systems for efficient operations, accounting, and HR management.', features: ['HR Management', 'Accounting & Finance', 'Inventory Management', 'Reports & Dashboards'], icon: '⚙️', cardImage: canonicalServiceImagesBySlug['erp-systems'] },
+      { slug: 'ui-ux-design', title: 'UI/UX Design', desc: 'Attractive designs and intuitive interfaces that reflect your brand identity and achieve your goals.', features: ['User Research', 'Wireframes', 'UI Interface Design', 'UX Optimization'], icon: '🎨', cardImage: canonicalServiceImagesBySlug['ui-ux-design'] },
+      { slug: 'ai-solutions', title: 'Digital Marketing', desc: 'We deliver integrated digital marketing solutions that help you attract customers, increase sales, and strengthen your brand presence across digital platforms.', features: ['Ad campaign management', 'Marketing strategies', 'Performance analysis', 'Social media management'], icon: '📣', cardImage: canonicalServiceImagesBySlug['ai-solutions'] },
     ],
   },
 };

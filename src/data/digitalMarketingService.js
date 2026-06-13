@@ -1,14 +1,12 @@
-import uiUxImage from '../assets/services/ui ux.png';
-
 export const DIGITAL_MARKETING_SLUG = 'ai-solutions';
 
 export const canonicalServiceImagesBySlug = {
-  'web-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490766/ChatGPT_Image_Jun_3_2026_03_30_44_PM_mabpls.png',
-  'e-commerce-website-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490773/ChatGPT_Image_Jun_3_2026_03_32_23_PM_uxzmme.png',
-  'mobile-app-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492386/ChatGPT_Image_Jun_3_2026_04_08_20_PM_gmfa5h.png?v=1780492386',
-  'erp-systems': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492458/ChatGPT_Image_Jun_3_2026_04_14_01_PM_itewvs.png?v=1780492458',
-  'ui-ux-design': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780492387/ChatGPT_Image_Jun_3_2026_04_07_08_PM_fig092.png?v=1780492387',
-  'ai-solutions': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1780490772/ChatGPT_Image_Jun_3_2026_03_40_21_PM_o6oijd.png',
+  'web-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781286159/ChatGPT_Image_Jun_12_2026_08_30_33_PM_fyasdg.png',
+  'e-commerce-website-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781287900/ChatGPT_Image_Jun_12_2026_09_10_45_PM_li0chb.png',
+  'mobile-app-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781286161/ChatGPT_Image_Jun_12_2026_08_32_22_PM_t2ongq.png',
+  'erp-systems': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781287281/ChatGPT_Image_Jun_12_2026_09_00_59_PM_dvoafk.png',
+  'ui-ux-design': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781287675/ChatGPT_Image_Jun_12_2026_09_07_24_PM_k0ckhn.png',
+  'ai-solutions': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781287602/ChatGPT_Image_Jun_12_2026_09_06_03_PM_zz4jrk.png',
 };
 
 const serviceImages = import.meta.glob('../assets/services/*.{png,jpg,jpeg,webp,svg}', {
@@ -16,9 +14,7 @@ const serviceImages = import.meta.glob('../assets/services/*.{png,jpg,jpeg,webp,
   import: 'default',
 });
 
-const fixedServiceImageBySlug = {
-  'ui-ux-design': uiUxImage,
-};
+const fixedServiceImageBySlug = {};
 
 const serviceImageAliases = {
   'web-development': [
@@ -125,8 +121,8 @@ function findLocalServiceImage(service) {
 
 function resolveCanonicalSlug(service) {
   const text = `${service?.slug || ''} ${service?.title || ''} ${service?.titleAr || ''} ${service?.titleEn || ''}`.toLowerCase();
-  if (/web|موقع|المواقع/.test(text)) return 'web-development';
   if (/commerce|store|متجر|المتاجر/.test(text)) return 'e-commerce-website-development';
+  if (/web|موقع|المواقع/.test(text)) return 'web-development';
   if (/mobile|app|تطبيق/.test(text)) return 'mobile-app-development';
   if (/erp/.test(text)) return 'erp-systems';
   if (/ui|ux|design|تصميم|واجهات/.test(text)) return 'ui-ux-design';
