@@ -132,7 +132,7 @@ export default function Hero({ lang }) {
             style={{
               width: '100%', height: '100%', objectFit: 'cover',
               objectPosition: 'center center',
-              animation: 'kenBurns 18s ease-in-out infinite alternate',
+              animation: 'kenBurns 22s ease-in-out infinite alternate',
               transformOrigin: 'center center', display: 'block',
             }}
           />
@@ -181,8 +181,8 @@ export default function Hero({ lang }) {
           {/* Title */}
           <h1 style={{
             fontFamily: lang === 'ar' ? 'Cairo, sans-serif' : 'Playfair Display, serif',
-            fontSize: 'clamp(40px, 6vw, 80px)', fontWeight: 900,
-            lineHeight: lang === 'ar' ? 1.4 : 1.28, marginBottom: 40, opacity: 1,
+            fontSize: 'clamp(34px, 4.8vw, 64px)', fontWeight: 900,
+            lineHeight: lang === 'ar' ? 1.34 : 1.2, marginBottom: 28, opacity: 1,
           }}>
             <span style={{ color: 'var(--bmc-white)', display: 'block', marginBottom: 10 }}>
               {tx.title}
@@ -194,15 +194,15 @@ export default function Hero({ lang }) {
               overflow: 'visible',
               marginTop: lang === 'ar' ? 24 : 34,
               paddingTop: lang === 'ar' ? 6 : 0,
-              fontSize: 'clamp(24px, 3.6vw, 44px)',
-              lineHeight: lang === 'ar' ? 1.6 : 1.35,
+              fontSize: 'clamp(21px, 2.9vw, 36px)',
+              lineHeight: lang === 'ar' ? 1.48 : 1.3,
             }}>
               {titleSpan}
             </span>
           </h1>
 
           {/* CTAs */}
-          <div className="hero-cta-row" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginTop: 18 }}>
+          <div className="hero-cta-row" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 10 }}>
             <SnakeButton
               as="a"
               href="#contact"
@@ -212,11 +212,11 @@ export default function Hero({ lang }) {
               onMouseLeave={() => setBtn1Hovered(false)}
               style={{
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 10,
-                minWidth: 178,
-                padding: '16px 34px',
+                minWidth: 150,
+                padding: '13px 24px',
                 background: btn1Hovered ? 'linear-gradient(135deg, #00C2FF 0%, #1769FF 100%)' : 'linear-gradient(135deg, #00C2FF 0%, #0A3080 100%)',
                 color: '#fff',
-                fontWeight: 800, fontSize: 15, letterSpacing: 0,
+                fontWeight: 800, fontSize: 14, letterSpacing: 0,
                 textDecoration: 'none', borderRadius: 12,
                 border: '1px solid rgba(255,255,255,0.22)', transition: 'all 0.35s ease',
                 transform: btn1Hovered ? 'translateY(-3px)' : 'translateY(0)',
@@ -238,11 +238,11 @@ export default function Hero({ lang }) {
               onMouseLeave={() => setBtn2Hovered(false)}
               style={{
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 10,
-                minWidth: 178,
-                padding: '16px 34px',
+                minWidth: 150,
+                padding: '13px 24px',
                 background: btn2Hovered ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)',
                 color: '#fff',
-                fontWeight: 800, fontSize: 15, letterSpacing: 0,
+                fontWeight: 800, fontSize: 14, letterSpacing: 0,
                 textDecoration: 'none',
                 border: btn2Hovered ? '1px solid rgba(255,255,255,0.78)' : '1px solid rgba(255,255,255,0.34)',
                 borderRadius: 12, transition: 'all 0.35s ease',
@@ -286,10 +286,10 @@ export default function Hero({ lang }) {
           100% { transform: scaleY(0); transform-origin: bottom; }
         }
         @keyframes kenBurns {
-          0%   { transform: scale(1)    translate(0px, 0px); }
-          33%  { transform: scale(1.06) translate(-12px, -6px); }
-          66%  { transform: scale(1.04) translate(8px, -10px); }
-          100% { transform: scale(1.08) translate(-6px, 4px); }
+          0%   { transform: scale(1) translate(0px, 0px); }
+          33%  { transform: scale(1.012) translate(-2px, -1px); }
+          66%  { transform: scale(1.008) translate(2px, -2px); }
+          100% { transform: scale(1.018) translate(-1px, 1px); }
         }
         @media (max-width: 1024px) {
           #hero { padding-top: 96px !important; padding-bottom: 110px !important; }
@@ -303,6 +303,10 @@ export default function Hero({ lang }) {
           justify-content: center !important;
           text-align: center !important;
           gap: 10px !important;
+          min-width: 150px !important;
+          width: auto !important;
+          padding: 13px 24px !important;
+          font-size: 14px !important;
         }
         #hero .hero-cta-primary {
           background: linear-gradient(135deg, #00C2FF 0%, #0A3080 100%) !important;
@@ -321,12 +325,12 @@ export default function Hero({ lang }) {
             padding-bottom: 40px !important;
           }
           .hero-content-wrap {
-            transform: none !important;
+            transform: translateY(69px) !important;
           }
           #hero .hero-text-block {
             margin-right: -42px !important;
             margin-left: auto !important;
-            transform: translateY(44px);
+            transform: translateY(138px) !important;
           }
           html[dir="ltr"] #hero .hero-text-block {
             margin-right: auto !important;
@@ -341,6 +345,7 @@ export default function Hero({ lang }) {
   #hero .hero-content-wrap > div {
     max-width: none !important;
     text-align: center !important;
+    transform: translateY(34px) !important;
   }
   #hero .hero-cta-row {
     justify-content: center !important;
