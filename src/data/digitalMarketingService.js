@@ -1,12 +1,19 @@
 export const DIGITAL_MARKETING_SLUG = 'ai-solutions';
 
+import websiteDevelopmentImage from '../assets/services/website development.png';
+import ecommerceImage from '../assets/services/e-commerce.png';
+import mobileAppImage from '../assets/services/mobail app.png';
+import erpImage from '../assets/services/erp.png';
+import uiuxImage from '../assets/services/UIUX.png';
+import digitalMarketingImage from '../assets/services/digital.png';
+
 export const canonicalServiceImagesBySlug = {
-  'web-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781286159/ChatGPT_Image_Jun_12_2026_08_30_33_PM_fyasdg.png',
-  'e-commerce-website-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781287900/ChatGPT_Image_Jun_12_2026_09_10_45_PM_li0chb.png',
-  'mobile-app-development': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781286161/ChatGPT_Image_Jun_12_2026_08_32_22_PM_t2ongq.png',
-  'erp-systems': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781287281/ChatGPT_Image_Jun_12_2026_09_00_59_PM_dvoafk.png',
-  'ui-ux-design': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781287675/ChatGPT_Image_Jun_12_2026_09_07_24_PM_k0ckhn.png',
-  'ai-solutions': 'https://res.cloudinary.com/dxxfpkx5y/image/upload/v1781287602/ChatGPT_Image_Jun_12_2026_09_06_03_PM_zz4jrk.png',
+  'web-development': websiteDevelopmentImage,
+  'e-commerce-website-development': ecommerceImage,
+  'mobile-app-development': mobileAppImage,
+  'erp-systems': erpImage,
+  'ui-ux-design': uiuxImage,
+  'ai-solutions': digitalMarketingImage,
 };
 
 const serviceImages = import.meta.glob('../assets/services/*.{png,jpg,jpeg,webp,svg}', {

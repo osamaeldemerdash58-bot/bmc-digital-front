@@ -91,7 +91,7 @@ function ServiceCard3D({ svc, accent, index, learnMore }) {
 
         {svc.cardImage ? (
           <div style={{ height: 160, marginBottom: 22, borderRadius: 12, overflow: 'hidden', position: 'relative', border: `1px solid ${accent}44` }}>
-            <img src={svc.cardImage} alt={svc.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={svc.cardImage} alt={svc.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(0.92)', background: 'linear-gradient(145deg, rgba(2,4,20,0.96), rgba(7,11,32,0.92))' }} />
             <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${accent}18 0%, rgba(11,15,21,0.2) 45%, rgba(11,15,21,0.82) 100%)` }} />
           </div>
         ) : (

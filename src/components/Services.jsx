@@ -353,7 +353,7 @@ export default function ServicesPage({ lang }) {
                         objectPosition: 'center center',
                         background: 'linear-gradient(145deg, rgba(2,4,20,0.96), rgba(7,11,32,0.92))',
                         transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
-                        transform: 'scale(1)',
+                        transform: 'scale(0.92)',
                         display: 'block',
                       }}
                     />
