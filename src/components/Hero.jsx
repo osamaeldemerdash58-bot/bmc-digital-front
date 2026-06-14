@@ -324,13 +324,13 @@ export default function Hero({ lang }) {
             transform: none !important;
           }
           #hero .hero-text-block {
-            margin-right: 0 !important;
+            margin-right: -42px !important;
             margin-left: auto !important;
-            transform: translateY(-10px);
+            transform: translateY(44px);
           }
           html[dir="ltr"] #hero .hero-text-block {
             margin-right: auto !important;
-            margin-left: 0 !important;
+            margin-left: -42px !important;
           }
           #hero .hero-image-wrap img {
             object-position: 61% 44% !important;

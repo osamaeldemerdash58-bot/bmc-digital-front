@@ -28,10 +28,10 @@ const MailIcon = () => (
 );
 
 const partners = [
-  { name: 'WordPress', src: wordpressImg, href: 'https://wordpress.com/' },
-  { name: 'Salla', src: sallaImg, href: 'https://salla.com/' },
-  { name: 'AfterAds', src: afteradsImg, href: 'https://afterads.com/' },
-  { name: 'Shopify', src: shopifyImg, href: 'https://www.shopify.com/' },
+  { name: 'WordPress', key: 'wordpress', src: wordpressImg, href: 'https://wordpress.com/' },
+  { name: 'Salla', key: 'salla', src: sallaImg, href: 'https://salla.com/' },
+  { name: 'AfterAds', key: 'afterads', src: afteradsImg, href: 'https://afterads.com/' },
+  { name: 'Shopify', key: 'shopify', src: shopifyImg, href: 'https://www.shopify.com/' },
 ];
 
 function SaudiClock({ lang }) {
@@ -164,8 +164,8 @@ export default function Footer({ lang }) {
                   {lang === 'ar' ? 'شركائنا' : 'Our Partners'}
                 </span>
                 <div className="footer-partners-grid">
-                  {partners.map(({ name, src, href }) => (
-                    <a key={name} className="partner-badge" href={href} target="_blank" rel="noopener noreferrer" title={name} aria-label={name}>
+                  {partners.map(({ name, key, src, href }) => (
+                    <a key={name} className={`partner-badge partner-badge--${key}`} href={href} target="_blank" rel="noopener noreferrer" title={name} aria-label={name}>
                       <img src={src} alt={name} className="partner-badge-img" />
                     </a>
                   ))}

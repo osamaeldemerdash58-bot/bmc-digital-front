@@ -55,14 +55,14 @@ export default function Navbar({ lang, setLang }) {
 
   const isServicesActive = location.pathname.startsWith('/service') || location.pathname === '/services';
   const accent = 'var(--neon-blue)';
-  const navBg = 'linear-gradient(135deg, rgba(8, 19, 31, 0.96) 0%, rgba(12, 30, 47, 0.94) 52%, rgba(8, 17, 27, 0.96) 100%)';
+  const navBg = 'linear-gradient(135deg, rgba(5, 12, 27, 0.94) 0%, rgba(8, 18, 36, 0.92) 52%, rgba(5, 11, 25, 0.94) 100%)';
 
   const linkStyle = (active) => ({
-    fontSize: 13,
-    fontWeight: 600,
-    color: active ? accent : 'rgba(245, 240, 232, 0.7)',
+    fontSize: 14,
+    fontWeight: active ? 800 : 650,
+    color: active ? '#FFFFFF' : 'rgba(245, 240, 232, 0.82)',
     textDecoration: 'none',
-    letterSpacing: 0.5,
+    letterSpacing: 0,
     transition: 'color 0.3s',
     position: 'relative',
     display: 'inline-flex',
@@ -79,12 +79,12 @@ export default function Navbar({ lang, setLang }) {
         right: 0,
         zIndex: 1000,
         transition: 'all 0.4s ease',
-        background: scrolled ? navBg : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        background: scrolled ? navBg : 'linear-gradient(180deg, rgba(4, 8, 19, 0.32) 0%, rgba(4, 8, 19, 0) 100%)',
+        backdropFilter: scrolled ? 'blur(18px)' : 'none',
         borderBottom: scrolled
-          ? '1px solid rgba(0, 194, 255, 0.16)'
+          ? '1px solid rgba(245, 240, 232, 0.1)'
           : '1px solid transparent',
-        boxShadow: scrolled ? '0 18px 44px rgba(0, 0, 0, 0.22)' : 'none',
+        boxShadow: scrolled ? '0 16px 38px rgba(2, 8, 16, 0.24)' : 'none',
         padding: scrolled ? '14px 0' : '22px 0',
       }}
     >
@@ -175,13 +175,13 @@ export default function Navbar({ lang, setLang }) {
                   top: '100%',
                   [lang === 'ar' ? 'right' : 'left']: 0,
                   minWidth: 280,
-                  background: 'rgba(11, 15, 21, 0.98)',
-                  border: '1px solid rgba(108, 99, 255, 0.15)',
+                  background: 'rgba(6, 13, 28, 0.98)',
+                  border: '1px solid rgba(245, 240, 232, 0.12)',
                   backdropFilter: 'blur(20px)',
                   padding: '8px 0',
                   marginTop: 8,
                   borderRadius: 14,
-                  boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+                  boxShadow: '0 20px 54px rgba(2,8,16,0.38)',
                 }}
               >
                 {/* All Services link */}
@@ -341,9 +341,9 @@ export default function Navbar({ lang, setLang }) {
       {menuOpen && (
         <div
           style={{
-            background: 'rgba(11, 15, 21, 0.98)',
+            background: 'rgba(6, 13, 28, 0.98)',
             padding: '20px 24px',
-            borderTop: '1px solid rgba(108, 99, 255, 0.1)',
+            borderTop: '1px solid rgba(245, 240, 232, 0.1)',
           }}
         >
           <Link

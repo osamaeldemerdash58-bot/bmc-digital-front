@@ -1,6 +1,6 @@
 .footer {
-  background: var(--bmc-dark);
-  border-top: 1px solid rgba(0,194,255,0.15);
+  background: linear-gradient(135deg, #040819 0%, #071022 55%, #050B1B 100%);
+  border-top: 1px solid rgba(245,240,232,0.08);
 }
 
 .footer-top {
@@ -63,20 +63,39 @@
 
 /* ── Brand Column Partners ── */
 .footer-brand-partners {
-  margin-top: 20px;
+  margin-top: 22px;
+  margin-inline-start: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(245,240,232,0.08);
   width: 100%;
 }
 
 .footer-partners-label--inline {
-  display: block;
-  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
   text-align: start;
+}
+
+.footer-partners-label--inline::after {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,194,255,0.9), transparent);
+}
+
+.rtl .footer-partners-label--inline::after {
+  background: linear-gradient(270deg, rgba(0,194,255,0.9), transparent);
 }
 
 .footer-partners-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(116px, 1fr));
+  align-items: center;
+  column-gap: 22px;
+  row-gap: 18px;
+  max-width: 330px;
 }
 
 /* ── Saudi Clock ── */
@@ -432,60 +451,73 @@
 
 /* ── Partner Badge - clean & professional ── */
 .footer-partners-label {
-  font-size: 10px;
-  letter-spacing: 2px;
+  font-size: 11px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: rgba(0,194,255,0.5);
+  color: rgba(0,194,255,0.72);
+  font-weight: 800;
 }
 
 .partner-badge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 6px 8px;
-  height: 40px;
+  justify-content: flex-start;
+  padding: 0;
+  min-height: 44px;
   min-width: 0;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
   position: relative;
   overflow: visible;
   text-decoration: none;
+}
+
+.rtl .partner-badge {
+  justify-content: flex-end;
 }
 
 .partner-badge::before {
   content: none;
 }
 
-.partner-badge::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 60%);
-  pointer-events: none;
-}
-
 .partner-badge:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0,194,255,0.4);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .partner-badge-img {
   display: block;
-  height: 26px;
+  height: 36px;
   width: auto;
-  max-width: 92px;
+  max-width: 136px;
   object-fit: contain;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-  filter: brightness(1.1);
+  opacity: 0.74;
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+  filter: grayscale(0.15) brightness(1.15) contrast(1.04);
+}
+
+.partner-badge--wordpress .partner-badge-img {
+  height: 38px;
+  max-width: 148px;
+}
+
+.partner-badge--salla .partner-badge-img {
+  height: 33px;
+  max-width: 128px;
+}
+
+.partner-badge--afterads .partner-badge-img {
+  height: 31px;
+  max-width: 132px;
+}
+
+.partner-badge--shopify .partner-badge-img {
+  height: 37px;
+  max-width: 136px;
 }
 
 .partner-badge:hover .partner-badge-img {
   opacity: 1;
+  filter: grayscale(0) brightness(1.18) contrast(1.06);
+  transform: scale(1.04);
 }
 
 /* ── Footer Bottom ── */
@@ -663,7 +695,9 @@
   }
 
   .footer-partners-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(112px, 1fr));
+    gap: 14px 18px;
+    max-width: 320px;
   }
 
   .footer-reg-info {

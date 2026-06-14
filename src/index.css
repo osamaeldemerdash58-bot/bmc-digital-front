@@ -17,10 +17,10 @@
   --neon-mid:       #00C2FF;
 
   /* Backgrounds */
-  --bmc-dark:   #020414;
-  --bmc-dark-2: #04071A;
-  --bmc-dark-3: #070B20;
-  --bmc-dark-4: #0A1028;
+  --bmc-dark:   #040819;
+  --bmc-dark-2: #071022;
+  --bmc-dark-3: #0A152B;
+  --bmc-dark-4: #0D1B34;
 
   --bmc-white: #F5F0E8;
 
@@ -48,7 +48,9 @@
 html { scroll-behavior: auto; }
 
 body {
-  background: #020414;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(0, 194, 255, 0.06), transparent 32%),
+    linear-gradient(135deg, #040819 0%, #071022 52%, #050B1B 100%);
   color: var(--bmc-white);
   font-family: 'Cairo', sans-serif !important;
   direction: rtl;
