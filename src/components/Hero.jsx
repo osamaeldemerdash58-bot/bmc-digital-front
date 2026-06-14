@@ -320,21 +320,25 @@ export default function Hero({ lang }) {
         }
         @media (min-width: 1025px) {
           #hero {
-            align-items: flex-start !important;
-            padding-top: 165px !important;
+            align-items: flex-end !important;
+            padding-top: 110px !important;
             padding-bottom: 40px !important;
           }
           .hero-content-wrap {
+            position: absolute !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: clamp(86px, 13vh, 140px) !important;
             transform: none !important;
           }
           #hero .hero-text-block {
-            margin-right: -42px !important;
+            margin-right: 16px !important;
             margin-left: auto !important;
-            transform: translateY(96px) !important;
+            transform: none !important;
           }
           html[dir="ltr"] #hero .hero-text-block {
             margin-right: auto !important;
-            margin-left: -42px !important;
+            margin-left: 16px !important;
           }
           #hero .hero-image-wrap img {
             object-position: 61% 44% !important;
