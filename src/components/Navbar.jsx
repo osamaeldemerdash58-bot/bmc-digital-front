@@ -14,6 +14,31 @@ export default function Navbar({ lang, setLang }) {
   const navTranslations = data?.translations?.nav?.[lang] || data?.translations?.nav?.ar || {};
   const navConfig = data?.siteConfig?.navLinks || [];
   const servicesData = data?.services || [];
+  const navVisibility = navConfig.reduce((acc, item) => {
+    const keys = [
+      item?.key,
+      item?.href,
+      item?.path,
+      item?.labelEn,
+      item?.labelAr,
+    ]
+      .filter(Boolean)
+      .map((value) => String(value).trim().toLowerCase());
+
+    keys.forEach((key) => {
+      acc[key] = item?.visible !== false;
+    });
+    return acc;
+  }, {});
+  const isNavVisible = (...keys) => {
+    for (const key of keys) {
+      const normalized = String(key || '').trim().toLowerCase();
+      if (Object.prototype.hasOwnProperty.call(navVisibility, normalized)) {
+        return navVisibility[normalized];
+      }
+    }
+    return true;
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -45,8 +70,12 @@ export default function Navbar({ lang, setLang }) {
   }));
 
   const mainLinks = [
-    { href: '/', label: lang === 'ar' ? 'الرئيسية' : 'Home' },
-  ];
+    { href: '/', label: lang === 'ar' ? 'الرئيسية' : 'Home', keys: ['home', '/', 'الرئيسية'] },
+  ].filter((link) => isNavVisible(...link.keys));
+
+  const showServicesLink = isNavVisible('services', '/services', 'خدماتنا', 'services');
+  const showWorksLink = isNavVisible('works', '/works', 'أعمالنا', 'works');
+  const showContactLink = isNavVisible('contact', '/contact', 'تواصل معنا', 'contact');
 
   const isActive = (path) => {
     if (path === '/') return location.pathname === '/';
@@ -128,7 +157,7 @@ export default function Navbar({ lang, setLang }) {
           ))}
 
           {/* Services Dropdown */}
-          <li ref={servicesRef} style={{ position: 'relative' }}>
+          {showServicesLink && <li ref={servicesRef} style={{ position: 'relative' }}>
             <button
               onClick={() => setServicesOpen(!servicesOpen)}
               className={`nav-link nav-link-btn ${isServicesActive ? 'nav-link-active' : ''}`}
@@ -238,9 +267,9 @@ export default function Navbar({ lang, setLang }) {
                 ))}
               </div>
             )}
-          </li>
+          </li>}
 
-          <li>
+          {showWorksLink && <li>
             <Link
               to="/works"
               className={`nav-link ${isActive('/works') ? 'nav-link-active' : ''}`}
@@ -248,9 +277,9 @@ export default function Navbar({ lang, setLang }) {
             >
               {navTranslations.works || 'Works'}
             </Link>
-          </li>
+          </li>}
 
-          <li>
+          {showContactLink && <li>
             <Link
               to="/contact"
               className={`nav-link ${isActive('/contact') ? 'nav-link-active' : ''}`}
@@ -258,7 +287,7 @@ export default function Navbar({ lang, setLang }) {
             >
               {navTranslations.contact || 'Contact'}
             </Link>
-          </li>
+          </li>}
         </ul>
 
         {/* Actions */}
@@ -346,24 +375,26 @@ export default function Navbar({ lang, setLang }) {
             borderTop: '1px solid rgba(245, 240, 232, 0.1)',
           }}
         >
-          <Link
-            to="/"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              display: 'block',
-              padding: '12px 0',
-              fontSize: 15,
-              fontWeight: 600,
-              color: isActive('/') ? accent : 'rgba(245, 240, 232, 0.8)',
-              textDecoration: 'none',
-              borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
-            }}
-          >
-            {lang === 'ar' ? 'الرئيسية' : 'Home'}
-          </Link>
+          {isNavVisible('home', '/', 'الرئيسية') && (
+            <Link
+              to="/"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: 'block',
+                padding: '12px 0',
+                fontSize: 15,
+                fontWeight: 600,
+                color: isActive('/') ? accent : 'rgba(245, 240, 232, 0.8)',
+                textDecoration: 'none',
+                borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
+              }}
+            >
+              {lang === 'ar' ? 'الرئيسية' : 'Home'}
+            </Link>
+          )}
 
           {/* Mobile Services Toggle */}
-          <div>
+          {showServicesLink && <div>
             <button
               onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
               style={{
@@ -437,39 +468,43 @@ export default function Navbar({ lang, setLang }) {
                 ))}
               </div>
             )}
-          </div>
+          </div>}
 
-          <Link
-            to="/works"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              display: 'block',
-              padding: '12px 0',
-              fontSize: 15,
-              fontWeight: 600,
-              color: isActive('/works') ? accent : 'rgba(245, 240, 232, 0.8)',
-              textDecoration: 'none',
-              borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
-            }}
-          >
-            {navTranslations.works || 'Works'}
-          </Link>
+          {showWorksLink && (
+            <Link
+              to="/works"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: 'block',
+                padding: '12px 0',
+                fontSize: 15,
+                fontWeight: 600,
+                color: isActive('/works') ? accent : 'rgba(245, 240, 232, 0.8)',
+                textDecoration: 'none',
+                borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
+              }}
+            >
+              {navTranslations.works || 'Works'}
+            </Link>
+          )}
 
-          <Link
-            to="/contact"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              display: 'block',
-              padding: '12px 0',
-              fontSize: 15,
-              fontWeight: 600,
-              color: isActive('/contact') ? accent : 'rgba(245, 240, 232, 0.8)',
-              textDecoration: 'none',
-              borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
-            }}
-          >
-            {navTranslations.contact || 'Contact'}
-          </Link>
+          {showContactLink && (
+            <Link
+              to="/contact"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                display: 'block',
+                padding: '12px 0',
+                fontSize: 15,
+                fontWeight: 600,
+                color: isActive('/contact') ? accent : 'rgba(245, 240, 232, 0.8)',
+                textDecoration: 'none',
+                borderBottom: '1px solid rgba(108, 99, 255, 0.08)',
+              }}
+            >
+              {navTranslations.contact || 'Contact'}
+            </Link>
+          )}
         </div>
       )}
 
