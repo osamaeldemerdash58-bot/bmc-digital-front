@@ -325,12 +325,12 @@ export default function Hero({ lang }) {
             padding-bottom: 40px !important;
           }
           .hero-content-wrap {
-            transform: translateY(69px) !important;
+            transform: none !important;
           }
           #hero .hero-text-block {
             margin-right: -42px !important;
             margin-left: auto !important;
-            transform: translateY(138px) !important;
+            transform: translateY(96px) !important;
           }
           html[dir="ltr"] #hero .hero-text-block {
             margin-right: auto !important;
