@@ -340,11 +340,11 @@ body {
   .footer-reg-info { flex-wrap: wrap !important; gap: 10px !important; width: 100% !important; }
   .footer-reg-divider { width: 100% !important; height: 1px !important; }
   .footer-brand-partners { margin-inline-start: 0 !important; }
-  .partner-badge { min-height: 38px !important; padding: 0 !important; }
+  .partner-badge { width: auto !important; min-height: 38px !important; padding: 0 !important; }
   .partner-badge-img { height: 30px !important; max-width: 122px !important; }
   .partner-badge--wordpress .partner-badge-img { height: 33px !important; }
   .partner-badge--afterads .partner-badge-img { height: 27px !important; }
-  .footer-partners-grid { grid-template-columns: repeat(2, minmax(108px, 1fr)) !important; gap: 14px 18px !important; max-width: 300px !important; }
+  .footer-partners-grid { justify-content: flex-start !important; gap: 10px 12px !important; max-width: 288px !important; }
 }
 
 /* ═══════════════════════════════════════════
