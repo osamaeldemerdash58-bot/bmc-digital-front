@@ -132,24 +132,10 @@ export default function Hero({ lang }) {
             style={{
               width: '100%', height: '100%', objectFit: 'cover',
               objectPosition: 'center center',
-              animation: 'kenBurns 22s ease-in-out infinite alternate',
               transformOrigin: 'center center', display: 'block',
             }}
           />
         </picture>
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(13,17,23,0.32)' }} />
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: lang === 'ar'
-            ? 'linear-gradient(to left, rgba(13,17,23,0.06) 0%, rgba(13,17,23,0.24) 55%, rgba(13,17,23,0.58) 100%)'
-            : 'linear-gradient(to right, rgba(13,17,23,0.06) 0%, rgba(13,17,23,0.24) 55%, rgba(13,17,23,0.58) 100%)',
-        }} />
-        {/* Bottom fade — يخلي النص يبان واضح */}
-        <div style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%',
-          background: 'linear-gradient(to top, rgba(13,17,23,0.88) 0%, rgba(13,17,23,0.45) 60%, transparent 100%)',
-          zIndex: 1,
-        }} />
       </div>
 
       {/* Radial glow */}
@@ -207,20 +193,21 @@ export default function Hero({ lang }) {
               as="a"
               href="#contact"
               className="snake-btn hero-cta hero-cta-primary"
-              snakeOptions={{ speed: 0.0035, tailLength: 0.2, lineWidth: 2 }}
+              snakeOptions={{ speed: 0.0035, tailLength: 0.12, lineWidth: 1.35, glowOpacity: 0.38 }}
               onMouseEnter={() => setBtn1Hovered(true)}
               onMouseLeave={() => setBtn1Hovered(false)}
               style={{
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 10,
                 minWidth: 150,
                 padding: '13px 24px',
-                background: btn1Hovered ? 'linear-gradient(135deg, #00C2FF 0%, #1769FF 100%)' : 'linear-gradient(135deg, #00C2FF 0%, #0A3080 100%)',
+                background: btn1Hovered ? 'linear-gradient(135deg, #008FD1 0%, #06336F 100%)' : 'linear-gradient(135deg, #007DB8 0%, #061F4F 100%)',
                 color: '#fff',
                 fontWeight: 800, fontSize: 14, letterSpacing: 0,
                 textDecoration: 'none', borderRadius: 12,
-                border: '1px solid rgba(255,255,255,0.22)', transition: 'all 0.35s ease',
+                border: '1px solid rgba(255,255,255,0.46)', transition: 'all 0.35s ease',
                 transform: btn1Hovered ? 'translateY(-3px)' : 'translateY(0)',
-                boxShadow: btn1Hovered ? '0 18px 40px rgba(0,194,255,0.35)' : '0 12px 28px rgba(0,194,255,0.24)',
+                boxShadow: 'none',
+                textShadow: '0 1px 2px rgba(0,0,0,0.45)',
               }}
             >
               <span className="snake-light" />
@@ -240,14 +227,15 @@ export default function Hero({ lang }) {
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 10,
                 minWidth: 150,
                 padding: '13px 24px',
-                background: btn2Hovered ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)',
+                background: btn2Hovered ? 'rgba(4,8,25,0.76)' : 'rgba(4,8,25,0.64)',
                 color: '#fff',
                 fontWeight: 800, fontSize: 14, letterSpacing: 0,
                 textDecoration: 'none',
-                border: btn2Hovered ? '1px solid rgba(255,255,255,0.78)' : '1px solid rgba(255,255,255,0.34)',
+                border: btn2Hovered ? '1px solid rgba(255,255,255,0.86)' : '1px solid rgba(255,255,255,0.68)',
                 borderRadius: 12, transition: 'all 0.35s ease',
                 transform: btn2Hovered ? 'translateY(-3px)' : 'translateY(0)',
-                boxShadow: btn2Hovered ? '0 16px 34px rgba(0,0,0,0.25)' : 'none',
+                boxShadow: 'none',
+                textShadow: '0 1px 2px rgba(0,0,0,0.45)',
               }}
             >
               <span className="snake-light" />
@@ -285,12 +273,6 @@ export default function Hero({ lang }) {
           51%  { transform: scaleY(1); transform-origin: bottom; }
           100% { transform: scaleY(0); transform-origin: bottom; }
         }
-        @keyframes kenBurns {
-          0%   { transform: scale(1) translate(0px, 0px); }
-          33%  { transform: scale(1.012) translate(-2px, -1px); }
-          66%  { transform: scale(1.008) translate(2px, -2px); }
-          100% { transform: scale(1.018) translate(-1px, 1px); }
-        }
         @media (max-width: 1024px) {
           #hero { padding-top: 96px !important; padding-bottom: 110px !important; }
         }
@@ -298,6 +280,9 @@ export default function Hero({ lang }) {
           border-radius: 12px !important;
           letter-spacing: 0 !important;
           overflow: hidden !important;
+          box-shadow: none !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
           display: inline-flex !important;
           align-items: center !important;
           justify-content: center !important;
@@ -309,10 +294,16 @@ export default function Hero({ lang }) {
           font-size: 14px !important;
         }
         #hero .hero-cta-primary {
-          background: linear-gradient(135deg, #00C2FF 0%, #0A3080 100%) !important;
+          background: linear-gradient(135deg, #007DB8 0%, #061F4F 100%) !important;
         }
         #hero .hero-cta-secondary {
-          background: rgba(255,255,255,0.04) !important;
+          background: rgba(4,8,25,0.64) !important;
+          box-shadow: none !important;
+        }
+        #hero .hero-cta-secondary:hover {
+          background: rgba(4,8,25,0.76) !important;
+        }
+        #hero .hero-cta:hover {
           box-shadow: none !important;
         }
         #hero .hero-cta svg {
@@ -341,11 +332,14 @@ export default function Hero({ lang }) {
             margin-left: 16px !important;
           }
           #hero .hero-image-wrap img {
-            object-position: 61% 44% !important;
+            object-position: center center !important;
           }
         }
      @media (max-width: 768px) {
   #hero { min-height: 100svh !important; padding-top: 88px !important; padding-bottom: 96px !important; }
+  #hero .hero-image-wrap img {
+    object-position: center center !important;
+  }
   #hero .hero-content-wrap > div {
     max-width: none !important;
     text-align: center !important;

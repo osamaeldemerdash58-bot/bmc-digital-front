@@ -22,6 +22,7 @@ export default function SnakeButton({
     const speed = snakeOptions.speed || 0.004;
     const tailLength = snakeOptions.tailLength || 0.22;
     const lineWidth = snakeOptions.lineWidth || 2;
+    const glowOpacity = snakeOptions.glowOpacity ?? 1;
     const pad = snakeOptions.pad ?? 2;
     const startAt = snakeOptions.startAt || 'right';
     let radius = parseFloat(getComputedStyle(btn).borderRadius) || 10;
@@ -97,7 +98,7 @@ export default function SnakeButton({
       for (let i = 0; i <= steps; i += 1) {
         const pt = getPoint(progress - i * step);
         const ratio = 1 - i / steps;
-        const alpha = ratio * ratio;
+        const alpha = ratio * ratio * glowOpacity;
         // Neon gradient: purple → cyan
         const rr = Math.round(108 + (0   - 108) * ratio);
         const gg = Math.round(99  + (194 - 99 ) * ratio);
@@ -111,11 +112,11 @@ export default function SnakeButton({
       const head = getPoint(progress);
       ctx.beginPath();
       ctx.arc(head.x, head.y, lineWidth / 2 + 0.5, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(180,240,255,1)';
+      ctx.fillStyle = `rgba(180,240,255,${glowOpacity})`;
       ctx.fill();
 
       const grd = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 6);
-      grd.addColorStop(0, 'rgba(0,194,255,0.5)');
+      grd.addColorStop(0, `rgba(0,194,255,${0.5 * glowOpacity})`);
       grd.addColorStop(1, 'rgba(108,99,255,0)');
       ctx.beginPath();
       ctx.arc(head.x, head.y, 6, 0, Math.PI * 2);
