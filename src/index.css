@@ -129,8 +129,7 @@ body.ltr { direction: ltr; }
 ════════════════════════════════════════════════ */
 
 /* Every button and CTA link in the site */
-button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn),
-a.snake-btn,
+button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn):not(.snake-btn):not(.snake-edge),
 .btn-primary,
 a.btn-primary {
   background:    var(--btn-gradient) !important;
@@ -141,19 +140,57 @@ a.btn-primary {
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
   font-weight:   700 !important;
-  transition:    all 0.35s ease !important;
+  transition:    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                 box-shadow 0.35s ease,
+                 background 0.35s ease,
+                 filter 0.35s ease !important;
   position:      relative !important;
-  overflow:      visible !important;
+  overflow:      hidden !important;
   letter-spacing: 0.5px !important;
+  transform: translateY(0) scale(1);
+  isolation: isolate;
 }
 
-button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn):hover,
-a.snake-btn:hover,
+button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn):not(.snake-btn):not(.snake-edge)::before,
+.btn-primary::before,
+a.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.18) 38%, rgba(255,255,255,0.42) 50%, rgba(255,255,255,0.16) 62%, transparent 100%);
+  transform: translateX(-130%) skewX(-18deg);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+
+button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn):not(.snake-btn):not(.snake-edge) > *,
+.btn-primary > *,
+a.btn-primary > * {
+  position: relative;
+  z-index: 1;
+}
+
+button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn):not(.snake-btn):not(.snake-edge):hover,
 .btn-primary:hover,
 a.btn-primary:hover {
   background:  var(--btn-gradient-hover) !important;
   box-shadow:  var(--btn-glow-hover), var(--btn-inner-glow) !important;
-  transform:   translateY(-3px) !important;
+  transform:   translateY(-4px) scale(1.035) !important;
+  filter:      saturate(1.18) brightness(1.08);
+}
+
+button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn):not(.snake-btn):not(.snake-edge):hover::before,
+.btn-primary:hover::before,
+a.btn-primary:hover::before {
+  transform: translateX(130%) skewX(-18deg);
+}
+
+button:not(.no-style):not([class*="snav"]):not(.whatsapp-float):not(.faq-toggle):not(.icon-btn):not(.toggle-btn):not(.snake-btn):not(.snake-edge):active,
+.btn-primary:active,
+a.btn-primary:active {
+  transform: translateY(-1px) scale(0.97) !important;
+  transition-duration: 0.12s !important;
 }
 
 /* Outline / ghost variant */

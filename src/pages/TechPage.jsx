@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
 
@@ -173,8 +172,6 @@ export default function TechPage({ lang, setLang }) {
       </section>
 
       <Footer lang={lang} />
-      <WhatsAppFloat lang={lang} />
-
       <style>{`
         @media (max-width: 900px) {
           section:nth-of-type(2) .container > div {

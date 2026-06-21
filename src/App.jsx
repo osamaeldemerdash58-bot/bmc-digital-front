@@ -93,7 +93,6 @@ function HomePage({ lang, setLang }) {
         {sectionMap.contact !== false && <Contact lang={lang} />}
       </main>
       <Footer lang={lang} />
-      <WhatsAppFloat lang={lang} />
       <SectionNav lang={lang} />
     </>
   );
@@ -124,6 +123,7 @@ function AppContent() {
         <Route path="/contact" element={<ContactPage lang={lang} setLang={setLang} />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
+      <WhatsAppFloat lang={lang} />
     </>
   );
 }

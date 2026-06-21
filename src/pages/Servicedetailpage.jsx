@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import WhatsAppFloat from '../components/WhatsAppFloat';
 import { useReveal } from '../hooks/useReveal';
 import { useData } from '../DataContext';
 import { overrideServiceCard, overrideServiceDetail } from '../data/digitalMarketingService';
@@ -891,7 +890,6 @@ export default function ServiceDetailPage({ lang, setLang }) {
           </div>
         </div>
         <Footer lang={lang} />
-        <WhatsAppFloat lang={lang} />
       </>
     );
   }
@@ -1367,8 +1365,6 @@ export default function ServiceDetailPage({ lang, setLang }) {
       )}
 
       <Footer lang={lang} />
-      <WhatsAppFloat lang={lang} />
-
       <style>{`
         /* Sub-types ticker */
         @keyframes serviceSubTypeMarquee1 { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }

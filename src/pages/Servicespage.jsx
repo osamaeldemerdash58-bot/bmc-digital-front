@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import SnakeButton from '../components/SnakeButton';
 import { useReveal } from '../hooks/useReveal';
@@ -283,8 +282,6 @@ export default function ServicesPage({ lang, setLang }) {
       </section>
 
       <Footer lang={lang} />
-      <WhatsAppFloat lang={lang} />
-
       <style>{`
         @keyframes servicesMarquee1 { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-100%,0,0); } }
         @keyframes servicesMarquee2 { 0% { transform: translate3d(100%,0,0); } 100% { transform: translate3d(0,0,0); } }

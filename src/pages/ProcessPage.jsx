@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
 
@@ -221,8 +220,6 @@ export default function ProcessPage({ lang, setLang }) {
       </section>
 
       <Footer lang={lang} />
-      <WhatsAppFloat lang={lang} />
-
       <style>{`
         @keyframes floatBlob {
           0%, 100% { transform: translateY(0px); }

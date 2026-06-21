@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import WhatsAppFloat from '../components/WhatsAppFloat';
 import ServiceRequestPopup from '../components/ServiceRequestPopup';
 import { useReveal } from '../hooks/useReveal';
 import worksHeroImg from '../assets/heroimagedesktop.png';
@@ -257,8 +256,6 @@ export default function WorksPage({ lang, setLang }) {
       </section>
 
       <Footer lang={lang} />
-      <WhatsAppFloat lang={lang} />
-
       <style>{`
         @keyframes gridMove {
           0% { transform: rotateX(60deg) translateY(0); }
