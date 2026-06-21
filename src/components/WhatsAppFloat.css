@@ -58,6 +58,17 @@
   transform: scale(0.95);
 }
 
+.whatsapp-icon-wrap {
+  display: grid;
+  place-items: center;
+  animation: whatsapp-shake-alert 7s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+.whatsapp-icon-wrap svg {
+  display: block;
+}
+
 /* Pulse animation */
 @keyframes whatsapp-float {
   0%, 100% {
@@ -65,6 +76,27 @@
   }
   50% {
     transform: translateY(-10px) scale(1.05);
+  }
+}
+
+@keyframes whatsapp-shake-alert {
+  0%, 88%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  89% {
+    transform: translateX(7px) rotate(8deg);
+  }
+  90% {
+    transform: translateX(-7px) rotate(-8deg);
+  }
+  91% {
+    transform: translateX(7px) rotate(8deg);
+  }
+  92% {
+    transform: translateX(-7px) rotate(-8deg);
+  }
+  93% {
+    transform: translateX(0) rotate(0deg);
   }
 }
 
