@@ -125,7 +125,7 @@ function AppContent() {
         <Route path="/contact" element={<ContactPage lang={lang} setLang={setLang} />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
-      {!isAdminPage && <WhatsAppFloat lang={lang} />}
+      {!isAdminPage && <WhatsAppFloat lang={lang} hideOnHero={location.pathname === '/'} />}
     </>
   );
 }

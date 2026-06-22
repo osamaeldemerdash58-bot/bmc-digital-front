@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './WhatsAppFloat.css';
 
-export default function WhatsAppFloat({ lang }) {
+export default function WhatsAppFloat({ lang, hideOnHero = false }) {
   const whatsappNumber = '966535166370';
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(!hideOnHero);
 
   useEffect(() => {
     const onScroll = () => {
       const footerEl = document.querySelector('footer');
+      const heroEl = document.getElementById('hero');
 
       // Hide when footer is in view
       let aboveFooter = true;
@@ -16,16 +17,23 @@ export default function WhatsAppFloat({ lang }) {
         aboveFooter = footerTop > window.innerHeight * 0.85;
       }
 
-      setVisible(aboveFooter);
+      let pastHero = true;
+      if (hideOnHero && heroEl) {
+        pastHero = heroEl.getBoundingClientRect().bottom <= 0;
+      }
+
+      setVisible(aboveFooter && pastHero);
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
     onScroll();
 
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
     };
-  }, []);
+  }, [hideOnHero]);
 
   const handleClick = () => {
     window.open(`https://wa.me/${whatsappNumber}`, '_blank');
