@@ -370,6 +370,29 @@ export default function AdminPage() {
     if (auth) loadData();
   }, [auth]);
 
+  useEffect(() => {
+    let previousBodyOverflow = '';
+
+    const lockBackgroundScroll = (event) => {
+      if (!event.target?.matches?.('select')) return;
+      previousBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+    };
+
+    const unlockBackgroundScroll = (event) => {
+      if (!event.target?.matches?.('select')) return;
+      document.body.style.overflow = previousBodyOverflow;
+    };
+
+    document.addEventListener('focusin', lockBackgroundScroll);
+    document.addEventListener('focusout', unlockBackgroundScroll);
+    return () => {
+      document.removeEventListener('focusin', lockBackgroundScroll);
+      document.removeEventListener('focusout', unlockBackgroundScroll);
+      document.body.style.overflow = previousBodyOverflow;
+    };
+  }, []);
+
   const handleLogin = (data) => {
     setAuth(data);
   };
@@ -600,7 +623,7 @@ export default function AdminPage() {
   if (loading) return <div style={{ ...styles.page, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><p style={{ color: '#00C2FF' }}>Loading...</p></div>;
 
   return (
-    <div style={{ ...styles.page, direction: uiLang === 'ar' ? 'rtl' : 'ltr' }}>
+    <div className="admin-page" style={{ ...styles.page, direction: uiLang === 'ar' ? 'rtl' : 'ltr' }}>
       <div style={sidebarStyle}>
         <Link to="/" style={styles.sidebarLogo}>
           <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 20, fontWeight: 900 }}>

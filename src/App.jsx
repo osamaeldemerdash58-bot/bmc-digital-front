@@ -101,6 +101,8 @@ function HomePage({ lang, setLang }) {
 function AppContent() {
   const [lang, setLang] = useState('ar');
   const { loading } = useData();
+  const location = useLocation();
+  const isAdminPage = location.pathname === '/admin';
 
   useEffect(() => {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
@@ -123,7 +125,7 @@ function AppContent() {
         <Route path="/contact" element={<ContactPage lang={lang} setLang={setLang} />} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
-      <WhatsAppFloat lang={lang} />
+      {!isAdminPage && <WhatsAppFloat lang={lang} />}
     </>
   );
 }
