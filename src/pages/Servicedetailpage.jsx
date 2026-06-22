@@ -998,7 +998,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
             href={serviceWhatsAppHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="hero-cta-btn"
+            className="service-detail-btn hero-cta-btn"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -1233,6 +1233,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
                   href={serviceWhatsAppHref}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="service-detail-btn"
                   style={{
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     padding: '13px 28px',
@@ -1251,6 +1252,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
                   href={serviceWhatsAppHref}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="service-detail-btn"
                   style={{
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                     padding: '13px 28px',
@@ -1327,6 +1329,7 @@ export default function ServiceDetailPage({ lang, setLang }) {
 
               <Link
                 to="/services"
+                className="service-detail-btn"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -1410,9 +1413,44 @@ export default function ServiceDetailPage({ lang, setLang }) {
           to   { opacity: 1; transform: perspective(900px) rotateX(0deg) translateY(0); }
         }
 
-        .hero-cta-btn:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+        .service-detail-btn {
+          position: relative;
+          overflow: hidden;
+          isolation: isolate;
+          will-change: transform, box-shadow, filter;
+          transition:
+            transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.28s ease,
+            border-color 0.28s ease,
+            background 0.28s ease,
+            filter 0.28s ease !important;
+        }
+        .service-detail-btn::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          z-index: 1;
+          background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.12) 38%, rgba(255,255,255,0.42) 50%, rgba(255,255,255,0.12) 62%, transparent 100%);
+          transform: translateX(-135%) skewX(-18deg);
+          transition: transform 0.65s ease;
+          pointer-events: none;
+        }
+        .service-detail-btn > * {
+          position: relative;
+          z-index: 2;
+        }
+        .service-detail-btn:hover {
+          transform: translateY(-5px) scale(1.035) !important;
+          box-shadow: 0 18px 54px rgba(0,0,0,0.36), 0 0 34px ${accent}55 !important;
+          border-color: ${accent}88 !important;
+          filter: saturate(1.18) brightness(1.08);
+        }
+        .service-detail-btn:hover::before {
+          transform: translateX(135%) skewX(-18deg);
+        }
+        .service-detail-btn:active {
+          transform: translateY(-1px) scale(0.97) !important;
+          transition-duration: 0.12s !important;
         }
 
         .hero-breadcrumb { animation: cardEntry 0.7s cubic-bezier(0.23,1,0.32,1) both; }
