@@ -178,8 +178,8 @@ export default function Hero({ lang }) {
               ...titleSpanStyle,
               display: 'block',
               overflow: 'visible',
-              marginTop: lang === 'ar' ? 24 : 34,
-              paddingTop: lang === 'ar' ? 6 : 0,
+              marginTop: lang === 'ar' ? 8 : 18,
+              paddingTop: lang === 'ar' ? 2 : 0,
               fontSize: 'clamp(21px, 2.9vw, 36px)',
               lineHeight: lang === 'ar' ? 1.48 : 1.3,
             }}>
