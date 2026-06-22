@@ -228,6 +228,112 @@ const TECHNOLOGY_OPTIONS = [
 const findTechnologyOption = (name = '') =>
   TECHNOLOGY_OPTIONS.find((opt) => opt.name.toLowerCase() === name.trim().toLowerCase());
 
+function AdminSelect({ value, options, onChange, placeholder = 'Select...', style = {}, menuHeight = 220 }) {
+  const [open, setOpen] = useState(false);
+  const rootRef = React.useRef(null);
+  const selected = options.find((option) => option.value === value);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnOutsideClick = (event) => {
+      if (!rootRef.current?.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener('mousedown', closeOnOutsideClick);
+    return () => document.removeEventListener('mousedown', closeOnOutsideClick);
+  }, [open]);
+
+  return (
+    <div ref={rootRef} style={{ position: 'relative', width: style.width || '100%' }}>
+      <button
+        className="no-style"
+        type="button"
+        onClick={() => setOpen(prev => !prev)}
+        style={{
+          ...style,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 10,
+          textAlign: 'start',
+          userSelect: 'none',
+        }}
+      >
+        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {selected?.label || placeholder}
+        </span>
+        <span style={{ fontSize: 10, opacity: 0.7 }}>{open ? '▲' : '▼'}</span>
+      </button>
+      {open && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 'calc(100% + 6px)',
+            left: 0,
+            right: 0,
+            zIndex: 500,
+            maxHeight: 'none',
+            overflow: 'visible',
+            background: '#131816',
+            border: '1px solid rgba(184,164,114,0.35)',
+            borderRadius: 8,
+            boxShadow: '0 18px 40px rgba(0,0,0,0.35)',
+            padding: 4,
+          }}
+        >
+          {options.map((option) => {
+            const active = option.value === value;
+            return (
+              <button
+                className="no-style"
+                key={option.value || '__empty'}
+                type="button"
+                onClick={() => {
+                  onChange(option.value);
+                  setOpen(false);
+                }}
+                style={{
+                  width: '100%',
+                  display: 'block',
+                  padding: '9px 10px',
+                  background: active ? 'rgba(0,194,255,0.14)' : 'transparent',
+                  color: active ? '#00C2FF' : '#F5F0E8',
+                  border: 'none',
+                  borderRadius: 6,
+                  textAlign: 'start',
+                  cursor: 'pointer',
+                  fontFamily: 'Cairo, sans-serif',
+                  fontSize: style.fontSize || 13,
+                }}
+              >
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function usePanelWheelScroll() {
+  const panelRef = React.useRef(null);
+
+  useEffect(() => {
+    const handleWheel = (event) => {
+      const panel = panelRef.current;
+      if (!panel) return;
+      event.preventDefault();
+      event.stopPropagation();
+      panel.scrollTop += event.deltaY;
+    };
+
+    document.addEventListener('wheel', handleWheel, { capture: true, passive: false });
+    return () => document.removeEventListener('wheel', handleWheel, { capture: true });
+  }, []);
+
+  return panelRef;
+}
+
 function LoginPage({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -369,41 +475,6 @@ export default function AdminPage() {
   useEffect(() => {
     if (auth) loadData();
   }, [auth]);
-
-  useEffect(() => {
-    let previousBodyOverflow = '';
-    let activeSelect = null;
-
-    const lockBackgroundScroll = (event) => {
-      if (!event.target?.matches?.('select')) return;
-      activeSelect = event.target;
-      previousBodyOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-    };
-
-    const unlockBackgroundScroll = (event) => {
-      if (!event.target?.matches?.('select')) return;
-      activeSelect = null;
-      document.body.style.overflow = previousBodyOverflow;
-    };
-
-    const stopBackgroundWheel = (event) => {
-      const focusedSelect = activeSelect || (document.activeElement?.matches?.('select') ? document.activeElement : null);
-      if (!focusedSelect) return;
-      event.preventDefault();
-      event.stopPropagation();
-    };
-
-    document.addEventListener('focusin', lockBackgroundScroll);
-    document.addEventListener('focusout', unlockBackgroundScroll);
-    document.addEventListener('wheel', stopBackgroundWheel, { capture: true, passive: false });
-    return () => {
-      document.removeEventListener('focusin', lockBackgroundScroll);
-      document.removeEventListener('focusout', unlockBackgroundScroll);
-      document.removeEventListener('wheel', stopBackgroundWheel, { capture: true });
-      document.body.style.overflow = previousBodyOverflow;
-    };
-  }, []);
 
   const handleLogin = (data) => {
     setAuth(data);
@@ -662,7 +733,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div style={mainStyle}>
+      <div className="admin-page-main" style={mainStyle}>
         {saved && (
           <div style={{ position: 'fixed', top: 20, right: 20, background: '#27ae60', color: '#fff', padding: '12px 24px', borderRadius: 50, zIndex: 9999, fontWeight: 700, fontSize: 14 }}>
             {tr('✓ تم الحفظ', '✓ Saved successfully')}
@@ -756,16 +827,18 @@ export default function AdminPage() {
                       </div>
                     </div>
                     <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
-                      <select
+                      <AdminSelect
                         value={order.status}
-                        onChange={(e) => updateOrderStatus(order._id, e.target.value)}
+                        onChange={(nextStatus) => updateOrderStatus(order._id, nextStatus)}
                         style={styles.statusSelect}
-                      >
-                        <option value="new" style={{ background: '#131816', color: '#F5F0E8' }}>{statusLabels[uiLang].new}</option>
-                        <option value="in_progress" style={{ background: '#131816', color: '#F5F0E8' }}>{statusLabels[uiLang].in_progress}</option>
-                        <option value="completed" style={{ background: '#131816', color: '#F5F0E8' }}>{statusLabels[uiLang].completed}</option>
-                        <option value="cancelled" style={{ background: '#131816', color: '#F5F0E8' }}>{statusLabels[uiLang].cancelled}</option>
-                      </select>
+                        options={[
+                          { value: 'new', label: statusLabels[uiLang].new },
+                          { value: 'in_progress', label: statusLabels[uiLang].in_progress },
+                          { value: 'completed', label: statusLabels[uiLang].completed },
+                          { value: 'cancelled', label: statusLabels[uiLang].cancelled },
+                        ]}
+                        menuHeight={190}
+                      />
                       <button title={tr('حذف الطلب', 'Delete order')} style={styles.iconDanger} onClick={() => deleteOrder(order._id)}>🗑</button>
                     </div>
                   </div>
@@ -1105,16 +1178,16 @@ export default function AdminPage() {
               <div style={{ display: 'grid', gap: 12, marginBottom: 24 }}>
                 <div>
                   <label style={styles.label}>Technology</label>
-                  <select
+                  <AdminSelect
                     style={{ ...styles.input, height: 40, marginBottom: 0, background: '#131816', color: '#F5F0E8' }}
                     value={selectedNewTechPreset}
-                    onChange={(e) => applyNewTechPreset(e.target.value)}
-                  >
-                    <option style={{ background: '#131816', color: '#F5F0E8' }} value="">Select tech...</option>
-                    {TECHNOLOGY_OPTIONS.map((opt) => (
-                      <option style={{ background: '#131816', color: '#F5F0E8' }} key={opt.name} value={opt.name}>{opt.name}</option>
-                    ))}
-                  </select>
+                    onChange={applyNewTechPreset}
+                    placeholder="Select tech..."
+                    options={[
+                      { value: '', label: 'Select tech...' },
+                      ...TECHNOLOGY_OPTIONS.map((opt) => ({ value: opt.name, label: opt.name })),
+                    ]}
+                  />
                 </div>
                 <div>
                   <label style={styles.label}>Name</label>
@@ -1150,16 +1223,16 @@ export default function AdminPage() {
                       )}
                       <strong style={{ fontSize: 13, fontWeight: 700 }}>{t.name}</strong>
                     </div>
-                    <select
+                    <AdminSelect
                       style={{ ...styles.input, width: '100%', marginBottom: 0, padding: '6px 8px', fontSize: 12, height: 34, background: '#131816', color: '#F5F0E8' }}
                       value={findTechnologyOption(t.name)?.name || ''}
-                      onChange={(e) => applyExistingTechPreset(t._id, e.target.value)}
-                    >
-                      <option style={{ background: '#131816', color: '#F5F0E8' }} value="">Choose tech...</option>
-                      {TECHNOLOGY_OPTIONS.map((opt) => (
-                        <option style={{ background: '#131816', color: '#F5F0E8' }} key={opt.name} value={opt.name}>{opt.name}</option>
-                      ))}
-                    </select>
+                      onChange={(nextTech) => applyExistingTechPreset(t._id, nextTech)}
+                      placeholder="Choose tech..."
+                      options={[
+                        { value: '', label: 'Choose tech...' },
+                        ...TECHNOLOGY_OPTIONS.map((opt) => ({ value: opt.name, label: opt.name })),
+                      ]}
+                    />
                     <input
                       style={{ ...styles.input, width: '100%', marginBottom: 0, padding: '6px 8px', fontSize: 12 }}
                       value={t.name || ''}
@@ -1191,9 +1264,11 @@ function ServiceEditor({ svc, onSave, onCancel, uiLang }) {
   const [form, setForm] = useState({ ...svc });
   const f = (field, value) => setForm(prev => ({ ...prev, [field]: value }));
   const isArUI = uiLang === 'ar';
+  const panelRef = usePanelWheelScroll();
 
   return (
     <div
+      ref={panelRef}
       style={{
         ...styles.card,
         position: 'fixed',
@@ -1203,6 +1278,7 @@ function ServiceEditor({ svc, onSave, onCancel, uiLang }) {
         bottom: 0,
         zIndex: 100,
         overflow: 'auto',
+        overscrollBehavior: 'contain',
         borderRadius: 0,
       }}
     >
@@ -1264,9 +1340,11 @@ function FaqEditor({ faq, onSave, onCancel, uiLang }) {
   const [form, setForm] = useState({ ...faq });
   const f = (field, value) => setForm((prev) => ({ ...prev, [field]: value }));
   const isArUI = uiLang === 'ar';
+  const panelRef = usePanelWheelScroll();
 
   return (
     <div
+      ref={panelRef}
       style={{
         ...styles.card,
         position: 'fixed',
@@ -1276,6 +1354,7 @@ function FaqEditor({ faq, onSave, onCancel, uiLang }) {
         bottom: 0,
         zIndex: 100,
         overflow: 'auto',
+        overscrollBehavior: 'contain',
         borderRadius: 0,
       }}
     >
