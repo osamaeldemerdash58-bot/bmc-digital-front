@@ -372,23 +372,35 @@ export default function AdminPage() {
 
   useEffect(() => {
     let previousBodyOverflow = '';
+    let activeSelect = null;
 
     const lockBackgroundScroll = (event) => {
       if (!event.target?.matches?.('select')) return;
+      activeSelect = event.target;
       previousBodyOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
     };
 
     const unlockBackgroundScroll = (event) => {
       if (!event.target?.matches?.('select')) return;
+      activeSelect = null;
       document.body.style.overflow = previousBodyOverflow;
+    };
+
+    const stopBackgroundWheel = (event) => {
+      const focusedSelect = activeSelect || (document.activeElement?.matches?.('select') ? document.activeElement : null);
+      if (!focusedSelect) return;
+      event.preventDefault();
+      event.stopPropagation();
     };
 
     document.addEventListener('focusin', lockBackgroundScroll);
     document.addEventListener('focusout', unlockBackgroundScroll);
+    document.addEventListener('wheel', stopBackgroundWheel, { capture: true, passive: false });
     return () => {
       document.removeEventListener('focusin', lockBackgroundScroll);
       document.removeEventListener('focusout', unlockBackgroundScroll);
+      document.removeEventListener('wheel', stopBackgroundWheel, { capture: true });
       document.body.style.overflow = previousBodyOverflow;
     };
   }, []);
